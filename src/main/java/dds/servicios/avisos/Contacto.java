@@ -1,0 +1,44 @@
+package dds.servicios.avisos;
+
+import java.util.List;
+
+public class Contacto {
+    private String nombre;
+    private String apellido;
+    private Integer telefono;
+    private String email;
+    private List<AdapterFormaNotificacion> formasNotificacion;
+    //TODO formasNotificacion esto sale del adapter?
+
+
+    public Contacto(String nombre, String apellido, Integer telefono, String email) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setTelefono(Integer telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<AdapterFormaNotificacion> getFormasNotificacion() {
+        return formasNotificacion;
+    }
+}
