@@ -7,6 +7,7 @@ import org.junit.Test;
 
 
 
+
 public class AsociacionTest {
     RepoAsociacion repo=new RepoAsociacion();
     Asociacion asoc= new Asociacion("a","b","c","d","e","f");
