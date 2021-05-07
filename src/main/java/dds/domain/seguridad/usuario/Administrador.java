@@ -1,6 +1,11 @@
 package dds.domain.seguridad.usuario;
 
-public class Administrador { //extends Usuario
+import java.security.NoSuchAlgorithmException;
 
-    //TODO
+public class Administrador extends Usuario{
+
+    public Administrador(String userName,String passWord) throws NoSuchAlgorithmException {
+        super(userName,passWord);
+
+    }
 }
