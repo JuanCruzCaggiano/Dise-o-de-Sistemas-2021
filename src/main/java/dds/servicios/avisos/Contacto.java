@@ -8,13 +8,13 @@ public class Contacto {
     private String telefono;
     private String email;
     private List<AdapterFormaNotificacion> formasNotificacion;
-    //TODO formasNotificacion esto sale del adapter?
+
 
 
     public Contacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> adaptadores) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.telefono = telefono;
+        this.telefono = telefono; //SOLO INGRESAR 11 xxxx xxxx
         this.email = email;
         this.formasNotificacion = adaptadores;
     }
