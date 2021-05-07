@@ -2,6 +2,7 @@ package dds.servicios.avisos;
 
 
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Notificador {
         suscriptores.remove(buscarContacto(eliminar));
     }
     //TODO notificar()
-    public void notificar(String mensaje){
+    public void notificar(String mensaje) throws MessagingException {
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {

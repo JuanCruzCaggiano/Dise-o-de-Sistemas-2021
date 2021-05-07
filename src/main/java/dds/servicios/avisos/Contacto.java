@@ -42,6 +42,9 @@ public class Contacto {
     public String getNombre() {
         return nombre;
     }
+    public String getEmail() {
+        return email;
+    }
 
     public List<AdapterFormaNotificacion> getFormasNotificacion() {
         return formasNotificacion;
