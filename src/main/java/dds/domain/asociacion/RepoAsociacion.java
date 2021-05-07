@@ -19,7 +19,7 @@ public class RepoAsociacion {
         asociaciones.remove(buscarAsociacion(aRemover));
 
     }
-    public List<Asociacion> getListaAsociaciones() {
+    public List<Asociacion> getRepoAsociaciones() {
         return asociaciones;
     }
 

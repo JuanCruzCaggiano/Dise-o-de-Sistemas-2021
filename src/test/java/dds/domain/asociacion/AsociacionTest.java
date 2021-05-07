@@ -15,12 +15,12 @@ public class AsociacionTest {
     @Test
     public void validarAgregarAsoc() {
         asoc.agregarAsociacion("a","b","c","d","e","f",repo);
-        Assert.assertEquals(asoc.getNombre(),repo.getListaAsociaciones().get(repo.buscarAsociacion(asoc)).getNombre());
+        Assert.assertEquals(asoc.getNombre(),repo.getRepoAsociaciones().get(repo.buscarAsociacion(asoc)).getNombre());
     }
     @Test
     public void validarRemover() {
         asoc.agregarAsociacion("a","b","c","d","e","f",repo);
         asoc.quitarAsociacion(asoc,repo);
-        Assert.assertEquals(0,repo.getListaAsociaciones().size());
+        Assert.assertEquals(0,repo.getRepoAsociaciones().size());
     }
 }
