@@ -20,22 +20,22 @@ public class NotificadorTest extends TestCase {
     @Test
     public void testNotificarSMS() throws MessagingException {
         formasDeNoti.add(testeoSMS);
-        noti.agendarContacto("Matias", "Lanneponders", "+5491155892198", "mlyonadi@gmail.com", formasDeNoti);
-        noti.agendarContacto("Pedro", "Dorr", "+5491140435092", "dorrpei@gmail.com", formasDeNoti);
+        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         noti.notificar("probando multiple mensaje");
     }
     @Test
     public void testNotificarWPP() throws MessagingException {
         formasDeNoti.add(testeoWPP);
-        noti.agendarContacto("Matias", "Lanneponders", "+5491155892198", "mlyonadi@gmail.com", formasDeNoti);
-        noti.agendarContacto("Pedro", "Dorr", "+5491140435092", "dorrpei@gmail.com", formasDeNoti);
+        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         noti.notificar("probando wpp");
     }
     @Test
     public void testNotificarEmail() throws MessagingException {
         formasDeNoti.add(testeoEmail);
-        noti.agendarContacto("Matias", "Lanneponders", "+5491155892198", "mlyonadi@gmail.com", formasDeNoti);
-        noti.agendarContacto("pedro", "dorr", "+5491140435092", "dorrpei@gmail.com", formasDeNoti);
+        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        noti.agendarContacto("pedro", "dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         noti.notificar("probando email");
     }
 }

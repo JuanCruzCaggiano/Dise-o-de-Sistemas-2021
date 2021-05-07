@@ -43,7 +43,7 @@ public class Notificador {
     public void eliminarContacto(Contacto eliminar){
         suscriptores.remove(buscarContacto(eliminar));
     }
-    //TODO notificar()
+
     public void notificar(String mensaje) throws MessagingException {
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();

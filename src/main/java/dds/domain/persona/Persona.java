@@ -17,4 +17,23 @@ public class Persona {
     private List<RolPersona> listaRoles;
     private Notificador notificador;
 
+    public Persona(String nombre, String apellido, List<Mascota> mascotas, List<RolPersona> listaRoles, Notificador notificador) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.mascotas = mascotas;
+        this.listaRoles = listaRoles;
+        this.notificador = notificador;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+
+    public Notificador getNotificador() {
+        return notificador;
+    }
 }

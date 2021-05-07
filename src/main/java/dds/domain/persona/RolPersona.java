@@ -1,4 +1,7 @@
 package dds.domain.persona;
 
-public class RolPersona {
+public interface RolPersona {
+
+
+     void realizarTransaccion(String algo);
 }
