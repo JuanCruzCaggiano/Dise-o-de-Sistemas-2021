@@ -15,7 +15,7 @@ public class AdapterWhatsApp implements AdapterFormaNotificacion{
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:"+contacto.getTelefono()),
+                new com.twilio.type.PhoneNumber("whatsapp:+549"+contacto.getTelefono()),
                 new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
                 mensaje)
                 .create();

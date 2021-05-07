@@ -16,7 +16,7 @@ public class AdapterSMS implements AdapterFormaNotificacion{
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        Message message = Message.creator(new PhoneNumber(contacto.getTelefono()),
+        Message message = Message.creator(new PhoneNumber("+54"+contacto.getTelefono()),
                 new PhoneNumber("+14156826570"),
                 mensaje).create();
 
