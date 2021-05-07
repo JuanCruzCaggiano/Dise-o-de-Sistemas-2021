@@ -20,7 +20,7 @@ public class AdapterSMS implements AdapterFormaNotificacion{
                 new PhoneNumber("+14156826570"),
                 mensaje).create();
 
-        System.out.println(message.getSid());
+        //System.out.println(message.getSid());
 
     }
 

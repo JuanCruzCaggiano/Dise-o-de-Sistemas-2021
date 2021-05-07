@@ -20,7 +20,7 @@ public class AdapterWhatsApp implements AdapterFormaNotificacion{
                 mensaje)
                 .create();
 
-        System.out.println(message.getSid());
+        //System.out.println(message.getSid());
 
     }
 }
