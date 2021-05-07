@@ -23,7 +23,7 @@ public class RepoAsociacion {
         return asociaciones;
     }
 
-    public int buscarAsociacion(Asociacion buscada){
+    public int buscarAsociacion(Asociacion buscada){   //TODO cuando persistamos buscamos por ID y no por nombre
         for (int i=0;i<asociaciones.size();i++){
             if (buscada.getNombre() == asociaciones.get(i).getNombre()){
                 return i;

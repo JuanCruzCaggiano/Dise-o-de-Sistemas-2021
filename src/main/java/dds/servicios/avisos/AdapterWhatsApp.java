@@ -9,13 +9,13 @@ public class AdapterWhatsApp implements AdapterFormaNotificacion{
     public void notificar(String mensaje, Contacto contacto) {
         // Find your Account Sid and Token at twilio.com/console
         // and set the environment variables. See http://twil.io/secure
-        String ACCOUNT_SID = System.getenv("AC0e930b6c51a527c0a83a7bbe5fe4ee80");
-        String AUTH_TOKEN = System.getenv("07cf1b839c8bfda71bedb2e458da9ed6");
+        String ACCOUNT_SID = "AC0e930b6c51a527c0a83a7bbe5fe4ee80";
+        String AUTH_TOKEN = "07cf1b839c8bfda71bedb2e458da9ed6";
 
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:+5491140435092"),
+                new com.twilio.type.PhoneNumber("whatsapp:"+contacto.getTelefono()),
                 new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
                 mensaje)
                 .create();
