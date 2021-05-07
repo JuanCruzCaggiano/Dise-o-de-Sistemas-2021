@@ -1,9 +1,9 @@
 package dds.servicios.avisos;
 
-public class AdapterFormaNotificacion {
+public interface AdapterFormaNotificacion {
 
 
-    public void notificar(){
-        // ???
-    }
+    void notificar(String mensaje, Contacto contacto);
+
+
 }

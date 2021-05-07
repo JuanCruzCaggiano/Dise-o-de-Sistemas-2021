@@ -5,17 +5,22 @@ import java.util.List;
 public class Contacto {
     private String nombre;
     private String apellido;
-    private Integer telefono;
+    private String telefono;
     private String email;
     private List<AdapterFormaNotificacion> formasNotificacion;
     //TODO formasNotificacion esto sale del adapter?
 
 
-    public Contacto(String nombre, String apellido, Integer telefono, String email) {
+    public Contacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> adaptadores) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
+        this.formasNotificacion = adaptadores;
+    }
+
+    public String getTelefono() {
+        return telefono;
     }
 
     public void setNombre(String nombre) {
@@ -26,7 +31,7 @@ public class Contacto {
         this.apellido = apellido;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

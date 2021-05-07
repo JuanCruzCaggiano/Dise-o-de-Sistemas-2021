@@ -9,17 +9,19 @@ public class Notificador {
     private List<Contacto> suscriptores = new ArrayList<Contacto>();
     private AdapterFormaNotificacion adapter;
 
+
+
     public List<Contacto> getSuscriptores() {
         return suscriptores;
     }
     //agendar
-    public void agendarContacto(String nombre, String apellido, Integer telefono, String email){
-        Contacto contactoNuevo = new Contacto(nombre,apellido,telefono,email);
+    public void agendarContacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> formasDeNoti){
+        Contacto contactoNuevo = new Contacto(nombre,apellido,telefono,email,formasDeNoti);
         suscriptores.add(contactoNuevo);
 
     }
     // modificar()
-    public void modificarContacto(Contacto buscado,String nombre,String apellido,Integer telefono,String email) throws Exception {
+    public void modificarContacto(Contacto buscado,String nombre,String apellido,String telefono,String email) throws Exception {
        if (buscarContacto(buscado) == -1){
            throw new Exception("No existe dicho usuario");
        }else{
@@ -41,11 +43,11 @@ public class Notificador {
         suscriptores.remove(buscarContacto(eliminar));
     }
     //TODO notificar()
-    public void notificar(){
+    public void notificar(String mensaje){
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {
-                formas.get(j).notificar();
+                formas.get(j).notificar(mensaje,suscriptores.get(i)); //aca paso el suscriptor
             }
         }
     }
