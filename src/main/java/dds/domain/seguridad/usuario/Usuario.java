@@ -68,7 +68,7 @@ public class Usuario {
     public void desbloquear() {
         isBlocked = false;
     }
-    public boolean getIsBlocked() {
+    public boolean estaBloqueado() {
         return isBlocked;
     }
 
