@@ -1,9 +1,9 @@
 package dds.domain.persona;
 
+import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
 import dds.servicios.avisos.*;
 import junit.framework.TestCase;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.mail.MessagingException;

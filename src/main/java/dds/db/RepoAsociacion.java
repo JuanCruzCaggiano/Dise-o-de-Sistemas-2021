@@ -1,15 +1,17 @@
-package dds.domain.asociacion;
+package dds.db;
+
+import dds.domain.asociacion.Asociacion;
 
 import java.util.List;
 import java.util.ArrayList;
 
 
 public class RepoAsociacion {
-    private List<Asociacion> asociaciones;
+    private List<Asociacion> asociaciones = new ArrayList<>();
 
     public void agregarAsociacion(Asociacion asoc) {
         if (asociaciones==null)	{
-            asociaciones = new ArrayList<Asociacion>();
+            asociaciones = new ArrayList<>();
             asociaciones.add(asoc);}
         else {
             asociaciones.add(asoc);
@@ -19,7 +21,7 @@ public class RepoAsociacion {
         asociaciones.remove(buscarAsociacion(aRemover));
 
     }
-    public List<Asociacion> getRepoAsociaciones() {
+    public List<Asociacion> getRepositorio() {
         return asociaciones;
     }
 

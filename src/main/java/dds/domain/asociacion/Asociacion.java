@@ -1,5 +1,7 @@
 package dds.domain.asociacion;
 
+import dds.db.RepoAsociacion;
+
 public class Asociacion {
 
     private String nombre;

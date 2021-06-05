@@ -1,18 +1,19 @@
-package dds.domain.persona;
+package dds.db;
 
 
 
 import dds.domain.mascota.Mascota;
+import dds.domain.persona.Persona;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioPersonas {
-    private List<Persona> personas;
+    private List<Persona> personas = new ArrayList<>();
 
     public void agregarPersona(Persona pppl) {
         if (personas ==null)	{
-            personas = new ArrayList<Persona>();
+            personas = new ArrayList<>();
             personas.add(pppl);}
         else {
             personas.add(pppl);
@@ -22,7 +23,7 @@ public class RepositorioPersonas {
         personas.remove(buscarPersona(aRemover));
 
     }
-    public List<Persona> getRepoPersonas() {
+    public List<Persona> getRepositorio() {
         return personas;
     }
 
