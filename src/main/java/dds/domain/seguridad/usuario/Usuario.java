@@ -25,6 +25,9 @@ public class Usuario {
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{
         this.userName = userName;
         ValidadorPassword.getValidadorPassword().validarPassword(password,this);
+        this.lastPasswordDT = LocalDateTime.now(ZoneOffset.UTC);
+        this.isBlocked = false;
+        this.intentosFallidos= 0;
         this.password = HashHelper.getHashHelper().passwordAMD5(password);
         this.usedPasswords.add(this.password);
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
