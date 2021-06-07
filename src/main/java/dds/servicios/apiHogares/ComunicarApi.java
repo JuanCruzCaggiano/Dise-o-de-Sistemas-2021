@@ -54,6 +54,7 @@ public class ComunicarApi {
             //Enviamos nuestro json vía post al API Restful
             Response post = solicitud.post(Entity.json(jsonString));
 
+
             //Recibimos la respuesta y la leemos en una clase de tipo String, en caso de que el json sea tipo json y no string, debemos usar la clase de tipo JsonObject.class en lugar de String.class
             String responseJson = post.readEntity(String.class);
             token = responseJson;
@@ -65,8 +66,64 @@ public class ComunicarApi {
                 case 200:
                     token = responseJson;
                     break;
+                case 409:
+                    token = "UsuarioYaIngresado";
+                    break;
+                case 422:
+                    token = "MailInvalido";
                 default:
                     token = "Error";
+                    break;
+            }
+
+        } catch (Exception e) {
+            //En caso de un error en la solicitud, llenaremos res con la exceptión para verificar que sucedió
+            token = e.toString();
+        }
+        //Imprimimos la respuesta del API Restful
+        System.out.println(token);
+        return token;
+    }
+
+    public String obtenerHogares(int offset, String token) {
+        //Esta variable res la usaremos únicamente para dar un respuesta final
+        String res = "";
+        String URL = "https://api.refugiosdds.com.ar/api/";
+
+        try {
+            //Creamos el cliente de conexión al API Restful
+            Client client = ClientBuilder.newClient();
+
+            //Creamos el target lo cuál es nuestra URL junto con el nombre del método a llamar
+            WebTarget target = client.target(URL + "hogares?offset="+offset);
+
+            //Creamos nuestra solicitud que realizará el request
+            Invocation.Builder solicitud = target.request().header("accept","aplication/json").header("Authorization","Bearer "+token);
+
+            //Convertimos el objeto req a un json
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(offset);
+            System.out.println(jsonString);
+
+            //Enviamos nuestro json vía post al API Restful
+            Response get = solicitud.get();
+
+
+            //Recibimos la respuesta y la leemos en una clase de tipo String, en caso de que el json sea tipo json y no string, debemos usar la clase de tipo JsonObject.class en lugar de String.class
+            String responseJson = get.readEntity(String.class);
+            res = responseJson;
+
+            //Imprimimos el status de la solicitud
+            System.out.println("Estatus: " + get.getStatus());
+
+            switch (get.getStatus()) {
+                case 200:
+                    res = responseJson;
+                    break;
+                case 401:
+                    res = responseJson;
+                default:
+                    res = "Error";
                     break;
             }
 
