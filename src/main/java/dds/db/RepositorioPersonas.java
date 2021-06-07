@@ -12,14 +12,9 @@ public class RepositorioPersonas {
     private List<Persona> personas = new ArrayList<>();
 
     public void agregarPersona(Persona pppl) {
-        if (personas ==null)	{
-            personas = new ArrayList<>();
-            personas.add(pppl);}
-        else {
             personas.add(pppl);
-        }
     }
-    public void remover(Persona aRemover){
+    public void removerPersona(Persona aRemover){
         personas.remove(buscarPersona(aRemover));
 
     }
