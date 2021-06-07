@@ -2,11 +2,11 @@ package dds.servicios.apiHogares;
 
 public class Ubicacion {
     private String direccion;
-    private int lat;
-    private int longitud;
+    private float lat;
+    private float longitud;
 
 
-    public Ubicacion(String direccion, int lat, int longitud) {
+    public Ubicacion(String direccion, float lat, float longitud) {
         this.direccion = direccion;
         this.lat = lat;
         this.longitud = longitud;
@@ -20,19 +20,19 @@ public class Ubicacion {
         this.direccion = direccion;
     }
 
-    public int getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(int lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 
-    public int getLongitud() {
+    public float getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(int longitud) {
+    public void setLongitud(float longitud) {
         this.longitud = longitud;
     }
 }

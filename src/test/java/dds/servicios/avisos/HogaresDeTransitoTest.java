@@ -1,5 +1,6 @@
 package dds.servicios.avisos;
 
+import dds.db.RepoHogaresDeTransito;
 import dds.servicios.apiHogares.ComunicarApi;
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,6 +8,8 @@ import org.junit.Test;
 public class HogaresDeTransitoTest {
         String mail = "dorrpei@gmail.com";
         String token= "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
+
+        RepoHogaresDeTransito  repoHogaresDeTransito;
         ComunicarApi comunicarApi = new ComunicarApi();
 
 
@@ -16,7 +19,7 @@ public class HogaresDeTransitoTest {
             res = comunicarApi.RegistrarEmail(mail);
             Assert.assertEquals("UsuarioYaIngresado",res);
         }
-        
+
 
         @Test
         public void mailMalIngresadoTest(){
@@ -27,7 +30,7 @@ public class HogaresDeTransitoTest {
         }
 
         @Test
-        public void usuarioNoAutirazoTest(){
+        public void usuarioNoAutorizadoTest(){
             String res;
             res = comunicarApi.obtenerHogares(2,"token");
             Assert.assertEquals("Unauthenticated.",res);
@@ -36,6 +39,10 @@ public class HogaresDeTransitoTest {
         @Test
         public void obtenerHogaresTest(){
             String res;
-            res = comunicarApi.obtenerHogares(2,token);
+            String nombreHogar;
+
+            res = comunicarApi.obtenerHogares(1,token);
+            nombreHogar = repoHogaresDeTransito.getInstance().getRepositorio().get(0).getNombre();
+            Assert.assertEquals("Pensionado de mascotas \"Como en casa\"",nombreHogar);
         }
 }

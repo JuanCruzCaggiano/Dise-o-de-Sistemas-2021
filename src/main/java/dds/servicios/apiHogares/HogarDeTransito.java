@@ -1,48 +1,31 @@
 package dds.servicios.apiHogares;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HogarDeTransito {
-    private String total;
-    private String offset;
     private Ubicacion ubicacion;
     private String telefono;
-    private Admision admision;
+    private Admision admisiones;
     private String id;
     private String nombre;
     private int capacidad;
     private int lugares_disponibles;
     private Boolean patio;
-    private String caracteristicas;
+    private List<String> caracteristicas = new ArrayList<>();
 
 
-    public HogarDeTransito(String total, String offset, Ubicacion ubicacion, String telefono, Admision admision, String id, String nombre, int capacidad, int lugares_disponibles, Boolean patio, String caracteristicas) {
-        this.total = total;
-        this.offset = offset;
+    public HogarDeTransito(String id,String nombre, Ubicacion ubicacion, String telefono, Admision admisiones, int capacidad, int lugares_disponibles, Boolean patio, List<String> caracteristicas) {
         this.ubicacion = ubicacion;
         this.telefono = telefono;
-        this.admision = admision;
+        this.admisiones = admisiones;
         this.id = id;
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.lugares_disponibles = lugares_disponibles;
         this.patio = patio;
         this.caracteristicas = caracteristicas;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public String getOffset() {
-        return offset;
-    }
-
-    public void setOffset(String offset) {
-        this.offset = offset;
     }
 
     public Ubicacion getUbicacion() {
@@ -62,11 +45,11 @@ public class HogarDeTransito {
     }
 
     public Admision getAdmision() {
-        return admision;
+        return admisiones;
     }
 
-    public void setAdmision(Admision admision) {
-        this.admision = admision;
+    public void setAdmision(Admision admisiones) {
+        this.admisiones = admisiones;
     }
 
     public String getId() {
@@ -109,11 +92,11 @@ public class HogarDeTransito {
         this.patio = patio;
     }
 
-    public String getCaracteristicas() {
+    public List<String> getCaracteristicas() {
         return caracteristicas;
     }
 
-    public void setCaracteristicas(String caracteristicas) {
+    public void setCaracteristicas(List<String> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
 }

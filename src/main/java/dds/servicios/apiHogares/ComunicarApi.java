@@ -2,6 +2,9 @@ package dds.servicios.apiHogares;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import dds.db.RepoHogaresDeTransito;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +16,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -24,6 +29,7 @@ import javax.ws.rs.core.Response;
 
 
 public class ComunicarApi {
+    RepoHogaresDeTransito repoHogaresDeTransito = new RepoHogaresDeTransito();
 
     public String RegistrarEmail(String mail) {
         //Esta variable res la usaremos únicamente para dar un respuesta final
@@ -89,6 +95,7 @@ public class ComunicarApi {
         String res = "";
         String URL = "https://api.refugiosdds.com.ar/api/";
         Mensaje msj;
+        RespuestaApiHogares respuestaApiHogares;
 
         try {
             //Creamos el cliente de conexión al API Restful
@@ -115,8 +122,9 @@ public class ComunicarApi {
 
             switch (get.getStatus()) {
                 case 200:
-                    HogarDeTransito s = gson.fromJson(responseJson, HogarDeTransito.class);
-                    res = responseJson;
+                    respuestaApiHogares = gson.fromJson(responseJson, RespuestaApiHogares.class);
+                    repoHogaresDeTransito.setRepositorio(respuestaApiHogares.getHogares());
+                    res=" ";
                     break;
                 case 401:
                     //Message message = gson.fromJson(jsonString, Message.class);
@@ -133,7 +141,7 @@ public class ComunicarApi {
             res = e.toString();
         }
         //Imprimimos la respuesta del API Restful
-        System.out.println(token);
+        System.out.println(res);
         return res;
     }
 }
