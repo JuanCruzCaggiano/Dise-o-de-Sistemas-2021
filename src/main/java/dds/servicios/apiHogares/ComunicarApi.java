@@ -31,8 +31,6 @@ public class ComunicarApi {
         String URL = "https://api.refugiosdds.com.ar/api/";
         String email = mail;
 
-        //String email = "dorrpei@gmail.com";
-        //String token= "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
         try {
             //Creamos el cliente de conexión al API Restful
             Client client = ClientBuilder.newClient();
@@ -41,7 +39,7 @@ public class ComunicarApi {
             WebTarget target = client.target(URL + "usuarios");
 
             //Creamos nuestra solicitud que realizará el request
-            Invocation.Builder solicitud = target.request();
+            Invocation.Builder solicitud = target.request().header("accept","application/json");
 
             //Creamos y llenamos nuestro objeto BaseReq con los datos que solicita el API
             ReqBase req = new ReqBase(email);
@@ -57,20 +55,21 @@ public class ComunicarApi {
 
             //Recibimos la respuesta y la leemos en una clase de tipo String, en caso de que el json sea tipo json y no string, debemos usar la clase de tipo JsonObject.class en lugar de String.class
             String responseJson = post.readEntity(String.class);
-            token = responseJson;
 
             //Imprimimos el status de la solicitud
             System.out.println("Estatus: " + post.getStatus());
 
             switch (post.getStatus()) {
                 case 200:
-                    token = responseJson;
+                    BearerToken bearer = gson.fromJson(responseJson, BearerToken.class);
+                    token = bearer.getBearer_token();
                     break;
                 case 409:
                     token = "UsuarioYaIngresado";
                     break;
                 case 422:
                     token = "MailInvalido";
+                    break;
                 default:
                     token = "Error";
                     break;
@@ -89,6 +88,7 @@ public class ComunicarApi {
         //Esta variable res la usaremos únicamente para dar un respuesta final
         String res = "";
         String URL = "https://api.refugiosdds.com.ar/api/";
+        Mensaje msj;
 
         try {
             //Creamos el cliente de conexión al API Restful
@@ -100,10 +100,8 @@ public class ComunicarApi {
             //Creamos nuestra solicitud que realizará el request
             Invocation.Builder solicitud = target.request().header("accept","aplication/json").header("Authorization","Bearer "+token);
 
-            //Convertimos el objeto req a un json
+            //Creamos objeto gson para las respuestas JSON.
             Gson gson = new Gson();
-            String jsonString = gson.toJson(offset);
-            System.out.println(jsonString);
 
             //Enviamos nuestro json vía post al API Restful
             Response get = solicitud.get();
@@ -111,17 +109,20 @@ public class ComunicarApi {
 
             //Recibimos la respuesta y la leemos en una clase de tipo String, en caso de que el json sea tipo json y no string, debemos usar la clase de tipo JsonObject.class en lugar de String.class
             String responseJson = get.readEntity(String.class);
-            res = responseJson;
 
             //Imprimimos el status de la solicitud
             System.out.println("Estatus: " + get.getStatus());
 
             switch (get.getStatus()) {
                 case 200:
+                    HogarDeTransito s = gson.fromJson(responseJson, HogarDeTransito.class);
                     res = responseJson;
                     break;
                 case 401:
-                    res = responseJson;
+                    //Message message = gson.fromJson(jsonString, Message.class);
+                    msj = gson.fromJson(responseJson, Mensaje.class);
+                    res= msj.getMessage();
+                    break;
                 default:
                     res = "Error";
                     break;
@@ -129,10 +130,10 @@ public class ComunicarApi {
 
         } catch (Exception e) {
             //En caso de un error en la solicitud, llenaremos res con la exceptión para verificar que sucedió
-            token = e.toString();
+            res = e.toString();
         }
         //Imprimimos la respuesta del API Restful
         System.out.println(token);
-        return token;
+        return res;
     }
 }
