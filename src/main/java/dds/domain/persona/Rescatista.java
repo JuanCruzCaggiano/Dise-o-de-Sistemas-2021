@@ -1,7 +1,10 @@
 package dds.domain.persona;
 
 import dds.db.RepositorioAsociaciones;
+import dds.db.RepositorioHogaresDeTransito;
 import dds.db.RepositorioPersonas;
+import dds.db.RepositorioUsuarios;
+import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.PublicacionMascota;
@@ -24,7 +27,9 @@ public class Rescatista implements RolPersona {
     //CASO CON CHAPITA
     public void encontreMascotaPerdida(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
         new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion);
-        //RepositorioAsociaciones.getRepositorio().getAsociacionXMascota(idMascota);
+        String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
+        Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
+
 
         //RepositorioAsociacion repoAsoc = getRepoAsociacion(); //consigue la lista de todas las asociaciones
         //Asociacion asoc = repoAsoc.getAsociacionMasCercana(lat,long);  //agarra la asociación más cercana 	PublicacionMascotaEncontrada publi1 = New PublicacionMascotaEncontrada(lat,long,listaFotos,descripcion);

@@ -14,7 +14,6 @@ import java.util.List;
 import java.security.*;
 
 public class Usuario {
-    private String idUsuario;
     private String userName;
     private String password;
     private LocalDateTime lastPasswordDT;
@@ -34,9 +33,6 @@ public class Usuario {
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public String getUserName() {
         return userName;
@@ -102,13 +98,15 @@ public class Usuario {
         this.intentosFallidos += 1;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
-    }
-
-
     public Persona getPersona() {
         return null;
     }
 
+    public Asociacion getAsociacion() {
+        return asociacion;
+    }
+
+    public void setAsociacion(Asociacion asociacion) {
+        this.asociacion = asociacion;
+    }
 }

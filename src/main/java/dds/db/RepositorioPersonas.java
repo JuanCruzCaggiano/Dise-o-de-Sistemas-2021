@@ -3,8 +3,10 @@ package dds.db;
 
 
 import dds.db.repositorioException.LogicRepoException;
+import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,41 +22,32 @@ public class RepositorioPersonas {
     public void agregarPersona(Persona persona) {
         personas.add(persona);
     }
-    public void removerPersona(Persona aRemover){
-        personas.remove(buscarPersona(aRemover));
-
+    public void removerPersona(Persona persona){
+        personas.remove(persona);
     }
     public List<Persona> getPersonas() {
         return personas;
     }
 
-    public int buscarPersona(Persona buscada){   //TODO cuando persistamos buscamos por ID y no por nombre
-        for (int i = 0; i< personas.size(); i++){
-            if (buscada.getNombre() == personas.get(i).getNombre()){
-                return i;
-            }
+    public Persona getPersona(String idPersona) {
+        Persona persona = personas.stream().filter(p -> p.getIdPersona().equals(idPersona)).findFirst().orElse(null);
+        if(persona == null){
+            throw new LogicRepoException("Id Persona Inexistente");
         }
-        return -1;
+        return persona;
     }
-    public int tieneMascota(Mascota mascota){  //TODO mismo que arriba, esto se busca por id  /esto devuelve de quien es la mascota
-        for (int i = 0; i< personas.size(); i++){
-            for (int j = 0; j< personas.get(i).getMascotas().size(); j++) {
-                if (mascota.getNombre() == personas.get(i).getMascotas().get(j).getNombre()) {
-                    return i;
-                }
-            }
+
+    public String getIdPersonaXidMascota(String idMascota){
+
+        Persona persona1 = personas.stream().filter(persona -> persona.getMascotas()
+                                                                      .stream().anyMatch(mascota -> mascota.getIdMascota().equals(idMascota)))
+                .findFirst().orElse(null);
+        if(persona1 == null){
+            throw new LogicRepoException("IdMascota inexistente");
+        }else {
+            return persona1.getIdPersona();
         }
-        return -1;
-    }
-    public String getIdPersonaXidMascota(String idMascota){  //F
-        for (int i = 0; i< personas.size(); i++){
-            for (int j = 0; j< personas.get(i).getMascotas().size(); j++) {
-                if (personas.get(i).getMascotas().get(j).getIdMascota().equals(idMascota)) {
-                    return personas.get(i).getIdPersona();
-                }
-            }
-        }
-        return null;
+
     }
 
 

@@ -64,14 +64,4 @@ public class Asociacion {
         return idAsociacion;
     }
 
-    public void agregarAsociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal, RepositorioAsociaciones repo){
-        Asociacion asoc = new Asociacion(nombre,direccion,localidad,provincia,pais,codPostal);
-
-        repo.agregarAsociacion(asoc);
-    }
-
-    public void quitarAsociacion(Asociacion asociacionAElminar, RepositorioAsociaciones repo){
-        repo.remover(asociacionAElminar);
-    }
-
 }

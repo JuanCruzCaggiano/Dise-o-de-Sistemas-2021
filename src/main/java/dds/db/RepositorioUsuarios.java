@@ -1,13 +1,10 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
-import dds.domain.seguridad.usuario.Standard;
 import dds.domain.seguridad.usuario.Usuario;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 
 public class RepositorioUsuarios {
 
@@ -26,22 +23,49 @@ public class RepositorioUsuarios {
 
 
     public Usuario getUsuario(String username) {
-        Usuario usuarioBuscado = usuarios.stream().filter( usuario1 -> usuario1.getUserName().equals(username)).findFirst().orElse(null);
+        Usuario user =  usuarios.stream().filter( usuario1 -> usuario1.getUserName().equals(username)).findFirst().orElse(null);
 
-        return usuarioBuscado;
+        if(user == null){
+            throw new LogicRepoException("Username inexistente");
+        }
+        return user;
     }
 
-    public String getIdUsuarioXPersona(String idPersona){
-            String id = usuarios.stream().filter(usuario -> usuario.getPersona().getIdPersona()
-                                                             .equals(idPersona)).findFirst().orElse(null).getIdUsuario();
-            if(id == null){
-                throw new LogicRepoException("idPersona Incorrecto");
-            }
+    public String getUserNameXIdPersona(String idPersona) {
+        Usuario user = usuarios.stream()
+                .filter(usuario -> usuario.getPersona().getIdPersona().equals(idPersona))
+                .findFirst().orElse(null);
 
-           return id;
+        if (user == null) {
+            throw new LogicRepoException("idPersona Incorrecto");
+        }
+
+        return user.getUserName();
+
 
     }
 
+    public String getIDAsocXIdPersona(String idPersona) {
+        String userName = getUserNameXIdPersona(idPersona);
+        Usuario usuario1 = getUsuario(userName);
+        if (usuario1 == null) {
+            throw new LogicRepoException("idUsuario Incorrecto");
+        }
+        return usuario1.getAsociacion().getIdAsociacion();
+
+    }
+
+    public String getIDAsocXIdMascota(String idMascota) {
+        String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
+        String userName = this.getUserNameXIdPersona(idPersona);
+        Usuario usuario1 = getUsuario(userName);
+        if (usuario1 == null) {
+            throw new LogicRepoException("userName Incorrecto");
+        }
+        return usuario1.getAsociacion().getIdAsociacion();
+
+
+    }
 
 
 }
