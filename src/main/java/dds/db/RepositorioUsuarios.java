@@ -1,5 +1,7 @@
 package dds.db;
 
+import dds.db.repositorioException.LogicRepoException;
+import dds.domain.seguridad.usuario.Standard;
 import dds.domain.seguridad.usuario.Usuario;
 
 import java.util.ArrayList;
@@ -30,7 +32,14 @@ public class RepositorioUsuarios {
     }
 
     public String getIdUsuarioXPersona(String idPersona){
-           return usuarios.stream().filter(usuario -> usuario.getIdUsuario().equals(idPersona)).findFirst().orElse(null).getIdUsuario();
+            String id = usuarios.stream().filter(usuario -> usuario.getPersona().getIdPersona()
+                                                             .equals(idPersona)).findFirst().orElse(null).getIdUsuario();
+            if(id == null){
+                throw new LogicRepoException("idPersona Incorrecto");
+            }
+
+           return id;
+
     }
 
 

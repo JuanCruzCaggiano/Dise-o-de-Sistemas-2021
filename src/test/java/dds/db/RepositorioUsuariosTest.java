@@ -18,7 +18,7 @@ public class RepositorioUsuariosTest  {
     Persona persona = new Persona("pedro","dorr",new ArrayList<Mascota>(),new ArrayList<RolPersona>(),new Notificador());
 
 
-    @Before
+
     public void setUp() throws Exception {
         //Creo persona para probar en tests
         persona = new Persona("pedro","dorr",new ArrayList<Mascota>(),new ArrayList<RolPersona>(),new Notificador());
@@ -34,6 +34,12 @@ public class RepositorioUsuariosTest  {
 
         Assert.assertEquals("123445",RepositorioUsuarios.getRepositorio().getIdUsuarioXPersona("1"));
 
+    }
+
+    @Test
+    public void testGetIdUsuarioXPersonaError() throws NoSuchAlgorithmException {
+
+        Assert.assertEquals("1234gd45",RepositorioUsuarios.getRepositorio().getIdUsuarioXPersona("1"));
 
     }
 }

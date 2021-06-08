@@ -41,4 +41,8 @@ public class Persona {
     public void setIdPersona(String idPersona) {
         this.idPersona = idPersona;
     }
+
+    public String getIdPersona() {
+        return idPersona;
+    }
 }

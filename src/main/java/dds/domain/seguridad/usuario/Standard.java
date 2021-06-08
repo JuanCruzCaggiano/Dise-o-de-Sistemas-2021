@@ -26,6 +26,7 @@ public class Standard extends Usuario {
         }
     }
 
+    @Override
     public Persona getPersona() {
         return persona;
     }
