@@ -12,11 +12,11 @@ public class Publicador {
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
 
 
-    public Publicador(){};
+    public Publicador(){}
 
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
         //publicacionesPendientes.contains(publi);
-        if (publicacionesPendientes.stream().anyMatch(p -> p.idPubli == publi.idPubli )){
+        if (publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(publi.idPublicacion))){
             eliminarPublicacionPendiente(publi);
             agregarPublicacionAprobada(publi);
         }else{
@@ -35,5 +35,34 @@ public class Publicador {
     }
     private void agregarPublicacionAprobada (PublicacionMascota publi){
         publicacionesAprobadas.add(publi);
+    }
+
+    public boolean tienePublicacionPendiente(String idPublicacion) {
+        return this.publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+    }
+    public boolean tienePublicacionAprobada(String idPublicacion) {
+        return this.publicacionesAprobadas.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+    }
+    public boolean tienePublicacionPrivada(String idPublicacion) {
+        return this.publicacionesPrivadas.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+    }
+
+    public List<PublicacionMascota> getPublicacionesAprobadas() {
+        return publicacionesAprobadas;
+    }
+
+    public List<PublicacionMascota> getPublicacionesPendientes() {
+        return publicacionesPendientes;
+    }
+
+    public List<PublicacionMascota> getPublicacionesPrivadas() {
+        return publicacionesPrivadas;
+    }
+
+    public PublicacionMascota getPendienteXId(String id){
+        return this.publicacionesPendientes.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+    }
+    public PublicacionMascota getAprobadasXId(String id){
+        return this.publicacionesAprobadas.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
 }

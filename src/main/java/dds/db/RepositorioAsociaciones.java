@@ -3,6 +3,7 @@ package dds.db;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.seguridad.usuario.Usuario;
+import dds.servicios.publicaciones.Publicador;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,6 +32,16 @@ public class RepositorioAsociaciones {
             throw new LogicRepoException("Id asociacion Inexistente");
         }
         return asoc;
+    }
+
+    public String getIDAsocXIdPublicacion(String idPublicacion) {
+        Asociacion asociacion = this.asociaciones.stream().filter(asoc -> asoc.getPublicador().tienePublicacionPendiente(idPublicacion)).findFirst().orElse(null);
+        if (asociacion == null) {
+            throw new LogicRepoException("Id Publicacion Incorrecta");
+        }
+
+        return asociacion.getIdAsociacion();
+
     }
 
     public void agregarAsociacion(Asociacion asoc){

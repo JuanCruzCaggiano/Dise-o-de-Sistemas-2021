@@ -6,12 +6,16 @@ import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
+import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.roles.Duenio;
 import dds.domain.persona.roles.Rescatista;
 import dds.domain.persona.roles.RolPersona;
+import dds.domain.persona.roles.Voluntario;
 import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
+import dds.domain.persona.transaccion.ValidarPublicacion;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.*;
+import dds.servicios.publicaciones.PublicacionMascota;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +26,7 @@ import java.util.List;
 
 public class PersonaTest {
 
-    Persona persona,personaRescat;
+    Persona persona,personaRescat,personaVoluntario;
     List<Mascota> mascotas = new ArrayList<>();
     Asociacion asoc;
     @Before
@@ -51,9 +55,9 @@ public class PersonaTest {
         perro.setEstaPerdida(true);
         mascotas.add(perro);
         mascotas.add(gato);
-        Notificador noti= new Notificador();;
+        Notificador noti= new Notificador();
         AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList();
+        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(adEmail);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
@@ -67,8 +71,8 @@ public class PersonaTest {
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standard);
         RepositorioPersonas.getRepositorio().getPersonas().add(persona);
-        //CREO RESCATISTA
 
+        //CREO RESCATISTA
         List<RolPersona> listaRoles2 = new ArrayList<>();
         Rescatista rescatista = new Rescatista();
         listaRoles2.add(rescatista);
@@ -81,16 +85,43 @@ public class PersonaTest {
         RepositorioPersonas.getRepositorio().getPersonas().add(personaRescat);
 
 
+        //CREO VOLUNTARIO
+        List<RolPersona> listaRoles3 = new ArrayList<>();
+        Voluntario voluntario = new Voluntario();
+        listaRoles3.add(voluntario);
+        personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,new Notificador());
+        personaVoluntario.setIdPersona("voluntario1");
+        Standard usuVoluntario = new Standard("UsuarioVoluntario","Password1234+",personaVoluntario);
+        usuVoluntario.setAsociacion(asoc);
+
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuVoluntario);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaVoluntario);
 
     }
 
     @Test
     public void testEncontreMascotaPerdidaConChapita(){
-
         personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
 
+    }
+
+    @Test
+    public void testValidarPublicacion(){
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        publicacionMascota.setIdPublicacion("Publi1");
+        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
+        personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
+        Assert.assertEquals("Publi1",asoc.getPublicador().getAprobadasXId("Publi1").getIdPublicacion());
+    }
 
 
+    //Intento validar publicacion con rescatista
+    @Test (expected = TransactionException.class)
+    public void testValidarPublicacionErrorPermisos(){
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        publicacionMascota.setIdPublicacion("Publi1");
+        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
+        personaRescat.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
     }
 
 }
