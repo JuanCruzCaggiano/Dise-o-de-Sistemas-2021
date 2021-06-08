@@ -14,6 +14,7 @@ import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.roles.Voluntario;
 import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
 import dds.domain.persona.transaccion.RechazarPublicacion;
+import dds.domain.persona.transaccion.RegistrarMascota;
 import dds.domain.persona.transaccion.ValidarPublicacion;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.*;
@@ -99,6 +100,13 @@ public class PersonaTest {
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuVoluntario);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaVoluntario);
 
+    }
+
+    @Test
+    public void testRegistrarMascota(){
+        int size = persona.getMascotas().size();
+        persona.ejecutarTransaccion(new RegistrarMascota(persona,TipoMascota.PERRO,"nuevoPerro","nuevoPerro",8,"Pelo corto",new ArrayList<>(),new ArrayList<>()));
+        Assert.assertEquals(size+1,persona.getMascotas().size());
     }
 
     @Test
