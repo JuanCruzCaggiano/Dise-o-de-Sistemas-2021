@@ -2,6 +2,7 @@ package dds.db;
 
 
 
+import dds.db.repositorioException.LogicRepoException;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
 
@@ -45,4 +46,17 @@ public class RepositorioPersonas {
         }
         return -1;
     }
+    public String getIdPersonaXidMascota(String idMascota){  //F
+        for (int i = 0; i< personas.size(); i++){
+            for (int j = 0; j< personas.get(i).getMascotas().size(); j++) {
+                if (personas.get(i).getMascotas().get(j).getIdMascota().equals(idMascota)) {
+                    return personas.get(i).getIdPersona();
+                }
+            }
+        }
+        return null;
+    }
+
+
+
 }

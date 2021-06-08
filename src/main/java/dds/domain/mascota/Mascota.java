@@ -34,6 +34,10 @@ public class Mascota {
         this.estaPerdida = estaPerdida;
     }
 
+    public String getIdMascota() {
+        return idMascota;
+    }
+
     public Mascota(String nombre) {
         this.nombre = nombre;
     }

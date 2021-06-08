@@ -1,5 +1,6 @@
 package dds.domain.asociacion;
 
+
 import dds.db.RepositorioAsociaciones;
 import dds.servicios.publicaciones.Publicador;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class Asociacion {
 
+    private String idAsociacion;
     private String nombre;
     private String direccion;
     private String localidad;
@@ -24,6 +26,10 @@ public class Asociacion {
         this.provincia = provincia;
         this.pais = pais;
         this.codPostal = codPostal;
+    }
+
+    public void setIdAsociacion(String idAsociacion) {
+        this.idAsociacion = idAsociacion;
     }
 
     public void setNombre(String nombre) {
@@ -54,9 +60,9 @@ public class Asociacion {
         return nombre;
     }
 
-
-
-
+    public String getIdAsociacion() {
+        return idAsociacion;
+    }
 
     public void agregarAsociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal, RepositorioAsociaciones repo){
         Asociacion asoc = new Asociacion(nombre,direccion,localidad,provincia,pais,codPostal);

@@ -34,6 +34,10 @@ public class Usuario {
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
     }
 
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -101,9 +105,7 @@ public class Usuario {
     public String getIdUsuario() {
         return idUsuario;
     }
-    public void setIdUsuario(String id) {
-        this.idUsuario =id;
-    }
+
 
     public Persona getPersona() {
         return null;

@@ -1,5 +1,6 @@
 package dds.db;
 
+import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 
 import java.util.List;
@@ -14,7 +15,9 @@ public class RepositorioAsociaciones {
 
     public static RepositorioAsociaciones getRepositorio() {return repositorioAsociaciones;}
 
-
+    public void getAsociacionXMascota(String idMascota){
+        //TODO la asociacion esta encargada de esto?
+    }
     public void agregarAsociacion(Asociacion asoc) {
         if (asociaciones==null)	{
             asociaciones = new ArrayList<>();
@@ -39,4 +42,15 @@ public class RepositorioAsociaciones {
         }
         return -1;
     }
+    public String getIdUsuarioXAsociacion(String idUsuario){
+        String id = asociaciones.stream().filter(asoc -> asoc.getIdAsociacion()
+                .equals(idUsuario)).findFirst().orElse(null).getIdAsociacion();
+        if(id == null){
+            throw new LogicRepoException("idUsuario Incorrecto");
+        }
+
+        return id;
+
+    }
+
 }
