@@ -3,7 +3,9 @@ package dds.db;
 import dds.domain.seguridad.usuario.Usuario;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
 
 public class RepositorioUsuarios {
 
@@ -27,7 +29,9 @@ public class RepositorioUsuarios {
         return usuarioBuscado;
     }
 
-
+    public String getIdUsuarioXPersona(String idPersona){
+           return usuarios.stream().filter(usuario -> usuario.getIdUsuario().equals(idPersona)).findFirst().orElse(null).getIdUsuario();
+    }
 
 
 }

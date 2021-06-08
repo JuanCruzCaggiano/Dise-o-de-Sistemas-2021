@@ -13,7 +13,7 @@ import java.util.List;
 import java.security.*;
 
 public class Usuario {
-
+    private String idUsuario;
     private String userName;
     private String password;
     private LocalDateTime lastPasswordDT;
@@ -95,5 +95,12 @@ public class Usuario {
     }
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+    public void setIdUsuario(String id) {
+        this.idUsuario =id;
     }
 }
