@@ -9,16 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioPersonas {
+
     private List<Persona> personas = new ArrayList<>();
 
-    public void agregarPersona(Persona pppl) {
-            personas.add(pppl);
+    private static RepositorioPersonas repositorioPersonas = new RepositorioPersonas() ;
+
+    public static RepositorioPersonas getRepositorio() {return repositorioPersonas;}
+
+    public void agregarPersona(Persona persona) {
+        personas.add(persona);
     }
     public void removerPersona(Persona aRemover){
         personas.remove(buscarPersona(aRemover));
 
     }
-    public List<Persona> getRepositorio() {
+    public List<Persona> getPersonas() {
         return personas;
     }
 

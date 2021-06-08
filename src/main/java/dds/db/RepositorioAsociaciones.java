@@ -6,8 +6,14 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-public class RepoAsociacion {
+public class RepositorioAsociaciones {
+
     private List<Asociacion> asociaciones = new ArrayList<>();
+
+    private static RepositorioAsociaciones repositorioAsociaciones = new RepositorioAsociaciones() ;
+
+    public static RepositorioAsociaciones getRepositorio() {return repositorioAsociaciones;}
+
 
     public void agregarAsociacion(Asociacion asoc) {
         if (asociaciones==null)	{
@@ -21,7 +27,7 @@ public class RepoAsociacion {
         asociaciones.remove(buscarAsociacion(aRemover));
 
     }
-    public List<Asociacion> getRepositorio() {
+    public List<Asociacion> getAsociaciones() {
         return asociaciones;
     }
 

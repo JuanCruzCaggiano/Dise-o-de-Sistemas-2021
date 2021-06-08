@@ -1,35 +1,18 @@
 package dds.servicios.apiHogares;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import dds.db.RepoHogaresDeTransito;
+import dds.db.RepositorioHogaresDeTransito;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
 
 public class ComunicarApi {
-    RepoHogaresDeTransito repoHogaresDeTransito = new RepoHogaresDeTransito();
+    RepositorioHogaresDeTransito repositorioHogaresDeTransito = new RepositorioHogaresDeTransito();
 
     public String RegistrarEmail(String mail) {
         //Esta variable res la usaremos únicamente para dar un respuesta final
@@ -123,7 +106,7 @@ public class ComunicarApi {
             switch (get.getStatus()) {
                 case 200:
                     respuestaApiHogares = gson.fromJson(responseJson, RespuestaApiHogares.class);
-                    repoHogaresDeTransito.setRepositorio(respuestaApiHogares.getHogares());
+                    repositorioHogaresDeTransito.setRepositorio(respuestaApiHogares.getHogares());
                     res=" ";
                     break;
                 case 401:

@@ -1,6 +1,6 @@
 package dds.servicios.avisos;
 
-import dds.db.RepoHogaresDeTransito;
+import dds.db.RepositorioHogaresDeTransito;
 import dds.servicios.apiHogares.ComunicarApi;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ public class HogaresDeTransitoTest {
         String mail = "dorrpei@gmail.com";
         String token= "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
 
-        RepoHogaresDeTransito  repoHogaresDeTransito;
+        RepositorioHogaresDeTransito repositorioHogaresDeTransito;
         ComunicarApi comunicarApi = new ComunicarApi();
 
 
@@ -42,7 +42,7 @@ public class HogaresDeTransitoTest {
             String nombreHogar;
 
             res = comunicarApi.obtenerHogares(1,token);
-            nombreHogar = repoHogaresDeTransito.getInstance().getRepositorio().get(0).getNombre();
+            nombreHogar = repositorioHogaresDeTransito.getRepositorio().getHogares().get(0).getNombre();
             Assert.assertEquals("Pensionado de mascotas \"Como en casa\"",nombreHogar);
         }
 }

@@ -1,20 +1,19 @@
 package dds.db;
 
-import dds.domain.persona.Persona;
 import dds.servicios.apiHogares.HogarDeTransito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoHogaresDeTransito {
+public class RepositorioHogaresDeTransito {
     static List<HogarDeTransito> hogares = new ArrayList<>();
 
-    private static RepoHogaresDeTransito repoHogaresDeTransito = new RepoHogaresDeTransito() ;
+    private static RepositorioHogaresDeTransito repositorioHogaresDeTransito = new RepositorioHogaresDeTransito() ;
 
-    public static RepoHogaresDeTransito getInstance(){
-        return repoHogaresDeTransito;
+    public static RepositorioHogaresDeTransito getRepositorio(){
+        return repositorioHogaresDeTransito;
     }
-    public List<HogarDeTransito> getRepositorio() {
+    public List<HogarDeTransito> getHogares() {
          return hogares;
     }
 

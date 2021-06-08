@@ -1,6 +1,6 @@
 package dds.domain.seguridad.validador;
 
-import dds.db.RepoUsuarios;
+import dds.db.RepositorioUsuarios;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.WrongLoginException;
 import org.junit.Assert;
@@ -17,9 +17,9 @@ public class ValidadorUsuarioTest {
 
         @Before
         public void setup() throws NoSuchAlgorithmException {
-            RepoUsuarios.getRepositorio().getUsuarios().clear();
+            RepositorioUsuarios.getRepositorio().getUsuarios().clear();
             usuarioCreado = new Usuario("usuarioTest","Password123+");
-            RepoUsuarios.getRepositorio().agregarUsuario(usuarioCreado);
+            RepositorioUsuarios.getRepositorio().agregarUsuario(usuarioCreado);
         }
 
         @Test
@@ -48,7 +48,7 @@ public class ValidadorUsuarioTest {
         }
         @Test (expected = WrongLoginException.class)
         public void testValidarContraseniaVencida() throws NoSuchAlgorithmException {
-            RepoUsuarios.getRepositorio().getUsuario("usuarioTest").setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC).minusDays(31));
+            RepositorioUsuarios.getRepositorio().getUsuario("usuarioTest").setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC).minusDays(31));
             ValidadorUsuario.getValidadorUsuario().validarIdentidad(usuarioCreado.getUserName(),"Password123+");
         }
 

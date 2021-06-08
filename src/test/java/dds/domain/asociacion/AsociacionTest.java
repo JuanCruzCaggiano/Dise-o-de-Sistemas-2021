@@ -1,6 +1,6 @@
 package dds.domain.asociacion;
 
-import dds.db.RepoAsociacion;
+import dds.db.RepositorioAsociaciones;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 
 public class AsociacionTest {
-    RepoAsociacion repo=new RepoAsociacion();
+    RepositorioAsociaciones repo=new RepositorioAsociaciones();
     Asociacion asoc= new Asociacion("a","b","c","d","e","f");
 
 

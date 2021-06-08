@@ -1,26 +1,22 @@
 package dds.db;
 
-import dds.domain.asociacion.Asociacion;
 import dds.domain.seguridad.usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoUsuarios {
+public class RepositorioUsuarios {
 
 
     List<Usuario> usuarios= new ArrayList<>();
 
-    private static RepoUsuarios repositorioUsuarios = new RepoUsuarios() ;
+    private static RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios() ;
 
+    public static RepositorioUsuarios getRepositorio() {return repositorioUsuarios;}
 
     public void agregarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
-
-
-    public static RepoUsuarios getRepositorio() {return repositorioUsuarios;}
-
 
     public List<Usuario> getUsuarios() {return usuarios;}
 
