@@ -2,13 +2,22 @@ package dds.domain.persona;
 
 import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
+import dds.servicios.apiHogares.Ubicacion;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
 
 public class Rescatista implements RolPersona {
 
     @Override
     public void realizarTransaccion(String algo) {
+
+    }
+
+    encontreMascotaPerdida(float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
+
+    }
+    encontreMascotaPerdida(int idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
 
     }
 
