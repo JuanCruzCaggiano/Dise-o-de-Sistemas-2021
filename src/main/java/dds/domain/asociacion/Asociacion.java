@@ -1,6 +1,10 @@
 package dds.domain.asociacion;
 
 import dds.db.RepositorioAsociaciones;
+import dds.servicios.publicaciones.Publicador;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Asociacion {
 
@@ -10,6 +14,8 @@ public class Asociacion {
     private String provincia;
     private String pais;
     private String codPostal;
+    private List<Configuracion> configuraciones = new ArrayList<>();
+    private Publicador publicador;
 
     public Asociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal) {
         this.nombre = nombre;
@@ -47,6 +53,7 @@ public class Asociacion {
     public String getNombre() {
         return nombre;
     }
+
 
 
 
