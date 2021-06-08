@@ -14,10 +14,10 @@ public class Rescatista implements RolPersona {
 
     }
 
-    encontreMascotaPerdida(float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
+    public void puencontreMascotaPerdida(float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
 
     }
-    encontreMascotaPerdida(int idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
+    public void encontreMascotaPerdida(int idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
 
     }
 
