@@ -63,8 +63,7 @@ public class RepositorioHogaresDeTransito {
     //filtrar por lugares disponibles
     public List<HogarDeTransito> filtrarPorCaracteristica(List<String> caracteristicas){
         if (caracteristicas.isEmpty()){
-            return this.hogares;
-
+            return this.hogares.stream().filter(p -> p.getCaracteristicas().isEmpty()).collect(Collectors.toList());
         } else{
             return this.hogares.stream().filter(p -> p.getCaracteristicas().containsAll(caracteristicas)).collect(Collectors.toList());
         }
