@@ -1,10 +1,12 @@
 package dds.servicios.apiHogares;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ubicacion {
     private String direccion;
     private float lat;
+    @SerializedName("long")
     private float longitud;
-
 
     public Ubicacion(String direccion, float lat, float longitud) {
         this.direccion = direccion;
@@ -12,12 +14,12 @@ public class Ubicacion {
         this.longitud = longitud;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public float getLongitud() {
+        return longitud;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setLongitud(float longitud) {
+        this.longitud = longitud;
     }
 
     public float getLat() {
@@ -28,11 +30,11 @@ public class Ubicacion {
         this.lat = lat;
     }
 
-    public float getLongitud() {
-        return longitud;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setLongitud(float longitud) {
-        this.longitud = longitud;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }
