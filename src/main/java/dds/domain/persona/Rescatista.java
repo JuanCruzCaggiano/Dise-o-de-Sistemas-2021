@@ -22,12 +22,14 @@ public class Rescatista implements RolPersona {
         new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion);
 
     }
-
+ /*
     public void encontreMascotaPerdida(Mascota mascota, RepositorioPersonas repo) throws MessagingException { //esto busca al dueño y dentro del repo se encarga de notificar
         Integer identificador = repo.tieneMascota(mascota);
         new
         RepositorioPersonas.getRepositorio().getPersonas().get(identificador).getNotificador().notificar("encontramos a "+mascota.getNombre());
     }
+    */
+
     private void buscarHogarDeTransito(){ //TODO falta implementar
 
     }
