@@ -2,8 +2,12 @@ package dds.servicios.avisos;
 
 import dds.db.RepositorioHogaresDeTransito;
 import dds.servicios.apiHogares.ComunicarApi;
+import dds.servicios.apiHogares.HogarDeTransito;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HogaresDeTransitoTest {
         String mail = "dorrpei@gmail.com";
@@ -44,5 +48,14 @@ public class HogaresDeTransitoTest {
             res = comunicarApi.obtenerHogares(1,token);
             nombreHogar = repositorioHogaresDeTransito.getRepositorio().getHogares().get(0).getNombre();
             Assert.assertEquals("Pensionado de mascotas \"Como en casa\"",nombreHogar);
+        }
+
+        @Test
+        public void calcularDistanciaTest(){
+            String res;
+            List<HogarDeTransito> hogarDeTransitos = new ArrayList<>();
+            res = comunicarApi.obtenerHogares(1,token);
+            hogarDeTransitos =  repositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(-34.42061525423029,-58.572775488348505,10);
+
         }
 }

@@ -70,14 +70,16 @@ public class RepositorioHogaresDeTransito {
         }
     }
     //filtrar por rango de distancia entre Rescatista y hogares
-    public List<HogarDeTransito> filtrarPorDisponibilidad(float latitudComparar, float longitudComparar, double radiocercania){
-        return this.hogares.stream().filter(p -> distanciaCoord(p.getUbicacion().getLat(),p.getUbicacion().getLongitud(),latitudComparar,longitudComparar) <= radiocercania).collect(Collectors.toList());
+    public List<HogarDeTransito> filtrarPorDistancia(double latitudComparar, double longitudComparar, double radiocercania){
+        return this.hogares.stream().filter(p -> (distanciaCoord(p.getUbicacion().getLat(),p.getUbicacion().getLongitud(),latitudComparar,longitudComparar) <= radiocercania)).collect(Collectors.toList());
     }
 
 
 
     //calculo de distancia
-    public static double distanciaCoord(double lat1, double lng1, double lat2, double lng2) {
+    public static double distanciaCoord(float lat, float lng, double lat2, double lng2) {
+        double lat1 = lat;
+        double lng1 = lng;
         //double radioTierra = 6371000;//probar en metros tambien
         double radioTierra = 6371;//en kilómetros
         double dLat = Math.toRadians(lat2 - lat1);
