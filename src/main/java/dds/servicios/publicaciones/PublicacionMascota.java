@@ -3,6 +3,7 @@ package dds.servicios.publicaciones;
 import java.util.List;
 
 public class PublicacionMascota {
+    Integer idPubli;
     String idMascota;
     float latitud;
     float longitud;
@@ -17,5 +18,9 @@ public class PublicacionMascota {
         this.longitud = longitud;
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
+    }
+
+    public void setIdPubli(Integer idPubli) {
+        this.idPubli = idPubli;
     }
 }
