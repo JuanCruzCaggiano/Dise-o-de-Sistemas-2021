@@ -25,42 +25,38 @@ public class RepositorioHogaresDeTransito {
 
     //filtrar aceptar perros/gatos o ambos
     public List<HogarDeTransito> filtrarPorTipoDeAnimal(TipoMascota tipoMascota){
-        Boolean filtro = true;
         if (tipoMascota == TipoMascota.GATO) {
-            return filtrarPorGato(filtro);
+            return filtrarPorGato();
         }
         else {
-            return filtrarPorPerro(filtro);
+            return filtrarPorPerro();
         }
     }
 
-    public List<HogarDeTransito> filtrarPorGato(Boolean filtro){
-        return this.hogares.stream().filter(p -> p.getAdmision().getGato().equals(filtro)).collect(Collectors.toList());
+    public List<HogarDeTransito> filtrarPorGato(){
+        return this.hogares.stream().filter(p -> p.getAdmision().getGatos()).collect(Collectors.toList());
     }
 
-    public List<HogarDeTransito> filtrarPorPerro(Boolean filtro){
-        return this.hogares.stream().filter(p -> p.getAdmision().getPerro().equals(filtro)).collect(Collectors.toList());
+    public List<HogarDeTransito> filtrarPorPerro(){
+        return this.hogares.stream().filter(p -> p.getAdmision().getPerros()).collect(Collectors.toList());
     }
 
     //filtrar por ambos.
     public List<HogarDeTransito> filtrarPorAmbosTipoDeAnimal(){
-        Boolean filtro = true;
-        return this.hogares.stream().filter(p -> (p.getAdmision().getGato().equals(filtro))|| (p.getAdmision().getPerro().equals(filtro))).collect(Collectors.toList());
+        return this.hogares.stream().filter(p -> (p.getAdmision().getGatos()) && (p.getAdmision().getPerros())).collect(Collectors.toList());
     }
 
     //filtrar por patio
     public List<HogarDeTransito> filtrarPorPatio(){
-        Boolean filtro = true;
-        return this.hogares.stream().filter(p -> p.getPatio().equals(filtro)).collect(Collectors.toList());
+        return this.hogares.stream().filter(p -> p.getPatio()).collect(Collectors.toList());
     }
 
     //filtrar por lugares disponibles
     public List<HogarDeTransito> filtrarPorDisponibilidad(){
         return this.hogares.stream().filter(p -> p.getLugares_disponibles() > 0).collect(Collectors.toList());
-
     }
 
-    //filtrar por lugares disponibles
+    //filtrar por características
     public List<HogarDeTransito> filtrarPorCaracteristica(List<String> caracteristicas){
         if (caracteristicas.isEmpty()){
             return this.hogares.stream().filter(p -> p.getCaracteristicas().isEmpty()).collect(Collectors.toList());
@@ -70,7 +66,10 @@ public class RepositorioHogaresDeTransito {
     }
     //filtrar por rango de distancia entre Rescatista y hogares
     public List<HogarDeTransito> filtrarPorDistancia(double latitudComparar, double longitudComparar, double radiocercania){
-        return this.hogares.stream().filter(p -> (distanciaCoord(p.getUbicacion().getLat(),p.getUbicacion().getLongitud(),latitudComparar,longitudComparar) <= radiocercania)).collect(Collectors.toList());
+        return this.hogares.
+                stream().
+                filter(p -> (distanciaCoord(p.getUbicacion().getLat(), p.getUbicacion().getLongitud(), latitudComparar, longitudComparar) <= radiocercania)).
+                collect(Collectors.toList());
     }
 
 

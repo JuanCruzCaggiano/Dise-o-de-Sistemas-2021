@@ -1,27 +1,27 @@
 package dds.servicios.apiHogares;
 
 public class Admision {
-    private Boolean perro;
-    private Boolean gato;
+    private Boolean perros; //la variable tiene que tener el mismo nombre que el del JSON
+    private Boolean gatos;  //la variable tiene que tener el mismo nombre que el del JSON
 
-    public Admision(Boolean perro, Boolean gato) {
-        this.perro = perro;
-        this.gato = gato;
+    public Admision(Boolean perros, Boolean gatos) {
+        this.perros = perros;
+        this.gatos = gatos;
     }
 
-    public Boolean getPerro() {
-        return perro;
+    public Boolean getPerros() {
+        return perros;
     }
 
-    public void setPerro(Boolean perro) {
-        this.perro = perro;
+    public void setPerros(Boolean perros) {
+        this.perros = perros;
     }
 
-    public Boolean getGato() {
-        return gato;
+    public Boolean getGatos() {
+        return gatos;
     }
 
-    public void setGato(Boolean gato) {
-        this.gato = gato;
+    public void setGatos(Boolean gatos) {
+        this.gatos = gatos;
     }
 }
