@@ -5,6 +5,7 @@ import dds.domain.asociacion.ConfigCaracMascota;
 import java.util.List;
 
 public class Mascota {
+    private String idMascota:
     private TipoMascota tipo;
     private String nombre;
     private String apodo;
