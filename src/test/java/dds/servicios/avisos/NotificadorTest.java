@@ -15,8 +15,8 @@ public class NotificadorTest extends TestCase {
     AdapterEmail testeoEmail = new AdapterEmail();
     List<AdapterFormaNotificacion> formasDeNoti = new ArrayList();
 
-
-
+//COMENTO PARA NO COMER CREDITO EN TWILO
+/*
     @Test
     public void testNotificarSMS() throws MessagingException {
         formasDeNoti.add(testeoSMS);
@@ -31,6 +31,8 @@ public class NotificadorTest extends TestCase {
         noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         noti.notificar("probando wpp");
     }
+*/
+
     @Test
     public void testNotificarEmail() throws MessagingException {
         formasDeNoti.add(testeoEmail);

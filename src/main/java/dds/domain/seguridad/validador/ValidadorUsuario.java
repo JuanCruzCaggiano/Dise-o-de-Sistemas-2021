@@ -1,6 +1,6 @@
 package dds.domain.seguridad.validador;
 
-import dds.db.RepoUsuarios;
+import dds.db.RepositorioUsuarios;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.WrongLoginException;
 import dds.servicios.HashHelper;
@@ -18,7 +18,7 @@ public class ValidadorUsuario {
         String passwordHasheada = HashHelper.getHashHelper().passwordAMD5(password);
 
         usuarioInexistente(userName);
-        Usuario usuario = RepoUsuarios.getRepositorio().getUsuarios().stream().filter(u -> u.getUserName().equals(userName)).findFirst().orElse(null);
+        Usuario usuario = RepositorioUsuarios.getRepositorio().getUsuarios().stream().filter(u -> u.getUserName().equals(userName)).findFirst().orElse(null);
         usuarioBloqueado(usuario);
         passwordVencida(usuario);
         passwordErronea(usuario,passwordHasheada);
@@ -27,7 +27,7 @@ public class ValidadorUsuario {
 
     }
     public void usuarioInexistente(String userName){
-        if(!RepoUsuarios.getRepositorio().getUsuarios().stream().map(Usuario::getUserName).collect(Collectors.toList()).contains(userName)) {
+        if(!RepositorioUsuarios.getRepositorio().getUsuarios().stream().map(Usuario::getUserName).collect(Collectors.toList()).contains(userName)) {
             throw new WrongLoginException("El usuario ingresado no existe");
         }
     }
@@ -45,7 +45,7 @@ public class ValidadorUsuario {
     }
 
     public void passwordErronea(Usuario usuario, String passwordHasheada) {
-        if (!RepoUsuarios.getRepositorio().getUsuarios().stream().map(Usuario::getPassword).collect(Collectors.toList()).contains(passwordHasheada)) {
+        if (!RepositorioUsuarios.getRepositorio().getUsuarios().stream().map(Usuario::getPassword).collect(Collectors.toList()).contains(passwordHasheada)) {
             usuario.sumaIntentoFallido();
             usuario.verificarIntentosFallidos();
             throw new WrongLoginException("La contraseña ingresada no coincide");

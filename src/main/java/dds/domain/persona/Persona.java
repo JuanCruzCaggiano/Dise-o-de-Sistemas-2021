@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Persona {
+    private String idPersona;
     private String nombre;
     private String apellido;
     private List<Mascota> mascotas;
@@ -35,5 +36,13 @@ public class Persona {
 
     public Notificador getNotificador() {
         return notificador;
+    }
+
+    public void setIdPersona(String idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    public String getIdPersona() {
+        return idPersona;
     }
 }

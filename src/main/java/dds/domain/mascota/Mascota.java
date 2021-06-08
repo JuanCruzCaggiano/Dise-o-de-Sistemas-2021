@@ -5,6 +5,7 @@ import dds.domain.asociacion.ConfigCaracMascota;
 import java.util.List;
 
 public class Mascota {
+    private String idMascota;
     private TipoMascota tipo;
     private String nombre;
     private String apodo;
@@ -25,6 +26,10 @@ public class Mascota {
         this.estaPerdida = estaPerdida;
     }
 
+    public void setIdMascota(String idMascota) {
+        this.idMascota = idMascota;
+    }
+
     public void setEstaPerdida(Boolean estaPerdida) {
         this.estaPerdida = estaPerdida;
     }
@@ -36,4 +41,5 @@ public class Mascota {
     public String getNombre() {
         return nombre;
     }
+
 }

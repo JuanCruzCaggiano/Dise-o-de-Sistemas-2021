@@ -44,7 +44,8 @@ public class Notificador {
         suscriptores.remove(buscarContacto(eliminar));
     }
 
-    public void notificar(String mensaje) throws MessagingException {
+    public void notificar(String mensaje) throws MessagingException {  //TODO recibe int id mascota y en base a eso crea el mensaje
+        //String mensaje = "encontramos a " + repoMascotas.getMascota(id_mascota).getNombreMascota() + "para mas info ir al siguiente link" + generarLink(id_mascota)
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {

@@ -1,6 +1,7 @@
 package dds.domain.seguridad.usuario;
 
 import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
 import dds.servicios.HashHelper;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.security.*;
 
 public class Usuario {
-
+    private String idUsuario;
     private String userName;
     private String password;
     private LocalDateTime lastPasswordDT;
@@ -96,4 +97,16 @@ public class Usuario {
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
     }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+    public void setIdUsuario(String id) {
+        this.idUsuario =id;
+    }
+
+    public Persona getPersona() {
+        return null;
+    }
+
 }
