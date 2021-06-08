@@ -72,7 +72,7 @@ public class RepoHogaresDeTransito {
     }
     //filtrar por rango de distancia entre Rescatista y hogares
     public List<HogarDeTransito> filtrarPorDisponibilidad(float latitudComparar, float longitudComparar, double radiocercania){
-        return this.hogares.stream().filter(p -> distanciaCoord(p.getUbicacion().getLat(),p.getUbicacion().getLng1(),latitudComparar,longitudComparar) <= radiocercania).collect(Collectors.toList());
+        return this.hogares.stream().filter(p -> distanciaCoord(p.getUbicacion().getLat(),p.getUbicacion().getLongitud(),latitudComparar,longitudComparar) <= radiocercania).collect(Collectors.toList());
     }
 
 
