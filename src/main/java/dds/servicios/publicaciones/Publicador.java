@@ -12,6 +12,7 @@ public class Publicador {
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
 
 
+    public Publicador(){};
 
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
         //publicacionesPendientes.contains(publi);

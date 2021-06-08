@@ -1,6 +1,7 @@
 package dds.domain.persona;
 
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.mascotaException.LogicMascotaException;
 import dds.servicios.avisos.Notificador;
 
 
@@ -44,5 +45,13 @@ public class Persona {
 
     public String getIdPersona() {
         return idPersona;
+    }
+
+    public Mascota getMascota(String idMascota){
+        Mascota m = mascotas.stream().filter(mascota -> mascota.getIdMascota().equals(idMascota)).findFirst().orElse(null);
+        if(m ==null){
+            throw new LogicMascotaException("El dueño no posee este id_mascota");
+        }
+        return m;
     }
 }

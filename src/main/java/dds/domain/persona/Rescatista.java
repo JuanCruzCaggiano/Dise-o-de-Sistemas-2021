@@ -25,15 +25,13 @@ public class Rescatista implements RolPersona {
 
 
     //CASO CON CHAPITA
-    public void encontreMascotaPerdida(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion){
-        new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion);
+    public void encontreMascotaPerdida(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos,String descripcion) throws MessagingException {
+        PublicacionMascota publi = new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion);
         String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
-
-
-        //RepositorioAsociacion repoAsoc = getRepoAsociacion(); //consigue la lista de todas las asociaciones
-        //Asociacion asoc = repoAsoc.getAsociacionMasCercana(lat,long);  //agarra la asociación más cercana 	PublicacionMascotaEncontrada publi1 = New PublicacionMascotaEncontrada(lat,long,listaFotos,descripcion);
-        //asoc.publicador1.agregarAListaDePublicacionesPendientes(publi1);
+        asoc.getPublicador().agregarPublicacionPrivada(publi);
+        Persona dueño = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
+        dueño.getNotificador().notificar(idMascota);
 
     }
  /*

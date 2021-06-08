@@ -26,6 +26,7 @@ public class Asociacion {
         this.provincia = provincia;
         this.pais = pais;
         this.codPostal = codPostal;
+        publicador = new Publicador();
     }
 
     public void setIdAsociacion(String idAsociacion) {
@@ -64,4 +65,7 @@ public class Asociacion {
         return idAsociacion;
     }
 
+    public Publicador getPublicador() {
+        return publicador;
+    }
 }

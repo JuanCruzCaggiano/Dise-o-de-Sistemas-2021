@@ -2,12 +2,16 @@ package dds.servicios.avisos;
 
 
 
+import dds.db.RepositorioPersonas;
+import dds.domain.mascota.Mascota;
+import dds.domain.persona.Persona;
+
 import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Notificador {
-    private List<Contacto> suscriptores = new ArrayList<Contacto>();
+    private List<Contacto> suscriptores = new ArrayList<>();
     private AdapterFormaNotificacion adapter;
 
 
@@ -44,8 +48,11 @@ public class Notificador {
         suscriptores.remove(buscarContacto(eliminar));
     }
 
-    public void notificar(String mensaje) throws MessagingException {  //TODO recibe int id mascota y en base a eso crea el mensaje
-        //String mensaje = "encontramos a " + repoMascotas.getMascota(id_mascota).getNombreMascota() + "para mas info ir al siguiente link" + generarLink(id_mascota)
+    public void notificar(String idMascota) throws MessagingException {
+        Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
+        Mascota mascota = duenio.getMascota(idMascota);
+        String link = "";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
+        String mensaje = "Encontramos a "+ mascota.getNombre() + "para mas informacion ingresa al siguiente link!: " + link;
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {
