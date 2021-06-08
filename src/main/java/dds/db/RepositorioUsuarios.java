@@ -31,9 +31,9 @@ public class RepositorioUsuarios {
         return user;
     }
 
-    public String getUserNameXIdPersona(String idPersona) {
+    public String getUserNameXIdPersona(String userName) {
         Usuario user = usuarios.stream()
-                .filter(usuario -> usuario.getPersona().getIdPersona().equals(idPersona))
+                .filter(usuario -> usuario.getPersona().getIdPersona().equals(userName))
                 .findFirst().orElse(null);
 
         if (user == null) {

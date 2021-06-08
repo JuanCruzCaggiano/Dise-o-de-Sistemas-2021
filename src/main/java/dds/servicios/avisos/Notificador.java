@@ -48,11 +48,11 @@ public class Notificador {
         suscriptores.remove(buscarContacto(eliminar));
     }
 
-    public void notificar(String idMascota) throws MessagingException {
+    public void notificar(String idMascota)  {
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         Mascota mascota = duenio.getMascota(idMascota);
         String link = "";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
-        String mensaje = "Encontramos a "+ mascota.getNombre() + "para mas informacion ingresa al siguiente link!: " + link;
+        String mensaje = "Encontramos a "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
         for (int i=0;i<suscriptores.size();i++){
             List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {

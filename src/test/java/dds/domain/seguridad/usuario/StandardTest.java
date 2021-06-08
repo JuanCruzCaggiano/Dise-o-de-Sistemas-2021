@@ -2,18 +2,15 @@ package dds.domain.seguridad.usuario;
 
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
-import dds.domain.persona.RolPersona;
+import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.personaException.AssignPersonaException;
-import dds.domain.seguridad.usuario.usuarioException.WrongLoginException;
 import dds.servicios.avisos.*;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StandardTest{
     Persona persona;

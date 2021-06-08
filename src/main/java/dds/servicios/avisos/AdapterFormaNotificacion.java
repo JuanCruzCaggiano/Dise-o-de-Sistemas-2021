@@ -5,7 +5,7 @@ import javax.mail.MessagingException;
 public interface AdapterFormaNotificacion {
 
 
-    void notificar(String mensaje, Contacto contacto) throws MessagingException;
+    void notificar(String mensaje, Contacto contacto);
 
 
 }

@@ -13,9 +13,9 @@ public class Mascota {
     private String descripcion;
     private List<String> listaFotos;
     private List<ConfigCaracMascota> caracteristica;
-    private Boolean estaPerdida;
+    private Boolean estaPerdida = false;
 
-    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, List<ConfigCaracMascota> caracteristica, Boolean estaPerdida) {
+    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, List<ConfigCaracMascota> caracteristica) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
@@ -23,8 +23,9 @@ public class Mascota {
         this.descripcion = descripcion;
         this.listaFotos = listaFotos;
         this.caracteristica = caracteristica;
-        this.estaPerdida = estaPerdida;
+
     }
+
 
     public void setIdMascota(String idMascota) {
         this.idMascota = idMascota;

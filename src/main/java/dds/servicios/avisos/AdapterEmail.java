@@ -7,7 +7,7 @@ import java.util.Properties;
 public class AdapterEmail implements AdapterFormaNotificacion{
 
     @Override
-    public void notificar(String mensaje,Contacto contacto) throws MessagingException {
+    public void notificar(String mensaje,Contacto contacto) {
         sendAsHtml(contacto.getEmail(),
                 "Test email",
                 "<h2>Titulo de mail test</h2><p>"+mensaje+"</p>");
@@ -16,17 +16,25 @@ public class AdapterEmail implements AdapterFormaNotificacion{
     private static final String senderEmail = "dds2021.grupo15@gmail.com";//change with your sender email
     private static final String senderPassword = "frbautneduar2021";//change with your sender password
 
-    public static void sendAsHtml(String to, String title, String html) throws MessagingException {
+    public static void sendAsHtml(String to, String title, String html) {
         //System.out.println("Sending email to " + to);
 
         Session session = createSession();
 
         //create message using session
         MimeMessage message = new MimeMessage(session);
-        prepareEmailMessage(message, to, title, html);
+        try {
+            prepareEmailMessage(message, to, title, html);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 
         //sending message
-        Transport.send(message);
+        try {
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         //System.out.println("Done");
     }
 

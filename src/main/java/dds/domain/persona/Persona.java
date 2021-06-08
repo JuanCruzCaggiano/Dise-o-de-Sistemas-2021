@@ -2,9 +2,12 @@ package dds.domain.persona;
 
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.mascotaException.LogicMascotaException;
+import dds.domain.persona.roles.RolPersona;
+import dds.domain.persona.transaccion.Transaccion;
 import dds.servicios.avisos.Notificador;
 
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -54,4 +57,14 @@ public class Persona {
         }
         return m;
     }
+
+    public List<RolPersona> getListaRoles() {
+        return listaRoles;
+    }
+    public void ejecutarTransaccion(Transaccion transaccion)  {
+        for(RolPersona rol: listaRoles){
+            rol.ejecutarTransaccion(transaccion);
+        }
+    }
+
 }

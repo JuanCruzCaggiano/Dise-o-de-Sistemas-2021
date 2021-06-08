@@ -4,14 +4,12 @@ import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
-import dds.domain.persona.RolPersona;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.Notificador;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class RepositorioUsuariosTest  {

@@ -1,0 +1,96 @@
+package dds.domain.persona;
+
+import dds.db.RepositorioAsociaciones;
+import dds.db.RepositorioPersonas;
+import dds.db.RepositorioUsuarios;
+import dds.domain.asociacion.Asociacion;
+import dds.domain.mascota.Mascota;
+import dds.domain.mascota.TipoMascota;
+import dds.domain.persona.roles.Duenio;
+import dds.domain.persona.roles.Rescatista;
+import dds.domain.persona.roles.RolPersona;
+import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
+import dds.domain.seguridad.usuario.Standard;
+import dds.servicios.avisos.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PersonaTest {
+
+    Persona persona,personaRescat;
+    List<Mascota> mascotas = new ArrayList<>();
+    Asociacion asoc;
+    @Before
+    public void setUp() throws NoSuchAlgorithmException {
+        RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
+        RepositorioPersonas.getRepositorio().getPersonas().clear();
+        RepositorioUsuarios.getRepositorio().getUsuarios().clear();
+
+
+
+        asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        asoc.setIdAsociacion("ASOC1");
+
+
+        RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
+
+        RepositorioPersonas.getRepositorio().getPersonas().clear();
+
+        //CREO DUENIO
+
+        Duenio duenio = new Duenio();
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new ArrayList<>());
+        perro.setIdMascota("perro1");
+        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",8,"Siames",new ArrayList<>(),new ArrayList<>());
+        gato.setIdMascota("gato1");
+        perro.setEstaPerdida(true);
+        mascotas.add(perro);
+        mascotas.add(gato);
+        Notificador noti= new Notificador();;
+        AdapterEmail adEmail = new AdapterEmail();
+        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList();
+        formasDeNoti.add(adEmail);
+        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
+        List<RolPersona> listaRoles = new ArrayList<>();
+        listaRoles.add(duenio);
+
+        persona = new Persona("npersona","apersona",mascotas,listaRoles,noti);
+        persona.setIdPersona("persona1");
+        Standard standard = new Standard("UsuarioTest","Password1234+",persona);
+        standard.setAsociacion(asoc);
+
+        RepositorioUsuarios.getRepositorio().agregarUsuario(standard);
+        RepositorioPersonas.getRepositorio().getPersonas().add(persona);
+        //CREO RESCATISTA
+
+        List<RolPersona> listaRoles2 = new ArrayList<>();
+        Rescatista rescatista = new Rescatista();
+        listaRoles2.add(rescatista);
+        personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,new Notificador());
+        personaRescat.setIdPersona("rescat1");
+        Standard usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat);
+        usuRescatista.setAsociacion(asoc);
+
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuRescatista);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaRescat);
+
+
+
+    }
+
+    @Test
+    public void testEncontreMascotaPerdidaConChapita(){
+
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+
+
+
+    }
+
+}
