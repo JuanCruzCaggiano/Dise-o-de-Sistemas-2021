@@ -3,6 +3,7 @@ package dds.domain.persona;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
+import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
@@ -12,6 +13,7 @@ import dds.domain.persona.roles.Rescatista;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.roles.Voluntario;
 import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
+import dds.domain.persona.transaccion.RechazarPublicacion;
 import dds.domain.persona.transaccion.ValidarPublicacion;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.*;
@@ -111,7 +113,7 @@ public class PersonaTest {
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
-        Assert.assertEquals("Publi1",asoc.getPublicador().getAprobadasXId("Publi1").getIdPublicacion());
+        Assert.assertTrue(asoc.getPublicador().tienePublicacionAprobada("Publi1"));
     }
 
 
@@ -122,6 +124,21 @@ public class PersonaTest {
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaRescat.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
+    }
+
+    @Test
+    public void testRechazarPublicacion(){
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        publicacionMascota.setIdPublicacion("Publi1");
+        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
+        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));
+        Assert.assertFalse(asoc.getPublicador().tienePublicacionPendiente("Publi1"));
+    }
+
+    //RECHAZAR PUBLICACION QUE NO ESTA PENDIENTE
+    @Test (expected = LogicRepoException.class)
+    public void testRechazarPublicacionError(){
+        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));
     }
 
 }

@@ -24,6 +24,15 @@ public class Publicador {
         }
 
     }
+    public void rechazarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
+        //publicacionesPendientes.contains(publi);
+        if (publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(publi.idPublicacion))){
+            eliminarPublicacionPendiente(publi);
+        }else{
+            throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de pendientes");
+        }
+
+    }
     public void agregarPublicacionPrivada (PublicacionMascota publi) {   // metodo para mascota con chapita
         publicacionesPrivadas.add(publi);
     }
