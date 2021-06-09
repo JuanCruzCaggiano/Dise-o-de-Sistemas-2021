@@ -96,13 +96,17 @@ public class RepositorioHogaresDeTransitoTest {
             //                          long   -69.21685055962318
     public void testFiltrarPorRadioDeCercania() {
         //TODO --> REVISAR --> la longitud no coincide con la clave/key del JSON
-        /*
         String res = comunicarApi.obtenerHogares(4, token);
         double la = -51.622855315759274;
         double lo = -69.21685055962318;
         double rad = 500;
         Assert.assertEquals(1, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(la, lo, rad).size());
-        */
+
     }
 
+    @Test
+    public void actualizarRepositorioHogaresDeTransitoTest(){
+        comunicarApi.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(40,RepositorioHogaresDeTransito.getRepositorio().getHogares().size());
+    }
 }

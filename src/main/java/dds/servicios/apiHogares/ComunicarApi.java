@@ -9,9 +9,11 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 public class ComunicarApi {
+    private final String TOKEN = "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
     RepositorioHogaresDeTransito repositorioHogaresDeTransito;
 
     public String RegistrarEmail(String mail) {
@@ -106,8 +108,12 @@ public class ComunicarApi {
             switch (get.getStatus()) {
                 case 200:
                     respuestaApiHogares = gson.fromJson(responseJson, RespuestaApiHogares.class);
-                    repositorioHogaresDeTransito.getRepositorio().setRepositorio(respuestaApiHogares.getHogares());
+                    repositorioHogaresDeTransito.getRepositorio().getHogares().addAll(respuestaApiHogares.getHogares());
+
                     res=" ";
+                    break;
+                case 400:
+                    res = "Ha superado el limite de paginas";
                     break;
                 case 401:
                     //Message message = gson.fromJson(jsonString, Message.class);
@@ -127,4 +133,16 @@ public class ComunicarApi {
         System.out.println(res);
         return res;
     }
+
+    public void actualizarRepositorioHogaresDeTransito(){
+        RepositorioHogaresDeTransito.getRepositorio().getHogares().clear();
+        int i = 1;
+        String res = this.obtenerHogares(i,TOKEN);
+
+        while(res!= "Ha superado el limite de paginas"){
+            i++;
+            res = this.obtenerHogares(i,TOKEN);
+        }
+    }
+
 }
