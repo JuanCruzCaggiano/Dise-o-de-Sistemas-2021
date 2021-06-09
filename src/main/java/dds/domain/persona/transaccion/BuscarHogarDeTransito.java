@@ -28,8 +28,9 @@ public class BuscarHogarDeTransito implements Transaccion {
         this.radio = radio;
     }
 
-
-
+    public List<HogarDeTransito> getPosiblesHogares() {
+        return posiblesHogares;
+    }
 
     //BUSCAR HOGAR DE TRANSITO
     @Override

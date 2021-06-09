@@ -1,6 +1,8 @@
 package dds.domain.persona;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dds.db.RepositorioAsociaciones;
+import dds.db.RepositorioHogaresDeTransito;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.db.repositorioException.LogicRepoException;
@@ -34,6 +36,7 @@ public class PersonaTest {
         RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
         RepositorioPersonas.getRepositorio().getPersonas().clear();
         RepositorioUsuarios.getRepositorio().getUsuarios().clear();
+        RepositorioHogaresDeTransito.getRepositorio().getHogares().clear();
 
 
 
@@ -148,6 +151,8 @@ public class PersonaTest {
 
     @Test
     public void testBuscarHogarDeTransito(){
-        personaRescat.ejecutarTransaccion(new BuscarHogarDeTransito(-51.622855315759274,-69.21685055962318,500));
+        BuscarHogarDeTransito transaccion = new BuscarHogarDeTransito(-51.622855315759274,-69.21685055962318,500);
+        personaRescat.ejecutarTransaccion(transaccion);
+        Assert.assertEquals(1,transaccion.getPosiblesHogares().size());
     }
 }
