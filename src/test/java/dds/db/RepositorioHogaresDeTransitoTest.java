@@ -3,6 +3,7 @@ package dds.db;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
 import dds.servicios.apiHogares.ComunicarApi;
+import dds.servicios.apiHogares.HogarDeTransito;
 import dds.servicios.avisos.Notificador;
 import junit.framework.TestCase;
 import org.junit.Assert;

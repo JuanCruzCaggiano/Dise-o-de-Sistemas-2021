@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 
 public class ComunicarApi {
-    RepositorioHogaresDeTransito repositorioHogaresDeTransito = new RepositorioHogaresDeTransito();
+    RepositorioHogaresDeTransito repositorioHogaresDeTransito;
 
     public String RegistrarEmail(String mail) {
         //Esta variable res la usaremos únicamente para dar un respuesta final
@@ -106,7 +106,7 @@ public class ComunicarApi {
             switch (get.getStatus()) {
                 case 200:
                     respuestaApiHogares = gson.fromJson(responseJson, RespuestaApiHogares.class);
-                    repositorioHogaresDeTransito.setRepositorio(respuestaApiHogares.getHogares());
+                    repositorioHogaresDeTransito.getRepositorio().setRepositorio(respuestaApiHogares.getHogares());
                     res=" ";
                     break;
                 case 401:
