@@ -79,7 +79,7 @@ public class RepositorioHogaresDeTransitoTest {
         Assert.assertEquals(9, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
     }
 
-    @Test //Se prueba que 7/40 hogares de tránsito tienen "manso" y "amistoso" como características
+    @Test //Se prueba que 7/40 hogares de tránsito tienen "delgado" y "amistoso" como características
     public void testFiltrarHogaresQueTenganComoCaracteristicaDelgadoYAmistoso() {
         servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         List<String> caracteristicas = new ArrayList<>();
