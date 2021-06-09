@@ -1,7 +1,7 @@
 package dds.domain.persona.transaccion;
 
 import dds.db.RepositorioHogaresDeTransito;
-import dds.servicios.apiHogares.ComunicarApi;
+import dds.servicios.apiHogares.ServicioHogarDeTransito;
 import dds.servicios.apiHogares.HogarDeTransito;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class BuscarHogarDeTransito implements Transaccion {
     //BUSCAR HOGAR DE TRANSITO
     @Override
     public void ejecutar() {
-        ComunicarApi.getInstance().actualizarRepositorioHogaresDeTransito();
+        ServicioHogarDeTransito.getInstance().actualizarRepositorioHogaresDeTransito();
         posiblesHogares.clear();
         this.posiblesHogares.addAll(RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(lat,longitud,radio));
     }

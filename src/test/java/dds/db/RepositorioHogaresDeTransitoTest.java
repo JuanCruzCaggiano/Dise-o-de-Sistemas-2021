@@ -1,11 +1,7 @@
 package dds.db;
 
-import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
-import dds.servicios.apiHogares.ComunicarApi;
-import dds.servicios.apiHogares.HogarDeTransito;
-import dds.servicios.avisos.Notificador;
-import junit.framework.TestCase;
+import dds.servicios.apiHogares.ServicioHogarDeTransito;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +17,7 @@ public class RepositorioHogaresDeTransitoTest {
     String token= "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
 
     RepositorioHogaresDeTransito repositorioHogaresDeTransito;
-    ComunicarApi comunicarApi = new ComunicarApi();
+    ServicioHogarDeTransito servicioHogarDeTransito = new ServicioHogarDeTransito();
 
     @Before
     public void setUp() throws Exception {
@@ -30,83 +26,93 @@ public class RepositorioHogaresDeTransitoTest {
 
     }
 
-    @Test //Se prueba que haya 9/10 (offset 1 ---> rango 1-10) hogares de tránsito que acepten perros
+
+
+    @Test //Se prueba que 28/40 hogares de tránsito aceptan perros
     public void testFiltrarHogaresQueAceptanPerros() {
-        String res = comunicarApi.obtenerHogares(1, token);
-        Assert.assertEquals(9, RepositorioHogaresDeTransito.getRepositorio().filtrarPorTipoDeAnimal(TipoMascota.PERRO).size());
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(28, RepositorioHogaresDeTransito.getRepositorio().filtrarPorTipoDeAnimal(TipoMascota.PERRO).size());
     }
 
-    @Test //Se prueba que haya 9/10 (offset 2 ---> rango 11-20) hogares de tránsito que acepten gatos
+    @Test //Se prueba que 30/40 hogares de tránsito aceptan gatos
     public void testFiltrarHogaresQueAceptanGatos() {
-        String res = comunicarApi.obtenerHogares(2, token);
-        Assert.assertEquals(9, RepositorioHogaresDeTransito.getRepositorio().filtrarPorTipoDeAnimal(TipoMascota.GATO).size());
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(30, RepositorioHogaresDeTransito.getRepositorio().filtrarPorTipoDeAnimal(TipoMascota.GATO).size());
     }
 
-    @Test //Se prueba que haya 3/10 (offset 3 ---> rango 21-30) hogares de tránsito que acepten tanto perros como gatos
+    @Test //Se prueba que 18/40 hogares de tránsito aceptan tanto perros como gatos
     public void testFiltrarHogaresQueAceptanTantoPerrosComoGatos() {
-        String res = comunicarApi.obtenerHogares(3, token);
-        Assert.assertEquals(3, RepositorioHogaresDeTransito.getRepositorio().filtrarPorAmbosTipoDeAnimal().size());
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(18, RepositorioHogaresDeTransito.getRepositorio().filtrarPorAmbosTipoDeAnimal().size());
     }
 
 
 
-    @Test //Se prueba que haya 6/10 (offset 4 ---> rango 31-40) hogares de tránsito que tengan patio
+    @Test //Se prueba que 25/40 hogares de tránsito tienen patio
     public void testFiltrarHogaresQueTienenPatio() {
-        String res = comunicarApi.obtenerHogares(4, token);
-        Assert.assertEquals(6, RepositorioHogaresDeTransito.getRepositorio().filtrarPorPatio().size());
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(26, RepositorioHogaresDeTransito.getRepositorio().filtrarPorPatio().size());
     }
 
 
 
-    @Test //Se prueba que haya 10/10 (offset 1 ---> rango 1-10) hogares de tránsito que tienen lugares disponibles
+    @Test //Se prueba que 40/40 hogares de tránsito tienen disponibilidad (lugares disponibles) para poder aceptar mascotas
     public void testFiltrarHogaresQueTienenLugaresDisponibles() {
-        String res = comunicarApi.obtenerHogares(1, token);
-        Assert.assertEquals(10, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDisponibilidad().size());
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        Assert.assertEquals(40, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDisponibilidad().size());
     }
 
 
 
-    @Test //Se prueba que haya 7/10 (offset 1 ---> rango 1-10) hogares de tránsito que no tengan ninguna característica
+    @Test //Se prueba que 28/40 hogares de tránsito no tienen ninguna característica en particular
     public void testFiltrarHogaresQueNoTienenNingunaCaracterística() {
-        String res = comunicarApi.obtenerHogares(1, token);
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         List<String> caracteristicas = new ArrayList<>();
-        Assert.assertEquals(7, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
+        Assert.assertEquals(28, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
     }
 
-    @Test //Se prueba que haya 3/10 (offset 2 ---> rango 11-20) hogares de tránsito que tengan como característica a "manso"
+    @Test //Se prueba que 9/40 hogares de tránsito tienen "manso" como característica
     public void testFiltrarHogaresQueTenganComoCaracteristicaManso() {
-        String res = comunicarApi.obtenerHogares(2, token);
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         List<String> caracteristicas = new ArrayList<>();
         caracteristicas.add("Manso");
-        Assert.assertEquals(3, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
+        Assert.assertEquals(9, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
     }
 
-    @Test //Se prueba que haya 2/10 (offset 2 ---> rango 11-20) hogares de tránsito que tengan como características a "delgado" y a "amistoso"
-    public void testFiltrarHogaresQueTenganComoCaracteristicasDelgadoYAmistoso() {
-        String res = comunicarApi.obtenerHogares(2, token);
+    @Test //Se prueba que 7/40 hogares de tránsito tienen "manso" y "amistoso" como características
+    public void testFiltrarHogaresQueTenganComoCaracteristicaDelgadoYAmistoso() {
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         List<String> caracteristicas = new ArrayList<>();
         caracteristicas.add("Delgado");
         caracteristicas.add("Amistoso");
-        Assert.assertEquals(2, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
+        Assert.assertEquals(7, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
     }
 
 
-    @Test   //Se prueba el radio de cercanía desde un mismo hogar de tránsito (el de id=34, de Río Gallegos, Santa Cruz)
-            // cuyas coordenadas son:   lat    -51.622855315759274
-            //                          long   -69.21685055962318
-    public void testFiltrarPorRadioDeCercania() {
-        //TODO --> REVISAR --> la longitud no coincide con la clave/key del JSON
-        String res = comunicarApi.obtenerHogares(4, token);
-        double la = -51.622855315759274;
-        double lo = -69.21685055962318;
-        double rad = 500;
+
+    @Test   //Se prueba que hay un único hogar de tránsito que está a menos de 1 metro del punto indicado
+    public void testFiltrarPorRadioDeCercania1m() {
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        double la = -51.622855315759274;    // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double lo = -69.21685055962318;     // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double rad = 0.001;                 // rad está en kilómetros ----> 0.001 kilómetros = 1 metro
         Assert.assertEquals(1, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(la, lo, rad).size());
-
     }
 
-    @Test
+    @Test   //Se prueba que hay un único hogar de tránsito que está a menos de 1000 kilómetros desde el punto indicado (este hogar de tránsito está muuuuy lejos del resto de los hogares)
+    public void testFiltrarPorRadioDeCercania1000km() {
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        double la = -51.622855315759274;    // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double lo = -69.21685055962318;     // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double rad = 1000;                 // rad está en kilómetros ----> 0.001 kilómetros = 1 metro
+        Assert.assertEquals(1, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(la, lo, rad).size());
+    }
+
+
+
+    @Test   //Se prueba se traen todos los hogares de tránsito (son 40 en total)
     public void actualizarRepositorioHogaresDeTransitoTest(){
-        comunicarApi.actualizarRepositorioHogaresDeTransito();
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         Assert.assertEquals(40,RepositorioHogaresDeTransito.getRepositorio().getHogares().size());
     }
 }

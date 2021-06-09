@@ -2,7 +2,6 @@ package dds.servicios.apiHogares;
 
 import com.google.gson.Gson;
 import dds.db.RepositorioHogaresDeTransito;
-import dds.db.RepositorioPersonas;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -10,15 +9,14 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 
-public class ComunicarApi {
+public class ServicioHogarDeTransito {
 
 
-    private static ComunicarApi comunicarApi = new ComunicarApi() ;
+    private static ServicioHogarDeTransito servicioHogarDeTransito = new ServicioHogarDeTransito() ;
 
-    public static ComunicarApi getInstance() {return comunicarApi;}
+    public static ServicioHogarDeTransito getInstance() {return servicioHogarDeTransito;}
 
     private final String TOKEN = "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
 

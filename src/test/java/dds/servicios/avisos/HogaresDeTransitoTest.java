@@ -1,7 +1,7 @@
 package dds.servicios.avisos;
 
 import dds.db.RepositorioHogaresDeTransito;
-import dds.servicios.apiHogares.ComunicarApi;
+import dds.servicios.apiHogares.ServicioHogarDeTransito;
 import dds.servicios.apiHogares.HogarDeTransito;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,13 +14,13 @@ public class HogaresDeTransitoTest {
         String token= "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
 
         RepositorioHogaresDeTransito repositorioHogaresDeTransito;
-        ComunicarApi comunicarApi = new ComunicarApi();
+        ServicioHogarDeTransito servicioHogarDeTransito = new ServicioHogarDeTransito();
 
 
         @Test
         public void usuarioYaIngresadoTest(){
             String res;
-            res = comunicarApi.RegistrarEmail(mail);
+            res = servicioHogarDeTransito.RegistrarEmail(mail);
             Assert.assertEquals("UsuarioYaIngresado",res);
         }
 
@@ -29,14 +29,14 @@ public class HogaresDeTransitoTest {
         public void mailMalIngresadoTest(){
             String res;
             String mail = "gabi@example.com";
-            res = comunicarApi.RegistrarEmail(mail);
+            res = servicioHogarDeTransito.RegistrarEmail(mail);
             Assert.assertEquals("MailInvalido",res);
         }
 
         @Test
         public void usuarioNoAutorizadoTest(){
             String res;
-            res = comunicarApi.obtenerHogares(2,"token");
+            res = servicioHogarDeTransito.obtenerHogares(2,"token");
             Assert.assertEquals("Unauthenticated.",res);
         }
 
@@ -45,7 +45,7 @@ public class HogaresDeTransitoTest {
             String res;
             String nombreHogar;
 
-            res = comunicarApi.obtenerHogares(1,token);
+            res = servicioHogarDeTransito.obtenerHogares(1,token);
             nombreHogar = repositorioHogaresDeTransito.getRepositorio().getHogares().get(0).getNombre();
             Assert.assertEquals("Pensionado de mascotas \"Como en casa\"",nombreHogar);
         }
@@ -54,7 +54,7 @@ public class HogaresDeTransitoTest {
         public void calcularDistanciaTest(){
             String res;
             List<HogarDeTransito> hogarDeTransitos = new ArrayList<>();
-            res = comunicarApi.obtenerHogares(1,token);
+            res = servicioHogarDeTransito.obtenerHogares(1,token);
             hogarDeTransitos =  repositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(-34.42061525423029,-58.572775488348505,10);
 
         }
