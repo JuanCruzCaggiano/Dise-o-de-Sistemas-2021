@@ -17,9 +17,8 @@ import java.util.HashMap;
 
 public class ConfiguracionesTest extends TestCase {
 
-    String fotoAModif = "imgprueba.jpeg";
+    String fotoAModif = "imgprueba.jpg";
     String fotoModif = "recorte.jpg";
-    Configuraciones configFoto= new Configuraciones();
     Asociacion asoc;
     Mascota mascota;
     @Before
@@ -38,20 +37,20 @@ public class ConfiguracionesTest extends TestCase {
 
 
     @Test
-    public void testFoto() throws IOException {
-        configFoto.cambiarTamanio(fotoAModif,fotoModif);
+    public void testFoto() {
+        asoc.getConfiguraciones().cambiarTamanio(fotoAModif,fotoModif);
     }
     @Test
-    public void testAgregarCaracteristica() throws IOException {
+    public void testAgregarCaracteristica() {
         Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().getKeys().size());
     }
     @Test
-    public void testEliminarCaracteristica() throws IOException {
+    public void testEliminarCaracteristica() {
         RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().eliminarCaracteristicas("Color de Pelo");
         Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().getKeys().size());
     }
     @Test
-    public void testAgregarCaracteristicaAMascota() throws IOException {
+    public void testAgregarCaracteristicaAMascota() {
         mascota.agregarCaracteristica("Color De Pelo","Negro y Marron");
         mascota.agregarCaracteristica("Tamaño","Grande");
         //System.out.println (mascota.getCaracteristica().keySet ()); //trae solo keys y el de abajo solo values
@@ -59,7 +58,7 @@ public class ConfiguracionesTest extends TestCase {
         System.out.println (mascota.getCaracteristica());
     }
     @Test
-    public void testEliminarCaracteristicaAMascota() throws IOException {
+    public void testEliminarCaracteristicaAMascota() {
         mascota.agregarCaracteristica("Color De Pelo","Negro y Marron");
         mascota.agregarCaracteristica("Tamaño","Grande");
         System.out.println (mascota.getCaracteristica());
