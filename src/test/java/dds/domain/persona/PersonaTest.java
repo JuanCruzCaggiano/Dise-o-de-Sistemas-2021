@@ -12,10 +12,7 @@ import dds.domain.persona.roles.Duenio;
 import dds.domain.persona.roles.Rescatista;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.roles.Voluntario;
-import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
-import dds.domain.persona.transaccion.RechazarPublicacion;
-import dds.domain.persona.transaccion.RegistrarMascota;
-import dds.domain.persona.transaccion.ValidarPublicacion;
+import dds.domain.persona.transaccion.*;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.*;
 import dds.servicios.publicaciones.PublicacionMascota;
@@ -149,4 +146,8 @@ public class PersonaTest {
         personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));
     }
 
+    @Test
+    public void testBuscarHogarDeTransito(){
+        personaRescat.ejecutarTransaccion(new BuscarHogarDeTransito(-51.622855315759274,-69.21685055962318,500));
+    }
 }
