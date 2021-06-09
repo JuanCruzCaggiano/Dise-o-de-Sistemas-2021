@@ -2,6 +2,7 @@ package dds.servicios.apiHogares;
 
 import com.google.gson.Gson;
 import dds.db.RepositorioHogaresDeTransito;
+import dds.db.RepositorioPersonas;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -13,12 +14,18 @@ import java.util.List;
 
 
 public class ComunicarApi {
+
+
+    private static ComunicarApi comunicarApi = new ComunicarApi() ;
+
+    public static ComunicarApi getInstance() {return comunicarApi;}
+
     private final String TOKEN = "vZ1FyLA96SztFwBa0EyApB9qS5EGqfcsyQDzaNxPi8OZJXA1GqqixFx3XRYM";
-    RepositorioHogaresDeTransito repositorioHogaresDeTransito;
+
 
     public String RegistrarEmail(String mail) {
         //Esta variable res la usaremos únicamente para dar un respuesta final
-        String token = "";
+        String token;
         String URL = "https://api.refugiosdds.com.ar/api/";
         String email = mail;
 
@@ -77,7 +84,7 @@ public class ComunicarApi {
 
     public String obtenerHogares(int offset, String token) {
         //Esta variable res la usaremos únicamente para dar un respuesta final
-        String res = "";
+        String res;
         String URL = "https://api.refugiosdds.com.ar/api/";
         Mensaje msj;
         RespuestaApiHogares respuestaApiHogares;
@@ -108,7 +115,7 @@ public class ComunicarApi {
             switch (get.getStatus()) {
                 case 200:
                     respuestaApiHogares = gson.fromJson(responseJson, RespuestaApiHogares.class);
-                    repositorioHogaresDeTransito.getRepositorio().getHogares().addAll(respuestaApiHogares.getHogares());
+                    RepositorioHogaresDeTransito.getRepositorio().getHogares().addAll(respuestaApiHogares.getHogares());
 
                     res=" ";
                     break;
@@ -139,7 +146,7 @@ public class ComunicarApi {
         int i = 1;
         String res = this.obtenerHogares(i,TOKEN);
 
-        while(res!= "Ha superado el limite de paginas"){
+        while(!res.equals("Ha superado el limite de paginas")){
             i++;
             res = this.obtenerHogares(i,TOKEN);
         }
