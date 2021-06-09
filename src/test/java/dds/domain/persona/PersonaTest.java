@@ -39,14 +39,10 @@ public class PersonaTest {
         RepositorioHogaresDeTransito.getRepositorio().getHogares().clear();
 
 
-
+        //CREO ASOC
         asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
         asoc.setIdAsociacion("ASOC1");
-
-
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
-
-        RepositorioPersonas.getRepositorio().getPersonas().clear();
 
         //CREO DUENIO
 
