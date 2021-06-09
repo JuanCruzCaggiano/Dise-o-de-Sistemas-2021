@@ -1,5 +1,77 @@
 package dds.domain.asociacion;
 
+
+
+import dds.db.RepositorioAsociaciones;
+import dds.servicios.publicaciones.Publicador;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Asociacion {
-    //TODO
+
+    private String idAsociacion;
+    private String nombre;
+    private String direccion;
+    private String localidad;
+    private String provincia;
+    private String pais;
+    private String codPostal;
+    private Publicador publicador;
+    private Configuraciones configuraciones;
+
+    public Asociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.pais = pais;
+        this.codPostal = codPostal;
+        this.publicador = new Publicador();
+        this.configuraciones = new Configuraciones();
+    }
+
+    public Configuraciones getConfiguraciones() {
+        return configuraciones;
+    }
+
+    public void setIdAsociacion(String idAsociacion) {
+        this.idAsociacion = idAsociacion;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public void setCodPostal(String codPostal) {
+        this.codPostal = codPostal;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getIdAsociacion() {
+        return idAsociacion;
+    }
+
+    public Publicador getPublicador() {
+        return publicador;
+    }
 }

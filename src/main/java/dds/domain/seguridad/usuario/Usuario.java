@@ -1,6 +1,7 @@
 package dds.domain.seguridad.usuario;
 
 import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
 import dds.servicios.HashHelper;
 
@@ -13,7 +14,6 @@ import java.util.List;
 import java.security.*;
 
 public class Usuario {
-
     private String userName;
     private String password;
     private LocalDateTime lastPasswordDT;
@@ -25,10 +25,14 @@ public class Usuario {
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{
         this.userName = userName;
         ValidadorPassword.getValidadorPassword().validarPassword(password,this);
+        this.lastPasswordDT = LocalDateTime.now(ZoneOffset.UTC);
+        this.isBlocked = false;
+        this.intentosFallidos= 0;
         this.password = HashHelper.getHashHelper().passwordAMD5(password);
         this.usedPasswords.add(this.password);
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
     }
+
 
     public String getUserName() {
         return userName;
@@ -68,7 +72,7 @@ public class Usuario {
     public void desbloquear() {
         isBlocked = false;
     }
-    public boolean getIsBlocked() {
+    public boolean estaBloqueado() {
         return isBlocked;
     }
 
@@ -92,5 +96,17 @@ public class Usuario {
     }
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
+    }
+
+    public Persona getPersona() {
+        return null;
+    }
+
+    public Asociacion getAsociacion() {
+        return asociacion;
+    }
+
+    public void setAsociacion(Asociacion asociacion) {
+        this.asociacion = asociacion;
     }
 }
