@@ -29,9 +29,13 @@ public class Configuraciones {
         this.altoFoto = altoFoto;
     }
 
-    public void cambiarTamanio(String archivoFoto, String rutaGuardado) throws  IOException{
+    public void cambiarTamanio(String archivoFoto, String rutaGuardado) {
         Imagen foto = new Imagen();
-        ImageIO.write(foto.redimensionar(archivoFoto,altoFoto,anchoFoto),"jpg",new File(rutaGuardado));
+        try {
+            ImageIO.write(foto.redimensionar(archivoFoto,altoFoto,anchoFoto),"jpg",new File(rutaGuardado));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     ////MASCOTAS
