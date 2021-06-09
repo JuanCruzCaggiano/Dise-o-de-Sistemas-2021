@@ -1,10 +1,10 @@
 package dds.domain.mascota;
 
-import dds.domain.asociacion.ConfigCaracMascota;
-
+import java.util.HashMap;
 import java.util.List;
 
 public class Mascota {
+    private String idAsociacion;
     private String idMascota;
     private TipoMascota tipo;
     private String nombre;
@@ -12,10 +12,11 @@ public class Mascota {
     private Integer edad;
     private String descripcion;
     private List<String> listaFotos;
-    private List<ConfigCaracMascota> caracteristica;
+    //private List<ConfigCaracMascota> caracteristica;
+    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
     private Boolean estaPerdida = false;
 
-    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, List<ConfigCaracMascota> caracteristica) {
+    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
@@ -26,6 +27,16 @@ public class Mascota {
 
     }
 
+    public HashMap<String, Object> getCaracteristica() {
+        return caracteristica;
+    }
+
+    public void agregarCaracteristica(String key, String value){
+        caracteristica.put(key,value);
+    }
+    public void eliminarCaracteristica(String key){
+        caracteristica.remove(key);
+    }
 
     public void setIdMascota(String idMascota) {
         this.idMascota = idMascota;

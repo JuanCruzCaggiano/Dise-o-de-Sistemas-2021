@@ -11,11 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.mail.MessagingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
 public class NotificadorTest extends TestCase {
-    Notificador noti= new Notificador();;
+    Notificador noti= new Notificador();
     AdapterSMS testeoSMS = new AdapterSMS();
     AdapterWhatsApp testeoWPP = new AdapterWhatsApp();
     AdapterEmail testeoEmail = new AdapterEmail();
@@ -26,9 +27,9 @@ public class NotificadorTest extends TestCase {
     @Before
     public void setUp() {
         Duenio duenio = new Duenio();
-        Mascota perro = new Mascota(TipoMascota.PERRO, "nombrePerro", "apodoPerro", 5, "Pelo largo", new ArrayList<>(), new ArrayList<>());
+        Mascota perro = new Mascota(TipoMascota.PERRO, "nombrePerro", "apodoPerro", 5, "Pelo largo", new ArrayList<>(), new HashMap<>());
         perro.setIdMascota("perro1");
-        Mascota gato = new Mascota(TipoMascota.GATO, "nombreGato", "apodoGato", 8, "Siames", new ArrayList<>(), new ArrayList<>());
+        Mascota gato = new Mascota(TipoMascota.GATO, "nombreGato", "apodoGato", 8, "Siames", new ArrayList<>(), new HashMap <>());
         gato.setIdMascota("gato1");
         perro.setEstaPerdida(true);
         List<Mascota> mascotas = new ArrayList<>();

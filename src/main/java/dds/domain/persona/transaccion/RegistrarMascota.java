@@ -1,12 +1,10 @@
 package dds.domain.persona.transaccion;
 
-import dds.domain.asociacion.ConfigCaracMascota;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 
-import javax.mail.MessagingException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class RegistrarMascota implements Transaccion {
@@ -18,12 +16,12 @@ public class RegistrarMascota implements Transaccion {
     private Integer edad;
     private String descripcion;
     private List<String> listaFotos;
-    private List<ConfigCaracMascota> caracteristica;
+    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
 
     public RegistrarMascota() {
     }
 
-    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, List<ConfigCaracMascota> caracteristica) {
+    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap<String, Object> caracteristica) {
         this.dueño = dueño;
         this.tipo = tipo;
         this.nombre = nombre;

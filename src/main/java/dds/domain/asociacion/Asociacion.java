@@ -1,6 +1,7 @@
 package dds.domain.asociacion;
 
 
+
 import dds.db.RepositorioAsociaciones;
 import dds.servicios.publicaciones.Publicador;
 
@@ -16,8 +17,8 @@ public class Asociacion {
     private String provincia;
     private String pais;
     private String codPostal;
-    private List<Configuracion> configuraciones = new ArrayList<>();
     private Publicador publicador;
+    private Configuraciones configuraciones;
 
     public Asociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal) {
         this.nombre = nombre;
@@ -26,7 +27,12 @@ public class Asociacion {
         this.provincia = provincia;
         this.pais = pais;
         this.codPostal = codPostal;
-        publicador = new Publicador();
+        this.publicador = new Publicador();
+        this.configuraciones = new Configuraciones();
+    }
+
+    public Configuraciones getConfiguraciones() {
+        return configuraciones;
     }
 
     public void setIdAsociacion(String idAsociacion) {

@@ -4,14 +4,10 @@ import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
-import dds.domain.asociacion.ConfigCaracMascota;
-import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionMascota;
 
-import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EncontreMascotaPerdidaConChapita implements Transaccion{
     final  int idTransaccion = 4;

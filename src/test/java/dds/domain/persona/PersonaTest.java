@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PersonaTest {
@@ -47,9 +48,9 @@ public class PersonaTest {
         //CREO DUENIO
 
         Duenio duenio = new Duenio();
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new ArrayList<>());
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
         perro.setIdMascota("perro1");
-        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",8,"Siames",new ArrayList<>(),new ArrayList<>());
+        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",8,"Siames",new ArrayList<>(),new HashMap<>());
         gato.setIdMascota("gato1");
         perro.setEstaPerdida(true);
         mascotas.add(perro);
@@ -101,7 +102,7 @@ public class PersonaTest {
     @Test
     public void testRegistrarMascota(){
         int size = persona.getMascotas().size();
-        persona.ejecutarTransaccion(new RegistrarMascota(persona,TipoMascota.PERRO,"nuevoPerro","nuevoPerro",8,"Pelo corto",new ArrayList<>(),new ArrayList<>()));
+        persona.ejecutarTransaccion(new RegistrarMascota(persona,TipoMascota.PERRO,"nuevoPerro","nuevoPerro",8,"Pelo corto",new ArrayList<>(),new HashMap<>()));
         Assert.assertEquals(size+1,persona.getMascotas().size());
     }
 
