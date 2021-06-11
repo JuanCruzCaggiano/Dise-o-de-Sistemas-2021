@@ -56,7 +56,7 @@ public class AdministradorTest {
 
     @Test
     public void testModificarTamanioFotos() {
-        admin.modificarTamanioFotos(1100,850);
+        admin.modificarTamanioFotos(1500,500);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
     }
 

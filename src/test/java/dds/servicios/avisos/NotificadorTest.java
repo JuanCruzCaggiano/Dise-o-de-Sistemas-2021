@@ -54,20 +54,19 @@ public class NotificadorTest extends TestCase {
         formasDeNoti.add(testeoSMS);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
-        noti.notificar("probando multiple mensaje");
+        noti.notificar("perro1");
     }
     @Test
     public void testNotificarWPP() throws MessagingException {
         formasDeNoti.add(testeoWPP);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
-        noti.notificar("probando wpp");
+        noti.notificar("perro1");
     }
 */
 
-
     @Test
-    public void testNotificarEmail() throws MessagingException {
+    public void testNotificarEmail(){
         noti.notificar("perro1");
     }
 }
