@@ -20,7 +20,7 @@ public class RepositorioHogaresDeTransitoTest {
     ServicioHogarDeTransito servicioHogarDeTransito = new ServicioHogarDeTransito();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RepositorioHogaresDeTransito.getRepositorio().getHogares().clear(); //arranca con la lista de hogares limpia
 
 
@@ -65,7 +65,7 @@ public class RepositorioHogaresDeTransitoTest {
 
 
     @Test //Se prueba que 28/40 hogares de tránsito no tienen ninguna característica en particular
-    public void testFiltrarHogaresQueNoTienenNingunaCaracterística() {
+    public void testFiltrarHogaresQueNoTienenNingunaCaracteristica() {
         servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         List<String> caracteristicas = new ArrayList<>();
         Assert.assertEquals(28, RepositorioHogaresDeTransito.getRepositorio().filtrarPorCaracteristica(caracteristicas).size());
@@ -106,6 +106,15 @@ public class RepositorioHogaresDeTransitoTest {
         double lo = -69.21685055962318;     // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
         double rad = 1000;                 // rad está en kilómetros ----> 0.001 kilómetros = 1 metro
         Assert.assertEquals(1, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(la, lo, rad).size());
+    }
+
+    @Test   //Se prueba que hay un único hogar de tránsito que está a menos de 1000 kilómetros desde el punto indicado (este hogar de tránsito está muuuuy lejos del resto de los hogares)
+    public void testFiltrarPorRadioDeCercania1000000km() {
+        servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
+        double la = -51.622855315759274;    // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double lo = -69.21685055962318;     // Dato del hogar de tránsito ubicado en Río Gallegos, Santa Cruz (id=34)
+        double rad = 1000000;                 // rad está en kilómetros ----> 0.001 kilómetros = 1 metro
+        Assert.assertEquals(40, RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(la, lo, rad).size());
     }
 
 
