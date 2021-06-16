@@ -1,12 +1,9 @@
 package dds.domain.asociacion;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Configuraciones {
     private Integer anchoFoto;
@@ -32,7 +29,7 @@ public class Configuraciones {
     public void cambiarTamanio(String archivoFoto, String rutaGuardado) {
         Imagen foto = new Imagen();
         try {
-            ImageIO.write(foto.redimensionar(archivoFoto,altoFoto,anchoFoto),"jpg",new File(rutaGuardado));
+            ImageIO.write(foto.redimensionar(archivoFoto, anchoFoto, altoFoto),"jpg",new File(rutaGuardado));
         } catch (IOException e) {
             e.printStackTrace();
         }
