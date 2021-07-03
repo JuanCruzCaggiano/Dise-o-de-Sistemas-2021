@@ -42,7 +42,7 @@ public class PersonaTest {
 
 
         //CREO ASOC
-        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
+        asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
@@ -112,14 +112,21 @@ public class PersonaTest {
         personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
 
     }
+    @Test
+    public void testEncontreMascotaPerdidaSinChapita(){
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
+    }
+
 
     @Test
     public void testValidarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
-        publicacionMascota.setIdPublicacion("Publi1");
-        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
         Assert.assertTrue(asoc.getPublicador().tienePublicacionAprobada("Publi1"));
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesAprobadas().size());
     }
 
 
