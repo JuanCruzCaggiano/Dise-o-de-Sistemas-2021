@@ -31,7 +31,7 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     public void ejecutar()  {
         PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
-
+        asoc.getPublicador().agregarPublicacionPendiente(publi);
     }
 
     @Override
