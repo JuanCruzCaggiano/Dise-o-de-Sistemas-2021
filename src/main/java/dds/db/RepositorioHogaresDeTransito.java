@@ -2,6 +2,7 @@ package dds.db;
 
 import dds.domain.mascota.TipoMascota;
 import dds.servicios.apiHogares.HogarDeTransito;
+import dds.servicios.helpers.CalcDistanciaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,29 +69,12 @@ public class RepositorioHogaresDeTransito {
     public List<HogarDeTransito> filtrarPorDistancia(double latitudComparar, double longitudComparar, double radiocercania){
         return this.hogares.
                 stream().
-                filter(p -> (distanciaCoord(p.getUbicacion().getLat(), p.getUbicacion().getLongitud(), latitudComparar, longitudComparar) <= radiocercania)).
+                filter(p -> (CalcDistanciaHelper.getHelper().distanciaCoord(p.getUbicacion().getLat(), p.getUbicacion().getLongitud(), latitudComparar, longitudComparar) <= radiocercania)).
                 collect(Collectors.toList());
     }
 
 
 
-    //calculo de distancia
-    public static double distanciaCoord(float lat, float lng, double lat2, double lng2) {
-        double lat1 = lat;
-        double lng1 = lng;
-        //double radioTierra = 6371000;//probar en metros tambien
-        double radioTierra = 6371;//en kilómetros
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
-        double sindLat = Math.sin(dLat / 2);
-        double sindLng = Math.sin(dLng / 2);
-        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
-                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
-        double distancia = radioTierra * va2;
-
-        return distancia;
-    }
 
 }
 
