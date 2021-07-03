@@ -2,13 +2,11 @@ package dds.domain.seguridad.validador;
 
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.EasyPasswordException;
-import dds.servicios.HashHelper;
+import dds.servicios.helpers.HashHelper;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
-
-import static org.junit.Assert.*;
 
 public class ValidadorPasswordTest {
 

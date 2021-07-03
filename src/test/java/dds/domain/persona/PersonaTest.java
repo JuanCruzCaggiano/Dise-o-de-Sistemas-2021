@@ -16,6 +16,7 @@ import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.roles.Voluntario;
 import dds.domain.persona.transaccion.*;
 import dds.domain.seguridad.usuario.Standard;
+import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.*;
 import dds.servicios.publicaciones.PublicacionMascota;
 import org.junit.Assert;
@@ -41,7 +42,7 @@ public class PersonaTest {
 
 
         //CREO ASOC
-        asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 

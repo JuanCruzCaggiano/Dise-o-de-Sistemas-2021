@@ -3,6 +3,7 @@ package dds.domain.seguridad.usuario;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
+import dds.servicios.apiHogares.Ubicacion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class AdministradorTest {
         admin = new Administrador("admin","Password123+");
 
         //CREO ASOC
-        asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         admin.setAsociacion(asoc);
         RepositorioUsuarios.getRepositorio().agregarUsuario(admin);

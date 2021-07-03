@@ -5,6 +5,7 @@ import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.usuario.Standard;
+import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.Notificador;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class RepositorioUsuariosTest  {
         persona.getMascotas().add(perro);
         RepositorioPersonas.getRepositorio().getPersonas().add(persona);
         Standard standard = new Standard("UsuarioTest","Password1234+",persona);
-        Asociacion asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        Asociacion asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         standard.setAsociacion(asoc);
 

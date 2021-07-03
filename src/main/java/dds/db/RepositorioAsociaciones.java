@@ -1,12 +1,16 @@
 package dds.db;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.seguridad.usuario.Usuario;
+import dds.servicios.helpers.CalcDistanciaHelper;
 import dds.servicios.publicaciones.Publicador;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class RepositorioAsociaciones {
@@ -42,6 +46,12 @@ public class RepositorioAsociaciones {
 
         return asociacion.getIdAsociacion();
 
+    }
+    public Asociacion getAsociacionMasCercana(double latitud,double longitud){
+        Asociacion asoc ;
+        asoc = RepositorioAsociaciones.getRepositorio().getAsociaciones().stream()
+                .min(Comparator.comparingDouble(a->CalcDistanciaHelper.getHelper().distanciaCoord(a.getUbicacion().getLat(), a.getUbicacion().getLongitud(), latitud, longitud))).orElse(null);
+        return asoc;
     }
 
     public void agregarAsociacion(Asociacion asoc){

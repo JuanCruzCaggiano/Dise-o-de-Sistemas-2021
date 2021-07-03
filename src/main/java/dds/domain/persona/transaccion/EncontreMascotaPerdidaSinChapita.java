@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     final  int idTransaccion = 4;
-    String idMascota;
     float latitud;
     float longitud;
     ArrayList<String> listaFotos;
@@ -21,8 +20,7 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     public EncontreMascotaPerdidaSinChapita(){}
 
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMascotaPerdidaSinChapita(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos, String descripcion) {
-        this.idMascota = idMascota;
+    public EncontreMascotaPerdidaSinChapita(float latitud, float longitud, ArrayList<String> listaFotos, String descripcion) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
@@ -31,7 +29,8 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
 
     @Override
     public void ejecutar()  {
-        //TODO Falta implementar logica
+        PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion);
+        Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
 
     }
 

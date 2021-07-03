@@ -20,6 +20,13 @@ public class PublicacionMascota {
         this.descripcion = descripcion;
     }
 
+    public PublicacionMascota(float latitud, float longitud, List<String> listaFotos, String descripcion) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.listaFotos = listaFotos;
+        this.descripcion = descripcion;
+    }
+
     public void setIdPublicacion(String idPubli) {
         this.idPublicacion = idPubli;
     }

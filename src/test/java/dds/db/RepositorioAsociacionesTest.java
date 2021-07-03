@@ -2,6 +2,7 @@ package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
+import dds.servicios.apiHogares.Ubicacion;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +15,7 @@ public class RepositorioAsociacionesTest {
     @Before
     public void setUp(){
         RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
-        asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
