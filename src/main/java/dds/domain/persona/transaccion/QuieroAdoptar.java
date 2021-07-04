@@ -1,9 +1,9 @@
 package dds.domain.persona.transaccion;
 
-public class Adoptar implements Transaccion {
+public class QuieroAdoptar implements Transaccion {
     final  int idTransaccion = 1;
     //CONSTRUCTOR PARA LISTA DE PERMISOS
-    public Adoptar() {
+    public QuieroAdoptar() {
     }
 
     @Override
