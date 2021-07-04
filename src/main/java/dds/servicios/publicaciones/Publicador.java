@@ -42,9 +42,7 @@ public class Publicador {
     private void eliminarPublicacionPendiente (PublicacionMascota publi){
         publicacionesPendientes.remove(publi);
     }
-    private void agregarPublicacionAprobada (PublicacionMascota publi){
-        publicacionesAprobadas.add(publi);
-    }
+    public void agregarPublicacionAprobada (PublicacionMascota publi){ publicacionesAprobadas.add(publi);}
 
     public boolean tienePublicacionPendiente(String idPublicacion) {
         return this.publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
@@ -71,7 +69,7 @@ public class Publicador {
     public PublicacionMascota getPendienteXId(String id){
         return this.publicacionesPendientes.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
-    public PublicacionMascota getAprobadasXId(String id){
+    public PublicacionMascota getAprobadaXId(String id){
         return this.publicacionesAprobadas.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
 }

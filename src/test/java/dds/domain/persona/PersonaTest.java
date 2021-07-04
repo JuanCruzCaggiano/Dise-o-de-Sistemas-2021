@@ -24,13 +24,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class PersonaTest {
 
-    Persona persona,personaRescat,personaVoluntario;
+    Persona persona,personaRescat,personaVoluntario,personaDuenio;
     List<Mascota> mascotas = new ArrayList<>();
     Asociacion asoc;
     @Before
@@ -77,7 +78,7 @@ public class PersonaTest {
         List<RolPersona> listaRoles2 = new ArrayList<>();
         Rescatista rescatista = new Rescatista();
         listaRoles2.add(rescatista);
-        personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,new Notificador());
+        personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,noti);
         personaRescat.setIdPersona("rescat1");
         Standard usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat);
         usuRescatista.setAsociacion(asoc);
@@ -90,7 +91,7 @@ public class PersonaTest {
         List<RolPersona> listaRoles3 = new ArrayList<>();
         Voluntario voluntario = new Voluntario();
         listaRoles3.add(voluntario);
-        personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,new Notificador());
+        personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,noti);
         personaVoluntario.setIdPersona("voluntario1");
         Standard usuVoluntario = new Standard("UsuarioVoluntario","Password1234+",personaVoluntario);
         usuVoluntario.setAsociacion(asoc);
@@ -98,7 +99,18 @@ public class PersonaTest {
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuVoluntario);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaVoluntario);
 
-    }
+        //CREO DUENIO Nuevo
+        personaDuenio = new Persona("Matias", "Lanneponders",TipoDocumento.DNI,
+                                            39000401,LocalDate.of(1995, 7, 7),
+                                            "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        personaDuenio.setIdPersona("personaDuenio");
+        Standard usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
+        usuDuenio.setAsociacion(asoc);
+        personaDuenio.agregarRol(new Duenio());
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuDuenio);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaDuenio);
+
+        }
 
     @Test
     public void testRegistrarMascota(){
@@ -114,14 +126,21 @@ public class PersonaTest {
     }
     @Test
     public void testEncontreMascotaPerdidaSinChapita(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
         Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
     }
 
+    @Test
+    public void testEncontreMiMascota(){
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
+        personaDuenio.ejecutarTransaccion(new EncontreMiMascota("Publi1","ASOC1","personaDuenio"));
+    }
 
     @Test
     public void testValidarPublicacion(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
         RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
         Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));

@@ -46,6 +46,10 @@ public class Contacto {
         return email;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
     public List<AdapterFormaNotificacion> getFormasNotificacion() {
         return formasNotificacion;
     }

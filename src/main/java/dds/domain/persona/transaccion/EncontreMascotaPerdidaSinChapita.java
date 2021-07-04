@@ -13,6 +13,7 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     final  int idTransaccion = 9;
     float latitud;
     float longitud;
+    String idRescatista;
     ArrayList<String> listaFotos;
     String descripcion;
 
@@ -20,17 +21,19 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     public EncontreMascotaPerdidaSinChapita(){}
 
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMascotaPerdidaSinChapita(float latitud, float longitud, ArrayList<String> listaFotos, String descripcion) {
+    public EncontreMascotaPerdidaSinChapita(float latitud, float longitud, ArrayList<String> listaFotos, String descripcion,String idRescatista) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
+        this.idRescatista =idRescatista;
     }
 
     @Override
     public void ejecutar()  {
         PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
+        publi.setIdRescatista(idRescatista);
         asoc.getPublicador().agregarPublicacionPendiente(publi);
     }
 

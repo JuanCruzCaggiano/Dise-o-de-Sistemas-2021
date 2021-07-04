@@ -34,4 +34,16 @@ public class PublicacionMascota {
     public String getIdPublicacion() {
         return idPublicacion;
     }
+
+    public String getIdRescatista() {
+        return idRescatista;
+    }
+
+    public void setIdHogaresDeTransito(String idHogaresDeTransito) {
+        this.idHogaresDeTransito = idHogaresDeTransito;
+    }
+
+    public void setIdRescatista(String idRescatista) {
+        this.idRescatista = idRescatista;
+    }
 }
