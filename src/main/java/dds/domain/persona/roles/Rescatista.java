@@ -3,7 +3,6 @@ package dds.domain.persona.roles;
 import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.transaccion.BuscarHogarDeTransito;
 import dds.domain.persona.transaccion.EncontreMascotaPerdidaConChapita;
-import dds.domain.persona.transaccion.EncontreMascotaPerdidaSinChapita;
 import dds.domain.persona.transaccion.Transaccion;
 
 import javax.mail.MessagingException;
@@ -16,7 +15,6 @@ public class Rescatista implements RolPersona {
 
     public Rescatista() {
         this.permisos.add(new EncontreMascotaPerdidaConChapita());
-        this.permisos.add(new EncontreMascotaPerdidaSinChapita());
         this.permisos.add(new BuscarHogarDeTransito());
     }
 

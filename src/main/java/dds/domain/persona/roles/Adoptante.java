@@ -1,11 +1,11 @@
 package dds.domain.persona.roles;
 
 import dds.domain.persona.personaException.TransactionException;
-import dds.domain.persona.transaccion.QuieroAdoptar;
-import dds.domain.persona.transaccion.SolicitarAdopcion;
+import dds.domain.persona.transaccion.Adoptar;
 import dds.domain.persona.transaccion.Transaccion;
 import dds.domain.persona.transaccion.DarEnAdopcion;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class Adoptante implements RolPersona {
 
     public Adoptante() {
         this.permisos.add(new DarEnAdopcion());
-        this.permisos.add(new QuieroAdoptar());
-        this.permisos.add(new SolicitarAdopcion());
+        this.permisos.add(new Adoptar());
     }
 
 
