@@ -10,7 +10,7 @@ import dds.servicios.publicaciones.PublicacionMascota;
 import java.util.ArrayList;
 
 public class EncontreMascotaPerdidaSinChapita implements Transaccion{
-    final  int idTransaccion = 4;
+    final  int idTransaccion = 9;
     float latitud;
     float longitud;
     ArrayList<String> listaFotos;
