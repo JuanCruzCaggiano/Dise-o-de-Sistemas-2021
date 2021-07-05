@@ -121,7 +121,7 @@ public class PersonaTest {
 
     @Test
     public void testEncontreMascotaPerdidaConChapita(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","recat1"));
 
     }
     @Test
@@ -152,7 +152,7 @@ public class PersonaTest {
     //Intento validar publicacion con rescatista
     @Test (expected = TransactionException.class)
     public void testValidarPublicacionErrorPermisos(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaRescat.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
@@ -160,7 +160,7 @@ public class PersonaTest {
 
     @Test
     public void testRechazarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));

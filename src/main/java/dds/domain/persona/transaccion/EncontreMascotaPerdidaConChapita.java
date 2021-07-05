@@ -16,27 +16,29 @@ public class EncontreMascotaPerdidaConChapita implements Transaccion{
     float longitud;
     ArrayList<String> listaFotos;
     String descripcion;
+    String idRescatista;
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public EncontreMascotaPerdidaConChapita(){}
 
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMascotaPerdidaConChapita(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos, String descripcion) {
+    public EncontreMascotaPerdidaConChapita(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos, String descripcion,String idRescatista) {
         this.idMascota = idMascota;
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
+        this.idRescatista = idRescatista;
     }
 
     @Override
     public void ejecutar()  {
-        PublicacionMascota publi = new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion);
+        PublicacionMascota publi = new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion,idRescatista);
         String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         asoc.getPublicador().agregarPublicacionPrivada(publi);
-        Persona dueño = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
-        dueño.getNotificador().notificar(idMascota);
+        Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
+        duenio.getNotificador().notificar(idMascota);
 
     }
 
