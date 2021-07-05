@@ -15,6 +15,19 @@ public class Publicador {
 
     public Publicador(){}
 
+    public void agregarPublicacionQuieroAdoptar(PublicacionQuieroAdoptar publi){
+        publicacionesQuieroAdoptar.add(publi);
+
+    }
+
+    public List<PublicacionQuieroAdoptar> getPublicacionesQuieroAdoptar() {
+        return publicacionesQuieroAdoptar;
+    }
+
+    public void eliminarPublicacionQuieroAdoptar(String idPublicacionQuieroAdoptar){
+        //TODO
+    }
+
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
         //publicacionesPendientes.contains(publi);
         if (publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(publi.idPublicacion))){
