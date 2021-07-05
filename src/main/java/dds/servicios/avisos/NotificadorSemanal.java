@@ -10,14 +10,14 @@ import java.util.concurrent.TimeUnit;
 public class NotificadorSemanal {
 
     public void notificar(){
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable task2 = () -> System.out.println("Notificando...");
 
-    }
-    public static void task1() {
-        System.out.println("Running task1...");
-    }
+        //dejamos en 5 segundos para realizar pruebas
+        ScheduledFuture<?> result = ses.scheduleAtFixedRate(task2,0,5,TimeUnit.SECONDS);
+        //ScheduledFuture<?> result = ses.scheduleAtFixedRate(task2,0,7,TimeUnit.DAYS);
+        //ses.shutdown(); --tener en cuenta que se utiliza para finalizar el periodo...
 
-    public static void task3() {
-        System.out.println("Running task3...");
     }
 
 }
