@@ -3,6 +3,7 @@ package dds.servicios.publicaciones;
 import java.util.HashMap;
 
 public class PublicacionQuieroAdoptar {
+
     private String idPublicacion;
     private String idAdoptante;
     private HashMap<String, Object> preguntas = new HashMap <String, Object> ();
@@ -12,6 +13,8 @@ public class PublicacionQuieroAdoptar {
         this.idAdoptante = idAdoptante;
         this.preguntas = preguntas;
     }
+
+
 
     public HashMap<String, Object> getPreguntas() {
         return preguntas;

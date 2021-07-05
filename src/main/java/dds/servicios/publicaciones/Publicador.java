@@ -11,6 +11,7 @@ public class Publicador {
     private List<PublicacionMascota> publicacionesPendientes= new ArrayList<>();
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
     private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
+    private List<PublicacionAdopcion> enAdopcion= new ArrayList<>();
 
 
     public Publicador(){}
@@ -18,6 +19,15 @@ public class Publicador {
     public void agregarPublicacionQuieroAdoptar(PublicacionQuieroAdoptar publi){
         publicacionesQuieroAdoptar.add(publi);
 
+    }
+
+    public void agregarPublicacionMascotaEnAdopcion(PublicacionAdopcion publi){
+        enAdopcion.add(publi);
+
+    }
+
+    public List<PublicacionAdopcion> getEnAdopcion() {
+        return enAdopcion;
     }
 
     public List<PublicacionQuieroAdoptar> getPublicacionesQuieroAdoptar() {
