@@ -8,6 +8,7 @@ public class AdapterEmail implements AdapterFormaNotificacion{
 
     @Override
     public void notificar(String mensaje,Contacto contacto) {
+        mensaje = mensaje.replaceAll("\\n","<br/>");
         sendAsHtml(contacto.getEmail(),
                 "Rescate de patitas",
                 "<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");

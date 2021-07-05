@@ -27,7 +27,6 @@ public class Persona {
         this.mascotas = mascotas;
         this.listaRoles = listaRoles;
         this.notificador = notificador;
-        this.listaRoles = new ArrayList<>();
         notificador.getSuscriptores().get(0).setNombre(nombre);
         notificador.getSuscriptores().get(0).setApellido(apellido);
     }
