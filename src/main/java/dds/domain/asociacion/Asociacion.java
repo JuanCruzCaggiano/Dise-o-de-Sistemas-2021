@@ -7,6 +7,7 @@ import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.Publicador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Asociacion {
@@ -51,4 +52,5 @@ public class Asociacion {
     public Ubicacion getUbicacion() {
         return ubicacion;
     }
+
 }
