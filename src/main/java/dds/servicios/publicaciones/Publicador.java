@@ -10,7 +10,7 @@ public class Publicador {
     private List<PublicacionMascota> publicacionesAprobadas= new ArrayList<>();
     private List<PublicacionMascota> publicacionesPendientes= new ArrayList<>();
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
-    private List<PublicacionMascota> publicacionesQuieroAdoptar= new ArrayList<>();
+    private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
 
 
     public Publicador(){}

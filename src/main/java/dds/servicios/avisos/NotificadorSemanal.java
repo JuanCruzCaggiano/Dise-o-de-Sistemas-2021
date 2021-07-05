@@ -7,8 +7,11 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 
-public class NotificadorTemporal {
+public class NotificadorSemanal {
 
+    public void notificar(){
+
+    }
     public static void task1() {
         System.out.println("Running task1...");
     }
