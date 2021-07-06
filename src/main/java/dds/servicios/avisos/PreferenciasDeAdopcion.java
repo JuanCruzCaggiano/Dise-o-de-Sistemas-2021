@@ -1,16 +1,15 @@
 package dds.servicios.avisos;
 
+import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
-import dds.db.RepositorioAsociaciones;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PreferenciasDeAdopcion {
@@ -43,27 +42,25 @@ public class PreferenciasDeAdopcion {
         return asociacion.getConfiguraciones().getPreguntas();
     }
 
-    public int obtenerCantidadDeCoincidencia(int coincidenciasMinima, PublicacionQuieroAdoptar publicacionQuieroAdoptarseAux, List<PublicacionAdopcion> publicacionAdopcionesAux) {
+    public List<PublicacionAdopcion> obtenerPublicacionesConCoincidenciaSegunAdoptante(int coincidenciasMinima, PublicacionQuieroAdoptar publicacionQuieroAdoptarAux, List<PublicacionAdopcion> publicacionAdopcionesAux) {
         int cantidad = 0;
         String valor = "";
         HashMap<String, Object> preguntasPosibleAdoptante = new HashMap<String, Object>();
-        preguntasPosibleAdoptante = publicacionQuieroAdoptarseAux.getPreguntas();
+        preguntasPosibleAdoptante = publicacionQuieroAdoptarAux.getPreguntas();
         List<PublicacionAdopcion> auxPubli = new ArrayList<>();
-        List<PublicacionAdopcion> iteradorpublicacionAdopciones;
 
         for (String key : preguntasPosibleAdoptante.keySet()) {
             valor = (String) preguntasPosibleAdoptante.get(key);
             if (cantidad <= coincidenciasMinima) {
                 String finalValor = valor;
-                auxPubli = publicacionAdopcionesAux.stream().filter(p -> p.getPreguntas().containsKey(key)).collect(Collectors.toList()).stream().filter(pe-> pe.getPreguntas().containsValue(finalValor)).collect(Collectors.toList());
+                auxPubli = publicacionAdopcionesAux.stream().filter(p -> p.getPreguntas().containsKey(key)).collect(Collectors.toList()).stream().filter(pe -> pe.getPreguntas().containsValue(finalValor)).collect(Collectors.toList());
+            } else {
+                return auxPubli;
             }
             publicacionAdopcionesAux.clear();
             //cargo las nuevas publicaciones para filtrar nuevamente
             publicacionAdopcionesAux.addAll(auxPubli);
-
-
         }
-        return cantidad;
+        return auxPubli;
     }
-
 }
