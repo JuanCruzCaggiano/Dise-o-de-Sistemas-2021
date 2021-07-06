@@ -5,9 +5,11 @@ import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.roles.Adoptante;
 import dds.domain.persona.roles.RolPersona;
+import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 import org.junit.Before;
@@ -30,7 +32,8 @@ public class NotificadorSemanalTest {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
     HashMap<String, Object> preguntas;
-    Persona adoptador;
+    Persona adoptador,duenio;
+    Standard standard;
     List<Mascota> mascotas = new ArrayList<>();
     NotificadorSemanal notificadorSemanal;
 
@@ -56,7 +59,7 @@ public class NotificadorSemanalTest {
 
         asoc = new Asociacion("asoc1",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
-        Standard standard = new Standard("UsuarioTest","Password1234+",duenio);
+        standard = new Standard("UsuarioTest","Password1234+",duenio);
         standard.setAsociacion(asoc);
 
         preguntas = new HashMap<String, Object>();
