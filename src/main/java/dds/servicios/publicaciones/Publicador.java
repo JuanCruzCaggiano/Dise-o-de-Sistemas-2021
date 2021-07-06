@@ -96,4 +96,8 @@ public class Publicador {
     public PublicacionMascota getAprobadaXId(String id){
         return this.publicacionesAprobadas.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
+
+    public PublicacionAdopcion getEnAdopcionXId(String id){
+        return this.enAdopcion.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+    }
 }

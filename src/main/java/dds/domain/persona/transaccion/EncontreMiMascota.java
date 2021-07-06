@@ -13,6 +13,16 @@ public class EncontreMiMascota implements Transaccion {
     String idAsociacion;
     String idDuenio;
 
+    //CONSTRUCTOR PARA LISTA DE PERMISOS
+    public EncontreMiMascota() {
+    }
+    //CONSTRUCTOR PARA REALIZAR TRANSACCION
+    public EncontreMiMascota(String idPublicacion,String idAsociacion,String idDuenio) {
+        this.idPublicacion = idPublicacion;
+        this.idAsociacion = idAsociacion;
+        this.idDuenio = idDuenio;
+    }
+
     @Override
     public void ejecutar(){
         Asociacion asoc =  RepositorioAsociaciones.getRepositorio().getAsociacion(idAsociacion);
@@ -36,15 +46,5 @@ public class EncontreMiMascota implements Transaccion {
     @Override
     public int getIdTransaccion() {
         return idTransaccion;
-    }
-
-    //CONSTRUCTOR PARA LISTA DE PERMISOS
-    public EncontreMiMascota() {
-    }
-    //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMiMascota(String idPublicacion,String idAsociacion,String idDuenio) {
-        this.idPublicacion = idPublicacion;
-        this.idAsociacion = idAsociacion;
-        this.idDuenio = idDuenio;
     }
 }

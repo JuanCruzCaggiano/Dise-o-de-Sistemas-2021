@@ -1,14 +1,46 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.RepositorioAsociaciones;
+import dds.db.RepositorioPersonas;
+import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
+import dds.servicios.publicaciones.PublicacionAdopcion;
+import dds.servicios.publicaciones.PublicacionMascota;
+
 public class SolicitarAdopcion implements Transaccion {
     final  int idTransaccion = 10;
+    String idPublicacion;
+    String idAsociacion;
+    String idAdoptante;
+
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public SolicitarAdopcion() {
+    }
+    //CONSTRUCTOR PARA REALIZAR TRANSACCION
+    public SolicitarAdopcion(String idPublicacion,String idAsociacion,String idAdoptante) {
+        this.idPublicacion = idPublicacion;
+        this.idAsociacion = idAsociacion;
+        this.idAdoptante = idAdoptante;
     }
 
     @Override
     public void ejecutar()  {
-        //TODO ADOPTAR
+        Asociacion asoc =  RepositorioAsociaciones.getRepositorio().getAsociacion(idAsociacion);
+        PublicacionAdopcion publi =  asoc.getPublicador().getEnAdopcionXId(idPublicacion);
+        Persona duenio = RepositorioPersonas.getRepositorio().getPersona(publi.getIdDueño());
+        Persona adoptante = RepositorioPersonas.getRepositorio().getPersona(idAdoptante);
+        String datosAdoptante = "Nombre: " + adoptante.getNombre()+"\n"+
+                "Apellido: "+ adoptante.getApellido() +"\n"+
+                "Tipo y Nro Doc: "+ adoptante.getTipoDoc() +" - "+adoptante.getNroDoc()+"\n"+
+                "Fecha de Nacimiento: "+ adoptante.getFechaNac().toString() +"\n"+
+                "Direccion: "+ adoptante.getDireccion()+"\n"+
+                "Telefono: "+ adoptante.getTelefono()+"\n"+
+                "Mail: "+ adoptante.getEmail();
+        String link = "www.link.com"; //TODO Link a la publicacion
+        String mensaje = "Encontramos un posible adoptante para su mascota de la publicación: " + link + "\n" +
+                "Los datos del posible adoptante son: " + "\n" +
+                datosAdoptante;
+        duenio.getNotificador().notificarPersona(mensaje);
     }
 
     @Override

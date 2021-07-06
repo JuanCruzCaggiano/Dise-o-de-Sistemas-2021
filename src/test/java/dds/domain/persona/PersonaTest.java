@@ -10,10 +10,7 @@ import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.personaException.TransactionException;
-import dds.domain.persona.roles.Duenio;
-import dds.domain.persona.roles.Rescatista;
-import dds.domain.persona.roles.RolPersona;
-import dds.domain.persona.roles.Voluntario;
+import dds.domain.persona.roles.*;
 import dds.domain.persona.transaccion.*;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
@@ -31,7 +28,7 @@ import java.util.List;
 
 public class PersonaTest {
 
-    Persona persona,personaRescat,personaVoluntario,personaDuenio;
+    Persona persona,personaRescat,personaVoluntario,personaDuenio, personaAdoptante;
     List<Mascota> mascotas = new ArrayList<>();
     Asociacion asoc;
     @Before
@@ -110,6 +107,16 @@ public class PersonaTest {
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuDuenio);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaDuenio);
 
+        // CREO ADOPTANTE
+        personaAdoptante = new Persona("Agustin", "Orlando",TipoDocumento.DNI,
+                4303123,LocalDate.of(2000, 11, 3),
+                "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti);
+        personaAdoptante.setIdPersona("personaAdoptante");
+        Standard usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaDuenio);
+        usuAdoptante.setAsociacion(asoc);
+        personaAdoptante.agregarRol(new Adoptante());
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuAdoptante);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaAdoptante);
         }
 
     @Test
@@ -136,6 +143,13 @@ public class PersonaTest {
         RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
         personaDuenio.ejecutarTransaccion(new EncontreMiMascota("Publi1","ASOC1","personaDuenio"));
+    }
+
+    @Test
+    public void testSolicitarAdopcion(){
+        personaDuenio.ejecutarTransaccion(new DarEnAdopcion("perro1","personaDuenio",new HashMap <String, Object> ()));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
+        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1","ASOC1","personaAdoptante"));
     }
 
     @Test
