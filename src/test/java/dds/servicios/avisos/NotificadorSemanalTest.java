@@ -50,8 +50,10 @@ public class NotificadorSemanalTest {
         RepositorioPersonas.getRepositorio().getPersonas().clear();
         RepositorioUsuarios.getRepositorio().getUsuarios().clear();
         Notificador noti= new Notificador();
+        Notificador noti2= new Notificador();
         Adoptante adoptante = new Adoptante();
         List<RolPersona> listaRoles = new ArrayList<>();
+        List<RolPersona> listaRoles2 = new ArrayList<>();
         listaRoles.add(adoptante);
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
@@ -80,13 +82,13 @@ public class NotificadorSemanalTest {
         RepositorioPersonas.getRepositorio().getPersonas().add(duenio);
 
         //Doy de alta al adoptante
-        List<RolPersona> listaRoles2 = new ArrayList<>();
-        listaRoles.add(adoptante);
+        listaRoles2.add(adoptante);
         AdapterEmail adEmail2 = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti2 = new ArrayList<>();
-        formasDeNoti.add(adEmail2);
-        noti.agendarContacto("Gabriel", "figueroa", "1155892198", "gabriel.n.figueroa@gmail.com", formasDeNoti);
-        adoptador = new Persona("personaAdoptante","2persona",mascotas,listaRoles,noti);
+        formasDeNoti2.add(adEmail2);
+        noti2.agendarContacto("Gabriel", "figueroa", "1155892198", "gabriel.n.figueroa@gmail.com", formasDeNoti2);
+        noti2.agendarContacto("Gabriel", "figueroa", "1111111111", "gabriel.n.figueroa@hotmail.com", formasDeNoti2);
+        adoptador = new Persona("personaAdoptante","2persona",mascotas,listaRoles2,noti2);
         adoptador.setIdPersona("personaAdoptante");
 
         Standard standardAdoptante = new Standard("UsuarioTest","Password1234+",adoptador);
@@ -105,6 +107,7 @@ public class NotificadorSemanalTest {
         }
 
         duenio.ejecutarTransaccion(new DarEnAdopcion("perro1", "persona1", preguntas));
+
         adoptador.ejecutarTransaccion(new QuieroAdoptar("personaAdoptante",preguntasAdoptante));
     }
 
@@ -113,7 +116,8 @@ public class NotificadorSemanalTest {
     @Test
     public void pruebaTest() throws InterruptedException {
         notificadorSemanal = new NotificadorSemanal();
-        notificadorSemanal.notificar(2,asoc.getIdAsociacion());
+        //notificadorSemanal.notificar(2,asoc.getIdAsociacion());
+        notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(1,asoc.getIdAsociacion());
         sleep(20000);
         System.out.println("fin notificacion....");
         System.out.println(preguntasAdoptante);
