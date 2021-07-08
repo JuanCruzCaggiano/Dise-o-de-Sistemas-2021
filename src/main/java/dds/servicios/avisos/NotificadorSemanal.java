@@ -3,7 +3,6 @@ package dds.servicios.avisos;
 import dds.db.RepositorioPersonas;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;

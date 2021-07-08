@@ -52,6 +52,8 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
         Standard standard = new Standard("UsuarioTest","Password1234+",adoptador);
         standard.setAsociacion(asoc);
 
+        asoc.getConfiguraciones().agregarPreguntaNueva("Tiene pelo?");
+
         preguntas = new HashMap<String, Object>();
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 

@@ -54,6 +54,7 @@ public class PreferenciasDeAdopcion {
             if (cantidad <= coincidenciasMinima) {
                 String finalValor = valor;
                 auxPubli = publicacionAdopcionesAux.stream().filter(p -> p.getPreguntas().containsKey(key)).collect(Collectors.toList()).stream().filter(pe -> pe.getPreguntas().containsValue(finalValor)).collect(Collectors.toList());
+                cantidad++;
             } else {
                 return auxPubli;
             }

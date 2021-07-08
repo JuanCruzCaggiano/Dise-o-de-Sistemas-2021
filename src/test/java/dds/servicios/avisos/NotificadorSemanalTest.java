@@ -9,11 +9,14 @@ import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.roles.Adoptante;
 import dds.domain.persona.roles.RolPersona;
+import dds.domain.persona.transaccion.DarEnAdopcion;
+import dds.domain.persona.transaccion.QuieroAdoptar;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 import org.junit.Before;
 import org.junit.Test;
+import dds.servicios.avisos.NotificadorSemanal;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -31,11 +34,15 @@ import static java.lang.Thread.sleep;
 public class NotificadorSemanalTest {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
-    HashMap<String, Object> preguntas;
+    HashMap<String, Object> preguntas,preguntasAdoptante;
     Persona adoptador,duenio;
     Standard standard;
     List<Mascota> mascotas = new ArrayList<>();
     NotificadorSemanal notificadorSemanal;
+
+    PublicacionQuieroAdoptar publi2;
+    HashMap<String, Object> preguntas2;
+    List<Mascota> mascotas2 = new ArrayList<>();
 
     @Before
     public void setUp() throws NoSuchAlgorithmException {
@@ -51,22 +58,54 @@ public class NotificadorSemanalTest {
         formasDeNoti.add(adEmail);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
+
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
         perro.setIdMascota("perro1");
         mascotas.add(perro);
         duenio = new Persona("npersona","apersona",mascotas,listaRoles,noti);
         duenio.setIdPersona("persona1");
 
+        //ALTA ASOCIACION
         asoc = new Asociacion("asoc1",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
+
+        //ALTA DE USUARIOS
         standard = new Standard("UsuarioTest","Password1234+",duenio);
         standard.setAsociacion(asoc);
 
         preguntas = new HashMap<String, Object>();
-        RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
+        //RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standard);
         RepositorioPersonas.getRepositorio().getPersonas().add(duenio);
+
+        //Doy de alta al adoptante
+        List<RolPersona> listaRoles2 = new ArrayList<>();
+        listaRoles.add(adoptante);
+        AdapterEmail adEmail2 = new AdapterEmail();
+        List<AdapterFormaNotificacion> formasDeNoti2 = new ArrayList<>();
+        formasDeNoti.add(adEmail2);
+        noti.agendarContacto("Gabriel", "figueroa", "1155892198", "gabriel.n.figueroa@gmail.com", formasDeNoti);
+        adoptador = new Persona("personaAdoptante","2persona",mascotas,listaRoles,noti);
+        adoptador.setIdPersona("personaAdoptante");
+
+        Standard standardAdoptante = new Standard("UsuarioTest","Password1234+",adoptador);
+        standardAdoptante.setAsociacion(asoc);
+
+        preguntasAdoptante = new HashMap<String, Object>();
+        RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
+
+        RepositorioUsuarios.getRepositorio().agregarUsuario(standardAdoptante);
+        RepositorioPersonas.getRepositorio().getPersonas().add(adoptador);
+
+        List<String> keys = asoc.getConfiguraciones().getPreguntas();
+        for (int i = 0; i < keys.size(); i++) {
+            preguntas.put(keys.get(i), "Respuesta"+i);
+            preguntasAdoptante.put(keys.get(i),"Respuesta"+i);
+        }
+
+        duenio.ejecutarTransaccion(new DarEnAdopcion("perro1", "persona1", preguntas));
+        adoptador.ejecutarTransaccion(new QuieroAdoptar("personaAdoptante",preguntasAdoptante));
     }
 
 
@@ -77,6 +116,10 @@ public class NotificadorSemanalTest {
         notificadorSemanal.notificar();
         sleep(20000);
         System.out.println("fin notificacion....");
+        System.out.println(preguntasAdoptante);
+        System.out.println(preguntas);
+
+        notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(2,asoc.getIdAsociacion());
 
     }
 
