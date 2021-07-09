@@ -27,6 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
@@ -108,7 +109,17 @@ public class NotificadorSemanalTest {
 
         duenio.ejecutarTransaccion(new DarEnAdopcion("perro1", "persona1", preguntas));
 
+
         adoptador.ejecutarTransaccion(new QuieroAdoptar("personaAdoptante",preguntasAdoptante));
+
+        for(int l = 0;l<asoc.getPublicador().getPublicacionesQuieroAdoptar().size();l++){
+            asoc.getPublicador().getPublicacionesQuieroAdoptar().get(l).setIdPublicacion("PubliAdoptanteNro:"+l);
+        }
+
+        for(int m = 0;m<asoc.getPublicador().getEnAdopcion().size();m++){
+            asoc.getPublicador().getEnAdopcion().get(m).setIdPublicacion("PubliBuscoDuenioNro::"+m);
+        }
+
     }
 
 
@@ -116,8 +127,8 @@ public class NotificadorSemanalTest {
     @Test
     public void pruebaTest() throws InterruptedException {
         notificadorSemanal = new NotificadorSemanal();
-        //notificadorSemanal.notificar(2,asoc.getIdAsociacion());
-        notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(1,asoc.getIdAsociacion());
+        notificadorSemanal.notificar();
+        //notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(1,asoc.getIdAsociacion());
         sleep(20000);
         System.out.println("fin notificacion....");
         System.out.println(preguntasAdoptante);
