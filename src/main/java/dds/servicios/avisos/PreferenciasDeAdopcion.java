@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PreferenciasDeAdopcion {
-    private List<PublicacionQuieroAdoptar> posiblesAdoptantes = new ArrayList<>();
-    private List<PublicacionAdopcion> publicacionesParaAdoptar = new ArrayList<>();
-    private List<Asociacion> asociaciones = new ArrayList<>();
-    private List<Persona> personas = new ArrayList<>();
     RepositorioPersonas repositorioPersonas;
     RepositorioAsociaciones repositorioAsociaciones;
 
