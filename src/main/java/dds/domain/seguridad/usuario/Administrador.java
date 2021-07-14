@@ -21,7 +21,7 @@ public class Administrador extends Usuario {
         this.getAsociacion().getConfiguraciones().setAltoFoto(alto);
         this.getAsociacion().getConfiguraciones().setAnchoFoto(ancho);
     }
-    public void agregarPreguntar(String preg){
+    public void agregarPregunta(String preg){
         this.getAsociacion().getConfiguraciones().agregarPreguntaNueva(preg);
     }
     public void eliminarPregunta(String preg){

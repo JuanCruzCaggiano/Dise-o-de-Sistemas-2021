@@ -9,6 +9,7 @@ import dds.domain.persona.Persona;
 import dds.domain.persona.roles.Adoptante;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.transaccion.QuieroAdoptar;
+import dds.domain.seguridad.usuario.Administrador;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.AdapterEmail;
@@ -29,6 +30,7 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
     PublicacionQuieroAdoptar publi;
     HashMap<String, Object> preguntas;
     Persona adoptador;
+    Administrador admin;
     List<Mascota> mascotas = new ArrayList<>();
 
     @Before
@@ -43,6 +45,8 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(adEmail);
+        admin = new Administrador("asdasd","Passwrod1234+");
+
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         adoptador = new Persona("npersona","apersona",mascotas,listaRoles,noti);
         adoptador.setIdPersona("persona1");
@@ -51,8 +55,9 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
         asoc.setIdAsociacion("ASOC1");
         Standard standard = new Standard("UsuarioTest","Password1234+",adoptador);
         standard.setAsociacion(asoc);
+        admin.setAsociacion(asoc);
 
-        asoc.getConfiguraciones().agregarPreguntaNueva("Tiene pelo?");
+
 
         preguntas = new HashMap<String, Object>();
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
@@ -69,8 +74,16 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
     }
     @Test
     public void testeoAgregadoDePreguntas(){
-        asoc.getConfiguraciones().agregarPreguntaNueva("Tiene genitales?");
+        admin.agregarPregunta("Tiene genitales?");
+        //asoc.getConfiguraciones().agregarPreguntaNueva("Tiene genitales?");
         Assert.assertEquals(4, asoc.getConfiguraciones().getPreguntas().size());
+    }
+    @Test
+    public void testeoEliminadoDePreguntas(){
+        admin.agregarPregunta("Tiene genitales?");
+        admin.eliminarPregunta("Tiene genitales?");
+        //asoc.getConfiguraciones().agregarPreguntaNueva("Tiene genitales?");
+        Assert.assertEquals(3, asoc.getConfiguraciones().getPreguntas().size());
     }
     @Test
     public void testeoPublicacion(){
