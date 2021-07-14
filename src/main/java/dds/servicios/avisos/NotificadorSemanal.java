@@ -15,6 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 
 public class NotificadorSemanal{
+
+    private static NotificadorSemanal notificadorSemanalHelper = new NotificadorSemanal();
+
+    public static NotificadorSemanal getNotificadorSemanalHelper() { return notificadorSemanalHelper; }
+
     PreferenciasDeAdopcion preferencias;
     RepositorioPersonas repositorioPersonas;
     private List<Contacto> suscriptores = new ArrayList<>();

@@ -126,14 +126,14 @@ public class NotificadorSemanalTest {
 
     @Test
     public void pruebaEnvioNotificacionSemanal() throws InterruptedException {
-        notificadorSemanal = new NotificadorSemanal();
-        notificadorSemanal.notificar();
+        NotificadorSemanal.getNotificadorSemanalHelper().notificar();
+        //notificadorSemanal = new NotificadorSemanal();
+        //notificadorSemanal.notificar();
         //notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(1,asoc.getIdAsociacion());
-        sleep(20000);
+        sleep(40000);
         System.out.println(preguntasAdoptante);
         System.out.println(preguntas);
         System.out.println("fin notificacion....");
-
         //notificadorSemanal.notificarPublicacionesConCoincidenciaSegun(2,asoc.getIdAsociacion());
 
     }
