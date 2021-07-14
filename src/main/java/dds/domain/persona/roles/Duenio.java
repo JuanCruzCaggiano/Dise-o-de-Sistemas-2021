@@ -15,6 +15,7 @@ public class Duenio implements RolPersona {
     public Duenio() {
         this.permisos.add(new RegistrarMascota());
         this.permisos.add(new EncontreMiMascota());
+        this.permisos.add(new DarEnAdopcion());
     }
 
     @Override

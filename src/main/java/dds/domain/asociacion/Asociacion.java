@@ -3,30 +3,24 @@ package dds.domain.asociacion;
 
 
 import dds.db.RepositorioAsociaciones;
+import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.Publicador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Asociacion {
 
     private String idAsociacion;
     private String nombre;
-    private String direccion;
-    private String localidad;
-    private String provincia;
-    private String pais;
-    private String codPostal;
+    private Ubicacion ubicacion;
     private Publicador publicador;
     private Configuraciones configuraciones;
 
-    public Asociacion(String nombre, String direccion, String localidad, String provincia, String pais, String codPostal) {
+    public Asociacion(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
-        this.direccion = direccion;
-        this.localidad = localidad;
-        this.provincia = provincia;
-        this.pais = pais;
-        this.codPostal = codPostal;
+        this.ubicacion = ubicacion;
         this.publicador = new Publicador();
         this.configuraciones = new Configuraciones();
     }
@@ -43,26 +37,6 @@ public class Asociacion {
         this.nombre = nombre;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public void setCodPostal(String codPostal) {
-        this.codPostal = codPostal;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -74,4 +48,9 @@ public class Asociacion {
     public Publicador getPublicador() {
         return publicador;
     }
+
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
 }

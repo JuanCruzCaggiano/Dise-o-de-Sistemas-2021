@@ -5,6 +5,7 @@ import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
 import dds.db.RepositorioUsuarios;
 import dds.domain.mascota.TipoMascota;
+import dds.servicios.apiHogares.Ubicacion;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class ConfiguracionesTest extends TestCase {
     public void setUp() throws NoSuchAlgorithmException {
         RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
         //CREO ASOC
-        asoc = new Asociacion("Asco", "AsocDir", "AsocLoc", "AscoProv", "AscoPais", "AsocCod");
+        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");

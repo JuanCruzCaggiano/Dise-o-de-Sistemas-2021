@@ -10,12 +10,10 @@ import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.personaException.TransactionException;
-import dds.domain.persona.roles.Duenio;
-import dds.domain.persona.roles.Rescatista;
-import dds.domain.persona.roles.RolPersona;
-import dds.domain.persona.roles.Voluntario;
+import dds.domain.persona.roles.*;
 import dds.domain.persona.transaccion.*;
 import dds.domain.seguridad.usuario.Standard;
+import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.*;
 import dds.servicios.publicaciones.PublicacionMascota;
 import org.junit.Assert;
@@ -23,13 +21,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class PersonaTest {
 
-    Persona persona,personaRescat,personaVoluntario;
+    Persona persona,personaRescat,personaVoluntario,personaDuenio, personaAdoptante;
     List<Mascota> mascotas = new ArrayList<>();
     Asociacion asoc;
     @Before
@@ -41,7 +40,7 @@ public class PersonaTest {
 
 
         //CREO ASOC
-        asoc = new Asociacion("Asco","AsocDir","AsocLoc","AscoProv","AscoPais","AsocCod");
+        asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion("ASOC1");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
@@ -76,7 +75,7 @@ public class PersonaTest {
         List<RolPersona> listaRoles2 = new ArrayList<>();
         Rescatista rescatista = new Rescatista();
         listaRoles2.add(rescatista);
-        personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,new Notificador());
+        personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,noti);
         personaRescat.setIdPersona("rescat1");
         Standard usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat);
         usuRescatista.setAsociacion(asoc);
@@ -89,7 +88,7 @@ public class PersonaTest {
         List<RolPersona> listaRoles3 = new ArrayList<>();
         Voluntario voluntario = new Voluntario();
         listaRoles3.add(voluntario);
-        personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,new Notificador());
+        personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,noti);
         personaVoluntario.setIdPersona("voluntario1");
         Standard usuVoluntario = new Standard("UsuarioVoluntario","Password1234+",personaVoluntario);
         usuVoluntario.setAsociacion(asoc);
@@ -97,7 +96,28 @@ public class PersonaTest {
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuVoluntario);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaVoluntario);
 
-    }
+        //CREO DUENIO Nuevo
+        personaDuenio = new Persona("Matias", "Lanneponders",TipoDocumento.DNI,
+                                            39000401,LocalDate.of(1995, 7, 7),
+                                            "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        personaDuenio.setIdPersona("personaDuenio");
+        Standard usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
+        usuDuenio.setAsociacion(asoc);
+        personaDuenio.agregarRol(new Duenio());
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuDuenio);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaDuenio);
+
+        // CREO ADOPTANTE
+        personaAdoptante = new Persona("Agustin", "Orlando",TipoDocumento.DNI,
+                4303123,LocalDate.of(2000, 11, 3),
+                "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti);
+        personaAdoptante.setIdPersona("personaAdoptante");
+        Standard usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaDuenio);
+        usuAdoptante.setAsociacion(asoc);
+        personaAdoptante.agregarRol(new Adoptante());
+        RepositorioUsuarios.getRepositorio().agregarUsuario(usuAdoptante);
+        RepositorioPersonas.getRepositorio().getPersonas().add(personaAdoptante);
+        }
 
     @Test
     public void testRegistrarMascota(){
@@ -108,24 +128,45 @@ public class PersonaTest {
 
     @Test
     public void testEncontreMascotaPerdidaConChapita(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado"));
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaConChapita("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","recat1"));
 
+    }
+    @Test
+    public void testEncontreMascotaPerdidaSinChapita(){
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
+    }
+
+    @Test
+    public void testEncontreMiMascota(){
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
+        personaDuenio.ejecutarTransaccion(new EncontreMiMascota("Publi1","ASOC1","personaDuenio"));
+    }
+
+    @Test
+    public void testSolicitarAdopcion(){
+        personaDuenio.ejecutarTransaccion(new DarEnAdopcion("perro1","personaDuenio",new HashMap <String, Object> ()));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
+        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1","ASOC1","personaAdoptante"));
     }
 
     @Test
     public void testValidarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
-        publicacionMascota.setIdPublicacion("Publi1");
-        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
+        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
         Assert.assertTrue(asoc.getPublicador().tienePublicacionAprobada("Publi1"));
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesAprobadas().size());
     }
 
 
     //Intento validar publicacion con rescatista
     @Test (expected = TransactionException.class)
     public void testValidarPublicacionErrorPermisos(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaRescat.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
@@ -133,7 +174,7 @@ public class PersonaTest {
 
     @Test
     public void testRechazarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado");
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
         publicacionMascota.setIdPublicacion("Publi1");
         asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
         personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));

@@ -2,7 +2,7 @@ package dds.domain.seguridad.validador;
 
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.EasyPasswordException;
-import dds.servicios.HashHelper;
+import dds.servicios.helpers.HashHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;

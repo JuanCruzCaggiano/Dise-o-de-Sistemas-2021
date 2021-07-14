@@ -8,9 +8,10 @@ public class AdapterEmail implements AdapterFormaNotificacion{
 
     @Override
     public void notificar(String mensaje,Contacto contacto) {
+        mensaje = mensaje.replaceAll("\\n","<br/>");
         sendAsHtml(contacto.getEmail(),
-                "Test email",
-                "<h2>Titulo de mail test</h2><p>"+mensaje+"</p>");
+                "Rescate de patitas",
+                "<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");
     }
 
     private static final String senderEmail = "dds2021.grupo15@gmail.com";//change with your sender email

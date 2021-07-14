@@ -10,9 +10,33 @@ public class Publicador {
     private List<PublicacionMascota> publicacionesAprobadas= new ArrayList<>();
     private List<PublicacionMascota> publicacionesPendientes= new ArrayList<>();
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
+    private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
+    private List<PublicacionAdopcion> enAdopcion= new ArrayList<>();
 
 
     public Publicador(){}
+
+    public void agregarPublicacionQuieroAdoptar(PublicacionQuieroAdoptar publi){
+        publicacionesQuieroAdoptar.add(publi);
+
+    }
+
+    public void agregarPublicacionMascotaEnAdopcion(PublicacionAdopcion publi){
+        enAdopcion.add(publi);
+
+    }
+
+    public List<PublicacionAdopcion> getEnAdopcion() {
+        return enAdopcion;
+    }
+
+    public List<PublicacionQuieroAdoptar> getPublicacionesQuieroAdoptar() {
+        return publicacionesQuieroAdoptar;
+    }
+
+    public void eliminarPublicacionQuieroAdoptar(String idPublicacionQuieroAdoptar){
+        //TODO
+    }
 
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
         //publicacionesPendientes.contains(publi);
@@ -42,9 +66,7 @@ public class Publicador {
     private void eliminarPublicacionPendiente (PublicacionMascota publi){
         publicacionesPendientes.remove(publi);
     }
-    private void agregarPublicacionAprobada (PublicacionMascota publi){
-        publicacionesAprobadas.add(publi);
-    }
+    public void agregarPublicacionAprobada (PublicacionMascota publi){ publicacionesAprobadas.add(publi);}
 
     public boolean tienePublicacionPendiente(String idPublicacion) {
         return this.publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
@@ -71,7 +93,11 @@ public class Publicador {
     public PublicacionMascota getPendienteXId(String id){
         return this.publicacionesPendientes.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
-    public PublicacionMascota getAprobadasXId(String id){
+    public PublicacionMascota getAprobadaXId(String id){
         return this.publicacionesAprobadas.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+    }
+
+    public PublicacionAdopcion getEnAdopcionXId(String id){
+        return this.enAdopcion.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
 }

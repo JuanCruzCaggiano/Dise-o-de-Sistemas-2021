@@ -3,7 +3,7 @@ package dds.domain.seguridad.usuario;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
-import dds.servicios.HashHelper;
+import dds.servicios.helpers.HashHelper;
 
 
 import java.time.LocalDateTime;

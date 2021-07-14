@@ -17,9 +17,15 @@ public class Administrador extends Usuario {
         this.getAsociacion().getConfiguraciones().eliminarCaracteristicas(c);
     }
 
-    public  void modificarTamanioFotos(Integer alto,Integer ancho){
+    public  void modificarTamanioFotos(Integer ancho, Integer alto){
         this.getAsociacion().getConfiguraciones().setAltoFoto(alto);
         this.getAsociacion().getConfiguraciones().setAnchoFoto(ancho);
+    }
+    public void agregarPregunta(String preg){
+        this.getAsociacion().getConfiguraciones().agregarPreguntaNueva(preg);
+    }
+    public void eliminarPregunta(String preg){
+        this.getAsociacion().getConfiguraciones().eliminarPregunta(preg);
     }
 
 }

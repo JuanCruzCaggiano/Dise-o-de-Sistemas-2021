@@ -10,10 +10,10 @@ import dds.servicios.publicaciones.PublicacionMascota;
 import java.util.ArrayList;
 
 public class EncontreMascotaPerdidaSinChapita implements Transaccion{
-    final  int idTransaccion = 4;
-    String idMascota;
+    final  int idTransaccion = 9;
     float latitud;
     float longitud;
+    String idRescatista;
     ArrayList<String> listaFotos;
     String descripcion;
 
@@ -21,18 +21,19 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
     public EncontreMascotaPerdidaSinChapita(){}
 
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMascotaPerdidaSinChapita(String idMascota, float latitud, float longitud, ArrayList<String> listaFotos, String descripcion) {
-        this.idMascota = idMascota;
+    public EncontreMascotaPerdidaSinChapita(float latitud, float longitud, ArrayList<String> listaFotos, String descripcion,String idRescatista) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
+        this.idRescatista =idRescatista;
     }
 
     @Override
     public void ejecutar()  {
-        //TODO Falta implementar logica
-
+        PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion,idRescatista);
+        Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
+        asoc.getPublicador().agregarPublicacionPendiente(publi);
     }
 
     @Override

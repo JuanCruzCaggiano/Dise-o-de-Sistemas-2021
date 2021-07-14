@@ -62,4 +62,10 @@ public class Notificador {
     }
 
 
+    public void notificarPersona(String mensaje) {
+        List<AdapterFormaNotificacion> formas = suscriptores.get(0).getFormasNotificacion();
+        for (int j=0;j<formas.size();j++) {
+            formas.get(j).notificar(mensaje,suscriptores.get(0)); //aca paso el suscriptor
+        }
+    }
 }

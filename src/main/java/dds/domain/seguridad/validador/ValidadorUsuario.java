@@ -3,7 +3,7 @@ package dds.domain.seguridad.validador;
 import dds.db.RepositorioUsuarios;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.WrongLoginException;
-import dds.servicios.HashHelper;
+import dds.servicios.helpers.HashHelper;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
