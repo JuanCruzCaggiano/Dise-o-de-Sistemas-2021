@@ -1,7 +1,11 @@
 package dds.domain.seguridad.usuario;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.security.NoSuchAlgorithmException;
 
+@Entity
+@DiscriminatorValue("A")
 public class Administrador extends Usuario {
 
 

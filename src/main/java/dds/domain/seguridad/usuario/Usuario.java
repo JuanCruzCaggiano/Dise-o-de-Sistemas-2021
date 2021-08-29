@@ -6,6 +6,7 @@ import dds.domain.seguridad.validador.ValidadorPassword;
 import dds.servicios.helpers.HashHelper;
 
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -13,13 +14,35 @@ import java.util.List;
 
 import java.security.*;
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
+@Table
+@DiscriminatorColumn(name = "tipo_usuario")
 public class Usuario {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    @Column
     private String userName;
+    @Column
     private String password;
+    @Column
     private LocalDateTime lastPasswordDT;
+    @Column
     private Integer intentosFallidos;
+    @Transient
     private List<String> usedPasswords = new ArrayList<>();
+    @Column
     private Boolean isBlocked;
+
+
+    @Transient
     private Asociacion asociacion;
 
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{

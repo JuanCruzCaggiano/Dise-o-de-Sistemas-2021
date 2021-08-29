@@ -3,10 +3,14 @@ package dds.domain.seguridad.usuario;
 import dds.domain.persona.Persona;
 import dds.domain.persona.personaException.AssignPersonaException;
 
+import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 
+@Entity
+@DiscriminatorValue("S")
 public class Standard extends Usuario {
 
+    @Transient
     private Persona persona;
 
 
