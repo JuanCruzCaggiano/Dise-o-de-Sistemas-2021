@@ -23,7 +23,12 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
 
+
+        EntityManagerHelper.beginTransaction();
+
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
+
+        EntityManagerHelper.commit();
 
 
     }
