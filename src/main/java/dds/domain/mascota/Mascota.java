@@ -1,22 +1,51 @@
 package dds.domain.mascota;
 
+import dds.domain.asociacion.Asociacion;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+
+@Entity
+@Table (name = "mascota")
 public class Mascota {
-    private String idAsociacion;
+
+    @Id
+    @Column (name = "id")
     private String idMascota;
+
+    @Enumerated(EnumType.STRING)
     private TipoMascota tipo;
+
+    @Column
     private String nombre;
+
+    @Column
     private String apodo;
+
+    @Column
     private Integer edad;
+
+    @Column
     private String descripcion;
-    private List<String> listaFotos;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "listaFotos")
+    private List<String> listaFotos = new ArrayList<>();
+
     //private List<ConfigCaracMascota> caracteristica;
+
+    @Transient //TODO
     private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
+
+    @Column
     private Boolean estaPerdida = false;
 
     public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica) {
+        this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;

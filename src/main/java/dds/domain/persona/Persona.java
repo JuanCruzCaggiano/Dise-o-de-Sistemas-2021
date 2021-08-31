@@ -9,29 +9,53 @@ import dds.servicios.avisos.Notificador;
 
 
 import javax.mail.MessagingException;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
+@Entity
+@Table
 public class Persona {
+
+    @Id
+    @Column
     private String idPersona;
-    private List<Mascota> mascotas;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Mascota> mascotas = new ArrayList<>();
+
+    @Column
     private LocalDate fechaNac;
+
+    @Column
     private TipoDocumento tipoDoc;
+
+    @Column
     private Integer nroDoc;
+
+    @Column
     private String direccion;
-    private List<RolPersona> listaRoles;
+
+    //TODO @ManyToMany
+    @Transient
+    private List<RolPersona> listaRoles = new ArrayList<>();
+
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "notificador_id")
     private Notificador notificador;
 
     public Persona(String nombre, String apellido, List<Mascota> mascotas, List<RolPersona> listaRoles, Notificador notificador) {
+        this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.mascotas = mascotas;
         this.listaRoles = listaRoles;
         this.notificador = notificador;
         notificador.getSuscriptores().get(0).setNombre(nombre);
         notificador.getSuscriptores().get(0).setApellido(apellido);
     }
-    //Alta de persona que encontro a su mascota
+    //Alta de persona que encontro a su mascota //TODO AGREGAR ROL
     public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<AdapterFormaNotificacion> formasDeNoti) {
+        this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;
         this.fechaNac = fechaNac;

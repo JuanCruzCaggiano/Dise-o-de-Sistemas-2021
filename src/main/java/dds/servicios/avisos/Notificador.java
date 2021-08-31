@@ -7,13 +7,24 @@ import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
 
 import javax.mail.MessagingException;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table
 public class Notificador {
-    private List<Contacto> suscriptores = new ArrayList<>();
-    private AdapterFormaNotificacion adapter;
 
+    @Id
+    @GeneratedValue
+    private int id;
+
+    public int getId(){
+        return id;
+    }
+
+    @OneToMany (cascade = {CascadeType.ALL})
+    private List<Contacto> suscriptores = new ArrayList<>();
 
 
     public List<Contacto> getSuscriptores() {
