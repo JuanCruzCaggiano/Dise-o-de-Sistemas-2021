@@ -87,77 +87,34 @@ https://templatemo.com/tm-564-plot-listing
             </div>
         </div>
     </div>
-
-    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">¿QUERES PONER EN ADOPCION A TU MASCOTA?</h5>
-                    <p class="card-text">No tenes alma.</p>
-                    <a href="noTengoAlma.html" class="btn btn-primary">No tengo Alma</a>
+    <div class="container" style="margin-top: 40px; margin-bottom: 50px;">
+        <div class="row ">
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Nombre Mascota 1</a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Nombre Mascota 2</a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Nombre Mascota 3</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Nombre Mascota 4</a>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">REGISTRO DE MASCOTAS</h5>
-                    <p class="card-text">Dale click abajo registrala y genera tu QR</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar Mascota</button>
-                    <div class="alert alert-primary alert-dismissible" role="alert" id="liveAlert">
-                        <strong>Mascota Registrada!</strong> En breve recibiras el QR.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
+                    </div>
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
+                    </div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE MASCOTA</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row justify-content-md-center">
-                            <div class="col-lg-6">
-                                <form>
-                                    <div class="form-row">
-                                        <div class="form-group ">
-                                            <label for="userId">Nombre de la mascota</label>
-                                            <input class="form-control" id="email" placeholder="Ingrese nombre del peludo">
-                                        </div>
-                                        <div class="form-group ">
-                                            <label for="nombre">Raza</label>
-                                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese Raza">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="coment">Descripcion</label>
-                                            <textarea class="form-control" id="coment" rows="10"></textarea>
-                                        </div>
-
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="liveAlertBtn">esto trigerea la alarma que te dice si fue correcto o no la dada de alta</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <footer>
         <div class="container">
@@ -219,23 +176,7 @@ https://templatemo.com/tm-564-plot-listing
     <script src="assets/js/animation.js"></script>
     <script src="assets/js/imagesloaded.js"></script>
     <script src="assets/js/custom.js"></script>
-    <script>
-        var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-        var alertTrigger = document.getElementById('liveAlertBtn')
 
-        function alert(message, type) {
-            var wrapper = document.createElement('div')
-            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-
-            alertPlaceholder.append(wrapper)
-        }
-
-        if (alertTrigger) {
-            alertTrigger.addEventListener('click', function() {
-                alert('Nice, you triggered this alert message!', 'success')
-            })
-        }
-    </script>
 </body>
 
 </html>
