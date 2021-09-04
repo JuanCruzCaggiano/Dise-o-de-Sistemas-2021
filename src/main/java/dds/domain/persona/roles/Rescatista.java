@@ -15,7 +15,12 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("R")
 public class Rescatista extends RolPersona {
+    private static Rescatista rolRescatista = new Rescatista() ;
+
+    public static Rescatista getRescatista() {return rolRescatista;}
+
     public Rescatista() {
+        this.id =1;
         this.nombre = "Rescatista";
         this.permisos.add(new EncontreMascotaPerdidaConChapita());
         this.permisos.add(new EncontreMascotaPerdidaSinChapita());

@@ -3,13 +3,17 @@ package dds.domain.seguridad.usuario;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
+import dds.servicios.helpers.DateHelper;
 import dds.servicios.helpers.HashHelper;
 
 
+
 import javax.persistence.*;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.security.*;
@@ -33,7 +37,7 @@ public class Usuario {
     @Column
     private String password;
     @Column
-    private LocalDateTime lastPasswordDT;
+    private Date lastPasswordDT;
     @Column
     private Integer intentosFallidos;
     @Transient
@@ -48,7 +52,6 @@ public class Usuario {
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{
         this.userName = userName;
         ValidadorPassword.getValidadorPassword().validarPassword(password,this);
-        this.lastPasswordDT = LocalDateTime.now(ZoneOffset.UTC);
         this.isBlocked = false;
         this.intentosFallidos= 0;
         this.password = HashHelper.getHashHelper().passwordAMD5(password);
@@ -85,7 +88,7 @@ public class Usuario {
     }
 
     public Boolean passwordVencida(){
-        return lastPasswordDT.isBefore(LocalDateTime.now(ZoneOffset.UTC).minusDays(30));
+        return lastPasswordDT.before(DateHelper.getHelper().LocalDateTimeToDate(LocalDateTime.now(ZoneOffset.UTC).minusDays(30)));
     }
 
     // Metodos de bloqueado
@@ -105,7 +108,7 @@ public class Usuario {
     }
 
     public void setLastPasswordDT(LocalDateTime newLastPasswordDT){
-        this.lastPasswordDT = newLastPasswordDT;
+        this.lastPasswordDT = DateHelper.getHelper().LocalDateTimeToDate(newLastPasswordDT);
     }
 
     //Va a servir al momento del logueo

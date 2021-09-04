@@ -6,12 +6,14 @@ import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.transaccion.Transaccion;
 import dds.servicios.avisos.AdapterFormaNotificacion;
 import dds.servicios.avisos.Notificador;
+import dds.servicios.helpers.DateHelper;
 
 
-import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,8 +28,8 @@ public class Persona {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Mascota> mascotas = new ArrayList<>();
 
-    @Column
-    private LocalDate fechaNac;
+    @Column (columnDefinition = "DATE")
+    private Date fechaNac;
 
     @Column
     private TipoDocumento tipoDoc;
@@ -38,7 +40,7 @@ public class Persona {
     @Column
     private String direccion;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<RolPersona> listaRoles = new ArrayList<>();
 
     @OneToOne (cascade = {CascadeType.ALL})
@@ -50,15 +52,16 @@ public class Persona {
         this.mascotas = mascotas;
         this.listaRoles = listaRoles;
         this.notificador = notificador;
-        notificador.getSuscriptores().get(0).setNombre(nombre);
-        notificador.getSuscriptores().get(0).setApellido(apellido);
+        notificador.getContactos().get(0).setNombre(nombre);
+        notificador.getContactos().get(0).setApellido(apellido);
     }
     //Alta de persona que encontro a su mascota //TODO AGREGAR ROL
     public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<AdapterFormaNotificacion> formasDeNoti) {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;
-        this.fechaNac = fechaNac;
+        //this.fechaNac = fechaNac;
+        this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
         this.mascotas = new ArrayList<>();
         this.listaRoles = new ArrayList<>();
@@ -68,10 +71,10 @@ public class Persona {
     }
 
     public String getNombre() {
-        return notificador.getSuscriptores().get(0).getNombre();
+        return notificador.getContactos().get(0).getNombre();
     }
     public String getApellido() {
-        return notificador.getSuscriptores().get(0).getApellido();
+        return notificador.getContactos().get(0).getApellido();
     }
 
     public List<Mascota> getMascotas() {
@@ -86,7 +89,7 @@ public class Persona {
         this.idPersona = idPersona;
     }
 
-    public LocalDate getFechaNac() {
+    public Date getFechaNac() {
         return fechaNac;
     }
 
@@ -124,10 +127,10 @@ public class Persona {
     }
 
     public String getEmail() {
-        return this.notificador.getSuscriptores().get(0).getEmail();
+        return this.notificador.getContactos().get(0).getEmail();
     }
     public String getTelefono() {
-        return this.notificador.getSuscriptores().get(0).getTelefono();
+        return this.notificador.getContactos().get(0).getTelefono();
     }
     public void agregarRol(RolPersona rol){
         this.listaRoles.add(rol);

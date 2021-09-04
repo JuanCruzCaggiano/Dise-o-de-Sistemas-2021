@@ -5,6 +5,7 @@ import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.roles.Adoptante;
@@ -22,6 +23,7 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,15 +41,14 @@ public class PublicacionAdopcionTest extends TestCase {
         RepositorioPersonas.getRepositorio().getPersonas().clear();
         RepositorioUsuarios.getRepositorio().getUsuarios().clear();
         Notificador noti= new Notificador();
-        Adoptante adoptante = new Adoptante();
         List<RolPersona> listaRoles = new ArrayList<>();
-        listaRoles.add(adoptante);
+        listaRoles.add(Adoptante.getAdoptante());
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(adEmail);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setIdMascota("perro1");
         mascotas.add(perro);
         duenio = new Persona("npersona","apersona",mascotas,listaRoles,noti);

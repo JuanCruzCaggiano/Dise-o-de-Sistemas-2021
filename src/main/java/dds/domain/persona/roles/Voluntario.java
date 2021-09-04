@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("V")
 public class Voluntario extends RolPersona {
+
+    private static Voluntario rolVoluntario = new Voluntario() ;
+
+    public static Voluntario getVoluntario() {return rolVoluntario;}
+
     public Voluntario() {
+        this.id = 3;
         this.nombre = "Voluntario";
         this.permisos.add(new ValidarPublicacion());
         this.permisos.add(new RechazarPublicacion());

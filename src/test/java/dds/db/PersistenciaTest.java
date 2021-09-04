@@ -1,12 +1,11 @@
 package dds.db;
 
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
-import dds.domain.persona.roles.Duenio;
-import dds.domain.persona.roles.Rescatista;
-import dds.domain.persona.roles.RolPersona;
+import dds.domain.persona.roles.*;
 import dds.domain.seguridad.usuario.Administrador;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.avisos.AdapterEmail;
@@ -36,26 +35,33 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
     @Test
     public void PullInicialDeDatos() throws NoSuchAlgorithmException {
 
+
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
 
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
-        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",8,"Siames",new ArrayList<>(),new HashMap<>());
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
+        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
 
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(adEmail);
 
         Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
-        persona.agregarRol(new Duenio());
+        persona.agregarRol(Duenio.getDuenio());
         Persona persona2 = new Persona("agus","orlando",TipoDocumento.DNI,43031203,LocalDate.of(2000,11,03),"dire","1165485425","mail@gmail.com",formasDeNoti);
-        persona2.agregarRol(new Duenio());
-        persona2.agregarRol(new Rescatista());
+        persona2.agregarRol(Duenio.getDuenio());
+        persona2.agregarRol(Rescatista.getRescatista());
         persona.getNotificador().agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.getMascotas().add(perro);
         persona.getMascotas().add(gato);
 
         EntityManagerHelper.beginTransaction();
+
+//        EntityManagerHelper.getEntityManager().persist(new Duenio());
+//        EntityManagerHelper.getEntityManager().persist(new Rescatista());
+//        EntityManagerHelper.getEntityManager().persist(new Voluntario());
+//        EntityManagerHelper.getEntityManager().persist(new Adoptante());
+
 
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 

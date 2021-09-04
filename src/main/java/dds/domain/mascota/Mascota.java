@@ -4,10 +4,10 @@ import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 
 @Entity
@@ -30,9 +30,8 @@ public class Mascota {
     @Column
     private String apodo;
 
-    @Column
-    private Integer edad;
-
+    @Column (columnDefinition = "DATE")
+    private Date fechaNac;
 
     @Column
     private String descripcion;
@@ -50,12 +49,13 @@ public class Mascota {
     private Boolean estaPerdida = false;
 
     //TODO agregar sexo en todos los constructores de los tests
-    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica) {
+    public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica,Sexo sexo) {
         this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
-        this.edad = edad;
+        this.sexo = sexo;
+        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.descripcion = descripcion;
         this.listaFotos = listaFotos;
         this.caracteristica = caracteristica;
@@ -91,6 +91,9 @@ public class Mascota {
     public String getNombre() {
         return nombre;
     }
+
+
+
 
 
 }

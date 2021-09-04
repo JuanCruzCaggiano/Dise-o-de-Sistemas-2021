@@ -4,6 +4,7 @@ import dds.db.RepositorioHogaresDeTransito;
 import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
 import dds.db.RepositorioUsuarios;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.servicios.apiHogares.Ubicacion;
 import junit.framework.TestCase;
@@ -13,6 +14,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +33,7 @@ public class ConfiguracionesTest extends TestCase {
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
-        mascota = new Mascota(TipoMascota.PERRO,"lola beatriz","lola",6,"bruta beba",new ArrayList<>(),new HashMap<>());
+        mascota = new Mascota(TipoMascota.PERRO,"lola beatriz","lola", LocalDate.now().minusYears(6),"bruta beba",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
 
 
     }

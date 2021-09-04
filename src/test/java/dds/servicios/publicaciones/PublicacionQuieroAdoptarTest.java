@@ -39,9 +39,8 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
         RepositorioPersonas.getRepositorio().getPersonas().clear();
         RepositorioUsuarios.getRepositorio().getUsuarios().clear();
         Notificador noti= new Notificador();
-        Adoptante adoptante = new Adoptante();
         List<RolPersona> listaRoles = new ArrayList<>();
-        listaRoles.add(adoptante);
+        listaRoles.add(Adoptante.getAdoptante());
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(adEmail);

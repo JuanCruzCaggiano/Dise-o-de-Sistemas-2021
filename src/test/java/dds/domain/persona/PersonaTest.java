@@ -8,6 +8,7 @@ import dds.db.RepositorioUsuarios;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.roles.*;
@@ -46,10 +47,10 @@ public class PersonaTest {
 
         //CREO DUENIO
 
-        Duenio duenio = new Duenio();
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
+
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setIdMascota("perro1");
-        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",8,"Siames",new ArrayList<>(),new HashMap<>());
+        Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.HEMBRA);
         gato.setIdMascota("gato1");
         perro.setEstaPerdida(true);
         mascotas.add(perro);
@@ -61,7 +62,7 @@ public class PersonaTest {
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         List<RolPersona> listaRoles = new ArrayList<>();
-        listaRoles.add(duenio);
+        listaRoles.add(Duenio.getDuenio());
 
         persona = new Persona("npersona","apersona",mascotas,listaRoles,noti);
         persona.setIdPersona("persona1");
@@ -73,8 +74,7 @@ public class PersonaTest {
 
         //CREO RESCATISTA
         List<RolPersona> listaRoles2 = new ArrayList<>();
-        Rescatista rescatista = new Rescatista();
-        listaRoles2.add(rescatista);
+        listaRoles2.add(Rescatista.getRescatista());
         personaRescat = new Persona("nrescat","arescat",new ArrayList<>(),listaRoles2,noti);
         personaRescat.setIdPersona("rescat1");
         Standard usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat);
@@ -86,8 +86,7 @@ public class PersonaTest {
 
         //CREO VOLUNTARIO
         List<RolPersona> listaRoles3 = new ArrayList<>();
-        Voluntario voluntario = new Voluntario();
-        listaRoles3.add(voluntario);
+        listaRoles3.add(Voluntario.getVoluntario());
         personaVoluntario = new Persona("nvoluntario","avoluntario",new ArrayList<>(),listaRoles3,noti);
         personaVoluntario.setIdPersona("voluntario1");
         Standard usuVoluntario = new Standard("UsuarioVoluntario","Password1234+",personaVoluntario);
@@ -103,7 +102,7 @@ public class PersonaTest {
         personaDuenio.setIdPersona("personaDuenio");
         Standard usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
-        personaDuenio.agregarRol(new Duenio());
+        personaDuenio.agregarRol(Duenio.getDuenio());
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuDuenio);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaDuenio);
 
@@ -114,7 +113,7 @@ public class PersonaTest {
         personaAdoptante.setIdPersona("personaAdoptante");
         Standard usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaDuenio);
         usuAdoptante.setAsociacion(asoc);
-        personaAdoptante.agregarRol(new Adoptante());
+        personaAdoptante.agregarRol(Adoptante.getAdoptante());
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuAdoptante);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaAdoptante);
         }
@@ -122,7 +121,7 @@ public class PersonaTest {
     @Test
     public void testRegistrarMascota(){
         int size = persona.getMascotas().size();
-        persona.ejecutarTransaccion(new RegistrarMascota(persona,TipoMascota.PERRO,"nuevoPerro","nuevoPerro",8,"Pelo corto",new ArrayList<>(),new HashMap<>()));
+        persona.ejecutarTransaccion(new RegistrarMascota(persona,TipoMascota.PERRO,"nuevoPerro","nuevoPerro",LocalDate.now().minusYears(8),"Pelo corto",new ArrayList<>(),new HashMap<>(),Sexo.MACHO));
         Assert.assertEquals(size+1,persona.getMascotas().size());
     }
 

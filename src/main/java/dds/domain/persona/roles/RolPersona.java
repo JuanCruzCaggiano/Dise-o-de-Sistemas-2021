@@ -1,5 +1,6 @@
 package dds.domain.persona.roles;
 
+import dds.db.RepositorioAsociaciones;
 import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.transaccion.Transaccion;
 
@@ -14,9 +15,9 @@ import java.util.concurrent.TransferQueue;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "rol")
 public abstract class RolPersona {
+
     @Id
-    @GeneratedValue
-    private int id;
+    protected int id;
 
     @Column
     protected String nombre;

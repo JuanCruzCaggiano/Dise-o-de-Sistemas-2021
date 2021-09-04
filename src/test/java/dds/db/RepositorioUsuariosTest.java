@@ -3,6 +3,7 @@ package dds.db;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
@@ -50,13 +51,13 @@ public class RepositorioUsuariosTest  {
         Standard usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
 
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",5,"Pelo largo",new ArrayList<>(),new HashMap<>());
+        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setIdMascota("perro1");
         personaDuenio.getMascotas().add(perro);
 
 
 
-        personaDuenio.agregarRol(new Duenio());
+        personaDuenio.agregarRol(Duenio.getDuenio());
         RepositorioUsuarios.getRepositorio().agregarUsuario(usuDuenio);
         RepositorioPersonas.getRepositorio().getPersonas().add(personaDuenio);
 

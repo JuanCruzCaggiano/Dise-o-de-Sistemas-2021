@@ -4,7 +4,6 @@ import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
-import dds.domain.persona.roles.Voluntario;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.Publicador;
 
