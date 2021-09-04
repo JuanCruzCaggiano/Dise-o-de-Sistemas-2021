@@ -1,6 +1,7 @@
 package dds.domain.mascota;
 
 import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
 
 import javax.persistence.*;
 import java.util.ArrayList;

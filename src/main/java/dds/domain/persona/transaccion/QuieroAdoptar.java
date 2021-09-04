@@ -5,20 +5,26 @@ import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 
+import javax.persistence.*;
 import java.util.HashMap;
 
-public class QuieroAdoptar implements Transaccion {
-    final  int idTransaccion = 1;
+@Entity
+@DiscriminatorValue("quiero_adoptar")
+public class QuieroAdoptar extends Transaccion {
+    @Transient
     String idPersona;
+    @Transient
     private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
 
     public QuieroAdoptar(String idPersona, HashMap<String, Object> respuestas) {
+//        this.idTransaccion = 1;
         this.idPersona = idPersona;
         this.respuestas = respuestas;
     }
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public QuieroAdoptar() {
+//        this.idTransaccion = 1;
 
     }
 

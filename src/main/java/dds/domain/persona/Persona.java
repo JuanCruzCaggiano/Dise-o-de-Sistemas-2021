@@ -14,8 +14,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @Entity
-@Table
+@Table(name = "persona")
 public class Persona {
 
     @Id
@@ -37,8 +38,7 @@ public class Persona {
     @Column
     private String direccion;
 
-    //TODO @ManyToMany
-    @Transient
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<RolPersona> listaRoles = new ArrayList<>();
 
     @OneToOne (cascade = {CascadeType.ALL})

@@ -5,6 +5,7 @@ import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
 import dds.domain.persona.roles.Duenio;
+import dds.domain.persona.roles.Rescatista;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.seguridad.usuario.Administrador;
 import dds.domain.seguridad.usuario.Standard;
@@ -45,6 +46,10 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         formasDeNoti.add(adEmail);
 
         Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
+        persona.agregarRol(new Duenio());
+        Persona persona2 = new Persona("agus","orlando",TipoDocumento.DNI,43031203,LocalDate.of(2000,11,03),"dire","1165485425","mail@gmail.com",formasDeNoti);
+        persona2.agregarRol(new Duenio());
+        persona2.agregarRol(new Rescatista());
         persona.getNotificador().agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.getMascotas().add(perro);
@@ -55,6 +60,8 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 
         EntityManagerHelper.getEntityManager().persist(persona);
+
+        EntityManagerHelper.getEntityManager().persist(persona2);
 
         EntityManagerHelper.commit();
 

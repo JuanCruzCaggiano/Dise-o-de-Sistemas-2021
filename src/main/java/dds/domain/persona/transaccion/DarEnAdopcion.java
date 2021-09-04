@@ -5,20 +5,26 @@ import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 
+import javax.persistence.*;
 import java.util.HashMap;
 
-public class DarEnAdopcion implements Transaccion {
-    final  int idTransaccion = 3;
+@Entity
+@DiscriminatorValue("dar_adopcion")
+public class DarEnAdopcion extends Transaccion {
+    @Transient
     String idMascota;
+    @Transient
     String idDuenio;
+    @Transient
     private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
 
 
     public DarEnAdopcion() {
-
+//        this.idTransaccion = 3;
     }
 
     public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, Object> respuestas) {
+//        this.idTransaccion = 3;
         this.idMascota = idMascota;
         this.idDuenio = idDuenio;
         this.respuestas = respuestas;

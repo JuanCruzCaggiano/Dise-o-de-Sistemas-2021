@@ -9,16 +9,20 @@ import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.Publicador;
 
 import javax.mail.MessagingException;
+import javax.persistence.*;
 
-public class ValidarPublicacion implements Transaccion {
-    final  int idTransaccion = 8;
+@Entity
+@DiscriminatorValue("validar_publicacion")
+public class ValidarPublicacion extends Transaccion {
+    @Transient
     String idPublicacion;
 
     public ValidarPublicacion(){
-
+//        this.idTransaccion = 8;
     }
 
     public ValidarPublicacion(String idPublicacion) {
+//        this.idTransaccion = 8;
         this.idPublicacion = idPublicacion;
     }
 

@@ -4,25 +4,18 @@ import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.transaccion.*;
 
 import javax.mail.MessagingException;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Voluntario implements RolPersona {
-    List<Transaccion> permisos = new ArrayList<>();
-
+@Entity
+@DiscriminatorValue("V")
+public class Voluntario extends RolPersona {
     public Voluntario() {
+        this.nombre = "Voluntario";
         this.permisos.add(new ValidarPublicacion());
         this.permisos.add(new RechazarPublicacion());
         //this.permisos.add(new GestionarPreguntasAdopcion()); TODO
-    }
-
-    @Override
-    public void ejecutarTransaccion(Transaccion transaccion) {
-        if(this.permisos.stream().anyMatch(p -> p.getIdTransaccion() ==(transaccion.getIdTransaccion()))){
-            transaccion.ejecutar();
-        }else{
-            throw new TransactionException("No posee los permisos para ejecutar la transaccion");
-        }
     }
 }

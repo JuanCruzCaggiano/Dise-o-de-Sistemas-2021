@@ -1,11 +1,19 @@
 package dds.domain.persona.transaccion;
 
-public interface Transaccion {
+import javax.persistence.*;
 
+@Entity
+@Table
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_transaccion")
+public abstract class Transaccion {
 
-    void ejecutar() ;
+    @Id
+    @GeneratedValue
+    protected int idTransaccion;
 
-    int getIdTransaccion();
+    public abstract void ejecutar();
+    public abstract int getIdTransaccion();
 
 
 }
