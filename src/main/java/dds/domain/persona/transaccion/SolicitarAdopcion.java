@@ -21,11 +21,11 @@ public class SolicitarAdopcion extends Transaccion {
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public SolicitarAdopcion() {
-//        this.idTransaccion = 10;
+        this.idTransaccion = 10;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
     public SolicitarAdopcion(String idPublicacion,int idAsociacion,String idAdoptante) {
-//        this.idTransaccion = 10;
+        this.idTransaccion = 10;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;
         this.idAdoptante = idAdoptante;

@@ -17,6 +17,7 @@ import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.*;
 import dds.servicios.publicaciones.PublicacionMascota;
+import dds.servicios.publicaciones.TipoPublicacion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -165,19 +166,17 @@ public class PersonaTest {
     //Intento validar publicacion con rescatista
     @Test (expected = TransactionException.class)
     public void testValidarPublicacionErrorPermisos(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
-        publicacionMascota.setIdPublicacion("Publi1");
-        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
-        personaRescat.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona(), TipoPublicacion.PENDIENTE);
+        asoc.getPublicador().agregarPublicacion(publicacionMascota);
+        personaRescat.ejecutarTransaccion(new ValidarPublicacion(publicacionMascota.getIdPublicacion()));
     }
 
     @Test
     public void testRechazarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1");
-        publicacionMascota.setIdPublicacion("Publi1");
-        asoc.getPublicador().agregarPublicacionPendiente(publicacionMascota);
-        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));
-        Assert.assertFalse(asoc.getPublicador().tienePublicacionPendiente("Publi1"));
+        PublicacionMascota publicacionMascota = new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1",TipoPublicacion.PENDIENTE);
+        asoc.getPublicador().agregarPublicacion(publicacionMascota);
+        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion(publicacionMascota.getIdPublicacion()));
+        Assert.assertFalse(asoc.getPublicador().tienePublicacionPendiente(publicacionMascota.getIdPublicacion()));
     }
 
     //RECHAZAR PUBLICACION QUE NO ESTA PENDIENTE

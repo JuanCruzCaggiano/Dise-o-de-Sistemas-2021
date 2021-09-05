@@ -33,11 +33,11 @@ public class RegistrarMascota extends Transaccion {
     private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
 
     public RegistrarMascota() {
-//        this.idTransaccion = 7;
+        this.idTransaccion = 7;
     }
 
     public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, LocalDate fnac, String descripcion, List<String> listaFotos, HashMap<String, Object> caracteristica, Sexo sexo) {
-//        this.idTransaccion = 7;
+        this.idTransaccion = 7;
         this.dueño = dueño;
         this.tipo = tipo;
         this.nombre = nombre;

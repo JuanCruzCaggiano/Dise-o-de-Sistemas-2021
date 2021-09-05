@@ -20,11 +20,11 @@ public class DarEnAdopcion extends Transaccion {
 
 
     public DarEnAdopcion() {
-//        this.idTransaccion = 3;
+        this.idTransaccion = 3;
     }
 
     public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, Object> respuestas) {
-//        this.idTransaccion = 3;
+        this.idTransaccion = 3;
         this.idMascota = idMascota;
         this.idDuenio = idDuenio;
         this.respuestas = respuestas;

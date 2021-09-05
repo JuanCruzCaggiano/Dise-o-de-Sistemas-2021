@@ -21,12 +21,12 @@ public class BuscarHogarDeTransito extends Transaccion {
     List<HogarDeTransito> posiblesHogares = new ArrayList<>();
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public BuscarHogarDeTransito(){
-//        this.idTransaccion = 2;
+        this.idTransaccion = 2;
     }
 
     //CONSTRUCTOR PARA EJECUTAR TRANSACCION
     public BuscarHogarDeTransito(double lat, double longitud, double radio) {
-//        this.idTransaccion = 2;
+        this.idTransaccion = 2;
         this.lat = lat;
         this.longitud = longitud;
         this.radio = radio;

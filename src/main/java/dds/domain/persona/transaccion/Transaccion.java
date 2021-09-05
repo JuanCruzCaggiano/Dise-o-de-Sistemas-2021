@@ -9,7 +9,6 @@ import javax.persistence.*;
 public abstract class Transaccion {
 
     @Id
-    @GeneratedValue
     protected int idTransaccion;
 
     public abstract void ejecutar();

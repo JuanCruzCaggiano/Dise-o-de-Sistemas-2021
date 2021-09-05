@@ -15,11 +15,11 @@ public class RechazarPublicacion extends Transaccion {
     String idPublicacion;
 
     public RechazarPublicacion(){
-//        this.idTransaccion = 6;
+        this.idTransaccion = 6;
     }
 
     public RechazarPublicacion(String idPublicacion) {
-//        this.idTransaccion = 6;
+        this.idTransaccion = 6;
         this.idPublicacion = idPublicacion;
     }
 

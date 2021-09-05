@@ -17,14 +17,14 @@ public class QuieroAdoptar extends Transaccion {
     private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
 
     public QuieroAdoptar(String idPersona, HashMap<String, Object> respuestas) {
-//        this.idTransaccion = 1;
+        this.idTransaccion = 1;
         this.idPersona = idPersona;
         this.respuestas = respuestas;
     }
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public QuieroAdoptar() {
-//        this.idTransaccion = 1;
+        this.idTransaccion = 1;
 
     }
 

@@ -2,9 +2,12 @@ package dds.servicios.publicaciones;
 
 import dds.servicios.publicaciones.publicacionesException.ErrorPubliException;
 
+import javax.management.DescriptorKey;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Entity
 @Table (name = "publicador")
 public class Publicador {
@@ -13,11 +16,9 @@ public class Publicador {
     private int id;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<PublicacionMascota> publicacionesAprobadas= new ArrayList<>();
-    @Transient//@OneToMany(cascade = {CascadeType.ALL})
-    private List<PublicacionMascota> publicacionesPendientes= new ArrayList<>();
-    @Transient//@OneToMany(cascade = {CascadeType.ALL})
-    private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
+    private List<PublicacionMascota> publicacionesMascotas= new ArrayList<>();
+
+
     @Transient//@OneToMany
     private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
     @Transient//@OneToMany
@@ -49,65 +50,55 @@ public class Publicador {
     }
 
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
-        //publicacionesPendientes.contains(publi);
-        if (publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(publi.idPublicacion))){
-            eliminarPublicacionPendiente(publi);
-            agregarPublicacionAprobada(publi);
+        if (publi.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)){
+            publi.setTipoPublicacion(TipoPublicacion.APROBADA);
         }else{
             throw new ErrorPubliException("Dicha publicacion ya fue aprobada");
         }
-
     }
+
     public void rechazarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
-        //publicacionesPendientes.contains(publi);
-        if (publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(publi.idPublicacion))){
-            eliminarPublicacionPendiente(publi);
+        if (publi.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)){
+            eliminarPublicacion(publi);
         }else{
             throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de pendientes");
         }
+    }
 
-    }
-    public void agregarPublicacionPrivada (PublicacionMascota publi) {   // metodo para mascota con chapita
-        publicacionesPrivadas.add(publi);
-    }
-    public void agregarPublicacionPendiente (PublicacionMascota publi) { // metodo que usa el voluntario
-        publicacionesPendientes.add(publi);
-    }
-    private void eliminarPublicacionPendiente (PublicacionMascota publi){
-        publicacionesPendientes.remove(publi);
-    }
-    public void agregarPublicacionAprobada (PublicacionMascota publi){ publicacionesAprobadas.add(publi);}
+    public void agregarPublicacion (PublicacionMascota publi){publicacionesMascotas.add(publi);}
+    public void eliminarPublicacion (PublicacionMascota publi){publicacionesMascotas.remove(publi);}
+
 
     public boolean tienePublicacionPendiente(String idPublicacion) {
-        return this.publicacionesPendientes.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+        return this.getPublicacionesPendientes().stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion)) ;
     }
     public boolean tienePublicacionAprobada(String idPublicacion) {
-        return this.publicacionesAprobadas.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
-    }
-    public boolean tienePublicacionPrivada(String idPublicacion) {
-        return this.publicacionesPrivadas.stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+        return this.getPublicacionesAprobadas().stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
     }
 
+
     public List<PublicacionMascota> getPublicacionesAprobadas() {
-        return publicacionesAprobadas;
+        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.APROBADA)).collect(Collectors.toList());
     }
 
     public List<PublicacionMascota> getPublicacionesPendientes() {
-        return publicacionesPendientes;
+        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)).collect(Collectors.toList());
     }
 
     public List<PublicacionMascota> getPublicacionesPrivadas() {
-        return publicacionesPrivadas;
+        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PRIVADA)).collect(Collectors.toList());
     }
 
     public PublicacionMascota getPendienteXId(String id){
-        return this.publicacionesPendientes.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+        return this.getPublicacionesPendientes().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
     public PublicacionMascota getAprobadaXId(String id){
-        return this.publicacionesAprobadas.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+        return this.getPublicacionesAprobadas().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
 
     public PublicacionAdopcion getEnAdopcionXId(String id){
         return this.enAdopcion.stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }
+
+
 }

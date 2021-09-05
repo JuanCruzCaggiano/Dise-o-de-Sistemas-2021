@@ -1,5 +1,7 @@
 package dds.servicios.publicaciones;
 
+import dds.domain.mascota.Sexo;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +29,21 @@ public class PublicacionMascota {
     @Column
     String descripcion;
 
+    @Enumerated(EnumType.STRING)
+    private TipoPublicacion tipoPublicacion;
+
     @Column
     String idHogaresDeTransito;
 
     @Column
     String idRescatista;
 
-    public PublicacionMascota(String idMascota, double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista) {
+/*
+    @ManyToOne
+    @JoinColumn(name = "FK_PUBLICADOR", updatable = false)
+    private Publicador publicador;
+    //PRUEBA
+    public PublicacionMascota(Publicador publicador,String idMascota, double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista) {
         this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.idMascota = idMascota;
         this.latitud = latitud;
@@ -41,15 +51,37 @@ public class PublicacionMascota {
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
         this.idRescatista = idRescatista;
+        this.publicador = publicador;
+    }
+    public Publicador getPublicador() {
+        return publicador;
     }
 
-    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista) {
+    public void setPublicador(Publicador publicador) {
+        this.publicador = publicador;
+    }*/
+
+    public PublicacionMascota(String idMascota, double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista,TipoPublicacion tipo) {
+        this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
+        this.idMascota = idMascota;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.listaFotos = listaFotos;
+        this.descripcion = descripcion;
+        this.idRescatista = idRescatista;
+        this.tipoPublicacion = tipo;
+    }
+
+
+
+    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista,TipoPublicacion tipo) {
         this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
         this.descripcion = descripcion;
         this.idRescatista= idRescatista;
+        this.tipoPublicacion = tipo;
     }
 
     public void setIdPublicacion(String idPubli) {
@@ -70,5 +102,13 @@ public class PublicacionMascota {
 
     public void setIdRescatista(String idRescatista) {
         this.idRescatista = idRescatista;
+    }
+
+    public TipoPublicacion getTipoPublicacion() {
+        return tipoPublicacion;
+    }
+
+    public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
+        this.tipoPublicacion = tipoPublicacion;
     }
 }

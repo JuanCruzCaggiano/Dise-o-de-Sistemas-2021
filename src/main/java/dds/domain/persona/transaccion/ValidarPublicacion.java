@@ -17,11 +17,11 @@ public class ValidarPublicacion extends Transaccion {
     String idPublicacion;
 
     public ValidarPublicacion(){
-//        this.idTransaccion = 8;
+        this.idTransaccion = 8;
     }
 
     public ValidarPublicacion(String idPublicacion) {
-//        this.idTransaccion = 8;
+        this.idTransaccion = 8;
         this.idPublicacion = idPublicacion;
     }
 

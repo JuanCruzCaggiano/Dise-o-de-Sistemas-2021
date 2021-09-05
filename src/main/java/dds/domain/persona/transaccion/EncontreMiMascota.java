@@ -21,11 +21,11 @@ public class EncontreMiMascota extends Transaccion {
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public EncontreMiMascota() {
-//        this.idTransaccion = 5;
+        this.idTransaccion = 5;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
     public EncontreMiMascota(String idPublicacion,int idAsociacion,String idDuenio) {
-//        this.idTransaccion = 5;
+        this.idTransaccion = 5;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;
         this.idDuenio = idDuenio;
