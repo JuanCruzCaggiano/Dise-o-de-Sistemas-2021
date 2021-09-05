@@ -48,7 +48,7 @@ public class Mascota {
     @Column
     private Boolean estaPerdida = false;
 
-    //TODO agregar sexo en todos los constructores de los tests
+
     public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica,Sexo sexo) {
         this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
         this.tipo = tipo;

@@ -2,6 +2,7 @@ package dds.domain.persona;
 
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.mascotaException.LogicMascotaException;
+import dds.domain.persona.roles.Duenio;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.transaccion.Transaccion;
 import dds.servicios.avisos.AdapterFormaNotificacion;
@@ -55,12 +56,12 @@ public class Persona {
         notificador.getContactos().get(0).setNombre(nombre);
         notificador.getContactos().get(0).setApellido(apellido);
     }
-    //Alta de persona que encontro a su mascota //TODO AGREGAR ROL
+    //Alta de persona que encontro a su mascota
     public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<AdapterFormaNotificacion> formasDeNoti) {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;
-        //this.fechaNac = fechaNac;
+        this.agregarRol(Duenio.getDuenio());
         this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
         this.mascotas = new ArrayList<>();

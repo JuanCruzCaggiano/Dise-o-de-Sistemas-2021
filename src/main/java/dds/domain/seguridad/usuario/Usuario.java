@@ -40,8 +40,11 @@ public class Usuario {
     private Date lastPasswordDT;
     @Column
     private Integer intentosFallidos;
-    @Transient//TODO
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "usedPassword")
     private List<String> usedPasswords = new ArrayList<>();
+
     @Column
     private Boolean isBlocked;
 
