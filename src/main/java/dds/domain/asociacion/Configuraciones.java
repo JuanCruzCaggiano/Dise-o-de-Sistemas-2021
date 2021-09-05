@@ -2,22 +2,42 @@ package dds.domain.asociacion;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table
 public class Configuraciones {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "preguntaObligatoria")
     private List<String> preguntasObligatorias= new ArrayList<>();
-    private List<String> preguntasOpcionales;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "preguntaOpcional")
+    private List<String> preguntasOpcionales = new ArrayList<>();
+
+    @Column
     private Integer anchoFoto;
+
+    @Column
     private Integer altoFoto;
-    private List<String> keys;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "clave")
+    private List<String> claves = new ArrayList<>();
 
 
 
     public Configuraciones() {
         this.anchoFoto=720;
         this.altoFoto=480;
-        this.keys = new ArrayList<>(); //se usa para el hashmap de mascotas
+        this.claves = new ArrayList<>(); //se usa para el hashmap de mascotas
         this.preguntasOpcionales = new ArrayList<>();
         preguntasObligatorias.add("Tamaño");
         preguntasObligatorias.add("Temperamento");
@@ -44,13 +64,13 @@ public class Configuraciones {
     ////MASCOTAS
 
     public void agregarCaracteristicaMascota(String caracteristicaNueva){
-        this.keys.add(caracteristicaNueva);
+        this.claves.add(caracteristicaNueva);
     }
     public void eliminarCaracteristicas(String caracABorrar){
-        this.keys.remove(caracABorrar);
+        this.claves.remove(caracABorrar);
     }
-    public List<String> getKeys() {
-        return keys;
+    public List<String> getClaves() {
+        return claves;
     }
 
     ///PREGUNTAS

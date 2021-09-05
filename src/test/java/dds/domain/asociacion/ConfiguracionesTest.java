@@ -1,9 +1,6 @@
 package dds.domain.asociacion;
 import dds.db.RepositorioAsociaciones;
-import dds.db.RepositorioHogaresDeTransito;
-import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
-import dds.db.RepositorioUsuarios;
 import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.servicios.apiHogares.Ubicacion;
@@ -12,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,12 +41,12 @@ public class ConfiguracionesTest extends TestCase {
     }
     @Test
     public void testAgregarCaracteristica() {
-        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getKeys().size());
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getClaves().size());
     }
     @Test
     public void testEliminarCaracteristica() {
         RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().eliminarCaracteristicas("Color de Pelo");
-        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getKeys().size());
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getClaves().size());
     }
     @Test
     public void testAgregarCaracteristicaAMascota() {

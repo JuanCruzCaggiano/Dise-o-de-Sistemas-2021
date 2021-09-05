@@ -58,7 +58,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.getMascotas().add(perro);
         persona.getMascotas().add(gato);
-
+        persona2.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.PENDIENTE));
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro2",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.APROBADA));
 

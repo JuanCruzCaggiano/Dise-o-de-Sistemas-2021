@@ -74,4 +74,8 @@ public class Contacto {
     public List<AdapterFormaNotificacion> getFormasNotificacion() {
         return formasNotificacion;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

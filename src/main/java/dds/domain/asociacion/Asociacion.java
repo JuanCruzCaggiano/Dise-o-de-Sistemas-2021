@@ -26,10 +26,9 @@ public class Asociacion {
     private Ubicacion ubicacion;
 
     @OneToOne (cascade = {CascadeType.ALL})
-    @JoinColumn(name = "publicador_id")
     private Publicador publicador;
 
-    @Transient //TODO
+    @OneToOne (cascade = {CascadeType.ALL})
     private Configuraciones configuraciones;
 
     public Asociacion(String nombre, Ubicacion ubicacion) {

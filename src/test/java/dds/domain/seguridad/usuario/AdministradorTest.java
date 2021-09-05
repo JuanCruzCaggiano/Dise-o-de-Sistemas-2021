@@ -41,17 +41,17 @@ public class AdministradorTest {
     @Test
     public void testAgregarCaracteristica() {
         admin.agregarCaracteristica("Color de ojos");
-        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getKeys().get(0));
+        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().get(0));
     }
 
     @Test
     public void testEliminarCaracteristica() {
         admin.agregarCaracteristica("Color de ojos");
         admin.agregarCaracteristica("Tamanio");
-        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getKeys().size());
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
         admin.eliminarCaracteristica("Tamanio");
-        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getKeys().size());
-        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getKeys().get(0));
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
+        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().get(0));
     }
 
     // Para los siguientes tests se usó una foto de 1600x900 píxeles [rda = 1.7777]
