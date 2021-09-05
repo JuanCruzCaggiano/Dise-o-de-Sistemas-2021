@@ -2,15 +2,25 @@ package dds.servicios.publicaciones;
 
 import dds.servicios.publicaciones.publicacionesException.ErrorPubliException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table (name = "publicador")
 public class Publicador {
+    @Id
+    @GeneratedValue
+    private int id;
 
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionMascota> publicacionesAprobadas= new ArrayList<>();
+    @Transient//@OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionMascota> publicacionesPendientes= new ArrayList<>();
+    @Transient//@OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionMascota> publicacionesPrivadas= new ArrayList<>();
+    @Transient//@OneToMany
     private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
+    @Transient//@OneToMany
     private List<PublicacionAdopcion> enAdopcion= new ArrayList<>();
 
 

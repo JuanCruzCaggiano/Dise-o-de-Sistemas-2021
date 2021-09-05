@@ -1,11 +1,20 @@
 package dds.servicios.apiHogares;
 
-import com.google.gson.annotations.SerializedName;
+import javax.persistence.*;
 
+@Entity
+@Table
 public class Ubicacion {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Column
     private String direccion;
+    @Column
     private double lat;
-    @SerializedName("long")
+    @Column
     private double longitud;
 
     public Ubicacion(String direccion, double lat, double longitud) {

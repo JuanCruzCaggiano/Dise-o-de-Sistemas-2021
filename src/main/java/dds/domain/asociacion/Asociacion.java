@@ -21,10 +21,12 @@ public class Asociacion {
     @Column
     private String nombre;
 
-    @Transient
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "direccion_id")
     private Ubicacion ubicacion;
 
-    @Transient //TODO
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "publicador_id")
     private Publicador publicador;
 
     @Transient //TODO

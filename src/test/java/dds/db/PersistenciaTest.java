@@ -13,6 +13,7 @@ import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.AdapterEmail;
 import dds.servicios.avisos.AdapterFormaNotificacion;
 import dds.servicios.avisos.Notificador;
+import dds.servicios.publicaciones.PublicacionMascota;
 import org.junit.After;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -40,6 +41,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         Asociacion asoc = new Asociacion("Rescate de Patitas CABA",new Ubicacion("Rivadavia 9450",-34.63722034233585, -58.49715981178081));
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
         usuarioTest.setAsociacion(asoc);
+        asoc.getPublicador().getPublicacionesAprobadas().add(new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
 
@@ -58,12 +60,6 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         persona.getMascotas().add(gato);
 
         EntityManagerHelper.beginTransaction();
-
-//        EntityManagerHelper.getEntityManager().persist(new Duenio());
-//        EntityManagerHelper.getEntityManager().persist(new Rescatista());
-//        EntityManagerHelper.getEntityManager().persist(new Voluntario());
-//        EntityManagerHelper.getEntityManager().persist(new Adoptante());
-
 
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 
