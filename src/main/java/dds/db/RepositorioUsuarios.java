@@ -45,7 +45,7 @@ public class RepositorioUsuarios {
 
     }
 
-    public String getIDAsocXIdPersona(String idPersona) {
+    public int getIDAsocXIdPersona(String idPersona) {
         String userName = getUserNameXIdPersona(idPersona);
         Usuario usuario1 = getUsuario(userName);
         if (usuario1 == null) {
@@ -55,7 +55,7 @@ public class RepositorioUsuarios {
 
     }
 
-    public String getIDAsocXIdMascota(String idMascota) {
+    public int getIDAsocXIdMascota(String idMascota) {
         String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
         String userName = this.getUserNameXIdPersona(idPersona);
         Usuario usuario1 = getUsuario(userName);

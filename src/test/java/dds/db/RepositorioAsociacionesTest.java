@@ -16,19 +16,19 @@ public class RepositorioAsociacionesTest {
     public void setUp(){
         RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
         asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
     }
 
     @Test
     public void testGetAsociacion() {
-        Assert.assertEquals("ASOC1",RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getIdAsociacion());
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getIdAsociacion());
     }
 
     @Test (expected = LogicRepoException.class)
     public void testGetAsociacionError() {
-        Assert.assertEquals("ASOC1",RepositorioAsociaciones.getRepositorio().getAsociacion("sdadfg").getIdAsociacion());
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(777).getIdAsociacion());
     }
 
     @Test

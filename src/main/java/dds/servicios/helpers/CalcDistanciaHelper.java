@@ -11,7 +11,7 @@ public class CalcDistanciaHelper {
     public static CalcDistanciaHelper getHelper() { return calcDistanciaHelper; }
 
     //calculo de distancia
-    public  double distanciaCoord(float lat, float lng, double lat2, double lng2) {
+    public  double distanciaCoord(double lat, double lng, double lat2, double lng2) {
         double lat1 = lat;
         double lng1 = lng;
         //double radioTierra = 6371000;//probar en metros tambien

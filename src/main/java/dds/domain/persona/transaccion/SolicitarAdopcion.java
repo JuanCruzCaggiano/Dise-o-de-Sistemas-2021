@@ -15,7 +15,7 @@ public class SolicitarAdopcion extends Transaccion {
     @Transient
     String idPublicacion;
     @Transient
-    String idAsociacion;
+    int idAsociacion;
     @Transient
     String idAdoptante;
 
@@ -24,7 +24,7 @@ public class SolicitarAdopcion extends Transaccion {
 //        this.idTransaccion = 10;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public SolicitarAdopcion(String idPublicacion,String idAsociacion,String idAdoptante) {
+    public SolicitarAdopcion(String idPublicacion,int idAsociacion,String idAdoptante) {
 //        this.idTransaccion = 10;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;

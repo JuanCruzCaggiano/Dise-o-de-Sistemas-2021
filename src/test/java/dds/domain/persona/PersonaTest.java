@@ -42,7 +42,7 @@ public class PersonaTest {
 
         //CREO ASOC
         asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         //CREO DUENIO
@@ -139,22 +139,22 @@ public class PersonaTest {
     @Test
     public void testEncontreMiMascota(){
         personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
-        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
-        personaDuenio.ejecutarTransaccion(new EncontreMiMascota("Publi1","ASOC1","personaDuenio"));
+        personaDuenio.ejecutarTransaccion(new EncontreMiMascota("Publi1",1,"personaDuenio"));
     }
 
     @Test
     public void testSolicitarAdopcion(){
         personaDuenio.ejecutarTransaccion(new DarEnAdopcion("perro1","personaDuenio",new HashMap <String, Object> ()));
-        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
-        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1","ASOC1","personaAdoptante"));
+        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
+        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1",1,"personaAdoptante"));
     }
 
     @Test
     public void testValidarPublicacion(){
         personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
-        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
+        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
         Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
         Assert.assertTrue(asoc.getPublicador().tienePublicacionAprobada("Publi1"));

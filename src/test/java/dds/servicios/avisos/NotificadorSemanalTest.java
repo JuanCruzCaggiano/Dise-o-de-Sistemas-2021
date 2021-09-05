@@ -71,7 +71,7 @@ public class NotificadorSemanalTest {
 
         //ALTA ASOCIACION
         asoc = new Asociacion("asoc1",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
 
         //ALTA DE USUARIOS
         standard = new Standard("UsuarioTest","Password1234+",duenio);

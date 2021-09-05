@@ -51,7 +51,7 @@ public class NotificadorSemanal{
         }
     }
 
-    public void notificarPublicacionesConCoincidenciaSegun(int coincidenciasMinima, String idAsociacion) {
+    public void notificarPublicacionesConCoincidenciaSegun(int coincidenciasMinima, int idAsociacion) {
         preferencias = new PreferenciasDeAdopcion();
         List<PublicacionQuieroAdoptar> publicacionQuieroAdoptar= new ArrayList<>();
         List<PublicacionAdopcion> publicacionAdopcion = new ArrayList<>();

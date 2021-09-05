@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ubicacion {
     private String direccion;
-    private float lat;
+    private double lat;
     @SerializedName("long")
-    private float longitud;
+    private double longitud;
 
-    public Ubicacion(String direccion, float lat, float longitud) {
+    public Ubicacion(String direccion, double lat, double longitud) {
         this.direccion = direccion;
         this.lat = lat;
         this.longitud = longitud;
     }
 
-    public float getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
@@ -22,7 +22,7 @@ public class Ubicacion {
         this.longitud = longitud;
     }
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 

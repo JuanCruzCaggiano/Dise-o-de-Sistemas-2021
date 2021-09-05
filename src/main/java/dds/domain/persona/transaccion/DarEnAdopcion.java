@@ -32,7 +32,7 @@ public class DarEnAdopcion extends Transaccion {
 
     @Override
     public void ejecutar(){
-        String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
+        int idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         PublicacionAdopcion publi = new PublicacionAdopcion(idMascota,idDuenio,respuestas);
         asoc.getPublicador().agregarPublicacionMascotaEnAdopcion(publi);

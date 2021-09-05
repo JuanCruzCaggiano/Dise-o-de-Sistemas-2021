@@ -45,7 +45,7 @@ public class EncontreMascotaPerdidaConChapita extends Transaccion{
     @Override
     public void ejecutar()  {
         PublicacionMascota publi = new PublicacionMascota(idMascota,latitud,longitud,listaFotos,descripcion,idRescatista);
-        String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
+        int idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         asoc.getPublicador().agregarPublicacionPrivada(publi);
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));

@@ -26,7 +26,7 @@ public class AdministradorTest {
 
         //CREO ASOC
         asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         admin.setAsociacion(asoc);
         RepositorioUsuarios.getRepositorio().agregarUsuario(admin);
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);

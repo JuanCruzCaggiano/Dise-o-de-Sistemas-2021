@@ -17,21 +17,21 @@ public class PreferenciasDeAdopcion {
     RepositorioAsociaciones repositorioAsociaciones;
 
 
-    public List<PublicacionQuieroAdoptar> obtenerPublicacionesAdoptantesSegunAsociacion(String idAsoc) {
+    public List<PublicacionQuieroAdoptar> obtenerPublicacionesAdoptantesSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
         return asociacion.getPublicador().getPublicacionesQuieroAdoptar();
     }
 
-    public List<PublicacionAdopcion> obtenerPublicacionesEnAdopcionSegunAsociacion(String idAsoc) {
+    public List<PublicacionAdopcion> obtenerPublicacionesEnAdopcionSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
         return asociacion.getPublicador().getEnAdopcion();
     }
 
-    public List<String> obtenerPreguntasSegunAsociacion(String idAsoc) {
+    public List<String> obtenerPreguntasSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 

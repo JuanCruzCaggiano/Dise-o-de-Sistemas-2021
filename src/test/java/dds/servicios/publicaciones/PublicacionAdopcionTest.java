@@ -55,7 +55,7 @@ public class PublicacionAdopcionTest extends TestCase {
         duenio.setIdPersona("persona1");
 
         asoc = new Asociacion("asoc1",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         Standard standard = new Standard("UsuarioTest","Password1234+",duenio);
         standard.setAsociacion(asoc);
 

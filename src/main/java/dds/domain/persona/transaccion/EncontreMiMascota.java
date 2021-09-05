@@ -15,7 +15,7 @@ public class EncontreMiMascota extends Transaccion {
     @Transient
     String idPublicacion;
     @Transient
-    String idAsociacion;
+    int idAsociacion;
     @Transient
     String idDuenio;
 
@@ -24,7 +24,7 @@ public class EncontreMiMascota extends Transaccion {
 //        this.idTransaccion = 5;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMiMascota(String idPublicacion,String idAsociacion,String idDuenio) {
+    public EncontreMiMascota(String idPublicacion,int idAsociacion,String idDuenio) {
 //        this.idTransaccion = 5;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;

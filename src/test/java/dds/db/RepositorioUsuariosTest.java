@@ -30,7 +30,7 @@ public class RepositorioUsuariosTest  {
     public void setUp() throws Exception {
         //CREO ASOC
         asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         //Creo persona para probar en tests

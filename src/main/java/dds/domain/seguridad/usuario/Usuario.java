@@ -40,13 +40,14 @@ public class Usuario {
     private Date lastPasswordDT;
     @Column
     private Integer intentosFallidos;
-    @Transient
+    @Transient//TODO
     private List<String> usedPasswords = new ArrayList<>();
     @Column
     private Boolean isBlocked;
 
 
-    @Transient
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "asociacion_id")
     private Asociacion asociacion;
 
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{

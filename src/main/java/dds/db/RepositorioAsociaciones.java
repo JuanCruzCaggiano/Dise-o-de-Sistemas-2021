@@ -30,15 +30,15 @@ public class RepositorioAsociaciones {
     }
 
 
-    public Asociacion getAsociacion(String idAsoc) {
-        Asociacion asoc = asociaciones.stream().filter( a -> a.getIdAsociacion().equals(idAsoc)).findFirst().orElse(null);
+    public Asociacion getAsociacion(int idAsoc) {
+        Asociacion asoc = asociaciones.stream().filter( a -> a.getIdAsociacion()==(idAsoc)).findFirst().orElse(null);
         if(asoc == null){
             throw new LogicRepoException("Id asociacion Inexistente");
         }
         return asoc;
     }
 
-    public String getIDAsocXIdPublicacion(String idPublicacion) {
+    public int getIDAsocXIdPublicacion(String idPublicacion) {
         Asociacion asociacion = this.asociaciones.stream().filter(asoc -> asoc.getPublicador().tienePublicacionPendiente(idPublicacion)).findFirst().orElse(null);
         if (asociacion == null) {
             throw new LogicRepoException("Id Publicacion Incorrecta");

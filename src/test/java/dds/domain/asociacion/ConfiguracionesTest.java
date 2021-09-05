@@ -29,7 +29,7 @@ public class ConfiguracionesTest extends TestCase {
         RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
         //CREO ASOC
         asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion("ASOC1");
+        asoc.setIdAsociacion(1);
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
@@ -45,12 +45,12 @@ public class ConfiguracionesTest extends TestCase {
     }
     @Test
     public void testAgregarCaracteristica() {
-        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().getKeys().size());
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getKeys().size());
     }
     @Test
     public void testEliminarCaracteristica() {
-        RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().eliminarCaracteristicas("Color de Pelo");
-        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion("ASOC1").getConfiguraciones().getKeys().size());
+        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().eliminarCaracteristicas("Color de Pelo");
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(1).getConfiguraciones().getKeys().size());
     }
     @Test
     public void testAgregarCaracteristicaAMascota() {
