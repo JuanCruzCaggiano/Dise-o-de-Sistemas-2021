@@ -30,13 +30,13 @@ public class RegistrarMascota extends Transaccion {
     @Transient
     private List<String> listaFotos;
     @Transient
-    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
+    private HashMap <String, String> caracteristica = new HashMap <String, String> ();
 
     public RegistrarMascota() {
         this.idTransaccion = 7;
     }
 
-    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, LocalDate fnac, String descripcion, List<String> listaFotos, HashMap<String, Object> caracteristica, Sexo sexo) {
+    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, LocalDate fnac, String descripcion, List<String> listaFotos, HashMap<String, String> caracteristica, Sexo sexo) {
         this.idTransaccion = 7;
         this.dueño = dueño;
         this.tipo = tipo;

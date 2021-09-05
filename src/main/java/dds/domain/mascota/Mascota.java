@@ -1,11 +1,7 @@
 package dds.domain.mascota;
 
-import dds.domain.asociacion.Asociacion;
-import dds.domain.persona.Persona;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -42,14 +38,18 @@ public class Mascota {
 
     //private List<ConfigCaracMascota> caracteristica;
 
-    @Transient //TODO
-    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
+    @ElementCollection
+    @MapKeyColumn(name="caracteristica")
+    @Column(name="clave")
+    @CollectionTable(name="caracteristica", joinColumns=@JoinColumn(name="mascota_id"))
+    private Map <String, String> caracteristica = new HashMap <String, String> ();
 
     @Column
     private Boolean estaPerdida = false;
 
 
-    public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica,Sexo sexo) {
+
+    public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, String> caracteristica,Sexo sexo) {
         this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
         this.tipo = tipo;
         this.nombre = nombre;
@@ -61,7 +61,7 @@ public class Mascota {
         this.caracteristica = caracteristica;
     }
 
-    public HashMap<String, Object> getCaracteristica() {
+    public Map<String, String> getCaracteristica() {
         return caracteristica;
     }
 

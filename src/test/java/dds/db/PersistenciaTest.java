@@ -41,10 +41,15 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
     public void PullInicialDeDatos() throws NoSuchAlgorithmException {
 
         Asociacion asoc = new Asociacion("Rescate de Patitas CABA",new Ubicacion("Rivadavia 9450",-34.63722034233585, -58.49715981178081));
+        asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
+        asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
+
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
         usuarioTest.setAsociacion(asoc);
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
+        perro.agregarCaracteristica("Color De Pelo","Negro y Marron");
+        perro.agregarCaracteristica("Tamaño","Grande");
 
         AdapterEmail adEmail = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
