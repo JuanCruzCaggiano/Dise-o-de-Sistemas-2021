@@ -11,32 +11,32 @@ import java.util.UUID;
 @Table (name = "publicacion_mascota")
 public class PublicacionMascota {
     @Id
-    String idPublicacion;
+    private String idPublicacion;
 
     @Column
-    String idMascota;
+    private String idMascota;
 
     @Column
-    double latitud;
+    private double latitud;
 
     @Column
-    double longitud;
+    private double longitud;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "listaFotos")
-    List<String> listaFotos = new ArrayList<>();
+    private List<String> listaFotos = new ArrayList<>();
 
     @Column
-    String descripcion;
+    private String descripcion;
 
     @Enumerated(EnumType.STRING)
     private TipoPublicacion tipoPublicacion;
 
     @Column
-    String idHogaresDeTransito;
+    private String idHogaresDeTransito;
 
     @Column
-    String idRescatista;
+    private String idRescatista;
 
 /*
     @ManyToOne

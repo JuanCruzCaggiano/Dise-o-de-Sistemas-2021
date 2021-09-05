@@ -18,10 +18,10 @@ public class Publicador {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionMascota> publicacionesMascotas= new ArrayList<>();
 
-
-    @Transient//@OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
-    @Transient//@OneToMany
+
+    @OneToMany
     private List<PublicacionAdopcion> enAdopcion= new ArrayList<>();
 
 
@@ -70,10 +70,10 @@ public class Publicador {
 
 
     public boolean tienePublicacionPendiente(String idPublicacion) {
-        return this.getPublicacionesPendientes().stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion)) ;
+        return this.getPublicacionesPendientes().stream().anyMatch(p -> p.getIdPublicacion().equals(idPublicacion)) ;
     }
     public boolean tienePublicacionAprobada(String idPublicacion) {
-        return this.getPublicacionesAprobadas().stream().anyMatch(p -> p.idPublicacion.equals(idPublicacion));
+        return this.getPublicacionesAprobadas().stream().anyMatch(p -> p.getIdPublicacion().equals(idPublicacion));
     }
 
 

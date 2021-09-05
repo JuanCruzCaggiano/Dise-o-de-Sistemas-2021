@@ -16,14 +16,14 @@ public class DarEnAdopcion extends Transaccion {
     @Transient
     String idDuenio;
     @Transient
-    private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
+    private HashMap<String, String> respuestas = new HashMap <String, String> ();
 
 
     public DarEnAdopcion() {
         this.idTransaccion = 3;
     }
 
-    public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, Object> respuestas) {
+    public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, String> respuestas) {
         this.idTransaccion = 3;
         this.idMascota = idMascota;
         this.idDuenio = idDuenio;

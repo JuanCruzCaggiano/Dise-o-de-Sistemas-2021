@@ -37,7 +37,7 @@ import static java.lang.Thread.sleep;
 public class NotificadorSemanalTest {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
-    HashMap<String, Object> preguntas,preguntasAdoptante;
+    HashMap<String, String> preguntas,preguntasAdoptante;
     Persona adoptador,duenio;
     Standard standard;
     List<Mascota> mascotas = new ArrayList<>();
@@ -77,7 +77,7 @@ public class NotificadorSemanalTest {
         standard = new Standard("UsuarioTest","Password1234+",duenio);
         standard.setAsociacion(asoc);
 
-        preguntas = new HashMap<String, Object>();
+        preguntas = new HashMap<String, String>();
         //RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standard);
@@ -96,7 +96,7 @@ public class NotificadorSemanalTest {
         Standard standardAdoptante = new Standard("UsuarioTest","Password1234+",adoptador);
         standardAdoptante.setAsociacion(asoc);
 
-        preguntasAdoptante = new HashMap<String, Object>();
+        preguntasAdoptante = new HashMap<String, String>();
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standardAdoptante);

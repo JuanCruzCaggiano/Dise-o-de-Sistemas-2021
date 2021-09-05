@@ -1,22 +1,34 @@
 package dds.servicios.publicaciones;
 
+import javax.persistence.*;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
+@Entity
+@Table(name = "publicacion_quiero_adoptar")
 public class PublicacionQuieroAdoptar {
-
+    @Id
     private String idPublicacion;
+
+    @Column
     private String idAdoptante;
-    private HashMap<String, Object> preguntas = new HashMap <String, Object> ();
 
-    public PublicacionQuieroAdoptar(String idAdoptante,HashMap<String, Object> preguntas) {
+    @ElementCollection
+    @MapKeyColumn(name="asd")
+    @Column(name="asd1")
+    @CollectionTable(name="pregunta", joinColumns=@JoinColumn(name="publicacion_id"))
+    private Map <String, String> preguntas = new HashMap <String, String> ();
 
+    public PublicacionQuieroAdoptar(String idAdoptante, HashMap<String, String> preguntas) {
+        this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.idAdoptante = idAdoptante;
         this.preguntas = preguntas;
     }
 
 
 
-    public HashMap<String, Object> getPreguntas() {
+    public Map<String, String> getPreguntas() {
         return preguntas;
     }
     public void responderPregunta(String key, String value){ //no se si es necesario ya que las preguntas se pasan en el constr
@@ -27,7 +39,7 @@ public class PublicacionQuieroAdoptar {
         this.idPublicacion = idPublicacion;
     }
 
-    public void setPreguntas(HashMap<String, Object> preguntas) {
+    public void setPreguntas(HashMap<String, String> preguntas) {
         this.preguntas = preguntas;
     }
 

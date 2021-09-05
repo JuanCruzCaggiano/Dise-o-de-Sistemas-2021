@@ -10,6 +10,7 @@ import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PreferenciasDeAdopcion {
@@ -41,7 +42,7 @@ public class PreferenciasDeAdopcion {
     public List<PublicacionAdopcion> obtenerPublicacionesConCoincidenciaSegunAdoptante(int coincidenciasMinima, PublicacionQuieroAdoptar publicacionQuieroAdoptarAux, List<PublicacionAdopcion> publicacionAdopcionesAux) {
         int cantidad = 0;
         String valor = "";
-        HashMap<String, Object> preguntasPosibleAdoptante = new HashMap<String, Object>();
+        Map<String, String> preguntasPosibleAdoptante = new HashMap<String, String>();
         preguntasPosibleAdoptante = publicacionQuieroAdoptarAux.getPreguntas();
         List<PublicacionAdopcion> auxPubli = new ArrayList<>();
 

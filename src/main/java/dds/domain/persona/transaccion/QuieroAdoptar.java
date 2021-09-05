@@ -7,6 +7,7 @@ import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @DiscriminatorValue("quiero_adoptar")
@@ -14,9 +15,9 @@ public class QuieroAdoptar extends Transaccion {
     @Transient
     String idPersona;
     @Transient
-    private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
+    private HashMap<String, String> respuestas = new HashMap <String, String> ();
 
-    public QuieroAdoptar(String idPersona, HashMap<String, Object> respuestas) {
+    public QuieroAdoptar(String idPersona, HashMap<String, String> respuestas) {
         this.idTransaccion = 1;
         this.idPersona = idPersona;
         this.respuestas = respuestas;

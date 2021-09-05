@@ -147,7 +147,7 @@ public class PersonaTest {
 
     @Test
     public void testSolicitarAdopcion(){
-        personaDuenio.ejecutarTransaccion(new DarEnAdopcion("perro1","personaDuenio",new HashMap <String, Object> ()));
+        personaDuenio.ejecutarTransaccion(new DarEnAdopcion("perro1","personaDuenio",new HashMap <String, String> ()));
         RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
         personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1",1,"personaAdoptante"));
     }

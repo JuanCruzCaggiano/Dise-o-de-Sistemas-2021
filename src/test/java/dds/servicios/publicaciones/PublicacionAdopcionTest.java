@@ -31,7 +31,7 @@ import java.util.List;
 public class PublicacionAdopcionTest extends TestCase {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
-    HashMap<String, Object> preguntas;
+    HashMap<String, String> preguntas;
     Persona duenio;
     List<Mascota> mascotas = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class PublicacionAdopcionTest extends TestCase {
         Standard standard = new Standard("UsuarioTest","Password1234+",duenio);
         standard.setAsociacion(asoc);
 
-        preguntas = new HashMap<String, Object>();
+        preguntas = new HashMap<String, String>();
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standard);

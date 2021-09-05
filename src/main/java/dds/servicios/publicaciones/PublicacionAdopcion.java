@@ -1,16 +1,30 @@
 package dds.servicios.publicaciones;
 
+import javax.persistence.*;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
+@Entity
+@Table(name = "publicacion_en_adopcion")
 public class PublicacionAdopcion {
-
+    @Id
     private String idPublicacion;
+
+    @Column
     private String idMascota;
+
+    @Column
     private String idDueño;
-    private HashMap<String, Object> preguntas = new HashMap <String, Object> ();
 
-    public PublicacionAdopcion(String idMascota, String idDueño, HashMap<String, Object> preguntas) { //esti va a responderse desde el front con getpreguntas
+    @ElementCollection
+    @MapKeyColumn(name="asdasd")
+    @Column(name="asdasd1")
+    @CollectionTable(name="pregunta2", joinColumns=@JoinColumn(name="publicacion_id"))
+    private Map<String, String> preguntas = new HashMap <String, String> ();
 
+    public PublicacionAdopcion(String idMascota, String idDueño, HashMap<String, String> preguntas) { //esti va a responderse desde el front con getpreguntas
+        this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.idMascota = idMascota;
         this.idDueño = idDueño;
         this.preguntas = preguntas; //se obtiene de la asociacion con el metodo getPreguntas
@@ -19,7 +33,7 @@ public class PublicacionAdopcion {
     public void responderPregunta(String key, String value){ //no se si es necesario ya que las preguntas se pasan en el constr
         preguntas.put(key,value);
     }
-    public HashMap<String, Object> getPreguntas() {
+    public Map<String, String> getPreguntas() {
         return preguntas;
     }
 

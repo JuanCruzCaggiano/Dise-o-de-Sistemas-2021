@@ -24,11 +24,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PublicacionQuieroAdoptarTest extends TestCase {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
-    HashMap<String, Object> preguntas;
+    HashMap <String, String> preguntas;
     Persona adoptador;
     Administrador admin;
     List<Mascota> mascotas = new ArrayList<>();
@@ -58,7 +59,7 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
 
 
 
-        preguntas = new HashMap<String, Object>();
+        preguntas = new HashMap<String, String>();
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         RepositorioUsuarios.getRepositorio().agregarUsuario(standard);
