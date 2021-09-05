@@ -26,11 +26,11 @@ public class RepositorioUsuariosTest  {
     Persona personaDuenio;
     Standard usuDuenio;
     Asociacion asoc;
+    Mascota perro;
     @Before
     public void setUp() throws Exception {
         //CREO ASOC
         asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion(1);
         RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
         //Creo persona para probar en tests
@@ -47,12 +47,10 @@ public class RepositorioUsuariosTest  {
         personaDuenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                 39000401, LocalDate.of(1995, 7, 7),
                 "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
-        personaDuenio.setIdPersona("1");
         Standard usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
 
-        Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
-        perro.setIdMascota("perro1");
+        perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         personaDuenio.getMascotas().add(perro);
 
 
@@ -69,34 +67,34 @@ public class RepositorioUsuariosTest  {
 
     @Test
     public void testGetIdUsuarioXPersona(){
-        Assert.assertEquals("UsuarioDuenio",RepositorioUsuarios.getRepositorio().getUserNameXIdPersona("1"));
+        Assert.assertEquals("UsuarioDuenio",RepositorioUsuarios.getRepositorio().getUserNameXIdPersona(personaDuenio.getIdPersona()));
     }
 
     @Test (expected = LogicRepoException.class)
     public void testGetIdUsuarioXPersonaError() {
-        String userName = RepositorioUsuarios.getRepositorio().getUserNameXIdPersona("10");
+        String userName = RepositorioUsuarios.getRepositorio().getUserNameXIdPersona("1sasdaw0");
 
     }
 
     @Test
     public void testGetIDAsocXIdPersona() {
-        Assert.assertEquals("ASOC1",RepositorioUsuarios.getRepositorio().getIDAsocXIdPersona("1"));
+        Assert.assertEquals(asoc.getIdAsociacion(),RepositorioUsuarios.getRepositorio().getIDAsocXIdPersona(personaDuenio.getIdPersona()));
 
     }
     @Test (expected = LogicRepoException.class)
     public void testGetIDAsocXIdPersonaError(){
-        Assert.assertEquals("ASOC1",RepositorioUsuarios.getRepositorio().getIDAsocXIdPersona("10"));
+        Assert.assertEquals(asoc.getIdAsociacion(),RepositorioUsuarios.getRepositorio().getIDAsocXIdPersona("10asdasdw"));
 
     }
 
     @Test
     public void testGetIDAsocXIdMascota() {
-        Assert.assertEquals("ASOC1",RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota("perro1"));
+        Assert.assertEquals(asoc.getIdAsociacion(),RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(perro.getIdMascota()));
 
     }
     @Test (expected = LogicRepoException.class)
     public void testGetIDAsocXIdMascotaError() {
-        Assert.assertEquals("ASOC1",RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota("12349ds"));
+        Assert.assertEquals(asoc.getIdAsociacion(),RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota("12349ds"));
 
     }
 
