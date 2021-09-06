@@ -1,5 +1,6 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
@@ -43,6 +44,9 @@ public class EncontreMascotaPerdidaSinChapita extends Transaccion{
     @Override
     public void ejecutar()  {
         PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion,idRescatista, TipoPublicacion.PENDIENTE);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(publi); //Revisar
+        EntityManagerHelper.commit();
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
         asoc.getPublicador().agregarPublicacion(publi);
     }

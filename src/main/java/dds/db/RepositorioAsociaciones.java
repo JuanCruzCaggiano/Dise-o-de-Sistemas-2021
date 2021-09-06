@@ -3,8 +3,10 @@ package dds.db;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.servicios.helpers.CalcDistanciaHelper;
+import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.Publicador;
 
 import java.util.Comparator;
@@ -39,17 +41,19 @@ public class RepositorioAsociaciones {
     }
 
     public int getIDAsocXIdPublicacion(String idPublicacion) {
-        Asociacion asociacion = this.asociaciones.stream().filter(asoc -> asoc.getPublicador().tienePublicacionPendiente(idPublicacion)).findFirst().orElse(null);
-        if (asociacion == null) {
+        if (EntityManagerHelper.getEntityManager().find(PublicacionMascota.class, idPublicacion) != null) {
+            String jql = "Select a.idAsociacion from Asociacion a, Publicador publi, PublicacionMascota p where p.idPublicacion = :idPublicacion";
+            int idAsoc = (int) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idPublicacion", idPublicacion).getResultList().get(0);
+            return idAsoc;
+        } else {
             throw new LogicRepoException("Id Publicacion Incorrecta");
         }
-
-        return asociacion.getIdAsociacion();
-
     }
     public Asociacion getAsociacionMasCercana(double latitud,double longitud){
-        Asociacion asoc ;
-        asoc = RepositorioAsociaciones.getRepositorio().getAsociaciones().stream()
+        List<Asociacion> asociaciones = (List<Asociacion>)EntityManagerHelper.getEntityManager().createQuery("FROM Asociacion ").getResultList();
+
+        Asociacion asoc = asociaciones.stream()
                 .min(Comparator.comparingDouble(a->CalcDistanciaHelper.getHelper().distanciaCoord(a.getUbicacion().getLat(), a.getUbicacion().getLongitud(), latitud, longitud))).orElse(null);
         return asoc;
     }

@@ -1,5 +1,8 @@
 package dds.domain.persona;
 
+import dds.db.EntityManagerHelper;
+import dds.db.RepositorioMascotas;
+import dds.db.repositorioException.LogicRepoException;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.mascotaException.LogicMascotaException;
 import dds.domain.persona.roles.Duenio;
@@ -50,8 +53,10 @@ public class Persona {
 
     public Persona(String nombre, String apellido, List<Mascota> mascotas, List<RolPersona> listaRoles, Notificador notificador) {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
-        this.mascotas = mascotas;
-        this.listaRoles = listaRoles;
+        this.mascotas = new ArrayList<>();
+        this.mascotas.addAll(mascotas);
+        this.listaRoles = new ArrayList<>();
+        this.listaRoles.addAll(listaRoles);
         this.notificador = notificador;
         notificador.getContactos().get(0).setNombre(nombre);
         notificador.getContactos().get(0).setApellido(apellido);
@@ -111,11 +116,15 @@ public class Persona {
     }
 
     public Mascota getMascota(String idMascota){
-        Mascota m = mascotas.stream().filter(mascota -> mascota.getIdMascota().equals(idMascota)).findFirst().orElse(null);
-        if(m ==null){
-            throw new LogicMascotaException("El dueño no posee este id_mascota");
+        if(RepositorioMascotas.getRepositorio().esIDValido(idMascota)){
+            String jql = "Select m from Persona p, Mascota m where m.idMascota = :idMascota and p.idPersona = :idPersona";
+            Mascota mascota = (Mascota) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idMascota",idMascota).setParameter("idPersona",this.idPersona).getResultList().get(0);
+            return  mascota;
+
+        }else {
+            throw new LogicRepoException("El dueño no posee este id_mascota");
         }
-        return m;
     }
 
     public List<RolPersona> getListaRoles() {
@@ -137,5 +146,31 @@ public class Persona {
         this.listaRoles.add(rol);
     }
 
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
+    }
 
+    public void setFechaNac(Date fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public void setTipoDoc(TipoDocumento tipoDoc) {
+        this.tipoDoc = tipoDoc;
+    }
+
+    public void setNroDoc(Integer nroDoc) {
+        this.nroDoc = nroDoc;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setListaRoles(List<RolPersona> listaRoles) {
+        this.listaRoles = listaRoles;
+    }
+
+    public void setNotificador(Notificador notificador) {
+        this.notificador = notificador;
+    }
 }

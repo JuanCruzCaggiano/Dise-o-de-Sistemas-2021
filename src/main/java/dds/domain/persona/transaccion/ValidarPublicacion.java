@@ -1,5 +1,6 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
@@ -31,6 +32,9 @@ public class ValidarPublicacion extends Transaccion {
         Publicador publicador= asoc.getPublicador();
         PublicacionMascota publicacion = publicador.getPendienteXId(idPublicacion);
         publicador.aprobarPublicacion(publicacion);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(publicacion); //TODO REVISAR
+        EntityManagerHelper.commit();
     }
 
     @Override
