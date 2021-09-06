@@ -1,5 +1,6 @@
 package dds.servicios.publicaciones;
 
+import dds.db.EntityManagerHelper;
 import dds.servicios.publicaciones.publicacionesException.ErrorPubliException;
 
 import javax.management.DescriptorKey;
@@ -21,7 +22,7 @@ public class Publicador {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionQuieroAdoptar> publicacionesQuieroAdoptar= new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<PublicacionAdopcion> enAdopcion= new ArrayList<>();
 
 

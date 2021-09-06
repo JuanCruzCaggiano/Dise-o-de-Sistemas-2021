@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Persona {
 
     @Id
-    @Column
+    @Column (name = "idPersona")
     private String idPersona;
 
     @OneToMany(cascade = {CascadeType.ALL})
@@ -136,4 +136,6 @@ public class Persona {
     public void agregarRol(RolPersona rol){
         this.listaRoles.add(rol);
     }
+
+
 }

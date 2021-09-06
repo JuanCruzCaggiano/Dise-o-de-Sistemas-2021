@@ -7,6 +7,7 @@ import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
 import dds.domain.persona.roles.*;
+import dds.domain.persona.transaccion.DarEnAdopcion;
 import dds.domain.seguridad.usuario.Administrador;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
@@ -45,6 +46,9 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
 
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
+
+
+
         usuarioTest.setAsociacion(asoc);
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
@@ -68,14 +72,26 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.PENDIENTE));
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro2",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.APROBADA));
 
+        HashMap<String, String> preguntas = new HashMap<String, String>();
+        preguntas.put(asoc.getConfiguraciones().getPreguntas().get(0),"Negro");
+        preguntas.put(asoc.getConfiguraciones().getPreguntas().get(1),"Grande");
+
+        Standard usuarioStandard = new Standard("usuarioStandard","Password123+2",persona);
+        usuarioStandard.setAsociacion(asoc);
+
+
 
         EntityManagerHelper.beginTransaction();
 
+        EntityManagerHelper.getEntityManager().persist(usuarioStandard);
+
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 
-        EntityManagerHelper.getEntityManager().persist(persona);
-
         EntityManagerHelper.getEntityManager().persist(persona2);
+
+        //Prueba de ejecucion de tansaccion Dar en Adopcion por un usuario standard dueño.
+        persona.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),persona.getIdPersona(),preguntas));
+
 
         EntityManagerHelper.commit();
 

@@ -25,15 +25,8 @@ import java.security.*;
 public class Usuario {
 
     @Id
-    @GeneratedValue
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    @Column
     private String userName;
+
     @Column
     private String password;
     @Column

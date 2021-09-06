@@ -30,26 +30,30 @@ public class RepositorioPersonas {
     }
 
     public Persona getPersona(String idPersona) {
-        Persona persona = personas.stream().filter(p -> p.getIdPersona().equals(idPersona)).findFirst().orElse(null);
-        if(persona == null){
+
+        if(esIDValido(idPersona)){
+            return EntityManagerHelper.getEntityManager().find(Persona.class, idPersona) ;
+        }else{
             throw new LogicRepoException("Id Persona Inexistente");
         }
-        return persona;
     }
 
     public String getIdPersonaXidMascota(String idMascota){
+        if(RepositorioMascotas.getRepositorio().esIDValido(idMascota)){
+            String jql = "Select p from Persona p, Mascota m where m.idMascota = :idMascota";
+            Persona persona = (Persona) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idMascota",idMascota).getResultList().get(0);
+            return  persona.getIdPersona();
 
-        Persona persona1 = personas.stream().filter(persona -> persona.getMascotas()
-                                                                      .stream().anyMatch(mascota -> mascota.getIdMascota().equals(idMascota)))
-                .findFirst().orElse(null);
-        if(persona1 == null){
-            throw new LogicRepoException("IdMascota inexistente");
         }else {
-            return persona1.getIdPersona();
+            throw new LogicRepoException("IdMascota inexistente");
         }
-
     }
 
+
+        public boolean esIDValido(String ID) {
+        return (EntityManagerHelper.getEntityManager().find(Persona.class, ID) != null) ;
+    }
 
 
 

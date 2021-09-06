@@ -31,11 +31,11 @@ public class RepositorioAsociaciones {
 
 
     public Asociacion getAsociacion(int idAsoc) {
-        Asociacion asoc = asociaciones.stream().filter( a -> a.getIdAsociacion()==(idAsoc)).findFirst().orElse(null);
-        if(asoc == null){
+        if(esIDValido(idAsoc)){
+            return EntityManagerHelper.getEntityManager().find(Asociacion.class, idAsoc) ;
+        }else{
             throw new LogicRepoException("Id asociacion Inexistente");
         }
-        return asoc;
     }
 
     public int getIDAsocXIdPublicacion(String idPublicacion) {
@@ -59,6 +59,10 @@ public class RepositorioAsociaciones {
     }
     public void eliminarAsociacion(Asociacion asoc){
         this.asociaciones.remove(asoc);
+    }
+
+    public boolean esIDValido(int ID) {
+        return (EntityManagerHelper.getEntityManager().find(Asociacion.class, ID) != null) ;
     }
 
 }

@@ -10,7 +10,8 @@ import java.security.NoSuchAlgorithmException;
 @DiscriminatorValue("S")
 public class Standard extends Usuario {
 
-    @Transient
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "persona_id")
     private Persona persona;
 
 
