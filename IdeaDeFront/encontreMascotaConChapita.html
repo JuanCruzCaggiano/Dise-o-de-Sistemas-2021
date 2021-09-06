@@ -108,39 +108,73 @@ https://templatemo.com/tm-564-plot-listing
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-lg-12 text-center">
-                <h4 style="margin-top: 25px;">Escaneá el código QR por favor</h4>
-                <h5 style="margin-top: 25px;">Ya veremos qué hacer...</h5>
-
+              <h4 style="margin: 25px">Escaneá el código QR <br>impreso en la chapita de la mascota</h4>
             </div>
         </div>
 
         <div class="row g-2">
           <label>Ubicación</label>
-            <div class="input-group">
+            <div class="input-group input-group-sm">
               <span class="input-group-text" id="inputGroup-sizing-default">Latitud</span>
-              <span class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
+              <span id="lat" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
               <span class="input-group-text" id="inputGroup-sizing-default">Longitud</span>
-              <span class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
+              <span id="long" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
             </div>
 
+            <script>
+              var text_lat = document.getElementById("lat");
+              var text_long = document.getElementById("long");
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+              }
+              else {
+                text_lat.innerHTML = "Geolocalización no soportada en este explorador.";
+                text_long.innerHTML = "Geolocalización no soportada en este explorador.";
+              }
+              function showPosition(position) {
+                text_lat.innerHTML = position.coords.latitude;
+                text_long.innerHTML = position.coords.longitude;
+              }
+              function showError(error) {
+                switch(error.code) {
+                  case error.PERMISSION_DENIED:
+                    text_lat.innerHTML = "El usuario denegó la solicitud de geolocalización."
+                    text_long.innerHTML = "El usuario denegó la solicitud de geolocalización.";
+                    break;
+                  case error.POSITION_UNAVAILABLE:
+                    text_lat.innerHTML = "Información de localización no disponible."
+                    text_long.innerHTML = "Información de localización no disponible.";
+                    break;
+                  case error.TIMEOUT:
+                    text_lat.innerHTML = "Finalizó el tiempo para obtener la localización del usuario."
+                    text_long.innerHTML = "Finalizó el tiempo para obtener la localización del usuario.";
+                    break;
+                  case error.UNKNOWN_ERROR:
+                    text_lat.innerHTML = "Error desconocido."
+                    text_long.innerHTML = "Error desconocido.";
+                    break;
+                }
+              }
+            </script>
+
           <label>Fotos</label>
-          <div class="input-group">
+          <div class="input-group input-group-sm">
             <input type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Subir</label>
           </div>
-          <div class="input-group">
+          <div class="input-group input-group-sm">
             <input type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Subir</label>
           </div>
-          <div class="input-group mb-3">
+          <div class="input-group input-group-sm mb-3">
             <input type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Subir</label>
           </div>
 
           <label>Descripción</label>
-          <div class="input-group mb-3">
+          <div class="input-group input-group-sm mb-3">
             <textarea class="form-control" aria-label="With textarea">...</textarea>
           </div>
         </div>
