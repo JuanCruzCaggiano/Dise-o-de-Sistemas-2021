@@ -18,9 +18,9 @@ public class PublicacionAdopcion {
     private String idDueño;
 
     @ElementCollection
-    @MapKeyColumn(name="asdasd")
-    @Column(name="asdasd1")
-    @CollectionTable(name="pregunta2", joinColumns=@JoinColumn(name="publicacion_id"))
+    @MapKeyColumn(name="respuesta")
+    @Column(name="pregunta")
+    @CollectionTable(name="pregunta_publicacion_adopcion", joinColumns=@JoinColumn(name="publicacion_id"))
     private Map<String, String> preguntas = new HashMap <String, String> ();
 
     public PublicacionAdopcion(String idMascota, String idDueño, HashMap<String, String> preguntas) { //esti va a responderse desde el front con getpreguntas

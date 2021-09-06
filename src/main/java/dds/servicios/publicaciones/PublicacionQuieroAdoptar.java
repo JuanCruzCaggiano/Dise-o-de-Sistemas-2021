@@ -15,9 +15,9 @@ public class PublicacionQuieroAdoptar {
     private String idAdoptante;
 
     @ElementCollection
-    @MapKeyColumn(name="asd")
-    @Column(name="asd1")
-    @CollectionTable(name="pregunta", joinColumns=@JoinColumn(name="publicacion_id"))
+    @MapKeyColumn(name="respuesta")
+    @Column(name="pregunta")
+    @CollectionTable(name="pregunta_publicacion_quiero_adoptar", joinColumns=@JoinColumn(name="publicacion_id"))
     private Map <String, String> preguntas = new HashMap <String, String> ();
 
     public PublicacionQuieroAdoptar(String idAdoptante, HashMap<String, String> preguntas) {
