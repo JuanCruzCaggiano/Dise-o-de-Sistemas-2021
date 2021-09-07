@@ -68,16 +68,12 @@ public class Mascota {
 
     public void agregarCaracteristica(String key, String value){
         caracteristica.put(key,value);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().merge(this);
-        EntityManagerHelper.commit();
+
     }  // POR FRONT NADA MAS SE VA A MOSTRAR LAS KEYS QUE AGREGO ASOCIACION PARA QUE EL DUEÑO PUEDA AGREGARLAS
     public void eliminarCaracteristica(String key){
 
         caracteristica.remove(key);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().merge(this);
-        EntityManagerHelper.commit();
+
     }
 
     public void setIdMascota(String idMascota) {

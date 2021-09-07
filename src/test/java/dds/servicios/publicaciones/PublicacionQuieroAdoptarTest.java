@@ -1,6 +1,6 @@
 package dds.servicios.publicaciones;
 import dds.db.RepositorioAsociaciones;
-import dds.db.RepositorioHogaresDeTransito;
+
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
@@ -18,15 +18,13 @@ import dds.servicios.avisos.Notificador;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class PublicacionQuieroAdoptarTest extends TestCase {
+public class PublicacionQuieroAdoptarTest  {
     Asociacion asoc;
     PublicacionQuieroAdoptar publi;
     HashMap <String, String> preguntas;
@@ -92,7 +90,7 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
             preguntas.put(keys.get(i),"Respuesta x");
         }
         publi= new PublicacionQuieroAdoptar("4",preguntas);
-        assertEquals(3,publi.getPreguntas().size());
+        Assert.assertEquals(3,publi.getPreguntas().size());
     }
     @Test
     public void testeoDeseoAdoptar(){
@@ -103,7 +101,7 @@ public class PublicacionQuieroAdoptarTest extends TestCase {
 
 
         adoptador.ejecutarTransaccion(new QuieroAdoptar("persona1",preguntas));
-        assertEquals(1,asoc.getPublicador().getPublicacionesQuieroAdoptar().size());
+        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesQuieroAdoptar().size());
 
 
     }

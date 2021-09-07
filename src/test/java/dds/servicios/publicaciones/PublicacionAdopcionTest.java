@@ -20,7 +20,6 @@ import dds.servicios.avisos.Notificador;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -28,9 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PublicacionAdopcionTest extends TestCase {
+public class PublicacionAdopcionTest {
     Asociacion asoc;
-    PublicacionQuieroAdoptar publi;
     HashMap<String, String> preguntas;
     Persona duenio;
     List<Mascota> mascotas = new ArrayList<>();
@@ -78,7 +76,7 @@ public class PublicacionAdopcionTest extends TestCase {
 
 
         duenio.ejecutarTransaccion(new DarEnAdopcion("perro1", "persona1", preguntas));
-        assertEquals(1, asoc.getPublicador().getEnAdopcion().size());
+        Assert.assertEquals(1, asoc.getPublicador().getEnAdopcion().size());
 
     }
 }
