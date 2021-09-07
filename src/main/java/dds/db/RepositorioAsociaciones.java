@@ -64,9 +64,14 @@ public class RepositorioAsociaciones {
         EntityManagerHelper.commit();
     }
     public void eliminarAsociacion(Asociacion asoc){
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().remove(asoc);
-        EntityManagerHelper.commit();
+        if(this.esIDValido(asoc.getIdAsociacion())){
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().remove(asoc);
+            EntityManagerHelper.commit();
+        }else{
+            throw new LogicRepoException("Id asociacion Inexistente");
+        }
+
     }
 
     public boolean esIDValido(int ID) {

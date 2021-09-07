@@ -66,8 +66,18 @@ public class Publicador {
         }
     }
 
-    public void agregarPublicacion (PublicacionMascota publi){publicacionesMascotas.add(publi);}
-    public void eliminarPublicacion (PublicacionMascota publi){publicacionesMascotas.remove(publi);}
+    public void agregarPublicacion (PublicacionMascota publi){
+        this.publicacionesMascotas.add(publi);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(publi);
+        EntityManagerHelper.commit();
+    }
+    public void eliminarPublicacion (PublicacionMascota publi){
+        this.publicacionesMascotas.remove(publi);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().remove(publi);
+        EntityManagerHelper.commit();
+    }
 
 
     public boolean tienePublicacionPendiente(String idPublicacion) {

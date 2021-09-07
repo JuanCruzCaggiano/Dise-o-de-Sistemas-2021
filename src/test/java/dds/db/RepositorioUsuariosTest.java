@@ -59,7 +59,6 @@ public class RepositorioUsuariosTest  {
     public void A_persistenciaTest(){
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(usuDuenio);
-        //EntityManagerHelper.getEntityManager().persist(standard);
         EntityManagerHelper.commit();
 
     }

@@ -7,6 +7,8 @@ import junit.framework.TestCase;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import java.util.List;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RepositorioAsociacionesTest {
 
@@ -44,9 +46,10 @@ public class RepositorioAsociacionesTest {
 
     @Test
     public void D_testEliminaAsociacion() {
-
+        int cantActualAsoc = EntityManagerHelper.getEntityManager().createQuery("from Asociacion").getResultList().size();
         RepositorioAsociaciones.getRepositorio().eliminarAsociacion(asoc);
-        Assert.assertEquals(0,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
+        Assert.assertEquals(cantActualAsoc-1,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
     }
+
 
 }

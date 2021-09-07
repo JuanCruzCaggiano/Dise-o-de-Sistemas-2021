@@ -22,11 +22,7 @@ public class RepositorioHogaresDeTransitoTest {
     @Before
     public void setUp() {
         RepositorioHogaresDeTransito.getRepositorio().getHogares().clear(); //arranca con la lista de hogares limpia
-
-
     }
-
-
 
     @Test //Se prueba que 28/40 hogares de tránsito aceptan perros
     public void testFiltrarHogaresQueAceptanPerros() {
@@ -45,8 +41,6 @@ public class RepositorioHogaresDeTransitoTest {
         servicioHogarDeTransito.actualizarRepositorioHogaresDeTransito();
         Assert.assertEquals(18, RepositorioHogaresDeTransito.getRepositorio().filtrarPorAmbosTipoDeAnimal().size());
     }
-
-
 
     @Test //Se prueba que 25/40 hogares de tránsito tienen patio
     public void testFiltrarHogaresQueTienenPatio() {

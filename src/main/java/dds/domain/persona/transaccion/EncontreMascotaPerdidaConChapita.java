@@ -1,5 +1,6 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
@@ -51,6 +52,7 @@ public class EncontreMascotaPerdidaConChapita extends Transaccion{
         asoc.getPublicador().agregarPublicacion(publi);
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         duenio.getNotificador().notificar(idMascota);
+
 
     }
 

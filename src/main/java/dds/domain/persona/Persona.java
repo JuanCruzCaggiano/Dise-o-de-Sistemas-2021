@@ -35,7 +35,7 @@ public class Persona {
     @Column (columnDefinition = "DATE")
     private Date fechaNac;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDoc;
 
     @Column
