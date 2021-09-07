@@ -1,6 +1,7 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
+import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.usuario.Usuario;
 
@@ -9,18 +10,19 @@ import java.util.List;
 
 public class RepositorioUsuarios {
 
-
-    List<Usuario> usuarios= new ArrayList<>();
-
     private static RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios() ;
 
     public static RepositorioUsuarios getRepositorio() {return repositorioUsuarios;}
 
     public void agregarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(usuario);
+        EntityManagerHelper.commit();
     }
 
-    public List<Usuario> getUsuarios() {return usuarios;}
+    public List<Usuario> getUsuarios() {
+        return (List<Usuario>) EntityManagerHelper.getEntityManager().createQuery("from Usuario").getResultList();
+    }
 
 
     public Usuario getUsuario(String username) {

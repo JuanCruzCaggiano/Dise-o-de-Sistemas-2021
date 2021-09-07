@@ -1,5 +1,7 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
+import dds.db.RepositorioUsuarios;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
@@ -8,7 +10,9 @@ import dds.domain.persona.personaException.AssignPersonaException;
 import dds.servicios.avisos.*;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -36,8 +40,11 @@ public class StandardTest{
     public void agregarPersonaDespuesDeCrearUsuarioTest() throws NoSuchAlgorithmException {
 
         Standard usuarioTest = new Standard("usuarioTest","Password123+");
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(usuarioTest);
+        EntityManagerHelper.commit();
         usuarioTest.agregarPersona(persona);
-        Assert.assertEquals(usuarioTest.getPersona().getNombre(),"Matias");
+        Assert.assertEquals(RepositorioUsuarios.getRepositorio().getUsuario("usuarioTest").getPersona().getNombre(),"Matias");
 
     }
     @Test

@@ -13,20 +13,14 @@ import java.util.List;
 
 public class RepositorioPersonas {
 
-    private List<Persona> personas = new ArrayList<>();
 
     private static RepositorioPersonas repositorioPersonas = new RepositorioPersonas() ;
 
     public static RepositorioPersonas getRepositorio() {return repositorioPersonas;}
 
-    public void agregarPersona(Persona persona) {
-        personas.add(persona);
-    }
-    public void removerPersona(Persona persona){
-        personas.remove(persona);
-    }
+
     public List<Persona> getPersonas() {
-        return personas;
+        return (List<Persona>) EntityManagerHelper.getEntityManager().createQuery("from Persona").getResultList();
     }
 
     public Persona getPersona(String idPersona) {

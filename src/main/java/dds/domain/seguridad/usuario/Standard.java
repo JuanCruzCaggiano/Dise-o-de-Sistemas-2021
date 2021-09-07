@@ -1,5 +1,6 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.persona.Persona;
 import dds.domain.persona.personaException.AssignPersonaException;
 
@@ -25,6 +26,10 @@ public class Standard extends Usuario {
     public void agregarPersona(Persona persona){
         if(this.persona == null) {
             this.persona = persona;
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().persist(persona);
+            EntityManagerHelper.commit();
+
         }else
         {
             throw new AssignPersonaException("El usuario ya tiene una persona asignada");
