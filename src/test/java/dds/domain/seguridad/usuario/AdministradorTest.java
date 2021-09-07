@@ -1,15 +1,19 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.servicios.apiHogares.Ubicacion;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.security.NoSuchAlgorithmException;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdministradorTest {
 
     Administrador admin;
@@ -17,74 +21,72 @@ public class AdministradorTest {
 
     @Before
     public void setUp() throws NoSuchAlgorithmException {
-        RepositorioUsuarios.getRepositorio().getUsuarios().clear();
-        RepositorioAsociaciones.getRepositorio().getAsociaciones().clear();
-
 
         //CREO ADMIN
         admin = new Administrador("admin","Password123+");
-
         //CREO ASOC
-        asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
-        asoc.setIdAsociacion(1);
+        asoc = new Asociacion("Asco",new Ubicacion("Rescate de Patitas",-34.559974,-58.4838289));
         admin.setAsociacion(asoc);
-        RepositorioUsuarios.getRepositorio().agregarUsuario(admin);
-        RepositorioAsociaciones.getRepositorio().agregarAsociacion(asoc);
 
-
-
-
-
+        if (EntityManagerHelper.getEntityManager().find(Asociacion.class, 1) != null) {
+            asoc = (Asociacion) EntityManagerHelper.getEntityManager().createQuery("from Asociacion ").getResultList().get(0);
+            admin  = (Administrador) EntityManagerHelper.getEntityManager().createQuery("from Administrador ").getResultList().get(0);
+        }
     }
-
-
     @Test
-    public void testAgregarCaracteristica() {
-        admin.agregarCaracteristica("Color de ojos");
-        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().get(0));
+    public void A_persistenciaTest(){
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(asoc);
+        EntityManagerHelper.entityManager().persist(admin);
+        EntityManagerHelper.commit();
     }
 
     @Test
-    public void testEliminarCaracteristica() {
+    public void B_testAgregarCaracteristica() {
         admin.agregarCaracteristica("Color de ojos");
+        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().stream().filter(s -> s.equals("Color de ojos")).findFirst().orElse(null));
+    }
+
+    @Test
+    public void C_testEliminarCaracteristica() {
+        int cantCaracteristicas = RepositorioAsociaciones.getRepositorio().getAsociaciones().get(0).getConfiguraciones().getClaves().size();
         admin.agregarCaracteristica("Tamanio");
-        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
+        Assert.assertEquals(cantCaracteristicas+1,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
         admin.eliminarCaracteristica("Tamanio");
-        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
-        Assert.assertEquals("Color de ojos",RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().get(0));
+        Assert.assertEquals(cantCaracteristicas,RepositorioAsociaciones.getRepositorio().getAsociacion(admin.getAsociacion().getIdAsociacion()).getConfiguraciones().getClaves().size());
     }
 
     // Para los siguientes tests se usó una foto de 1600x900 píxeles [rda = 1.7777]
     @Test
-    public void testModificarTamanioFotosA_192000x480() {
+    public void D_testModificarTamanioFotosA_192000x480() {
         admin.modificarTamanioFotos(192000, 480);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
         // No se obtiene una foto de 192000x480 [rda = 400.0000]...
         // ... sino una de 853x480 [rda = 1.7770], manteniendo la relación de aspecto original [1.7777].
     }
     @Test
-    public void testModificarTamanioFotosA_64x480() {
+    public void E_testModificarTamanioFotosA_64x480() {
         admin.modificarTamanioFotos(64, 480);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
         // No se obtiene una foto de 64x480 [rda = 0.1333]...
         // ... sino una de 64x36 [rda = 1.7777], manteniendo la relación de aspecto original [1.7777].
     }
     @Test
-    public void testModificarTamanioFotosA_480x192000() { //
+    public void F_testModificarTamanioFotosA_480x192000() { //
         admin.modificarTamanioFotos(480, 192000);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
         // No se obtiene una foto de 480x192000 [rda = 0.0025]...
         // ... sino una de 480x270 [rda = 1.7777], manteniendo la relación de aspecto original [1.7777].
     }
     @Test
-    public void testModificarTamanioFotosA_480x64() { //
+    public void G_testModificarTamanioFotosA_480x64() { //
         admin.modificarTamanioFotos(480, 64);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
         // No se obtiene una foto de 480x64 [rda = 7.5]...
         // ... sino una de 113x64 [rda = 1.7656], manteniendo la relación de aspecto original [1.7777].
     }
     @Test
-    public void testModificarTamanioFotosA_1280x1280() { //
+    public void H_testModificarTamanioFotosA_1280x1280() { //
         admin.modificarTamanioFotos(1280, 1280);
         asoc.getConfiguraciones().cambiarTamanio("imgprueba.jpg","recorte2.jpg");
         // No se obtiene una foto de 1280x1280 [rda = 1]...

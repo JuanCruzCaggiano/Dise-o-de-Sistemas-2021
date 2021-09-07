@@ -1,4 +1,6 @@
 package dds.domain.asociacion;
+import dds.db.EntityManagerHelper;
+
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -46,10 +48,16 @@ public class Configuraciones {
 
     public void setAnchoFoto(Integer anchoFoto) {
         this.anchoFoto = anchoFoto;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public void setAltoFoto(Integer altoFoto) {
         this.altoFoto = altoFoto;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public void cambiarTamanio(String archivoFoto, String rutaGuardado) {
@@ -65,9 +73,15 @@ public class Configuraciones {
 
     public void agregarCaracteristicaMascota(String caracteristicaNueva){
         this.claves.add(caracteristicaNueva);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public void eliminarCaracteristicas(String caracABorrar){
         this.claves.remove(caracABorrar);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public List<String> getClaves() {
         return claves;
@@ -76,9 +90,15 @@ public class Configuraciones {
     ///PREGUNTAS
     public void agregarPreguntaNueva(String preg){
         this.preguntasOpcionales.add(preg);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public void eliminarPregunta(String preg){
         this.preguntasOpcionales.remove(preg);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public List<String> getPreguntas() {
 

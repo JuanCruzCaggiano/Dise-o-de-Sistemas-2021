@@ -1,5 +1,7 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +26,7 @@ public class Administrador extends Usuario {
     public  void modificarTamanioFotos(Integer ancho, Integer alto){
         this.getAsociacion().getConfiguraciones().setAltoFoto(alto);
         this.getAsociacion().getConfiguraciones().setAnchoFoto(ancho);
+
     }
     public void agregarPregunta(String preg){
         this.getAsociacion().getConfiguraciones().agregarPreguntaNueva(preg);

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class RepositorioAsociaciones {
 
-    //private List<Asociacion> asociaciones = new ArrayList<>();
+
 
     private static RepositorioAsociaciones repositorioAsociaciones = new RepositorioAsociaciones() ;
 
