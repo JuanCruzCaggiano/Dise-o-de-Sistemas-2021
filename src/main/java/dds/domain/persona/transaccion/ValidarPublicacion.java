@@ -32,9 +32,7 @@ public class ValidarPublicacion extends Transaccion {
         Publicador publicador= asoc.getPublicador();
         PublicacionMascota publicacion = publicador.getPendienteXId(idPublicacion);
         publicador.aprobarPublicacion(publicacion);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().merge(publicacion); //TODO REVISAR
-        EntityManagerHelper.commit();
+
     }
 
     @Override

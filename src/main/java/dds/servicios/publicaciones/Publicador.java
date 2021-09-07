@@ -53,6 +53,9 @@ public class Publicador {
     public void aprobarPublicacion (PublicacionMascota publi) {  //aprueba publi pendiente y la pasa a aprobada
         if (publi.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)){
             publi.setTipoPublicacion(TipoPublicacion.APROBADA);
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().merge(publi);
+            EntityManagerHelper.commit();
         }else{
             throw new ErrorPubliException("Dicha publicacion ya fue aprobada");
         }
@@ -87,18 +90,22 @@ public class Publicador {
         return this.getPublicacionesAprobadas().stream().anyMatch(p -> p.getIdPublicacion().equals(idPublicacion));
     }
 
+    public List<PublicacionMascota> getPublicacionesMascotas() {
+        return publicacionesMascotas;
+    }
 
     public List<PublicacionMascota> getPublicacionesAprobadas() {
-        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.APROBADA)).collect(Collectors.toList());
+        return getPublicacionesMascotas().stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.APROBADA)).collect(Collectors.toList());
     }
 
     public List<PublicacionMascota> getPublicacionesPendientes() {
-        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)).collect(Collectors.toList());
+        return getPublicacionesMascotas().stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PENDIENTE)).collect(Collectors.toList());
     }
 
     public List<PublicacionMascota> getPublicacionesPrivadas() {
-        return this.publicacionesMascotas.stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PRIVADA)).collect(Collectors.toList());
+        return getPublicacionesMascotas().stream().filter(p-> p.getTipoPublicacion().equals(TipoPublicacion.PRIVADA)).collect(Collectors.toList());
     }
+
 
     public PublicacionMascota getPendienteXId(String id){
         return this.getPublicacionesPendientes().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);

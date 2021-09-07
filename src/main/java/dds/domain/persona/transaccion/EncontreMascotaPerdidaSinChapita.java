@@ -44,9 +44,6 @@ public class EncontreMascotaPerdidaSinChapita extends Transaccion{
     @Override
     public void ejecutar()  {
         PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion,idRescatista, TipoPublicacion.PENDIENTE);
-        EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().persist(publi); //Revisar
-        EntityManagerHelper.commit();
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
         asoc.getPublicador().agregarPublicacion(publi);
     }
