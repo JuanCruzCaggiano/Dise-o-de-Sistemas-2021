@@ -22,7 +22,7 @@ public class Adoptante extends RolPersona {
     public Adoptante() {
         this.id = 4;
         this.nombre = "Adoptante";
-        this.permisos.add(new DarEnAdopcion());
+        //this.permisos.add(new DarEnAdopcion());
         this.permisos.add(new QuieroAdoptar());
         this.permisos.add(new SolicitarAdopcion());
     }

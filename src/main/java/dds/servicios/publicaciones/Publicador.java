@@ -35,6 +35,9 @@ public class Publicador {
 
     public void agregarPublicacionMascotaEnAdopcion(PublicacionAdopcion publi){
         enAdopcion.add(publi);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(publi);
+        EntityManagerHelper.commit();
 
     }
 
@@ -108,7 +111,11 @@ public class Publicador {
 
 
     public PublicacionMascota getPendienteXId(String id){
-        return this.getPublicacionesPendientes().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
+        PublicacionMascota publi = this.getPublicacionesPendientes().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null) ;
+        if(publi== null){
+            throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de pendientes");
+        }
+        return  publi;
     }
     public PublicacionMascota getAprobadaXId(String id){
         return this.getPublicacionesAprobadas().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);

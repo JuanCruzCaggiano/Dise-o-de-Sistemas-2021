@@ -16,6 +16,7 @@ import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.*;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.TipoPublicacion;
+import dds.servicios.publicaciones.publicacionesException.ErrorPubliException;
 import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,36 +46,17 @@ public class PersonaTest {
         asoc = new Asociacion("Rescate de Patitas",new Ubicacion("Independencia 200",63.002114,62.090841));
 
 
+        //CREO MASCOTAS
         firulais = new Mascota(TipoMascota.PERRO,"Firulais","Firu",LocalDate.now().minusYears(2),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         firulais.setEstaPerdida(true);
-
-        //CREO DUENIO
         perro = new Mascota(TipoMascota.PERRO,"Tobi","Tobi",LocalDate.now().minusYears(5),"Pelo Corto",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
-        //perro.setIdMascota("perro1");
         gato = new Mascota(TipoMascota.GATO,"India","Indi",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.HEMBRA);
-        //gato.setIdMascota("gato1");
-
-        mascotas.add(perro);
-        mascotas.add(gato);
-        mascotas.add(firulais);
-        Notificador noti= new Notificador();
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
-        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
-        noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
-        List<RolPersona> listaRoles = new ArrayList<>();
-        listaRoles.add(Duenio.getDuenio());
-
 
 
         //CREO RESCATISTA
-        Notificador noti2= new Notificador();
         AdapterEmail adEmail2 = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti2 = new ArrayList<>();
         formasDeNoti2.add(adEmail2);
-        noti2.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti2);
-        noti2.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti2);
         personaRescat = new Persona("Gabriel", "Figueroa",TipoDocumento.DNI,37048624,LocalDate.of(1992, 10, 9),
                 "lomas","1140435092", "gafigueroa@gmail.com", formasDeNoti2);
         personaRescat.agregarRol(Rescatista.getRescatista());
@@ -83,12 +65,9 @@ public class PersonaTest {
 
 
         //CREO VOLUNTARIO
-        Notificador noti3= new Notificador();
         AdapterEmail adEmail3 = new AdapterEmail();
         List<AdapterFormaNotificacion> formasDeNoti3 = new ArrayList<>();
         formasDeNoti3.add(adEmail3);
-        noti3.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti3);
-        noti3.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti3);
         personaVoluntario = new Persona("Pedro", "Dorr",TipoDocumento.DNI,390048516,LocalDate.of(1994, 12, 20),
                 "dir","1140435092", "dorrpei@gmail.com", formasDeNoti3);
         personaVoluntario.agregarRol(Voluntario.getVoluntario());
@@ -97,22 +76,30 @@ public class PersonaTest {
         usuVoluntario.setAsociacion(asoc);
 
 
-        //CREO DUENIO Nuevo
+        //CREO DUENIO
+        AdapterEmail adEmail = new AdapterEmail();
+        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(adEmail);
         personaDuenio = new Persona("Matias", "Lanneponders",TipoDocumento.DNI,
                                             39000401,LocalDate.of(1995, 7, 7),
                                             "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
-        usuDuenio = new Standard("UsuarioDuenio","Password1234+",personaDuenio);
+        usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
         personaDuenio.agregarRol(Duenio.getDuenio());
+        personaDuenio.getMascotas().add(perro);
+        personaDuenio.getMascotas().add(gato);
+        personaDuenio.getMascotas().add(firulais);
 
 
         // CREO ADOPTANTE
+        AdapterEmail adEmail4 = new AdapterEmail();
+        List<AdapterFormaNotificacion> formasDeNoti4 = new ArrayList<>();
+        formasDeNoti4.add(adEmail4);
         personaAdoptante = new Persona("Agustin", "Orlando",TipoDocumento.DNI,
                 4303123,LocalDate.of(2000, 11, 3),
-                "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti);
-        //personaAdoptante.setIdPersona("personaAdoptante");
-        usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaDuenio);
+                "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);
+        usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaAdoptante);
         usuAdoptante.setAsociacion(asoc);
         personaAdoptante.agregarRol(Adoptante.getAdoptante());
 
@@ -139,8 +126,9 @@ public class PersonaTest {
         EntityManagerHelper.entityManager().persist(asoc);
         EntityManagerHelper.entityManager().persist(usuRescatista);
         EntityManagerHelper.entityManager().persist(usuVoluntario);
-        EntityManagerHelper.entityManager().persist(usuDuenio);
         EntityManagerHelper.entityManager().persist(usuAdoptante);
+        EntityManagerHelper.entityManager().persist(usuDuenio);
+        //
         EntityManagerHelper.commit();
 
     }
@@ -164,10 +152,10 @@ public class PersonaTest {
 
     @Test
     public void E_testEncontreMiMascota(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona()));
-        String jql = "Select p.id from PublicacionMascota p where p.idRescatista = :idRescatista";
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Brand new",personaRescat.getIdPersona()));
+        String jql = "Select p.id from PublicacionMascota p where p.idRescatista = :idRescatista and p.descripcion = :desc";
         String idPublicacion = (String) EntityManagerHelper.getEntityManager().createQuery(jql).
-                setParameter("idRescatista",personaRescat.getIdPersona()).getResultList().get(0);
+                setParameter("idRescatista",personaRescat.getIdPersona()).setParameter("desc","Brand new").getResultList().get(0);
         personaVoluntario.ejecutarTransaccion(new ValidarPublicacion(idPublicacion));
         Assert.assertEquals(TipoPublicacion.APROBADA,EntityManagerHelper.getEntityManager().find(PublicacionMascota.class,idPublicacion).getTipoPublicacion()); //Valido que esté aprobada
         personaDuenio.ejecutarTransaccion(new EncontreMiMascota(idPublicacion,asoc.getIdAsociacion(),personaDuenio.getIdPersona()));
@@ -176,19 +164,21 @@ public class PersonaTest {
 
     @Test
     public void F_testSolicitarAdopcion(){
-        personaDuenio.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),"personaDuenio",new HashMap <String, String> ()));
-        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getEnAdopcion().get(0).setIdPublicacion("Publi1");
-        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion("Publi1",1,"personaAdoptante"));
+        personaDuenio.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),personaDuenio.getIdPersona(),new HashMap <String, String> ()));
+        String jql = "Select p.id from PublicacionAdopcion p where p.idDueño = :idDueño";
+        String idPublicacion = (String) EntityManagerHelper.getEntityManager().createQuery(jql).
+                setParameter("idDueño",personaDuenio.getIdPersona()).getResultList().get(0);
+        personaAdoptante.ejecutarTransaccion(new SolicitarAdopcion(idPublicacion,1,personaAdoptante.getIdPersona()));
     }
 
     @Test
     public void G_testValidarPublicacion(){
-        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1"));
-        RepositorioAsociaciones.getRepositorio().getAsociacion(1).getPublicador().getPublicacionesPendientes().get(0).setIdPublicacion("Publi1");
-        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesPendientes().size());
-        personaVoluntario.ejecutarTransaccion(new ValidarPublicacion("Publi1"));
-        Assert.assertTrue(asoc.getPublicador().tienePublicacionAprobada("Publi1"));
-        Assert.assertEquals(1,asoc.getPublicador().getPublicacionesAprobadas().size());
+        personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona()));
+        String jql = "Select p.id from PublicacionMascota p where p.idRescatista = :idRescatista and p.tipoPublicacion = :tipo";
+        String idPublicacion = (String) EntityManagerHelper.getEntityManager().createQuery(jql).
+                setParameter("idRescatista",personaRescat.getIdPersona()).setParameter("tipo",TipoPublicacion.PENDIENTE).getResultList().get(0);
+        personaVoluntario.ejecutarTransaccion(new ValidarPublicacion(idPublicacion));
+        Assert.assertEquals(TipoPublicacion.APROBADA,EntityManagerHelper.getEntityManager().find(PublicacionMascota.class,idPublicacion).getTipoPublicacion());
     }
 
 
@@ -202,16 +192,19 @@ public class PersonaTest {
 
     @Test
     public void I_testRechazarPublicacion(){
-        PublicacionMascota publicacionMascota = new PublicacionMascota(perro.getIdMascota(),(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado","rescat1",TipoPublicacion.PENDIENTE);
+        PublicacionMascota publicacionMascota = new PublicacionMascota(perro.getIdMascota(),(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona(),TipoPublicacion.PENDIENTE);
         asoc.getPublicador().agregarPublicacion(publicacionMascota);
         personaVoluntario.ejecutarTransaccion(new RechazarPublicacion(publicacionMascota.getIdPublicacion()));
         Assert.assertFalse(asoc.getPublicador().tienePublicacionPendiente(publicacionMascota.getIdPublicacion()));
     }
 
     //RECHAZAR PUBLICACION QUE NO ESTA PENDIENTE
-    @Test (expected = LogicRepoException.class)
+    @Test (expected = ErrorPubliException.class)
     public void J_testRechazarPublicacionError(){
-        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion("Publi1"));
+        String jql = "Select p.id from PublicacionMascota p where p.idRescatista = :idRescatista and p.tipoPublicacion = :tipoPublicacion";
+        String idPublicacion = (String) EntityManagerHelper.getEntityManager().createQuery(jql).
+                setParameter("idRescatista",personaRescat.getIdPersona()).setParameter("tipoPublicacion",TipoPublicacion.APROBADA).getResultList().get(0);
+        personaVoluntario.ejecutarTransaccion(new RechazarPublicacion(idPublicacion));
     }
 
     @Test

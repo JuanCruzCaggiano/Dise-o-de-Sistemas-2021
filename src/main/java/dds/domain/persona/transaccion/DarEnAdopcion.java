@@ -1,5 +1,6 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
@@ -36,6 +37,7 @@ public class DarEnAdopcion extends Transaccion {
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         PublicacionAdopcion publi = new PublicacionAdopcion(idMascota,idDuenio,respuestas);
         asoc.getPublicador().agregarPublicacionMascotaEnAdopcion(publi);
+
 
     }
 
