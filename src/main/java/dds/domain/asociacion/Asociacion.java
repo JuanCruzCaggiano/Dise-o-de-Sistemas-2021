@@ -9,13 +9,14 @@ import dds.servicios.publicaciones.Publicador;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 @Entity
 @Table (name = "asociacion")
 public class Asociacion {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idAsociacion;
 
     @Column

@@ -1,5 +1,6 @@
 package dds.domain.mascota;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -46,8 +47,6 @@ public class Mascota {
 
     @Column
     private Boolean estaPerdida = false;
-
-
 
     public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, String> caracteristica,Sexo sexo) {
         this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR

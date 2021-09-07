@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class RepositorioAsociaciones {
 
-    private List<Asociacion> asociaciones = new ArrayList<>();
+    //private List<Asociacion> asociaciones = new ArrayList<>();
 
     private static RepositorioAsociaciones repositorioAsociaciones = new RepositorioAsociaciones() ;
 
@@ -28,7 +28,7 @@ public class RepositorioAsociaciones {
     }
 
     public List<Asociacion> getAsociaciones() {
-        return asociaciones;
+        return (List<Asociacion>) EntityManagerHelper.getEntityManager().createQuery("from Asociacion").getResultList();
     }
 
 
@@ -59,10 +59,14 @@ public class RepositorioAsociaciones {
     }
 
     public void agregarAsociacion(Asociacion asoc){
-        this.asociaciones.add(asoc);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(asoc);
+        EntityManagerHelper.commit();
     }
     public void eliminarAsociacion(Asociacion asoc){
-        this.asociaciones.remove(asoc);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().remove(asoc);
+        EntityManagerHelper.commit();
     }
 
     public boolean esIDValido(int ID) {

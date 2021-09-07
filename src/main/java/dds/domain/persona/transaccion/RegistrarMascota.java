@@ -1,5 +1,6 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
@@ -14,7 +15,7 @@ import java.util.List;
 @DiscriminatorValue("registrar_mascota")
 public class RegistrarMascota extends Transaccion {
     @Transient
-    private Persona dueño;
+    private Persona duenio;
     @Transient
     private TipoMascota tipo;
     @Transient
@@ -38,7 +39,7 @@ public class RegistrarMascota extends Transaccion {
 
     public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, LocalDate fnac, String descripcion, List<String> listaFotos, HashMap<String, String> caracteristica, Sexo sexo) {
         this.idTransaccion = 7;
-        this.dueño = dueño;
+        this.duenio = dueño;
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
@@ -53,7 +54,10 @@ public class RegistrarMascota extends Transaccion {
     @Override
     public void ejecutar(){
         Mascota nueva = new Mascota(tipo,nombre,apodo,fechaNac,descripcion,listaFotos,caracteristica,sexo);
-        dueño.getMascotas().add(nueva);
+        duenio.getMascotas().add(nueva);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(duenio);
+        EntityManagerHelper.commit();
     }
 
     @Override

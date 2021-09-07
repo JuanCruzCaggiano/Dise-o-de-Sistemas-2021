@@ -73,8 +73,9 @@ public class PersonaTest {
         List<RolPersona> listaRoles = new ArrayList<>();
         listaRoles.add(Duenio.getDuenio());
 
-        matias = new Persona("Matias","Lanneponders",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
-        //persona.setIdPersona("persona1");
+        matias = new Persona("Matias","Lanneponders",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"Byron 35","1165485425","mail@gmail.com",formasDeNoti);
+        matias.setMascotas(mascotas);
+        matias.setListaRoles(listaRoles);
         Standard standard = new Standard("matilanne","Password1234+", matias);
         standard.setAsociacion(asoc);
 
