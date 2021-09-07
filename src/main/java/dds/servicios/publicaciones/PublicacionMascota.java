@@ -8,21 +8,21 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-    @Table (name = "publicacion_mascota")
-    public class PublicacionMascota {
-        @Id
-        private String idPublicacion;
+@Table (name = "publicacion_mascota")
+public class PublicacionMascota {
+    @Id
+    private String idPublicacion;
 
-        @Column
-        private String idMascota;
+    @Column
+    private String idMascota;
 
-        @Column
-        private double latitud;
+    @Column
+    private double latitud;
 
-        @Column
-        private double longitud;
+    @Column
+    private double longitud;
 
-        @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lista_fotos")
     private List<String> listaFotos = new ArrayList<>();
 
