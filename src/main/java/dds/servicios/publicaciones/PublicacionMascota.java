@@ -23,7 +23,7 @@ public class PublicacionMascota {
     private double longitud;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "listaFotos")
+    @CollectionTable(name = "lista_fotos")
     private List<String> listaFotos = new ArrayList<>();
 
     @Column
