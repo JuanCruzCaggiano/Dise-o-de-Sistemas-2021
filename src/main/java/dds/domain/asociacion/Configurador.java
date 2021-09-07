@@ -104,7 +104,7 @@ public class Configurador {
 
         List<String> listaTot;
 
-        (listaTot= new ArrayList<String>(preguntasObligatorias)).addAll(preguntasOpcionales);
+        (listaTot= new ArrayList<String>(this.preguntasObligatorias)).addAll(this.preguntasOpcionales);
 
         return listaTot;
     }

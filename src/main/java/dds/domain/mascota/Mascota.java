@@ -36,7 +36,7 @@ public class Mascota {
     private String descripcion;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "listaFotos")
+    @CollectionTable(name = "fotoMascota")
     private List<String> listaFotos = new ArrayList<>();
 
     //private List<ConfigCaracMascota> caracteristica;
