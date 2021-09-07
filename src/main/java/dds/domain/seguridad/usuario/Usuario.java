@@ -1,5 +1,6 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
@@ -91,9 +92,15 @@ public class Usuario {
     // Metodos de bloqueado
     public void bloquear() {
         isBlocked = true;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public void desbloquear() {
         isBlocked = false;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public boolean estaBloqueado() {
         return isBlocked;
@@ -112,6 +119,9 @@ public class Usuario {
     public void verificarIntentosFallidos() {
         if (intentosFallidos == 3) {
             this.bloquear();
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().merge(this);
+            EntityManagerHelper.commit();
         }
     }
     public void setIntentosFallidos(int intentosFallidos) {
@@ -119,6 +129,9 @@ public class Usuario {
     }
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public Persona getPersona() {
@@ -131,5 +144,6 @@ public class Usuario {
 
     public void setAsociacion(Asociacion asociacion) {
         this.asociacion = asociacion;
+
     }
 }
