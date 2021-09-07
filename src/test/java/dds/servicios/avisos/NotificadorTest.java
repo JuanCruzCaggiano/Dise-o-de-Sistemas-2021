@@ -1,51 +1,52 @@
 package dds.servicios.avisos;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
+import dds.domain.persona.TipoDocumento;
 import dds.domain.persona.roles.Duenio;
 import dds.domain.persona.roles.RolPersona;
+import dds.domain.seguridad.usuario.Standard;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.mail.MessagingException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
 public class NotificadorTest extends TestCase {
-    Notificador noti= new Notificador();
-    AdapterSMS testeoSMS = new AdapterSMS();
-    AdapterWhatsApp testeoWPP = new AdapterWhatsApp();
-    AdapterEmail testeoEmail = new AdapterEmail();
-    List<AdapterFormaNotificacion> formasDeNoti = new ArrayList();
+    Persona duenio;
+    Standard standard;
+    Mascota perro;
 
-
-    //CREO DUEÑO
     @Before
-    public void setUp() {
-        Mascota perro = new Mascota(TipoMascota.PERRO, "nombrePerro", "apodoPerro", LocalDate.now().minusYears(5), "Pelo largo", new ArrayList<>(), new HashMap<>(), Sexo.HEMBRA);
-        perro.setIdMascota("perro1");
-        Mascota gato = new Mascota(TipoMascota.GATO, "nombreGato", "apodoGato", LocalDate.now().minusYears(8), "Siames", new ArrayList<>(), new HashMap <>(),Sexo.MACHO);
-        gato.setIdMascota("gato1");
-        perro.setEstaPerdida(true);
-        List<Mascota> mascotas = new ArrayList<>();
-        mascotas.add(perro);
-        mascotas.add(gato);
+    public void setUp() throws NoSuchAlgorithmException {
 
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList();
-        formasDeNoti.add(testeoEmail);
-        noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
-        noti.agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
-        List<RolPersona> listaRoles = new ArrayList<>();
-        listaRoles.add(Duenio.getDuenio());
-        Persona persona = new Persona("npersona","apersona",mascotas,listaRoles,noti);
-        persona.setIdPersona("persona1");
-        RepositorioPersonas.getRepositorio().getPersonas().add(persona);
+        //ALTA PERSONA DUENIO
+        AdapterEmail adEmail = new AdapterEmail();
+        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(adEmail);
+        duenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
+                39000401,LocalDate.of(1995, 7, 7),
+                "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        duenio.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
+        duenio.agregarRol(Duenio.getDuenio());
+        standard = new Standard("matilanne","Password1234+",duenio);
+
+        perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
+        perro.setEstaPerdida(true);
+        duenio.getMascotas().add(perro);
+
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(standard);
+        EntityManagerHelper.commit();
     }
 
 //COMENTO PARA NO COMER CREDITO EN TWILO
@@ -68,6 +69,6 @@ public class NotificadorTest extends TestCase {
 
     @Test
     public void testNotificarEmail(){
-        noti.notificar("perro1");
+        duenio.getNotificador().notificar(perro.getIdMascota());
     }
 }
