@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//CORRER Test x test
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ConfiguracionesTest  extends TestCase{
 
