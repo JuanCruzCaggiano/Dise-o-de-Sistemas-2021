@@ -3,7 +3,6 @@ package dds.servicios.avisos;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.domain.asociacion.Asociacion;
-import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 
@@ -36,7 +35,7 @@ public class PreferenciasDeAdopcion {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
-        return asociacion.getConfiguraciones().getPreguntas();
+        return asociacion.getConfigurador().getPreguntas();
     }
 
     public List<PublicacionAdopcion> obtenerPublicacionesConCoincidenciaSegunAdoptante(int coincidenciasMinima, PublicacionQuieroAdoptar publicacionQuieroAdoptarAux, List<PublicacionAdopcion> publicacionAdopcionesAux) {

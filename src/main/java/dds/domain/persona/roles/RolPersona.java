@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.TransferQueue;
 
 @Entity
-@Table(name = "rolpersona")
+@Table(name = "rol")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "rol")
+@DiscriminatorColumn(name = "tipoRol")
 public abstract class RolPersona {
 
     @Id

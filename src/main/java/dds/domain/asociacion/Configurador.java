@@ -10,18 +10,18 @@ import java.util.List;
 
 @Entity
 @Table
-public class Configuraciones {
+public class Configurador {
 
     @Id
     @GeneratedValue
     private int id;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "preguntaObligatoria")
+    @CollectionTable(name = "pregunta_obligatoria")
     private List<String> preguntasObligatorias= new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "preguntaOpcional")
+    @CollectionTable(name = "pregunta_opcional")
     private List<String> preguntasOpcionales = new ArrayList<>();
 
     @Column
@@ -36,7 +36,7 @@ public class Configuraciones {
 
 
 
-    public Configuraciones() {
+    public Configurador() {
         this.anchoFoto=720;
         this.altoFoto=480;
         this.claves = new ArrayList<>(); //se usa para el hashmap de mascotas

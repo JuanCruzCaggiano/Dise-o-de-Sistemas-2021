@@ -68,24 +68,24 @@ public class PublicacionQuieroAdoptarTest  {
 
     @Test
     public void testeoLasPreguntasBase(){
-        Assert.assertEquals(3, asoc.getConfiguraciones().getPreguntas().size());
+        Assert.assertEquals(3, asoc.getConfigurador().getPreguntas().size());
     }
     @Test
     public void testeoAgregadoDePreguntas(){
         admin.agregarPregunta("Tiene genitales?");
-        //asoc.getConfiguraciones().agregarPreguntaNueva("Tiene genitales?");
-        Assert.assertEquals(4, asoc.getConfiguraciones().getPreguntas().size());
+        //asoc.getConfigurador().agregarPreguntaNueva("Tiene genitales?");
+        Assert.assertEquals(4, asoc.getConfigurador().getPreguntas().size());
     }
     @Test
     public void testeoEliminadoDePreguntas(){
         admin.agregarPregunta("Tiene genitales?");
         admin.eliminarPregunta("Tiene genitales?");
-        //asoc.getConfiguraciones().agregarPreguntaNueva("Tiene genitales?");
-        Assert.assertEquals(3, asoc.getConfiguraciones().getPreguntas().size());
+        //asoc.getConfigurador().agregarPreguntaNueva("Tiene genitales?");
+        Assert.assertEquals(3, asoc.getConfigurador().getPreguntas().size());
     }
     @Test
     public void testeoPublicacion(){
-        List <String> keys = asoc.getConfiguraciones().getPreguntas();
+        List <String> keys = asoc.getConfigurador().getPreguntas();
         for (int i=0;i<keys.size();i++) {
             preguntas.put(keys.get(i),"Respuesta x");
         }
@@ -94,7 +94,7 @@ public class PublicacionQuieroAdoptarTest  {
     }
     @Test
     public void testeoDeseoAdoptar(){
-        List <String> keys = asoc.getConfiguraciones().getPreguntas();
+        List <String> keys = asoc.getConfigurador().getPreguntas();
         for (int i=0;i<keys.size();i++) {
             preguntas.put(keys.get(i),"Respuesta x");
         }

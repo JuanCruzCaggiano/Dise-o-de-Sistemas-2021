@@ -2,15 +2,11 @@ package dds.domain.asociacion;
 
 
 
-import dds.db.RepositorioAsociaciones;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.Publicador;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.List;
+
 @Entity
 @Table (name = "asociacion")
 public class Asociacion {
@@ -30,17 +26,17 @@ public class Asociacion {
     private Publicador publicador;
 
     @OneToOne (cascade = {CascadeType.ALL})
-    private Configuraciones configuraciones;
+    private Configurador configurador;
 
     public Asociacion(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.publicador = new Publicador();
-        this.configuraciones = new Configuraciones();
+        this.configurador = new Configurador();
     }
 
-    public Configuraciones getConfiguraciones() {
-        return configuraciones;
+    public Configurador getConfigurador() {
+        return configurador;
     }
 
     public void setIdAsociacion(int idAsociacion) {

@@ -1,6 +1,5 @@
 package dds.servicios.publicaciones;
 import dds.db.RepositorioAsociaciones;
-import dds.db.RepositorioHogaresDeTransito;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
@@ -11,7 +10,6 @@ import dds.domain.persona.Persona;
 import dds.domain.persona.roles.Adoptante;
 import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.transaccion.DarEnAdopcion;
-import dds.domain.persona.transaccion.QuieroAdoptar;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.AdapterEmail;
@@ -69,7 +67,7 @@ public class PublicacionAdopcionTest {
 
     @Test
     public void testeoPonerEnAdopcionAMiMascotaPorqueNoTengoCorazon() {
-        List<String> keys = asoc.getConfiguraciones().getPreguntas();
+        List<String> keys = asoc.getConfigurador().getPreguntas();
         for (int i = 0; i < keys.size(); i++) {
             preguntas.put(keys.get(i), "Respuesta x");
         }

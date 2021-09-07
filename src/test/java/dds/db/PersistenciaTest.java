@@ -13,7 +13,6 @@ import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.AdapterEmail;
 import dds.servicios.avisos.AdapterFormaNotificacion;
-import dds.servicios.avisos.Notificador;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.TipoPublicacion;
 import org.junit.After;
@@ -21,8 +20,6 @@ import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import javax.management.DynamicMBean;
-import javax.swing.text.html.parser.Entity;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,8 +39,8 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
     public void PullInicialDeDatos() throws NoSuchAlgorithmException {
 
         Asociacion asoc = new Asociacion("Rescate de Patitas CABA",new Ubicacion("Rivadavia 9450",-34.63722034233585, -58.49715981178081));
-        asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
-        asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
+        asoc.getConfigurador().agregarCaracteristicaMascota("Color de Pelo");
+        asoc.getConfigurador().agregarCaracteristicaMascota("Tamaño");
 
         Administrador usuarioTest = new Administrador("usuarioTest","Password123+");
 
@@ -73,8 +70,8 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro2",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.APROBADA));
 
         HashMap<String, String> preguntas = new HashMap<String, String>();
-        preguntas.put(asoc.getConfiguraciones().getPreguntas().get(0),"Negro");
-        preguntas.put(asoc.getConfiguraciones().getPreguntas().get(1),"Grande");
+        preguntas.put(asoc.getConfigurador().getPreguntas().get(0),"Negro");
+        preguntas.put(asoc.getConfigurador().getPreguntas().get(1),"Grande");
 
         Standard usuarioStandard = new Standard("usuarioStandard","Password123+2",persona);
         usuarioStandard.setAsociacion(asoc);
@@ -89,11 +86,10 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
         EntityManagerHelper.getEntityManager().persist(persona2);
 
-        //Prueba de ejecucion de tansaccion Dar en Adopcion por un usuario standard dueño.
-        persona.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),persona.getIdPersona(),preguntas));
-
 
         EntityManagerHelper.commit();
+        //Prueba de ejecucion de tansaccion Dar en Adopcion por un usuario standard dueño.
+        persona.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),persona.getIdPersona(),preguntas));
 
 
     }

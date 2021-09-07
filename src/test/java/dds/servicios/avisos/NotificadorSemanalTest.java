@@ -1,9 +1,6 @@
 package dds.servicios.avisos;
 
 import dds.db.EntityManagerHelper;
-import dds.db.RepositorioAsociaciones;
-import dds.db.RepositorioPersonas;
-import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.mascota.Mascota;
 import dds.domain.mascota.Sexo;
@@ -12,27 +9,18 @@ import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
 import dds.domain.persona.roles.Adoptante;
 import dds.domain.persona.roles.Duenio;
-import dds.domain.persona.roles.RolPersona;
 import dds.domain.persona.transaccion.DarEnAdopcion;
 import dds.domain.persona.transaccion.QuieroAdoptar;
 import dds.domain.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 import org.junit.Before;
 import org.junit.Test;
-import dds.servicios.avisos.NotificadorSemanal;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
@@ -82,7 +70,7 @@ public class NotificadorSemanalTest {
 
         preguntasAdoptante = new HashMap<String, String>();
 
-        List<String> keys = asoc.getConfiguraciones().getPreguntas();
+        List<String> keys = asoc.getConfigurador().getPreguntas();
         for (int i = 0; i < keys.size(); i++) {
             preguntas.put(keys.get(i), "Respuesta"+i);
             preguntasAdoptante.put(keys.get(i),"Respuesta"+i);

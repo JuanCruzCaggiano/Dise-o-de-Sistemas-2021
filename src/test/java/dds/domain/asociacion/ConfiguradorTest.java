@@ -7,13 +7,11 @@ import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 import dds.domain.persona.TipoDocumento;
 import dds.domain.persona.roles.Duenio;
-import dds.domain.seguridad.usuario.Administrador;
 import dds.domain.seguridad.usuario.Standard;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.avisos.AdapterEmail;
 import dds.servicios.avisos.AdapterFormaNotificacion;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -28,7 +26,7 @@ import java.util.List;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ConfiguracionesTest {
+public class ConfiguradorTest {
     Usuario usuDuenio;
     String fotoAModif = "imgprueba.jpg";
     String fotoModif = "recorte.jpg";
@@ -60,8 +58,8 @@ public class ConfiguracionesTest {
             EntityManagerHelper.entityManager().persist(asoc);
             EntityManagerHelper.entityManager().persist(usuDuenio);
             EntityManagerHelper.commit();
-            asoc.getConfiguraciones().agregarCaracteristicaMascota("Color de Pelo");
-            asoc.getConfiguraciones().agregarCaracteristicaMascota("Tamaño");
+            asoc.getConfigurador().agregarCaracteristicaMascota("Color de Pelo");
+            asoc.getConfigurador().agregarCaracteristicaMascota("Tamaño");
         } else
         {
             asoc = (Asociacion) EntityManagerHelper.getEntityManager().createQuery("from Asociacion ").getResultList().get(0);
@@ -72,16 +70,16 @@ public class ConfiguracionesTest {
     @Test
     public void testFoto() {
 
-        asoc.getConfiguraciones().cambiarTamanio(fotoAModif,fotoModif);
+        asoc.getConfigurador().cambiarTamanio(fotoAModif,fotoModif);
     }
     @Test
     public void testAgregarCaracteristica() {
-        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfiguraciones().getClaves().size());
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfigurador().getClaves().size());
     }
     @Test
     public void testEliminarCaracteristica() {
-        RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfiguraciones().eliminarCaracteristicas("Color de Pelo");
-        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfiguraciones().getClaves().size());
+        RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfigurador().eliminarCaracteristicas("Color de Pelo");
+        Assert.assertEquals(1,RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getConfigurador().getClaves().size());
     }
     @Test
     public void testAgregarCaracteristicaAMascota() {
