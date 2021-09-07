@@ -108,29 +108,65 @@
           </div>
 
           <label class="mt-3 mb-1">Preguntas Opcionales sobre las Mascotas</label>
-
-          <label class="mt-3 mb-1">Características clave (keys) de las Mascotas</label>
           <div>
             <div class="card">
               <div class="card-body">
                 <div class="row">
 
                   <div class="col-sm-6">
-                        <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
+                        <form onsubmit="event.preventDefault();preguntaOpcional_onFormSubmit();" autocomplete="off">
                           <div>
-                            <label>Key</label>
-                            <input type="text" name="key" id="key">
-                            <label class="validation-error" id="keyValidationError">*</label>
+                            <label class="small">Pregunta:</label>
+                            <input class="small" type="text" name="preguntaOpcional" id="preguntaOpcional">
+                            <label class="small validation-error" id="preguntaOpcional_ValidationError">*</label>
                           </div>
                           <div class="form-action-buttons">
-                            <input type="submit" value="Agregar">
+                            <input class="small" type="submit" value="Guardar">
                           </div>
                         </form>
                   </div>
 
                   <div class="col-sm-6">
                       <div class="table-responsive">
-                        <table class="table table-hover list" id="employeeList">
+                        <table class="table small table-hover list" id="preguntaOpcional_List">
+                          <thead>
+                            <tr class="table-secondary">
+                              <th>Pregunta Opcional</th>
+                              <th>Acciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <label class="mt-3 mb-1">Keys de las Mascotas</label>
+          <div>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-sm-6">
+                        <form onsubmit="event.preventDefault();key_onFormSubmit();" autocomplete="off">
+                          <div>
+                            <label class="small">Key:</label>
+                            <input class="small" type="text" name="key" id="key">
+                            <label class="small validation-error" id="key_ValidationError">*</label>
+                          </div>
+                          <div class="form-action-buttons">
+                            <input class="small" type="submit" value="Guardar">
+                          </div>
+                        </form>
+                  </div>
+
+                  <div class="col-sm-6">
+                      <div class="table-responsive">
+                        <table class="table small table-hover list" id="key_List">
                           <thead>
                             <tr class="table-secondary">
                               <th>Key</th>
@@ -178,98 +214,131 @@
 
   <!-- Script para agregar/eliminar preguntas opcionales -->
   <script>
-    var selectedRow = null;
-
-    function onFormSubmit() {
-      if (validate()) {
-        var formData = readFormData();
-        if (selectedRow == null) insertNewRecord(formData);
-        else updateRecord(formData);
-        resetForm();
+    var preguntaOpcional_selectedRow = null;
+    function preguntaOpcional_onFormSubmit() {
+      if (preguntaOpcional_validate()) {
+        var preguntaOpcional_formData = preguntaOpcional_readFormData();
+        if (preguntaOpcional_selectedRow == null) preguntaOpcional_insertNewRecord(preguntaOpcional_formData);
+        else preguntaOpcional_updateRecord(preguntaOpcional_formData);
+        preguntaOpcional_resetForm();
       }
     }
-
-    function readFormData() {
-      var formData = {};
-      formData["key"] = document.getElementById("key").value;
-      return formData;
+    function preguntaOpcional_readFormData() {
+      var preguntaOpcional_formData = {};
+      preguntaOpcional_formData["preguntaOpcional"] = document.getElementById("preguntaOpcional").value;
+      return preguntaOpcional_formData;
     }
-
-    function insertNewRecord(data) {
-      var table = document
-      .getElementById("employeeList")
+    function preguntaOpcional_insertNewRecord(data) {
+      var preguntaOpcional_table = document
+      .getElementById("preguntaOpcional_List")
       .getElementsByTagName("tbody")[0];
-      var newRow = table.insertRow(table.length);
-      cell1 = newRow.insertCell(0);
-      cell1.innerHTML = data.key;
-      cell2 = newRow.insertCell(1);
-      cell2.innerHTML = `<a onClick="onEdit(this)">Edit</a> <a onClick="onDelete(this)">Delete</a>`;
-      /* ORIGINAL
-      cell1 = newRow.insertCell(0);
-      cell1.innerHTML = data.fullName;
-      cell2 = newRow.insertCell(1);
-      cell2.innerHTML = data.email;
-      cell3 = newRow.insertCell(2);
-      cell3.innerHTML = data.salary;
-      cell4 = newRow.insertCell(3);
-      cell4.innerHTML = data.city;
-      cell4 = newRow.insertCell(4);
-      cell4.innerHTML = `<a onClick="onEdit(this)">Edit</a> <a onClick="onDelete(this)">Delete</a>`;
-      */
+      var preguntaOpcional_newRow = preguntaOpcional_table.insertRow(preguntaOpcional_table.length);
+      cell1 = preguntaOpcional_newRow.insertCell(0);
+      cell1.innerHTML = data.preguntaOpcional;
+      cell2 = preguntaOpcional_newRow.insertCell(1);
+      cell2.innerHTML = `<a onClick="preguntaOpcional_onEdit(this)">✏️</a> <a onClick="preguntaOpcional_onDelete(this)">🗑️</a>`;
     }
-
-    function resetForm() {
-      document.getElementById("key").value = "";
-      selectedRow = null;
+    function preguntaOpcional_resetForm() {
+      document.getElementById("preguntaOpcional").value = "";
+      preguntaOpcional_selectedRow = null;
     }
-
-    function onEdit(td) {
-      selectedRow = td.parentElement.parentElement;
-      document.getElementById("key").value = selectedRow.cells[0].innerHTML;
-      /* ORIGINAL
-      document.getElementById("fullName").value = selectedRow.cells[0].innerHTML;
-      document.getElementById("email").value = selectedRow.cells[1].innerHTML;
-      document.getElementById("salary").value = selectedRow.cells[2].innerHTML;
-      document.getElementById("city").value = selectedRow.cells[3].innerHTML;
-      */
+    function preguntaOpcional_onEdit(td) {
+      preguntaOpcional_selectedRow = td.parentElement.parentElement;
+      document.getElementById("preguntaOpcional").value = preguntaOpcional_selectedRow.cells[0].innerHTML;
     }
-
-    function updateRecord(formData) {
-      selectedRow.cells[0].innerHTML = formData.key;
-      /* ORIGINAL
-      selectedRow.cells[0].innerHTML = formData.fullName;
-      selectedRow.cells[1].innerHTML = formData.email;
-      selectedRow.cells[2].innerHTML = formData.salary;
-      selectedRow.cells[3].innerHTML = formData.city;
-      */
+    function preguntaOpcional_updateRecord(preguntaOpcional_formData) {
+      preguntaOpcional_selectedRow.cells[0].innerHTML = preguntaOpcional_formData.preguntaOpcional;
     }
-
-    function onDelete(td) {
-      if (confirm("¿Está seguro que quiere borrar este registro?")) {
+    function preguntaOpcional_onDelete(td) {
+      if (confirm("¿Estás seguro de que querés borrar esta pregunta opcional, maestro?")) {
         row = td.parentElement.parentElement;
-        document.getElementById("employeeList").deleteRow(row.rowIndex);
-        resetForm();
+        document.getElementById("preguntaOpcional_List").deleteRow(row.rowIndex);
+        preguntaOpcional_resetForm();
       }
     }
-
-    function validate() {
-      isValid = true;
-      if (document.getElementById("key").value == "") {
-        isValid = false;
-        document.getElementById("keyValidationError").classList.remove("hide");
-        confirm("Che, no estás agregando nada.\nNo te hagas el pillo.");
+    function preguntaOpcional_validate() {
+      preguntaOpcional_isValid = true;
+      if (document.getElementById("preguntaOpcional").value == "") {
+        preguntaOpcional_isValid = false;
+        document.getElementById("preguntaOpcional_ValidationError").classList.remove("hide");
+        confirm("Che, no estás agregando ninguna pregunta opcional...\nNo te hagas el pillo.");
       } else {
-        isValid = true;
+        preguntaOpcional_isValid = true;
         if (
           !document
-          .getElementById("keyValidationError")
+          .getElementById("preguntaOpcional_ValidationError")
           .classList.contains("hide")
         )
-        document.getElementById("keyValidationError").classList.add("hide");
+        document.getElementById("preguntaOpcional_ValidationError").classList.add("hide");
       }
-      return isValid;
+      return preguntaOpcional_isValid;
     }
   </script>
+
+
+  <!-- Script para agregar/eliminar keys -->
+  <script>
+    var key_selectedRow = null;
+    function key_onFormSubmit() {
+      if (key_validate()) {
+        var key_formData = key_readFormData();
+        if (key_selectedRow == null) key_insertNewRecord(key_formData);
+        else key_updateRecord(key_formData);
+        key_resetForm();
+      }
+    }
+    function key_readFormData() {
+      var key_formData = {};
+      key_formData["key"] = document.getElementById("key").value;
+      return key_formData;
+    }
+    function key_insertNewRecord(data) {
+      var key_table = document
+      .getElementById("key_List")
+      .getElementsByTagName("tbody")[0];
+      var key_newRow = key_table.insertRow(key_table.length);
+      cell1 = key_newRow.insertCell(0);
+      cell1.innerHTML = data.key;
+      cell2 = key_newRow.insertCell(1);
+      cell2.innerHTML = `<a onClick="key_onEdit(this)">✏️</a> <a onClick="key_onDelete(this)">🗑️</a>`;
+    }
+    function key_resetForm() {
+      document.getElementById("key").value = "";
+      key_selectedRow = null;
+    }
+    function key_onEdit(td) {
+      key_selectedRow = td.parentElement.parentElement;
+      document.getElementById("key").value = key_selectedRow.cells[0].innerHTML;
+    }
+    function key_updateRecord(key_formData) {
+      key_selectedRow.cells[0].innerHTML = key_formData.key;
+    }
+    function key_onDelete(td) {
+      if (confirm("¿Estás seguro de que querés borrar esta key, maestro?")) {
+        row = td.parentElement.parentElement;
+        document.getElementById("key_List").deleteRow(row.rowIndex);
+        key_resetForm();
+      }
+    }
+    function key_validate() {
+      key_isValid = true;
+      if (document.getElementById("key").value == "") {
+        key_isValid = false;
+        document.getElementById("key_ValidationError").classList.remove("hide");
+        confirm("Che, no estás agregando ninguna key...\nNo te hagas el pillo.");
+      } else {
+        key_isValid = true;
+        if (
+          !document
+          .getElementById("key_ValidationError")
+          .classList.contains("hide")
+        )
+        document.getElementById("key_ValidationError").classList.add("hide");
+      }
+      return key_isValid;
+    }
+  </script>
+
 
 </body>
 
