@@ -17,35 +17,35 @@ public class RepositorioAsociacionesTest {
 
         asoc = new Asociacion("Asociacion",new Ubicacion("Rivadavia 3350",63.584865,63.25186));
 
-
+        //Guardo estaticamente los objetos persistidos para el testeo
+        if (EntityManagerHelper.getEntityManager().find(Asociacion.class,1) != null) {
+            asoc = (Asociacion) EntityManagerHelper.entityManager().createQuery("FROM Asociacion ").getResultList().get(0);
+        }
     }
 
     @Test
-    public void ApersistenciaTest(){
+    public void A_persistenciaTest(){
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(asoc);
         EntityManagerHelper.commit();
-
     }
 
     @Test
-    public void BtestGetAsociacion() {
-        Asociacion asociacion = (Asociacion) EntityManagerHelper.entityManager().createQuery("FROM Asociacion ").getResultList().get(0);
+    public void B_testGetAsociacion() {
 
-        Assert.assertEquals(asociacion.getIdAsociacion(),RepositorioAsociaciones.getRepositorio().getAsociacion(asociacion.getIdAsociacion()).getIdAsociacion());
+
+        Assert.assertEquals(asoc.getIdAsociacion(),RepositorioAsociaciones.getRepositorio().getAsociacion(asoc.getIdAsociacion()).getIdAsociacion());
     }
 
     @Test (expected = LogicRepoException.class)
-    public void CtestGetAsociacionError() {
-        Asociacion asociacion = (Asociacion)  EntityManagerHelper.entityManager().createQuery("FROM Asociacion ").getResultList().get(0);
-
-        Assert.assertEquals(asociacion,RepositorioAsociaciones.getRepositorio().getAsociacion(1568).getIdAsociacion());
+    public void C_testGetAsociacionError() {
+        Assert.assertEquals(asoc,RepositorioAsociaciones.getRepositorio().getAsociacion(1568).getIdAsociacion());
     }
 
     @Test
-    public void DtestEliminaAsociacion() {
-        Asociacion asocAEliminar = (Asociacion) EntityManagerHelper.entityManager().createQuery("FROM Asociacion ").getResultList().get(0);
-        RepositorioAsociaciones.getRepositorio().eliminarAsociacion(asocAEliminar);
+    public void D_testEliminaAsociacion() {
+
+        RepositorioAsociaciones.getRepositorio().eliminarAsociacion(asoc);
         Assert.assertEquals(0,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
     }
 
