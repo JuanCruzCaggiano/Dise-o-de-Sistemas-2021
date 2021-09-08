@@ -1,6 +1,8 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
+import dds.domain.asociacion.Asociacion;
+import dds.domain.persona.Persona;
 import dds.domain.seguridad.usuario.Usuario;
 
 import java.util.ArrayList;
@@ -8,44 +10,44 @@ import java.util.List;
 
 public class RepositorioUsuarios {
 
-
-    List<Usuario> usuarios= new ArrayList<>();
-
     private static RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios() ;
 
     public static RepositorioUsuarios getRepositorio() {return repositorioUsuarios;}
 
     public void agregarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(usuario);
+        EntityManagerHelper.commit();
     }
 
-    public List<Usuario> getUsuarios() {return usuarios;}
+    public List<Usuario> getUsuarios() {
+        return (List<Usuario>) EntityManagerHelper.getEntityManager().createQuery("from Usuario").getResultList();
+    }
 
 
     public Usuario getUsuario(String username) {
-        Usuario user =  usuarios.stream().filter( usuario1 -> usuario1.getUserName().equals(username)).findFirst().orElse(null);
-
-        if(user == null){
-            throw new LogicRepoException("Username inexistente");
+        if(esIDValido(username)){
+            return EntityManagerHelper.getEntityManager().find(Usuario.class, username) ;
+        }else{
+            throw new LogicRepoException("Id Usuario Inexistente");
         }
-        return user;
     }
 
-    public String getUserNameXIdPersona(String userName) {
-        Usuario user = usuarios.stream()
-                .filter(usuario -> usuario.getPersona().getIdPersona().equals(userName))
-                .findFirst().orElse(null);
-
-        if (user == null) {
+    public String getUserNameXIdPersona(String idPersona) {
+        if(RepositorioPersonas.getRepositorio().esIDValido(idPersona)){
+            String jql = "Select u from Usuario u, Persona p where p.idPersona = :idPersona";
+            Usuario usuario = (Usuario) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idPersona",idPersona).getResultList().get(0);
+            return  usuario.getUserName();
+        }else{
             throw new LogicRepoException("idPersona Incorrecto");
         }
 
-        return user.getUserName();
 
 
     }
 
-    public String getIDAsocXIdPersona(String idPersona) {
+    public int getIDAsocXIdPersona(String idPersona) {
         String userName = getUserNameXIdPersona(idPersona);
         Usuario usuario1 = getUsuario(userName);
         if (usuario1 == null) {
@@ -54,8 +56,20 @@ public class RepositorioUsuarios {
         return usuario1.getAsociacion().getIdAsociacion();
 
     }
+    public String getIdPersonaXidMascota(String idMascota){
+        if(RepositorioMascotas.getRepositorio().esIDValido(idMascota)){
+            String jql = "Select p from Persona p, Mascota m where m.idMascota = :idMascota";
+            Persona persona = (Persona) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idMascota",idMascota).getResultList().get(0);
+            return  persona.getIdPersona();
 
-    public String getIDAsocXIdMascota(String idMascota) {
+        }else {
+            throw new LogicRepoException("IdMascota inexistente");
+        }
+    }
+    public int getIDAsocXIdMascota(String idMascota) {
+
+
         String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
         String userName = this.getUserNameXIdPersona(idPersona);
         Usuario usuario1 = getUsuario(userName);
@@ -65,6 +79,9 @@ public class RepositorioUsuarios {
         return usuario1.getAsociacion().getIdAsociacion();
 
 
+    }
+    public boolean esIDValido(String ID) {
+        return (EntityManagerHelper.getEntityManager().find(Usuario.class, ID) != null) ;
     }
 
 

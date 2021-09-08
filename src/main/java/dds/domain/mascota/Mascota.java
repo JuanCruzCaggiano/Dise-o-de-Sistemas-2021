@@ -1,41 +1,79 @@
 package dds.domain.mascota;
 
-import java.util.HashMap;
-import java.util.List;
 
+import dds.db.EntityManagerHelper;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+
+
+@Entity
+@Table (name = "mascota")
 public class Mascota {
-    private String idAsociacion;
+
+    @Id
+    @Column (name = "id")
     private String idMascota;
+
+    @Enumerated(EnumType.STRING)
     private TipoMascota tipo;
+
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
+
+    @Column
     private String nombre;
+
+    @Column
     private String apodo;
-    private Integer edad;
+
+    @Column (columnDefinition = "DATE")
+    private Date fechaNac;
+
+    @Column
     private String descripcion;
-    private List<String> listaFotos;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "lista_foto_mascota")
+    private List<String> pathFoto = new ArrayList<>();
+
     //private List<ConfigCaracMascota> caracteristica;
-    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
+
+    @ElementCollection
+    @MapKeyColumn(name="caracteristica")
+    @Column(name="clave")
+    @CollectionTable(name="caracteristica", joinColumns=@JoinColumn(name="mascota_id"))
+    private Map <String, String> caracteristica = new HashMap <String, String> ();
+
+    @Column
     private Boolean estaPerdida = false;
 
-    public Mascota(TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap <String, Object> caracteristica) {
+    public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, String> caracteristica,Sexo sexo) {
+        this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
-        this.edad = edad;
+        this.sexo = sexo;
+        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.descripcion = descripcion;
-        this.listaFotos = listaFotos;
+        this.pathFoto = listaFotos;
         this.caracteristica = caracteristica;
-
     }
 
-    public HashMap<String, Object> getCaracteristica() {
+    public Map<String, String> getCaracteristica() {
         return caracteristica;
     }
 
     public void agregarCaracteristica(String key, String value){
         caracteristica.put(key,value);
+
     }  // POR FRONT NADA MAS SE VA A MOSTRAR LAS KEYS QUE AGREGO ASOCIACION PARA QUE EL DUEÑO PUEDA AGREGARLAS
     public void eliminarCaracteristica(String key){
+
         caracteristica.remove(key);
+
     }
 
     public void setIdMascota(String idMascota) {
@@ -57,6 +95,9 @@ public class Mascota {
     public String getNombre() {
         return nombre;
     }
+
+
+
 
 
 }

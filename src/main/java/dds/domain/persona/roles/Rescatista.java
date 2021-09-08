@@ -7,28 +7,23 @@ import dds.domain.persona.transaccion.EncontreMascotaPerdidaSinChapita;
 import dds.domain.persona.transaccion.Transaccion;
 
 import javax.mail.MessagingException;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rescatista implements RolPersona {
+@Entity
+@DiscriminatorValue("R")
+public class Rescatista extends RolPersona {
+    private static Rescatista rolRescatista = new Rescatista() ;
 
-    List<Transaccion> permisos = new ArrayList<>();
+    public static Rescatista getRescatista() {return rolRescatista;}
 
     public Rescatista() {
+        this.id =1;
+        this.nombre = "Rescatista";
         this.permisos.add(new EncontreMascotaPerdidaConChapita());
         this.permisos.add(new EncontreMascotaPerdidaSinChapita());
         this.permisos.add(new BuscarHogarDeTransito());
     }
-
-
-
-    @Override
-    public void ejecutarTransaccion(Transaccion transaccion)  {
-        if(this.permisos.stream().anyMatch(p -> p.getIdTransaccion() ==(transaccion.getIdTransaccion()))){
-            transaccion.ejecutar();
-        }else{
-            throw new TransactionException("No posee los permisos para ejecutar la transaccion");
-        }
-    }
-
 }

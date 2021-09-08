@@ -1,24 +1,28 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
-import dds.domain.persona.roles.Voluntario;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.Publicador;
 
 import javax.mail.MessagingException;
+import javax.persistence.*;
 
-public class ValidarPublicacion implements Transaccion {
-    final  int idTransaccion = 8;
+@Entity
+@DiscriminatorValue("validar_publicacion")
+public class ValidarPublicacion extends Transaccion {
+    @Transient
     String idPublicacion;
 
     public ValidarPublicacion(){
-
+        this.idTransaccion = 8;
     }
 
     public ValidarPublicacion(String idPublicacion) {
+        this.idTransaccion = 8;
         this.idPublicacion = idPublicacion;
     }
 
@@ -28,6 +32,7 @@ public class ValidarPublicacion implements Transaccion {
         Publicador publicador= asoc.getPublicador();
         PublicacionMascota publicacion = publicador.getPendienteXId(idPublicacion);
         publicador.aprobarPublicacion(publicacion);
+
     }
 
     @Override

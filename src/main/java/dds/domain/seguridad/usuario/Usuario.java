@@ -1,31 +1,55 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.domain.seguridad.validador.ValidadorPassword;
+import dds.servicios.helpers.DateHelper;
 import dds.servicios.helpers.HashHelper;
 
+
+
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.security.*;
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
+@Table
+@DiscriminatorColumn(name = "tipo_usuario")
 public class Usuario {
+
+    @Id
     private String userName;
+
+    @Column
     private String password;
-    private LocalDateTime lastPasswordDT;
+    @Column
+    private Date lastPasswordDT;
+    @Column
     private Integer intentosFallidos;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "usedPassword")
     private List<String> usedPasswords = new ArrayList<>();
+
+    @Column
     private Boolean isBlocked;
+
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "asociacion_id")
     private Asociacion asociacion;
 
     public Usuario (String userName, String password) throws NoSuchAlgorithmException{
         this.userName = userName;
         ValidadorPassword.getValidadorPassword().validarPassword(password,this);
-        this.lastPasswordDT = LocalDateTime.now(ZoneOffset.UTC);
         this.isBlocked = false;
         this.intentosFallidos= 0;
         this.password = HashHelper.getHashHelper().passwordAMD5(password);
@@ -62,15 +86,21 @@ public class Usuario {
     }
 
     public Boolean passwordVencida(){
-        return lastPasswordDT.isBefore(LocalDateTime.now(ZoneOffset.UTC).minusDays(30));
+        return lastPasswordDT.before(DateHelper.getHelper().LocalDateTimeToDate(LocalDateTime.now(ZoneOffset.UTC).minusDays(30)));
     }
 
     // Metodos de bloqueado
     public void bloquear() {
         isBlocked = true;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public void desbloquear() {
         isBlocked = false;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public boolean estaBloqueado() {
         return isBlocked;
@@ -82,13 +112,16 @@ public class Usuario {
     }
 
     public void setLastPasswordDT(LocalDateTime newLastPasswordDT){
-        this.lastPasswordDT = newLastPasswordDT;
+        this.lastPasswordDT = DateHelper.getHelper().LocalDateTimeToDate(newLastPasswordDT);
     }
 
     //Va a servir al momento del logueo
     public void verificarIntentosFallidos() {
         if (intentosFallidos == 3) {
             this.bloquear();
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().merge(this);
+            EntityManagerHelper.commit();
         }
     }
     public void setIntentosFallidos(int intentosFallidos) {
@@ -96,6 +129,9 @@ public class Usuario {
     }
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public Persona getPersona() {
@@ -108,5 +144,6 @@ public class Usuario {
 
     public void setAsociacion(Asociacion asociacion) {
         this.asociacion = asociacion;
+
     }
 }

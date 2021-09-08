@@ -1,24 +1,31 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 
+import javax.persistence.*;
 import java.util.HashMap;
 
-public class DarEnAdopcion implements Transaccion {
-    final  int idTransaccion = 3;
+@Entity
+@DiscriminatorValue("dar_adopcion")
+public class DarEnAdopcion extends Transaccion {
+    @Transient
     String idMascota;
+    @Transient
     String idDuenio;
-    private HashMap<String, Object> respuestas = new HashMap <String, Object> ();
+    @Transient
+    private HashMap<String, String> respuestas = new HashMap <String, String> ();
 
 
     public DarEnAdopcion() {
-
+        this.idTransaccion = 3;
     }
 
-    public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, Object> respuestas) {
+    public DarEnAdopcion(String idMascota, String idDuenio, HashMap<String, String> respuestas) {
+        this.idTransaccion = 3;
         this.idMascota = idMascota;
         this.idDuenio = idDuenio;
         this.respuestas = respuestas;
@@ -26,10 +33,11 @@ public class DarEnAdopcion implements Transaccion {
 
     @Override
     public void ejecutar(){
-        String idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
+        int idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         PublicacionAdopcion publi = new PublicacionAdopcion(idMascota,idDuenio,respuestas);
         asoc.getPublicador().agregarPublicacionMascotaEnAdopcion(publi);
+
 
     }
 

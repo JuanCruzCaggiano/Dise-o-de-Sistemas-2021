@@ -5,28 +5,24 @@ import dds.domain.persona.personaException.TransactionException;
 import dds.domain.persona.transaccion.*;
 
 import javax.mail.MessagingException;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Duenio implements RolPersona {
+@Entity
+@DiscriminatorValue("D")
+public class Duenio extends RolPersona {
 
-    List<Transaccion> permisos = new ArrayList<>();
+    private static Duenio rolDuenio = new Duenio() ;
+
+    public static Duenio getDuenio() {return rolDuenio;}
 
     public Duenio() {
+        this.id = 2;
+        this.nombre = "Duenio";
         this.permisos.add(new RegistrarMascota());
         this.permisos.add(new EncontreMiMascota());
         this.permisos.add(new DarEnAdopcion());
     }
-
-    @Override
-    public void ejecutarTransaccion(Transaccion transaccion)  {
-        if(this.permisos.stream().anyMatch(p -> p.getIdTransaccion() ==(transaccion.getIdTransaccion()))){
-            transaccion.ejecutar();
-        }else{
-            throw new TransactionException("No posee los permisos para ejecutar la transaccion");
-        }
-    }
-
-
-
 }

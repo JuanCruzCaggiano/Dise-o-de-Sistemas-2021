@@ -2,32 +2,36 @@ package dds.servicios.apiHogares;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ubicacion {
-    private String direccion;
-    private float lat;
-    @SerializedName("long")
-    private float longitud;
+import javax.persistence.*;
 
-    public Ubicacion(String direccion, float lat, float longitud) {
+@Entity
+@Table
+public class Ubicacion {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Column
+    private String direccion;
+    @Column
+    private double lat;
+    @Column
+    @SerializedName("long")
+    private double longitud;
+
+    public Ubicacion(String direccion, double lat, double longitud) {
         this.direccion = direccion;
         this.lat = lat;
         this.longitud = longitud;
     }
 
-    public float getLongitud() {
-        return longitud;
+    public int getId() {
+        return id;
     }
 
-    public void setLongitud(float longitud) {
-        this.longitud = longitud;
-    }
-
-    public float getLat() {
-        return lat;
-    }
-
-    public void setLat(float lat) {
-        this.lat = lat;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDireccion() {
@@ -36,5 +40,21 @@ public class Ubicacion {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

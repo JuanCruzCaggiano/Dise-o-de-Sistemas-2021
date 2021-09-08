@@ -7,17 +7,25 @@ import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionMascota;
 
-public class EncontreMiMascota implements Transaccion {
-    final  int idTransaccion = 5;
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue("encontre_mi_mascota")
+public class EncontreMiMascota extends Transaccion {
+    @Transient
     String idPublicacion;
-    String idAsociacion;
+    @Transient
+    int idAsociacion;
+    @Transient
     String idDuenio;
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public EncontreMiMascota() {
+        this.idTransaccion = 5;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public EncontreMiMascota(String idPublicacion,String idAsociacion,String idDuenio) {
+    public EncontreMiMascota(String idPublicacion,int idAsociacion,String idDuenio) {
+        this.idTransaccion = 5;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;
         this.idDuenio = idDuenio;

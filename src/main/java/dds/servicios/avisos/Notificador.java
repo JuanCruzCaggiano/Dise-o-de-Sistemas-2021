@@ -6,23 +6,33 @@ import dds.db.RepositorioPersonas;
 import dds.domain.mascota.Mascota;
 import dds.domain.persona.Persona;
 
-import javax.mail.MessagingException;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table
 public class Notificador {
-    private List<Contacto> suscriptores = new ArrayList<>();
-    private AdapterFormaNotificacion adapter;
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    public int getId(){
+        return id;
+    }
+
+    @OneToMany (cascade = {CascadeType.ALL})
+    private List<Contacto> contactos = new ArrayList<>();
 
 
-
-    public List<Contacto> getSuscriptores() {
-        return suscriptores;
+    public List<Contacto> getContactos() {
+        return contactos;
     }
     //agendar
     public void agendarContacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> formasDeNoti){
         Contacto contactoNuevo = new Contacto(nombre,apellido,telefono,email,formasDeNoti);
-        suscriptores.add(contactoNuevo);
+        contactos.add(contactoNuevo);
 
     }
     // modificar()
@@ -30,14 +40,14 @@ public class Notificador {
        if (buscarContacto(buscado) == -1){
            throw new Exception("No existe dicho usuario");
        }else{
-        suscriptores.get(buscarContacto(buscado)).setNombre(nombre);
-        suscriptores.get(buscarContacto(buscado)).setApellido(apellido);
-        suscriptores.get(buscarContacto(buscado)).setEmail(email);
-        suscriptores.get(buscarContacto(buscado)).setTelefono(telefono);}
+        contactos.get(buscarContacto(buscado)).setNombre(nombre);
+        contactos.get(buscarContacto(buscado)).setApellido(apellido);
+        contactos.get(buscarContacto(buscado)).setEmail(email);
+        contactos.get(buscarContacto(buscado)).setTelefono(telefono);}
     }
     public int buscarContacto(Contacto buscado){
-        for (int i=0;i<suscriptores.size();i++){
-            if (buscado.getNombre() == suscriptores.get(i).getNombre()){
+        for (int i = 0; i< contactos.size(); i++){
+            if (buscado.getNombre() == contactos.get(i).getNombre()){
                 return i;
             }
         }
@@ -45,7 +55,7 @@ public class Notificador {
     }
     // eliminar()
     public void eliminarContacto(Contacto eliminar){
-        suscriptores.remove(buscarContacto(eliminar));
+        contactos.remove(buscarContacto(eliminar));
     }
 
     public void notificar(String idMascota)  {
@@ -53,19 +63,19 @@ public class Notificador {
         Mascota mascota = duenio.getMascota(idMascota);
         String link = "";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
         String mensaje = "Encontramos a "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
-        for (int i=0;i<suscriptores.size();i++){
-            List<AdapterFormaNotificacion> formas = suscriptores.get(i).getFormasNotificacion();
+        for (int i = 0; i< contactos.size(); i++){
+            List<AdapterFormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {
-                formas.get(j).notificar(mensaje,suscriptores.get(i)); //aca paso el suscriptor
+                formas.get(j).notificar(mensaje, contactos.get(i)); //aca paso el suscriptor
             }
         }
     }
 
 
     public void notificarPersona(String mensaje) {
-        List<AdapterFormaNotificacion> formas = suscriptores.get(0).getFormasNotificacion();
+        List<AdapterFormaNotificacion> formas = contactos.get(0).getFormasNotificacion();
         for (int j=0;j<formas.size();j++) {
-            formas.get(j).notificar(mensaje,suscriptores.get(0)); //aca paso el suscriptor
+            formas.get(j).notificar(mensaje, contactos.get(0)); //aca paso el suscriptor
         }
     }
 }

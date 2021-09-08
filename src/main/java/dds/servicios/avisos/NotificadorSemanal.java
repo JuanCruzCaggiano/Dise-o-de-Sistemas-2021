@@ -51,7 +51,7 @@ public class NotificadorSemanal{
         }
     }
 
-    public void notificarPublicacionesConCoincidenciaSegun(int coincidenciasMinima, String idAsociacion) {
+    public void notificarPublicacionesConCoincidenciaSegun(int coincidenciasMinima, int idAsociacion) {
         preferencias = new PreferenciasDeAdopcion();
         List<PublicacionQuieroAdoptar> publicacionQuieroAdoptar= new ArrayList<>();
         List<PublicacionAdopcion> publicacionAdopcion = new ArrayList<>();
@@ -83,10 +83,10 @@ public class NotificadorSemanal{
             mascota = duenio.getMascota(listaAEnviaraPosibleAdoptante.get(k).getIdMascota());
             mensaje = "Encontramos esta pulicaciones de Mascota: "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link de publicacion!: "+link+listaAEnviaraPosibleAdoptante.get(k).getIdPublicacion();
 
-            for (int i=0;i<adoptante.getNotificador().getSuscriptores().size();i++){
-                List<AdapterFormaNotificacion> formas = adoptante.getNotificador().getSuscriptores().get(i).getFormasNotificacion();
+            for (int i = 0; i<adoptante.getNotificador().getContactos().size(); i++){
+                List<AdapterFormaNotificacion> formas = adoptante.getNotificador().getContactos().get(i).getFormasNotificacion();
                 for (int j=0;j<formas.size();j++) {
-                    formas.get(j).notificar(mensaje,adoptante.getNotificador().getSuscriptores().get(i)); //aca paso el suscriptor
+                    formas.get(j).notificar(mensaje,adoptante.getNotificador().getContactos().get(i)); //aca paso el suscriptor
                 }
             }
         }

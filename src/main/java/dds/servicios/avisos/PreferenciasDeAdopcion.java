@@ -3,13 +3,13 @@ package dds.servicios.avisos;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.domain.asociacion.Asociacion;
-import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PreferenciasDeAdopcion {
@@ -17,31 +17,31 @@ public class PreferenciasDeAdopcion {
     RepositorioAsociaciones repositorioAsociaciones;
 
 
-    public List<PublicacionQuieroAdoptar> obtenerPublicacionesAdoptantesSegunAsociacion(String idAsoc) {
+    public List<PublicacionQuieroAdoptar> obtenerPublicacionesAdoptantesSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
         return asociacion.getPublicador().getPublicacionesQuieroAdoptar();
     }
 
-    public List<PublicacionAdopcion> obtenerPublicacionesEnAdopcionSegunAsociacion(String idAsoc) {
+    public List<PublicacionAdopcion> obtenerPublicacionesEnAdopcionSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
         return asociacion.getPublicador().getEnAdopcion();
     }
 
-    public List<String> obtenerPreguntasSegunAsociacion(String idAsoc) {
+    public List<String> obtenerPreguntasSegunAsociacion(int idAsoc) {
         Asociacion asociacion;
         asociacion = repositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
 
-        return asociacion.getConfiguraciones().getPreguntas();
+        return asociacion.getConfigurador().getPreguntas();
     }
 
     public List<PublicacionAdopcion> obtenerPublicacionesConCoincidenciaSegunAdoptante(int coincidenciasMinima, PublicacionQuieroAdoptar publicacionQuieroAdoptarAux, List<PublicacionAdopcion> publicacionAdopcionesAux) {
         int cantidad = 0;
         String valor = "";
-        HashMap<String, Object> preguntasPosibleAdoptante = new HashMap<String, Object>();
+        Map<String, String> preguntasPosibleAdoptante = new HashMap<String, String>();
         preguntasPosibleAdoptante = publicacionQuieroAdoptarAux.getPreguntas();
         List<PublicacionAdopcion> auxPubli = new ArrayList<>();
 

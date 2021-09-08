@@ -1,13 +1,34 @@
 package dds.servicios.avisos;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table
 public class Contacto {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int id;
+
+    public int getId(){
+        return id;
+    }
+
+    @Column
     private String nombre;
+
+    @Column
     private String apellido;
+
+    @Column
     private String telefono;
+
+    @Column
     private String email;
-    private List<AdapterFormaNotificacion> formasNotificacion;
+
+    @Transient
+    private List<AdapterFormaNotificacion> formasNotificacion = new ArrayList<>();
 
 
 
@@ -52,5 +73,9 @@ public class Contacto {
 
     public List<AdapterFormaNotificacion> getFormasNotificacion() {
         return formasNotificacion;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -1,12 +1,18 @@
 package dds.domain.seguridad.usuario;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.persona.Persona;
 import dds.domain.persona.personaException.AssignPersonaException;
 
+import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 
+@Entity
+@DiscriminatorValue("S")
 public class Standard extends Usuario {
 
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "persona_id")
     private Persona persona;
 
 
@@ -20,6 +26,10 @@ public class Standard extends Usuario {
     public void agregarPersona(Persona persona){
         if(this.persona == null) {
             this.persona = persona;
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().persist(persona);
+            EntityManagerHelper.commit();
+
         }else
         {
             throw new AssignPersonaException("El usuario ya tiene una persona asignada");

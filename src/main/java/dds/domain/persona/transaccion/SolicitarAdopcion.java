@@ -7,17 +7,25 @@ import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionMascota;
 
-public class SolicitarAdopcion implements Transaccion {
-    final  int idTransaccion = 10;
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue("solicitar_adopcion")
+public class SolicitarAdopcion extends Transaccion {
+    @Transient
     String idPublicacion;
-    String idAsociacion;
+    @Transient
+    int idAsociacion;
+    @Transient
     String idAdoptante;
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public SolicitarAdopcion() {
+        this.idTransaccion = 10;
     }
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
-    public SolicitarAdopcion(String idPublicacion,String idAsociacion,String idAdoptante) {
+    public SolicitarAdopcion(String idPublicacion,int idAsociacion,String idAdoptante) {
+        this.idTransaccion = 10;
         this.idPublicacion = idPublicacion;
         this.idAsociacion = idAsociacion;
         this.idAdoptante = idAdoptante;

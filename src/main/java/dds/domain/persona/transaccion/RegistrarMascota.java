@@ -1,42 +1,63 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.domain.mascota.Mascota;
+import dds.domain.mascota.Sexo;
 import dds.domain.mascota.TipoMascota;
 import dds.domain.persona.Persona;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
-public class RegistrarMascota implements Transaccion {
-    final  int idTransaccion = 7;
-    private Persona dueño;
+@Entity
+@DiscriminatorValue("registrar_mascota")
+public class RegistrarMascota extends Transaccion {
+    @Transient
+    private Persona duenio;
+    @Transient
     private TipoMascota tipo;
+    @Transient
     private String nombre;
+    @Transient
     private String apodo;
-    private Integer edad;
+    @Transient
+    private LocalDate fechaNac;
+    @Transient
     private String descripcion;
+    @Transient
+    private Sexo sexo;
+    @Transient
     private List<String> listaFotos;
-    private HashMap <String, Object> caracteristica = new HashMap <String, Object> ();
+    @Transient
+    private HashMap <String, String> caracteristica = new HashMap <String, String> ();
 
     public RegistrarMascota() {
+        this.idTransaccion = 7;
     }
 
-    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, Integer edad, String descripcion, List<String> listaFotos, HashMap<String, Object> caracteristica) {
-        this.dueño = dueño;
+    public RegistrarMascota(Persona dueño, TipoMascota tipo, String nombre, String apodo, LocalDate fnac, String descripcion, List<String> listaFotos, HashMap<String, String> caracteristica, Sexo sexo) {
+        this.idTransaccion = 7;
+        this.duenio = dueño;
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
-        this.edad = edad;
+        this.fechaNac = fnac;
         this.descripcion = descripcion;
         this.listaFotos = listaFotos;
         this.caracteristica = caracteristica;
+        this.sexo = sexo;
     }
 
     //REGISTRAR MASCOTA
     @Override
     public void ejecutar(){
-        Mascota nueva = new Mascota(tipo,nombre,apodo,edad,descripcion,listaFotos,caracteristica);
-        dueño.getMascotas().add(nueva);
+        Mascota nueva = new Mascota(tipo,nombre,apodo,fechaNac,descripcion,listaFotos,caracteristica,sexo);
+        duenio.getMascotas().add(nueva);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(nueva);
+        EntityManagerHelper.commit();
     }
 
     @Override

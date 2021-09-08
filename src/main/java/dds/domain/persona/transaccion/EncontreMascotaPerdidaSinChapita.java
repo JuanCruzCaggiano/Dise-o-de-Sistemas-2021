@@ -1,27 +1,39 @@
 package dds.domain.persona.transaccion;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.asociacion.Asociacion;
 import dds.domain.persona.Persona;
 import dds.servicios.publicaciones.PublicacionMascota;
+import dds.servicios.publicaciones.TipoPublicacion;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
-public class EncontreMascotaPerdidaSinChapita implements Transaccion{
-    final  int idTransaccion = 9;
+@Entity
+@DiscriminatorValue("mascota_perdida_sin")
+public class EncontreMascotaPerdidaSinChapita extends Transaccion{
+    @Transient
     float latitud;
+    @Transient
     float longitud;
+    @Transient
     String idRescatista;
+    @Transient
     ArrayList<String> listaFotos;
+    @Transient
     String descripcion;
 
     //CONSTRUCTOR PARA LISTA DE PERMISOS
-    public EncontreMascotaPerdidaSinChapita(){}
+    public EncontreMascotaPerdidaSinChapita(){
+        this.idTransaccion = 9;
+    }
 
     //CONSTRUCTOR PARA REALIZAR TRANSACCION
     public EncontreMascotaPerdidaSinChapita(float latitud, float longitud, ArrayList<String> listaFotos, String descripcion,String idRescatista) {
+        this.idTransaccion = 9;
         this.latitud = latitud;
         this.longitud = longitud;
         this.listaFotos = listaFotos;
@@ -31,9 +43,9 @@ public class EncontreMascotaPerdidaSinChapita implements Transaccion{
 
     @Override
     public void ejecutar()  {
-        PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion,idRescatista);
+        PublicacionMascota publi = new PublicacionMascota(latitud,longitud,listaFotos,descripcion,idRescatista, TipoPublicacion.PENDIENTE);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacionMasCercana(latitud,longitud);
-        asoc.getPublicador().agregarPublicacionPendiente(publi);
+        asoc.getPublicador().agregarPublicacion(publi);
     }
 
     @Override

@@ -2,34 +2,44 @@ package dds.domain.asociacion;
 
 
 
-import dds.db.RepositorioAsociaciones;
 import dds.servicios.apiHogares.Ubicacion;
 import dds.servicios.publicaciones.Publicador;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table (name = "asociacion")
 public class Asociacion {
 
-    private String idAsociacion;
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int idAsociacion;
+
+    @Column
     private String nombre;
+
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "direccion_id")
     private Ubicacion ubicacion;
+
+    @OneToOne (cascade = {CascadeType.ALL})
     private Publicador publicador;
-    private Configuraciones configuraciones;
+
+    @OneToOne (cascade = {CascadeType.ALL})
+    private Configurador configurador;
 
     public Asociacion(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.publicador = new Publicador();
-        this.configuraciones = new Configuraciones();
+        this.configurador = new Configurador();
     }
 
-    public Configuraciones getConfiguraciones() {
-        return configuraciones;
+    public Configurador getConfigurador() {
+        return configurador;
     }
 
-    public void setIdAsociacion(String idAsociacion) {
+    public void setIdAsociacion(int idAsociacion) {
         this.idAsociacion = idAsociacion;
     }
 
@@ -41,7 +51,7 @@ public class Asociacion {
         return nombre;
     }
 
-    public String getIdAsociacion() {
+    public int getIdAsociacion() {
         return idAsociacion;
     }
 

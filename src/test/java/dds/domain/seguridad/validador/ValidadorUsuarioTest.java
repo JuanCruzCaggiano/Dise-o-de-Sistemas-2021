@@ -1,15 +1,22 @@
 package dds.domain.seguridad.validador;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioUsuarios;
+import dds.domain.asociacion.Asociacion;
+import dds.domain.mascota.Mascota;
 import dds.domain.seguridad.usuario.Usuario;
 import dds.domain.seguridad.usuario.usuarioException.WrongLoginException;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ValidadorUsuarioTest {
 
 
@@ -17,13 +24,21 @@ public class ValidadorUsuarioTest {
 
         @Before
         public void setup() throws NoSuchAlgorithmException {
-            RepositorioUsuarios.getRepositorio().getUsuarios().clear();
+
             usuarioCreado = new Usuario("usuarioTest","Password123+");
-            RepositorioUsuarios.getRepositorio().agregarUsuario(usuarioCreado);
+
+            if (EntityManagerHelper.getEntityManager().find(Usuario.class, usuarioCreado.getUserName()) == null){
+                EntityManagerHelper.beginTransaction();
+                EntityManagerHelper.entityManager().persist(usuarioCreado);
+                EntityManagerHelper.commit();
+            } else
+            {
+                usuarioCreado = (Usuario) EntityManagerHelper.getEntityManager().createQuery("from Usuario").getResultList().get(0);
+            }
         }
 
         @Test
-        public void testValidarIdentidad() throws NoSuchAlgorithmException {
+        public void A_testValidarIdentidad() throws NoSuchAlgorithmException {
 
             String username = usuarioCreado.getUserName();
             Assert.assertTrue(ValidadorUsuario.getValidadorUsuario().validarIdentidad(username,"Password123+"));
@@ -32,25 +47,26 @@ public class ValidadorUsuarioTest {
             //en una cadena.
         }
         @Test (expected = WrongLoginException.class)
-        public void testValidarIdentidadErrorContraseniaNoCoincide() throws NoSuchAlgorithmException{
+        public void B_testValidarIdentidadErrorContraseniaNoCoincide() throws NoSuchAlgorithmException{
             String username = usuarioCreado.getUserName();
             ValidadorUsuario.getValidadorUsuario().validarIdentidad(username,"sarasa");
         }
         @Test (expected = WrongLoginException.class)
-        public void testValidarIdentidadUsuarioInexistente() throws NoSuchAlgorithmException{
+        public void C_testValidarIdentidadUsuarioInexistente() throws NoSuchAlgorithmException{
             ValidadorUsuario.getValidadorUsuario().validarIdentidad("pepito","");
         }
-        @Test (expected = WrongLoginException.class)
-        public void testValidarIdentidadUsuarioBloqueado() throws NoSuchAlgorithmException{
-            usuarioCreado.bloquear();
-            ValidadorUsuario.getValidadorUsuario().validarIdentidad(usuarioCreado.getUserName(),"Password123+");
 
-        }
         @Test (expected = WrongLoginException.class)
-        public void testValidarContraseniaVencida() throws NoSuchAlgorithmException {
+        public void D_testValidarContraseniaVencida() throws NoSuchAlgorithmException {
             RepositorioUsuarios.getRepositorio().getUsuario("usuarioTest").setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC).minusDays(31));
             ValidadorUsuario.getValidadorUsuario().validarIdentidad(usuarioCreado.getUserName(),"Password123+");
         }
+        @Test (expected = WrongLoginException.class)
+        public void E_testValidarIdentidadUsuarioBloqueado() throws NoSuchAlgorithmException{
+        usuarioCreado.bloquear();
+        ValidadorUsuario.getValidadorUsuario().validarIdentidad(usuarioCreado.getUserName(),"Password123+");
+
+    }
 
 
 }
