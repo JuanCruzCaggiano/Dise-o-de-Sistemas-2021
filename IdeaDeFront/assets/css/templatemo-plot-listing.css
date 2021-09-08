@@ -107,6 +107,31 @@ figcaption {
 
 /* clear fix */
 
+.b1 {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+.b1:hover {
+    background-color: #04AA6D;
+    color: black;
+}
+
+.previous {
+    background-color: grey;
+    color: black;
+}
+
+.next {
+    background-color: gray;
+    color: black;
+}
+
+.round {
+    border-radius: 50%;
+}
+
 .grid:after {
     content: '';
     display: block;

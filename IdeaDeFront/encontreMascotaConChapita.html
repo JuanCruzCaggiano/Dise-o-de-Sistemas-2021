@@ -1,148 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Rescate de Patitas · Encontré mascota con chapita</title>
+
+    <title>Rescate de Patitas · Registrar Usuario</title>
+
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-plot-listing.css">
     <link rel="stylesheet" href="assets/css/animated.css">
-    <Link: rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
     <!--
-    TemplateMo 564 Plot Listing
-    https://templatemo.com/tm-564-plot-listing
-    -->
-  </head>
 
+TemplateMo 564 Plot Listing
 
-  <body>
+https://templatemo.com/tm-564-plot-listing
+
+-->
+</head>
+
+<body>
+
     <!-- ***** Preloader Start ***** -->
     <div id="js-preloader" class="js-preloader">
-      <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-      </div>
     </div>
     <!-- ***** Preloader End ***** -->
 
     <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <nav class="main-nav">
-              <!-- ***** Logo Start ***** -->
-              <a href="index.html" class="logo"><img src="assets/images/perroygato.png" style="width: 60px;">Rescate de Patitas</a>
-              <!-- ***** Logo End ***** -->
-              <!-- ***** Menu Start ***** -->
-              <ul class="nav">
-                <li>
-                  <a href="index.html" class="active">Principal</a>
-                </li>
-                <li>
-                  <a href="#">Encontre una mascota</a>
-                </li>
-                <li>
-                  <a href="noTengoAlma.html">Dar Adopcion</a>
-                </li>
-                <li>
-                  <a href="configurarCaracteristicasAsociacion.html">Configurar características</a>
-                </li>
-                <li>
-                  <a href="#">Mascotas Perdidas</a>
-                </li>
-                <li>
-                  <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <a href="#"><i class="fa fa-plus"></i>Registrar Mascota</a>
-                  </div>
-                </li>
-              </ul>
-              <a class='menu-trigger'>
-                <span>Menu</span>
-              </a>
-              <!-- ***** Menu End ***** -->
-            </nav>
-          </div>
+    <header class="header-area header-sticky wow slideInDown animated background-header" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo"><img src="assets/images/perroygato.png" style="width: 60px; ">GESOC
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="index.html">Principal</a></li>
+                            <li><a href="#">Adopciones</a></li>
+                            <li><a href="#">Mascotas Perdidas</a></li>
+
+                            <li>
+                                <a href="registroMascota.html">Registro</a>
+                            </li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
         </div>
-      </div>
     </header>
     <!-- ***** Header Area End ***** -->
 
-    <div class="main-banner">
+    <div class="main-banner2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="top-text header-text">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 
     <div class="container">
 
-      <div class="row justify-content-md-center">
-        <div class="col-lg-12 text-center">
-          <h4 style="margin: 25px">Necesitamos algunos datos <br>de la mascota encontrada CON CHAPITA...</h4>
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 text-center">
+                <h4 style="margin: 25px">Necesitamos algunos datos de la mascota encontrada</h4>
+                <h6>Si la mascota no tiene una codigo QR -><a href="encontreMascotaSinChapita.html">Click ACA</a></h6>
+            </div>
         </div>
-      </div>
 
-      <div class="row">
-        <label class="mt-3 mb-1">Lector QR</label>
-          <video id="preview" width="100%"></video>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Texto leído</span>
-            <input type="text" name="text" id="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-          </div>
-        <!-- Para escanear QR con la cámara -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-        <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-      </div>
+        <div class="row">
+            <label class="mt-3 mb-1">Lector QR</label>
+            <video id="preview" width="100%"></video>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Texto leído</span>
+                <input type="text" name="text" id="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
 
-      <div class="row">
-        <label class="mt-3 mb-1">Ubicación</label>
-        <div class="col">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text" id="inputGroup-sizing-default">Latitud</span>
-            <span id="lat" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
-          </div>
         </div>
-        <div class="col">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text" id="inputGroup-sizing-default">Longitud</span>
-            <span id="long" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
-          </div>
+
+        <div class="row">
+            <label class="mt-3 mb-1">Ubicación</label>
+            <div class="col">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Latitud</span>
+                    <span id="lat" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Longitud</span>
+                    <span id="long" class="input-group-text form-control" id="inputGroup-sizing-default">...</span>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="mt-3 mb-1">
-        <label for="formFileMultiple" class="form-label mt-2 mb-1">Fotos</label>
-        <input class="form-control form-control-sm" type="file" id="formFileMultiple" multiple>
-      </div>
+        <div class="mt-3 mb-1">
+            <label for="formFileMultiple" class="form-label mt-2 mb-1">Fotos</label>
+            <input class="form-control form-control-sm" type="file" id="formFileMultiple" multiple>
+        </div>
 
-      <label class="mt-3 mb-1">Descripción</label>
-      <div class="input-group input-group-sm">
-        <textarea class="form-control" aria-label="With textarea"></textarea>
-      </div>
+        <label class="mt-3 mb-1">Descripción</label>
+        <div class="input-group input-group-sm">
+            <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
 
-      <div class="d-grid gap-2 mt-4">
-        <button type="button submit" class="btn btn-secondary">Enviar</button>
-      </div>
+        <div class="d-grid gap-2 mt-4">
+            <button type="button submit" class="btn btn-secondary">Enviar</button>
+        </div>
 
     </div>
 
-<footer class="py-3 my-4">
-  <ul class="nav justify-content-center border-bottom pb-1 mb-2">
-    <li class="nav-item"><a href="___nosotros.html" class="nav-link px-3 text-muted">Nosotros</a></li>
-    <li class="nav-item"><a href="___FAQs.html" class="nav-link px-3 text-muted">FAQs</a></li>
-    <li class="nav-item"><a href="___contacto.html" class="nav-link px-3 text-muted">Contacto</a></li>
-  </ul>
-  <p class="text-center text-muted">© Rescate de Patitas</p>
-</footer>
+
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-1 mb-2">
+            <li class="nav-item"><a href="___nosotros.html" class="nav-link px-3 text-muted">Nosotros</a></li>
+            <li class="nav-item"><a href="___FAQs.html" class="nav-link px-3 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="___contacto.html" class="nav-link px-3 text-muted">Contacto</a></li>
+        </ul>
+        <p class="text-center text-muted">© Rescate de Patitas</p>
+    </footer>
+
 
 
     <!-- Scripts -->
@@ -152,78 +159,74 @@
     <script src="assets/js/animation.js"></script>
     <script src="assets/js/imagesloaded.js"></script>
     <script src="assets/js/custom.js"></script>
+    <!-- Scripts -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/animation.js"></script>
+    <script src="assets/js/imagesloaded.js"></script>
+    <script src="assets/js/custom.js"></script>
     <!-- Script para obtener la geolocalización-->
     <script>
-      var text_lat = document.getElementById("lat");
-      var text_long = document.getElementById("long");
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      }
-      else {
-        text_lat.innerHTML = "Geolocalización no soportada en este explorador.";
-        text_long.innerHTML = "Geolocalización no soportada en este explorador.";
-      }
-      function showPosition(position) {
-        text_lat.innerHTML = position.coords.latitude;
-        text_long.innerHTML = position.coords.longitude;
-      }
-      function showError(error) {
-        switch(error.code) {
-          case error.PERMISSION_DENIED:
-            text_lat.innerHTML = "El usuario denegó la solicitud de geolocalización."
-            text_long.innerHTML = "El usuario denegó la solicitud de geolocalización.";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            text_lat.innerHTML = "Información de localización no disponible."
-            text_long.innerHTML = "Información de localización no disponible.";
-            break;
-          case error.TIMEOUT:
-            text_lat.innerHTML = "Finalizó el tiempo para obtener la localización del usuario."
-            text_long.innerHTML = "Finalizó el tiempo para obtener la localización del usuario.";
-            break;
-          case error.UNKNOWN_ERROR:
-            text_lat.innerHTML = "Error desconocido."
-            text_long.innerHTML = "Error desconocido.";
-            break;
+        var text_lat = document.getElementById("lat");
+        var text_long = document.getElementById("long");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            text_lat.innerHTML = "Geolocalización no soportada en este explorador.";
+            text_long.innerHTML = "Geolocalización no soportada en este explorador.";
         }
-      }
-    </script>
 
+        function showPosition(position) {
+            text_lat.innerHTML = position.coords.latitude;
+            text_long.innerHTML = position.coords.longitude;
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    text_lat.innerHTML = "El usuario denegó la solicitud de geolocalización."
+                    text_long.innerHTML = "El usuario denegó la solicitud de geolocalización.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    text_lat.innerHTML = "Información de localización no disponible."
+                    text_long.innerHTML = "Información de localización no disponible.";
+                    break;
+                case error.TIMEOUT:
+                    text_lat.innerHTML = "Finalizó el tiempo para obtener la localización del usuario."
+                    text_long.innerHTML = "Finalizó el tiempo para obtener la localización del usuario.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    text_lat.innerHTML = "Error desconocido."
+                    text_long.innerHTML = "Error desconocido.";
+                    break;
+            }
+        }
+    </script>
+    <!-- Para escanear QR con la cámara -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <!-- Script para escanear QR con la cámara -->
     <script>
-      let scanner = new Instascan.Scanner({ video: document.getElementById('preview')});
-      Instascan.Camera.getCameras().then(function(cameras){
-        if(cameras.length > 0 ){
-          scanner.start(cameras[0]);
-        } else{
-          alert('No cameras found');
-        }
+        let scanner = new Instascan.Scanner({
+            video: document.getElementById('preview')
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                alert('No cameras found');
+            }
 
-      }).catch(function(e) {
-        console.error(e);
-      });
-      scanner.addListener('scan',function(c){
-        document.getElementById('text').value=c;
-      });
+        }).catch(function(e) {
+            console.error(e);
+        });
+        scanner.addListener('scan', function(c) {
+            document.getElementById('text').value = c;
+        });
     </script>
 
-
-
-    <!--Otro script-->
-    <script>
-        function agregarCampoFoto() {
-            var contador
-            var add = $("#test");
-            add.append(`
-            <div class="input-group input-group-sm">
-            <input type="file" class="form-control" id=`
-                $ {}
-                `>
-            <button class="input-group-text" for="inputGroupFile02" onclick="remove(this)">Borrar</label>
-            </div>
-            `);
-        }
-    </script>
 
 </body>
 

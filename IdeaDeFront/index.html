@@ -51,24 +51,19 @@ https://templatemo.com/tm-564-plot-listing
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo"><img src="assets/images/perroygato.png" style="width: 60px;">Rescate de Patitas
+                        <a href="index.html" class="logo"><img src="assets/images/perroygato.png" style="width: 60px; "> GESOC
                         </a>
+
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li><a href="index.html" class="active">Principal</a></li>
-                            <li>
-                                <a href="#">Encontre una mascota</a>
-                            </li>
-                            <li><a href="noTengoAlma.html">Dar Adopcion</a></li>
-                            <li><a href="configurarCaracteristicasAsociacion.html">Configurar características</a></li>
+                            <li><a href="adopcion.html">Adopciones</a></li>
                             <li><a href="#">Mascotas Perdidas</a></li>
-
                             <li>
                                 <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <a href="#"><i class="fa fa-plus"></i>Registrar Mascota</a>
+                                    <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
                                 </div>
-
                             </li>
                         </ul>
                         <a class='menu-trigger'>
@@ -92,11 +87,27 @@ https://templatemo.com/tm-564-plot-listing
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Oye amigo! Registrate primero! (si estas registrado no lo muestra y te lleva a la pantalla para registrar a tu mascota)
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <a href="registroMascota.html" class="btn btn-primary" role="button" type="submit" aria-disabled="true">Ingresar</a>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                        <a href="registroUsuario.html" class="btn btn-primary" role="button" aria-disabled="true">Registrarme</a>
+
+                        <a href="registroUsuario.html" class="btn btn-success" role="button" type="submit" aria-disabled="true">Crear Cuenta</a>
 
                     </div>
                 </div>
@@ -205,7 +216,7 @@ https://templatemo.com/tm-564-plot-listing
 
                                             </ul>
                                             <div class="main-white-button align">
-                                                <a href="contact.html"><i class="fa fa-eye"></i> Adoptar</a>
+                                                <a href="adopcion.html"><i class="fa fa-eye"></i> Adoptar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -396,12 +407,12 @@ https://templatemo.com/tm-564-plot-listing
 
 
     <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-1 mb-2">
-        <li class="nav-item"><a href="___nosotros.html" class="nav-link px-3 text-muted">Nosotros</a></li>
-        <li class="nav-item"><a href="___FAQs.html" class="nav-link px-3 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="___contacto.html" class="nav-link px-3 text-muted">Contacto</a></li>
-      </ul>
-      <p class="text-center text-muted">© Rescate de Patitas</p>
+        <ul class="nav justify-content-center border-bottom pb-1 mb-2">
+            <li class="nav-item"><a href="___nosotros.html" class="nav-link px-3 text-muted">Nosotros</a></li>
+            <li class="nav-item"><a href="___FAQs.html" class="nav-link px-3 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="___contacto.html" class="nav-link px-3 text-muted">Contacto</a></li>
+        </ul>
+        <p class="text-center text-muted">© Rescate de Patitas</p>
     </footer>
 
 
