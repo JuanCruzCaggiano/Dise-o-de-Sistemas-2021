@@ -23,8 +23,8 @@ public class PublicacionMascota {
     private double longitud;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lista_fotos")
-    private List<String> listaFotos = new ArrayList<>();
+    @CollectionTable(name = "lista_foto_mascota")
+    private List<String> pathFoto = new ArrayList<>();
 
     @Column
     private String descripcion;
@@ -66,7 +66,7 @@ public class PublicacionMascota {
         this.idMascota = idMascota;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.listaFotos = listaFotos;
+        this.pathFoto = listaFotos;
         this.descripcion = descripcion;
         this.idRescatista = idRescatista;
         this.tipoPublicacion = tipo;
@@ -78,7 +78,7 @@ public class PublicacionMascota {
         this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.latitud = latitud;
         this.longitud = longitud;
-        this.listaFotos = listaFotos;
+        this.pathFoto = listaFotos;
         this.descripcion = descripcion;
         this.idRescatista= idRescatista;
         this.tipoPublicacion = tipo;

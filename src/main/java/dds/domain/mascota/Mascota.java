@@ -36,8 +36,8 @@ public class Mascota {
     private String descripcion;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "fotoMascota")
-    private List<String> listaFotos = new ArrayList<>();
+    @CollectionTable(name = "lista_foto_mascota")
+    private List<String> pathFoto = new ArrayList<>();
 
     //private List<ConfigCaracMascota> caracteristica;
 
@@ -58,7 +58,7 @@ public class Mascota {
         this.sexo = sexo;
         this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.descripcion = descripcion;
-        this.listaFotos = listaFotos;
+        this.pathFoto = listaFotos;
         this.caracteristica = caracteristica;
     }
 
