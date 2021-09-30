@@ -2,6 +2,7 @@ package dds.server;
 
 
 import dds.domain.controllers.AdopcionController;
+import dds.domain.controllers.IndexController;
 import dds.domain.controllers.UsuarioController;
 
 import spark.Spark;
@@ -38,6 +39,8 @@ public class Router {
         Spark.get("/adopcion",adopcionController::mostrarMascotas, Router.engine);
         Spark.get("/adopcion/:id",adopcionController::mostrarMascotas, Router.engine);
 
+        IndexController indexController = new IndexController();
+        Spark.get("/",indexController::mostrarIndex,Router.engine);
     }
 
 }

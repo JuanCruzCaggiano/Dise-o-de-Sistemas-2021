@@ -3,15 +3,11 @@ package dds.domain.controllers;
 
 import dds.db.RepositorioMascotas;
 import dds.domain.entities.mascota.Mascota;
-import dds.domain.entities.mascota.Sexo;
-import dds.domain.entities.mascota.TipoMascota;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.io.Console;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
