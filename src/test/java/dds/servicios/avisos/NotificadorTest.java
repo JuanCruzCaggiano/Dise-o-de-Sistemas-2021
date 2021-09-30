@@ -27,9 +27,9 @@ public class NotificadorTest extends TestCase {
     public void setUp() throws NoSuchAlgorithmException {
 
         //ALTA PERSONA DUENIO
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
+        Email email = new Email();
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(email);
         duenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                 39000401,LocalDate.of(1995, 7, 7),
                 "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);

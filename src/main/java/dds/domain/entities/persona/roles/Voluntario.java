@@ -4,9 +4,11 @@ import dds.domain.entities.persona.transaccion.*;
 import dds.domain.entities.persona.transaccion.RechazarPublicacion;
 import dds.domain.entities.persona.transaccion.ValidarPublicacion;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("V")
 public class Voluntario extends RolPersona {
 
     private static Voluntario rolVoluntario = new Voluntario() ;

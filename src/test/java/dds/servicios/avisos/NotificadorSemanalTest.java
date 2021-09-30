@@ -42,9 +42,9 @@ public class NotificadorSemanalTest {
 
 
         //ALTA PERSONA DUENIO
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
+        Email email = new Email();
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(email);
         duenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                 39000401,LocalDate.of(1995, 7, 7),
                 "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
@@ -58,9 +58,9 @@ public class NotificadorSemanalTest {
 
 
         //ALTA PERSONA ADOPTANTE
-        AdapterEmail adEmail4 = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti4 = new ArrayList<>();
-        formasDeNoti4.add(adEmail4);
+        Email email4 = new Email();
+        List<FormaNotificacion> formasDeNoti4 = new ArrayList<>();
+        formasDeNoti4.add(email4);
         adoptador= new Persona("Agustin", "Orlando",TipoDocumento.DNI,
                 4303123,LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);

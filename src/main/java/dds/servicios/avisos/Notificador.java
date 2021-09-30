@@ -30,7 +30,7 @@ public class Notificador {
         return contactos;
     }
     //agendar
-    public void agendarContacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> formasDeNoti){
+    public void agendarContacto(String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasDeNoti){
         Contacto contactoNuevo = new Contacto(nombre,apellido,telefono,email,formasDeNoti);
         contactos.add(contactoNuevo);
 
@@ -64,7 +64,7 @@ public class Notificador {
         String link = "";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
         String mensaje = "Encontramos a "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
         for (int i = 0; i< contactos.size(); i++){
-            List<AdapterFormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
+            List<FormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
             for (int j=0;j<formas.size();j++) {
                 formas.get(j).notificar(mensaje, contactos.get(i)); //aca paso el suscriptor
             }
@@ -73,7 +73,7 @@ public class Notificador {
 
 
     public void notificarPersona(String mensaje) {
-        List<AdapterFormaNotificacion> formas = contactos.get(0).getFormasNotificacion();
+        List<FormaNotificacion> formas = contactos.get(0).getFormasNotificacion();
         for (int j=0;j<formas.size();j++) {
             formas.get(j).notificar(mensaje, contactos.get(0)); //aca paso el suscriptor
         }

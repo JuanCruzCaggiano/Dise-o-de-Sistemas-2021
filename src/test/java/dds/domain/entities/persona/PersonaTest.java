@@ -55,9 +55,9 @@ public class PersonaTest {
 
 
         //CREO RESCATISTA
-        AdapterEmail adEmail2 = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti2 = new ArrayList<>();
-        formasDeNoti2.add(adEmail2);
+        Email email2 = new Email();
+        List<FormaNotificacion> formasDeNoti2 = new ArrayList<>();
+        formasDeNoti2.add(email2);
         personaRescat = new Persona("Gabriel", "Figueroa",TipoDocumento.DNI,37048624,LocalDate.of(1992, 10, 9),
                 "lomas","1140435092", "gafigueroa@gmail.com", formasDeNoti2);
         personaRescat.agregarRol(Rescatista.getRescatista());
@@ -66,9 +66,9 @@ public class PersonaTest {
 
 
         //CREO VOLUNTARIO
-        AdapterEmail adEmail3 = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti3 = new ArrayList<>();
-        formasDeNoti3.add(adEmail3);
+        Email email3 = new Email();
+        List<FormaNotificacion> formasDeNoti3 = new ArrayList<>();
+        formasDeNoti3.add(email3);
         personaVoluntario = new Persona("Pedro", "Dorr",TipoDocumento.DNI,390048516,LocalDate.of(1994, 12, 20),
                 "dir","1140435092", "dorrpei@gmail.com", formasDeNoti3);
         personaVoluntario.agregarRol(Voluntario.getVoluntario());
@@ -78,9 +78,9 @@ public class PersonaTest {
 
 
         //CREO DUENIO
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
+        Email email = new Email();
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(email);
         personaDuenio = new Persona("Matias", "Lanneponders",TipoDocumento.DNI,
                                             39000401,LocalDate.of(1995, 7, 7),
                                             "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
@@ -94,9 +94,9 @@ public class PersonaTest {
 
 
         // CREO ADOPTANTE
-        AdapterEmail adEmail4 = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti4 = new ArrayList<>();
-        formasDeNoti4.add(adEmail4);
+        Email email4 = new Email();
+        List<FormaNotificacion> formasDeNoti4 = new ArrayList<>();
+        formasDeNoti4.add(email4);
         personaAdoptante = new Persona("Agustin", "Orlando",TipoDocumento.DNI,
                 4303123,LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);

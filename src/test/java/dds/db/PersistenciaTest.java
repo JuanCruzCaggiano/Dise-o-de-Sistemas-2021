@@ -12,8 +12,8 @@ import dds.domain.entities.persona.transaccion.DarEnAdopcion;
 import dds.domain.entities.seguridad.usuario.Administrador;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.avisos.AdapterEmail;
-import dds.servicios.avisos.AdapterFormaNotificacion;
+import dds.servicios.avisos.Email;
+import dds.servicios.avisos.FormaNotificacion;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.TipoPublicacion;
 import org.junit.After;
@@ -53,9 +53,13 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         perro.agregarCaracteristica("Color De Pelo","Negro y Marron");
         perro.agregarCaracteristica("Tamaño","Grande");
 
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
+        Email email = new Email();
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(email);
+
+        Email email2 = new Email();
+        List<FormaNotificacion> formasDeNoti2 = new ArrayList<>();
+        formasDeNoti2.add(email2);
 
         Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
         persona.agregarRol(Duenio.getDuenio());
@@ -66,7 +70,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.getMascotas().add(perro);
         persona.getMascotas().add(gato);
-        persona2.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
+        persona2.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti2);
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro1",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.PENDIENTE));
         asoc.getPublicador().agregarPublicacion(new PublicacionMascota("perro2",(float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",persona2.getIdPersona(), TipoPublicacion.APROBADA));
 

@@ -11,8 +11,8 @@ import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.avisos.AdapterEmail;
-import dds.servicios.avisos.AdapterFormaNotificacion;
+import dds.servicios.avisos.Email;
+import dds.servicios.avisos.FormaNotificacion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -43,9 +43,9 @@ public class ConfiguradorTest {
             asoc = new Asociacion("Asco",new Ubicacion("DIR",0,0));
             mascota = new Mascota(TipoMascota.PERRO,"lola beatriz","lola", LocalDate.now().minusYears(6),"bruta beba",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
             //CREO DUENIO
-            AdapterEmail adEmail = new AdapterEmail();
-            List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-            formasDeNoti.add(adEmail);
+            Email email = new Email();
+            List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+            formasDeNoti.add(email);
             personaDuenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                     39000401,LocalDate.of(1995, 7, 7),
                     "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);

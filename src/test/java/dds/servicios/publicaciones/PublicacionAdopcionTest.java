@@ -12,9 +12,7 @@ import dds.domain.entities.persona.roles.RolPersona;
 import dds.domain.entities.persona.transaccion.DarEnAdopcion;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.avisos.AdapterEmail;
-import dds.servicios.avisos.AdapterFormaNotificacion;
-import dds.servicios.avisos.Notificador;
+import dds.servicios.avisos.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,9 +37,9 @@ public class PublicacionAdopcionTest {
         Notificador noti= new Notificador();
         List<RolPersona> listaRoles = new ArrayList<>();
         listaRoles.add(Adoptante.getAdoptante());
-        AdapterEmail adEmail = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(adEmail);
+        Email email = new Email();
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        formasDeNoti.add(email);
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);

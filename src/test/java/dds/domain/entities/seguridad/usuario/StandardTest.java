@@ -20,9 +20,9 @@ public class StandardTest{
 
     @Before
     public void setUp() throws Exception {
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        AdapterEmail adEmail = new AdapterEmail();
-        formasDeNoti.add(adEmail);
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        Email email = new Email();
+        formasDeNoti.add(email);
         Notificador noti= new Notificador();
         noti.agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
 

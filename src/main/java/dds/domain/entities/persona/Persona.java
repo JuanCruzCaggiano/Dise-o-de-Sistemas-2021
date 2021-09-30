@@ -7,7 +7,7 @@ import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.persona.roles.RolPersona;
 import dds.domain.entities.persona.transaccion.Transaccion;
-import dds.servicios.avisos.AdapterFormaNotificacion;
+import dds.servicios.avisos.FormaNotificacion;
 import dds.servicios.avisos.Notificador;
 import dds.servicios.helpers.DateHelper;
 
@@ -62,7 +62,7 @@ public class Persona {
         notificador.getContactos().get(0).setApellido(apellido);
     }
     //Alta de persona que encontro a su mascota
-    public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<AdapterFormaNotificacion> formasDeNoti) {
+    public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<FormaNotificacion> formasDeNoti) {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;

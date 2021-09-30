@@ -23,7 +23,7 @@ public class NotificadorSemanal{
     PreferenciasDeAdopcion preferencias;
     RepositorioPersonas repositorioPersonas;
     private List<Contacto> suscriptores = new ArrayList<>();
-    private AdapterFormaNotificacion adapter;
+    private FormaNotificacion formaNotificacion;
     int cantMinima = 1; //esto tiene que configurarse
     RepositorioAsociaciones repositorioAsociaciones;
     private final ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
@@ -84,7 +84,7 @@ public class NotificadorSemanal{
             mensaje = "Encontramos esta pulicaciones de Mascota: "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link de publicacion!: "+link+listaAEnviaraPosibleAdoptante.get(k).getIdPublicacion();
 
             for (int i = 0; i<adoptante.getNotificador().getContactos().size(); i++){
-                List<AdapterFormaNotificacion> formas = adoptante.getNotificador().getContactos().get(i).getFormasNotificacion();
+                List<FormaNotificacion> formas = adoptante.getNotificador().getContactos().get(i).getFormasNotificacion();
                 for (int j=0;j<formas.size();j++) {
                     formas.get(j).notificar(mensaje,adoptante.getNotificador().getContactos().get(i)); //aca paso el suscriptor
                 }

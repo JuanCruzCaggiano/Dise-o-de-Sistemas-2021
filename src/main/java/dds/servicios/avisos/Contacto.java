@@ -27,17 +27,17 @@ public class Contacto {
     @Column
     private String email;
 
-    @Transient
-    private List<AdapterFormaNotificacion> formasNotificacion = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.ALL})
+    private List<FormaNotificacion> formasNotificacion = new ArrayList<>();
 
+    public Contacto() {}
 
-
-    public Contacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> adaptadores) {
+    public Contacto(String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasNoti) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono; //SOLO INGRESAR 11 xxxx xxxx
         this.email = email;
-        this.formasNotificacion = adaptadores;
+        this.formasNotificacion = formasNoti;
     }
 
     public String getTelefono() {
@@ -71,7 +71,7 @@ public class Contacto {
         return apellido;
     }
 
-    public List<AdapterFormaNotificacion> getFormasNotificacion() {
+    public List<FormaNotificacion> getFormasNotificacion() {
         return formasNotificacion;
     }
 

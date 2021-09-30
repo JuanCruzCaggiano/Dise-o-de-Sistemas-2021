@@ -10,8 +10,8 @@ import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.avisos.AdapterEmail;
-import dds.servicios.avisos.AdapterFormaNotificacion;
+import dds.servicios.avisos.Email;
+import dds.servicios.avisos.FormaNotificacion;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
@@ -34,9 +34,9 @@ public class RepositorioUsuariosTest  {
         asoc = new Asociacion("asoc",new Ubicacion("DIR",0,0));
 
         //CREO DUENIO
-        List<AdapterFormaNotificacion> formasDeNoti = new ArrayList<>();
-        AdapterEmail adEmail = new AdapterEmail();
-        formasDeNoti.add(adEmail);
+        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
+        Email email = new Email();
+        formasDeNoti.add(email);
         personaDuenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                 39000401, LocalDate.of(1995, 7, 7),
                 "Byron 35","1155892198", "mlyonadi@gmail.com", formasDeNoti);
