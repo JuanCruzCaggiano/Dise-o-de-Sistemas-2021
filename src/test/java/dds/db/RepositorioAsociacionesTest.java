@@ -1,13 +1,10 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
-import dds.domain.asociacion.Asociacion;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.servicios.apiHogares.Ubicacion;
-import junit.framework.TestCase;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-
-import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RepositorioAsociacionesTest {

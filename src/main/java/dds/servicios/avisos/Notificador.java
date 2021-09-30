@@ -3,8 +3,8 @@ package dds.servicios.avisos;
 
 
 import dds.db.RepositorioPersonas;
-import dds.domain.mascota.Mascota;
-import dds.domain.persona.Persona;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 
 import javax.persistence.*;
 import java.util.ArrayList;

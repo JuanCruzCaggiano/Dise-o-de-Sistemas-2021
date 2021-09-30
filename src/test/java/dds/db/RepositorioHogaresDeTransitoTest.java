@@ -1,6 +1,6 @@
 package dds.db;
 
-import dds.domain.mascota.TipoMascota;
+import dds.domain.entities.mascota.TipoMascota;
 import dds.servicios.apiHogares.ServicioHogarDeTransito;
 import org.junit.Assert;
 import org.junit.Before;

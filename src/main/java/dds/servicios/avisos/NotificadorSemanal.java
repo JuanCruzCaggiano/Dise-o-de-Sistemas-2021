@@ -2,8 +2,8 @@ package dds.servicios.avisos;
 
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
-import dds.domain.mascota.Mascota;
-import dds.domain.persona.Persona;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 import java.util.ArrayList;

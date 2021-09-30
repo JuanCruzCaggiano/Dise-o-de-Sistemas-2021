@@ -1,7 +1,5 @@
 package dds.servicios.publicaciones;
 
-import dds.domain.mascota.Sexo;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,20 +1,17 @@
 package dds.servicios.avisos;
 
 import dds.db.EntityManagerHelper;
-import dds.db.RepositorioPersonas;
-import dds.domain.mascota.Mascota;
-import dds.domain.mascota.Sexo;
-import dds.domain.mascota.TipoMascota;
-import dds.domain.persona.Persona;
-import dds.domain.persona.TipoDocumento;
-import dds.domain.persona.roles.Duenio;
-import dds.domain.persona.roles.RolPersona;
-import dds.domain.seguridad.usuario.Standard;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.mascota.Sexo;
+import dds.domain.entities.mascota.TipoMascota;
+import dds.domain.entities.persona.Persona;
+import dds.domain.entities.persona.TipoDocumento;
+import dds.domain.entities.persona.roles.Duenio;
+import dds.domain.entities.seguridad.usuario.Standard;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.HashMap;

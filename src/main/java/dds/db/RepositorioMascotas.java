@@ -2,11 +2,8 @@ package dds.db;
 
 
 import dds.db.repositorioException.LogicRepoException;
-import dds.domain.mascota.Mascota;
-import dds.domain.persona.Persona;
-import dds.domain.seguridad.usuario.Usuario;
+import dds.domain.entities.mascota.Mascota;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioMascotas {
