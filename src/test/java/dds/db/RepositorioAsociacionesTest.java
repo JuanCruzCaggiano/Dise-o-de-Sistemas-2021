@@ -47,6 +47,12 @@ public class RepositorioAsociacionesTest {
         RepositorioAsociaciones.getRepositorio().eliminarAsociacion(asoc);
         Assert.assertEquals(cantActualAsoc-1,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
     }
+    @Test
+    public void B_testGetAsociaciones() {
+
+
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
+    }
 
 
 }

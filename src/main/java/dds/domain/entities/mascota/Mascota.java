@@ -39,6 +39,9 @@ public class Mascota {
 
     //private List<ConfigCaracMascota> caracteristica;
 
+    public Mascota() {
+    }
+
     @ElementCollection
     @MapKeyColumn(name="caracteristica")
     @Column(name="clave")

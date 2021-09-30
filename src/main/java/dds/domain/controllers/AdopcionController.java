@@ -26,10 +26,10 @@ public class AdopcionController {
     public ModelAndView mostrarMascotas(Request req,Response rep){
 
         Map<String,Object> parametros = new HashMap<>();
-        System.out.print("asdd1");
+        System.out.print("asdddddddddddddddddddd1");
         List<Mascota> mascotas = this.repositorio.getMascotas();
 
-        System.out.print("asdd");
+        System.out.print("asdddddddddddddddddddd");
         parametros.put("mascotas",mascotas);
 
         return new ModelAndView(parametros,"adopcion.hbs");

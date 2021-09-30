@@ -22,6 +22,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "persona")
 public class Persona {
+    public Persona() {
+    }
 
     @Id
     @Column (name = "idPersona")

@@ -24,6 +24,8 @@ import java.security.*;
 @Table
 @DiscriminatorColumn(name = "tipo_usuario")
 public class Usuario {
+    public Usuario() {
+    }
 
     @Id
     private String userName;

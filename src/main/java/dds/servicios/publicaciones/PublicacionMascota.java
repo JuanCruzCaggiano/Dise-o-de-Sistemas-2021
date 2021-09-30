@@ -11,6 +11,9 @@ public class PublicacionMascota {
     @Id
     private String idPublicacion;
 
+    public PublicacionMascota() {
+    }
+
     @Column
     private String idMascota;
 

@@ -34,6 +34,7 @@ public class Asociacion {
         this.publicador = new Publicador();
         this.configurador = new Configurador();
     }
+    public Asociacion(){}
 
     public Configurador getConfigurador() {
         return configurador;
