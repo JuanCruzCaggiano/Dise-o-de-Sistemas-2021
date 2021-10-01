@@ -13,6 +13,7 @@ public class RepositorioAdopcion {
 
     public List<PublicacionAdopcion> getPublicacionesAdopcion() {
         return (List<PublicacionAdopcion>) EntityManagerHelper.getEntityManager().createQuery("from PublicacionAdopcion").getResultList();
+
     }
 
 }
