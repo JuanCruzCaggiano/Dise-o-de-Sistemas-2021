@@ -1,9 +1,7 @@
 package dds.server;
 
 
-import dds.domain.controllers.AdopcionController;
-import dds.domain.controllers.IndexController;
-import dds.domain.controllers.UsuarioController;
+import dds.domain.controllers.*;
 
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -32,15 +30,34 @@ public class Router {
         // localhost:9000/?nombre=sarasa&apellido=sarasa2
 
         //Spark.get("/usuario/:id", (req,res)->req.params("id"));  //req.splat()[0] devuelve array de asteriscos
+        ControllerContacto controllerContacto = new ControllerContacto();
+        ControllerConfigurarCaracteristicasAsociacion controllerConfigurarCaracteristicasAsociacion = new ControllerConfigurarCaracteristicasAsociacion();
+        ControllerEncontreMascotaConChapita controllerEncontreMascotaConChapita = new ControllerEncontreMascotaConChapita();
+        ControllerEncontreMascotaSinChapita controllerEncontreMascotaSinChapita = new ControllerEncontreMascotaSinChapita();
+        ControllerFAQ controllerFAQ = new ControllerFAQ();
+        ControllerNosotros controllerNosotros = new ControllerNosotros();
+        ControllerNoTengoAlma controllerNoTengoAlma = new ControllerNoTengoAlma();
+        ControllerRegistroUsuario controllerRegistroUsuario = new ControllerRegistroUsuario();
+        ControllerRegistroMascota controllerRegistroMascota = new ControllerRegistroMascota();
         UsuarioController usuarioController = new UsuarioController();
-        Spark.get("/saludar",usuarioController::mostrarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
-
         AdopcionController adopcionController = new AdopcionController();
+        IndexController indexController = new IndexController();
+
+        //SPARK GETS
+        //Spark.get("/saludar",usuarioController::mostrarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
         Spark.get("/adopcion",adopcionController::mostrarMascotas, Router.engine);
         Spark.get("/adopcion/:id",adopcionController::mostrarMascotas, Router.engine);
-
-        IndexController indexController = new IndexController();
         Spark.get("/",indexController::mostrarIndex,Router.engine);
+        Spark.get("/nosotros",controllerNosotros::mostrarNosotros,Router.engine);
+        Spark.get("/FAQs",controllerFAQ::mostrarFAQ,Router.engine);
+        Spark.get("/contacto",controllerContacto::mostrarContacto,Router.engine);
+        Spark.get("/login",controllerRegistroMascota::mostrarRegistroMascota,Router.engine);
+        Spark.get("/encontreMascotaConChapita",controllerEncontreMascotaConChapita::mostrarMascotaConChapita,Router.engine);
+        Spark.get("/encontreMascotaSinChapita",controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita,Router.engine);
+        Spark.get("/noTengoAlma",controllerNoTengoAlma::mostrarNoTengoAlma,Router.engine);
+        Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
+        Spark.get("/registroUsuario",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
+
     }
 
 }
