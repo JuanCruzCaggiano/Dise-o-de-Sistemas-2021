@@ -6,8 +6,8 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class ControllerRegistroMascota {
-    public ControllerRegistroMascota() {
+public class ControllerPanel {
+    public ControllerPanel() {
     }
     public ModelAndView mostrarRegistroMascota(Request req, Response rep){
 

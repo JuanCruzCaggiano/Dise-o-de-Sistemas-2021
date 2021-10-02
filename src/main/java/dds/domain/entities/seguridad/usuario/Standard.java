@@ -20,6 +20,7 @@ public class Standard extends Usuario {
         super(userName, password);
         this.persona = persona;
     }
+    public Standard(){}
     public Standard(String userName, String password) throws NoSuchAlgorithmException {
         super(userName, password);
     }

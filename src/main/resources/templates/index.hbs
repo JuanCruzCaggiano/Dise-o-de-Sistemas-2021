@@ -86,30 +86,31 @@ https://templatemo.com/tm-564-plot-listing
                         <h5 class="modal-title" id="exampleModalLabel">Espera un momento amigo!</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                        <form method="post" action="/login">
+                        <div class="modal-body">
+
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario"/>
                                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" name= "password" id="password"/>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
-                            <a href="/login" class="btn btn-primary" role="button" type="submit" aria-disabled="true">Ingresar</a>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
+                            <button class="btn btn-primary" role="button" type="submit" aria-disabled="true">Ingresar</button>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
 
-                        <a href="/login" class="btn btn-success" role="button" type="submit" aria-disabled="true">Crear Cuenta</a>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/login" class="btn btn-success" role="button" type="submit" aria-disabled="true">Crear Cuenta</a>
+                        </div>
+                    </form>
 
-                    </div>
                 </div>
             </div>
         </div>

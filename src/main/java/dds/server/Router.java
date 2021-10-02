@@ -8,6 +8,8 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import dds.spark.utils.BooleanHelper;
 import dds.spark.utils.HandlebarsTemplateEngineBuilder;
 
+import java.security.NoSuchAlgorithmException;
+
 public class Router {
     private static HandlebarsTemplateEngine engine;
 
@@ -38,26 +40,37 @@ public class Router {
         ControllerNosotros controllerNosotros = new ControllerNosotros();
         ControllerNoTengoAlma controllerNoTengoAlma = new ControllerNoTengoAlma();
         ControllerRegistroUsuario controllerRegistroUsuario = new ControllerRegistroUsuario();
-        ControllerRegistroMascota controllerRegistroMascota = new ControllerRegistroMascota();
-        UsuarioController usuarioController = new UsuarioController();
+        ControllerPanel controllerPanel = new ControllerPanel();
         AdopcionController adopcionController = new AdopcionController();
         IndexController indexController = new IndexController();
+        ControllerLogin controllerLogin = new ControllerLogin();
+
+
 
         //SPARK GETS
         //Spark.get("/saludar",usuarioController::mostrarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
+
         Spark.get("/adopcion",adopcionController::mostrarMascotas, Router.engine);
         Spark.get("/adopcion/:id",adopcionController::mostrarMascotas, Router.engine);
         Spark.get("/",indexController::mostrarIndex,Router.engine);
         Spark.get("/nosotros",controllerNosotros::mostrarNosotros,Router.engine);
         Spark.get("/FAQs",controllerFAQ::mostrarFAQ,Router.engine);
         Spark.get("/contacto",controllerContacto::mostrarContacto,Router.engine);
-        Spark.get("/login",controllerRegistroMascota::mostrarRegistroMascota,Router.engine);
+        Spark.get("/login", controllerLogin::login,Router.engine);
         Spark.get("/encontreMascotaConChapita",controllerEncontreMascotaConChapita::mostrarMascotaConChapita,Router.engine);
         Spark.get("/encontreMascotaSinChapita",controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita,Router.engine);
         Spark.get("/noTengoAlma",controllerNoTengoAlma::mostrarNoTengoAlma,Router.engine);
         Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
         Spark.get("/registroUsuario",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
-
+        Spark.post("/login", (request, response) -> {
+            try {
+                return controllerLogin.login(request, response);
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return request;
+        });
     }
 
 }

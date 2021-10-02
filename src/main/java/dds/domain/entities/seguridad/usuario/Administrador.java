@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 @DiscriminatorValue("A")
 public class Administrador extends Usuario {
 
+    public Administrador() {
+    }
 
     public Administrador(String userName, String passWord) throws NoSuchAlgorithmException {
         super(userName,passWord);
