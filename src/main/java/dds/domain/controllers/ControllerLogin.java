@@ -24,14 +24,14 @@ public class ControllerLogin {
         //INPUT
         String user = (request.queryParams("usuario") != null) ? request.queryParams("usuario") : "";
         String pass = (request.queryParams("password") != null) ? request.queryParams("password") : "";
-
+        Usuario usuario = null;
 
         Boolean datosOk = false;
         if (user.isEmpty()) {
             response.status(401);
             response.redirect("/");
         } else {
-            Usuario usuario = RepositorioUsuarios.getRepositorio().getUsuario(user);
+            usuario = RepositorioUsuarios.getRepositorio().getUsuario(user);
             try {
                 datosOk = ValidadorUsuario.getValidadorUsuario().validarIdentidad (user, pass);
             } catch (Exception e) {
@@ -53,7 +53,8 @@ public class ControllerLogin {
         //OUTPUT
         Map<String, Object> map = new HashMap<>();
         map.put("loginError", 1);
-        map.put("usuario", user);
+        map.put("persona", usuario.getPersona());
+        map.put("roles", usuario.getPersona().getListaRoles());
         return new ModelAndView(map, "registroMascota.hbs");
     }
 
