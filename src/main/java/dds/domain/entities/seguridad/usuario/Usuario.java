@@ -58,7 +58,9 @@ public class Usuario {
         this.usedPasswords.add(this.password);
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
     }
-
+    public Boolean soyAdmin(){
+        return false;
+    }
 
     public String getUserName() {
         return userName;

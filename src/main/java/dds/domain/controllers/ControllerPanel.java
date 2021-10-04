@@ -18,6 +18,21 @@ public class ControllerPanel {
         if(usuario!=null) {
             parametros.put("persona", usuario.getPersona());
             parametros.put("roles", usuario.getPersona().getListaRoles());
+            if(usuario.getPersona().getListaRoles().stream().anyMatch(p->(p.getNombre().equals("Duenio")))){
+                parametros.put("Duenio",1);
+            }
+            if(usuario.getPersona().getListaRoles().stream().anyMatch(p->(p.getNombre().equals("Adoptante")))){
+                parametros.put("Adoptante",1);
+            }
+            if(usuario.getPersona().getListaRoles().stream().anyMatch(p->(p.getNombre().equals("Rescatista")))){
+                parametros.put("Rescatista",1);
+            }
+            if(usuario.getPersona().getListaRoles().stream().anyMatch(p->(p.getNombre().equals("Voluntario")))){
+                parametros.put("Voluntario",1);
+            }
+            if(usuario.soyAdmin()){
+                parametros.put("Admin",1);
+            }
         }else{
             rep.redirect("/");
         }

@@ -56,9 +56,11 @@
                             <li><a href="/adopcion">Adopciones</a></li>
                             <li><a href="#">Mascotas Perdidas</a></li>
                             {{#if persona}}
-                            <li>
-                                <a href="/login">{{persona.nombre}}</a>
-                            </li>
+                                <li>
+                                    <div class="main-white-button">
+                                        <a href="/panel">{{persona.nombre}}</a>
+                                    </div>
+                                </li>
                             {{/if}}
                         </ul>
                         <a class='menu-trigger'>
@@ -85,8 +87,9 @@
         </div>
     </div>
 
-    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
 
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        {{#if Duenio}}
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -95,7 +98,8 @@
                     <a href="/noTengoAlma" class="btn btn-primary">No tengo Alma</a>
                 </div>
             </div>
-        </div>
+        </div>{{/if}}
+        {{#if Duenio}}
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -108,10 +112,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>{{/if}}
     </div>
     <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-
+        {{#if Admin}}
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -121,6 +125,8 @@
                 </div>
             </div>
         </div>
+        {{/if}}
+        {{#if Duenio}}
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -130,6 +136,21 @@
                 </div>
             </div>
         </div>
+        {{/if}}
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        {{#if Voluntario}}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Evaluar Publicaciones</h5>
+                        <p class="card-text">Aceptar o denegar publicaciones</p>
+                        <a href="/publicaciones" class="btn btn-primary">Publicaciones</a> <!--TODO: falta hacer la ruta, vista y controller de publicaciones -->
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+
     </div>
 
     <!-- Modal -->
@@ -194,6 +215,7 @@
     <script src="js/animation.js"></script>
     <script src="js/imagesloaded.js"></script>
     <script src="js/custom.js"></script>
+
     <script>
         var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
         var alertTrigger = document.getElementById('liveAlertBtn')

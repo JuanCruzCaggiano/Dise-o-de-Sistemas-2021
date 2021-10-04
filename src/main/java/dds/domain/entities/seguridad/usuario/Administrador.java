@@ -10,7 +10,10 @@ public class Administrador extends Usuario {
 
     public Administrador() {
     }
-
+    @Override
+    public Boolean soyAdmin(){
+        return true;
+    }
     public Administrador(String userName, String passWord) throws NoSuchAlgorithmException {
         super(userName,passWord);
     }
