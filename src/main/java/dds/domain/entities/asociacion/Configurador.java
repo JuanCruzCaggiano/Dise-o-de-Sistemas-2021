@@ -109,6 +109,23 @@ public class Configurador {
         return listaTot;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public List<String> getPreguntasObligatorias() {
+        return preguntasObligatorias;
+    }
 
+    public List<String> getPreguntasOpcionales() {
+        return preguntasOpcionales;
+    }
+
+    public Integer getAnchoFoto() {
+        return anchoFoto;
+    }
+
+    public Integer getAltoFoto() {
+        return altoFoto;
+    }
 }

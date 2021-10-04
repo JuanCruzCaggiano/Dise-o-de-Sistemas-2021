@@ -58,10 +58,11 @@
                                   <a href="/panel">{{persona.nombre}}</a>
                               </div>
                           </li>
-                      {{else}}
+                      {{/if}}
+                      {{#if asociacion}}
                           <li>
-                              <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                  <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                              <div class="main-white-button">
+                                  <a href="/panel">{{asociacion.nombre}}</a>
                               </div>
                           </li>
                       {{/if}}
@@ -101,14 +102,14 @@
           <div class="col">
             <div class="input-group input-group-sm">
               <span class="input-group-text" id="basic-addon3">Ancho</span>
-              <input type="text" class=" text-end form-control" aria-describedby="inputGroup-sizing-sm">
+              <input type="text" class=" text-end form-control" aria-describedby="inputGroup-sizing-sm" value="{{config.anchoFoto}}">
               <span class="input-group-text" style="background-color: white">píxeles</span>
             </div>
           </div>
           <div class="col">
             <div class="input-group input-group-sm">
               <span class="input-group-text" id="basic-addon3">Alto</span>
-              <input type="text" class="form-control text-end" aria-describedby="inputGroup-sizing-sm">
+              <input type="text" class="form-control text-end" aria-describedby="inputGroup-sizing-sm" value="{{config.altoFoto}}">
               <span class="input-group-text" style="background-color: white">píxeles</span>
             </div>
           </div>
@@ -142,6 +143,12 @@
                             </tr>
                           </thead>
                           <tbody>
+                          {{#each preguntas}}
+                          <tr>
+                              <td>{{this}}</td>
+
+                          </tr>
+                          {{/each}}
                           </tbody>
                         </table>
                       </div>
@@ -180,6 +187,11 @@
                             </tr>
                           </thead>
                           <tbody>
+                          {{#each preguntasMascotas}}
+                              <tr class="table-secondary">
+                                  <th>{{this}}</th>
+                              </tr>
+                          {{/each}}
                           </tbody>
                         </table>
                       </div>
