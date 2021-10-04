@@ -55,10 +55,11 @@
                             <li><a href="/">Principal</a></li>
                             <li><a href="/adopcion">Adopciones</a></li>
                             <li><a href="#">Mascotas Perdidas</a></li>
-
+                            {{#if persona}}
                             <li>
-                                <a href="/login">Usuario</a>
+                                <a href="/login">{{persona.nombre}}</a>
                             </li>
+                            {{/if}}
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

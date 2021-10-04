@@ -1,4 +1,5 @@
 package dds.domain.controllers;
+import dds.domain.entities.seguridad.usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -11,8 +12,12 @@ public class ControllerEncontreMascotaSinChapita {
     }
     public ModelAndView mostrarEncontreMascotaSinChapita(Request req, Response rep){
 
+        Usuario usuario = req.session().attribute("usuario");
         Map<String,Object> parametros = new HashMap<>();
-
+        if(usuario!=null) {
+            parametros.put("persona", usuario.getPersona());
+            parametros.put("roles", usuario.getPersona().getListaRoles());
+        }
 
 
 

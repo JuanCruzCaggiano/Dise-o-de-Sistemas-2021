@@ -5,6 +5,7 @@ import dds.db.RepositorioAdopcion;
 import dds.db.RepositorioMascotas;
 import dds.domain.entities.mascota.Mascota;
 
+import dds.domain.entities.seguridad.usuario.Usuario;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionMascota;
 import spark.ModelAndView;
@@ -24,9 +25,14 @@ public class AdopcionController {
 
 
     public ModelAndView mostrarMascotas(Request req,Response rep){
+        Usuario usuario = req.session().attribute("usuario");
+
 
         Map<String,Object> parametros = new HashMap<>();
-
+        if(usuario!=null) {
+            parametros.put("persona", usuario.getPersona());
+            parametros.put("roles", usuario.getPersona().getListaRoles());
+        }
         List<PublicacionAdopcion> publicaciones = RepositorioAdopcion.getRepositorio().getPublicacionesAdopcion();
 
         List<Mascota> mascotas = RepositorioMascotas.getRepositorio().getMascotasPorListaId(publicaciones.stream().map(p->p.getIdMascota()).collect(Collectors.toList()));

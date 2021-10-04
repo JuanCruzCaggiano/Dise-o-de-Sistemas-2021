@@ -41,30 +41,36 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <nav class="main-nav">
-              <!-- ***** Logo Start ***** -->
-              <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px;">GESOC</a>
-              <!-- ***** Logo End ***** -->
-              <!-- ***** Menu Start ***** -->
-              <ul class="nav">
-                <li>
-                  <a href="/">Principal</a>
-                </li>
-                <li>
-                  <a href="/adopcion">Adopciones</a>
-                </li>
-                <li>
-                  <a href="#">Mascotas Perdidas</a>
-                </li>
-                <li>
-                  <a href="/login">Registro</a>
-                </li>
-              </ul>
-              <a class='menu-trigger'>
-                <span>Menu</span>
-              </a>
-              <!-- ***** Menu End ***** -->
-            </nav>
+              <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px; "> GESOC
+                  </a>
+
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                      <li><a href="/" class="active">Principal</a></li>
+                      <li><a href="/adopcion">Adopciones</a></li>
+                      <li><a href="#">Mascotas Perdidas</a></li>
+                      {{#if persona}}
+                          <li>
+                              <div class="main-white-button">
+                                  <a href="/panel">{{persona.nombre}}</a>
+                              </div>
+                          </li>
+                      {{else}}
+                          <li>
+                              <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                              </div>
+                          </li>
+                      {{/if}}
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+              </nav>
           </div>
         </div>
       </div>

@@ -62,6 +62,7 @@ public class Router {
         Spark.get("/noTengoAlma",controllerNoTengoAlma::mostrarNoTengoAlma,Router.engine);
         Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
         Spark.get("/registroUsuario",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
+        Spark.get("/panel",controllerPanel::mostrarRegistroMascota,Router.engine);
         Spark.post("/login", (request, response) -> {
             try {
                 return controllerLogin.login(request, response);

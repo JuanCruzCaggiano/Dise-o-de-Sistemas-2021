@@ -44,7 +44,7 @@ public class ControllerLogin {
                 request.session().attribute("user", user);
                 request.session().attribute("usuario", usuario);
                 request.session().maxInactiveInterval(3600);
-                response.redirect("/");
+                response.redirect("/panel");
             } else {
                 response.status(401);
                 response.redirect("/login#loginError");

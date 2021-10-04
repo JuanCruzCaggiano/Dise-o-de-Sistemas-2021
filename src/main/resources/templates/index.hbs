@@ -60,11 +60,19 @@ https://templatemo.com/tm-564-plot-listing
                             <li><a href="/" class="active">Principal</a></li>
                             <li><a href="/adopcion">Adopciones</a></li>
                             <li><a href="#">Mascotas Perdidas</a></li>
+                            {{#if persona}}
                             <li>
-                                <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                                <div class="main-white-button">
+                                        <a href="/panel">{{persona.nombre}}</a>
                                 </div>
                             </li>
+                            {{else}}
+                                    <li>
+                                        <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                                        </div>
+                                    </li>
+                            {{/if}}
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
