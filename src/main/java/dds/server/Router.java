@@ -8,6 +8,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import dds.spark.utils.BooleanHelper;
 import dds.spark.utils.HandlebarsTemplateEngineBuilder;
 
+import javax.naming.ldap.Control;
 import java.security.NoSuchAlgorithmException;
 
 public class Router {
@@ -44,7 +45,7 @@ public class Router {
         AdopcionController adopcionController = new AdopcionController();
         IndexController indexController = new IndexController();
         ControllerLogin controllerLogin = new ControllerLogin();
-
+        ControllerRegistroMascota controllerRegistroMascota = new ControllerRegistroMascota();
 
 
         //SPARK GETS
@@ -63,6 +64,10 @@ public class Router {
         Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
         Spark.get("/crearCuenta",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
         Spark.get("/panel",controllerPanel::mostrarRegistroMascota,Router.engine);
+
+
+
+
         Spark.post("/login", (request, response) -> {
             try {
                 return controllerLogin.login(request, response);
@@ -74,6 +79,7 @@ public class Router {
         });
 
         Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
+        Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota,Router.engine);
     }
 
 }
