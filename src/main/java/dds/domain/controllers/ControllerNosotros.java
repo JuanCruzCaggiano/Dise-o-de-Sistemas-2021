@@ -20,6 +20,6 @@ public class ControllerNosotros {
         }
 
 
-        return new ModelAndView(parametros,"__nosotros.hbs");
+        return new ModelAndView(parametros,"___nosotros.hbs");
     }
 }

@@ -19,8 +19,6 @@ public class ControllerContacto {
             parametros.put("roles", usuario.getPersona().getListaRoles());
         }
 
-
-
-        return new ModelAndView(parametros,"__contacto.hbs");
+        return new ModelAndView(parametros,"___contacto.hbs");
     }
 }

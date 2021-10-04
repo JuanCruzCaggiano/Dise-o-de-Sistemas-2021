@@ -21,6 +21,6 @@ public class ControllerFAQ {
 
 
 
-        return new ModelAndView(parametros,"__FAQs.hbs");
+        return new ModelAndView(parametros,"___FAQs.hbs");
     }
 }
