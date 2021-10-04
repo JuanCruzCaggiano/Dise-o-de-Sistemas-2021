@@ -67,11 +67,19 @@ https://templatemo.com/tm-564-plot-listing
                                 </div>
                             </li>
                             {{else}}
+                                {{#if asociacion}}
                                     <li>
-                                        <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                                        <div class="main-white-button">
+                                            <a href="/panel">{{asociacion.nombre}}</a>
                                         </div>
                                     </li>
+                                {{else}}
+                                        <li>
+                                            <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                                            </div>
+                                        </li>
+                                {{/if}}
                             {{/if}}
                         </ul>
                         <a class='menu-trigger'>
