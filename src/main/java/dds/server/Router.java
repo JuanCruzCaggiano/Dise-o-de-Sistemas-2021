@@ -61,7 +61,7 @@ public class Router {
         Spark.get("/encontreMascotaSinChapita",controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita,Router.engine);
         Spark.get("/noTengoAlma",controllerNoTengoAlma::mostrarNoTengoAlma,Router.engine);
         Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
-        Spark.get("/registroUsuario",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
+        Spark.get("/crearCuenta",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
         Spark.get("/panel",controllerPanel::mostrarRegistroMascota,Router.engine);
         Spark.post("/login", (request, response) -> {
             try {
@@ -72,6 +72,8 @@ public class Router {
             }
             return request;
         });
+
+        Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
     }
 
 }
