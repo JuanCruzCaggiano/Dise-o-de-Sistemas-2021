@@ -49,10 +49,10 @@ public class Router {
 
 
         //SPARK GETS
-        //Spark.get("/saludar",usuarioController::mostrarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
+        //Spark.get("/saludar",usuarioController::mostarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
 
         Spark.get("/adopcion",adopcionController::mostrarMascotas, Router.engine);
-        Spark.get("/adopcion/:id",adopcionController::mostrarMascotas, Router.engine);
+        Spark.get("/adopcion/:page",adopcionController::mostrarPagina,Router.engine);
         Spark.get("/",indexController::mostrarIndex,Router.engine);
         Spark.get("/nosotros",controllerNosotros::mostrarNosotros,Router.engine);
         Spark.get("/FAQs",controllerFAQ::mostrarFAQ,Router.engine);
@@ -80,6 +80,7 @@ public class Router {
 
         Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
         Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota,Router.engine);
+        Spark.post("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas,Router.engine);
     }
 
 }
