@@ -76,6 +76,8 @@ public class Persona {
 
     }
 
+
+
     public String getNombre() {
         return notificador.getContactos().get(0).getNombre();
     }

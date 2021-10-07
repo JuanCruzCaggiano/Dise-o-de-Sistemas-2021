@@ -121,8 +121,31 @@ https://templatemo.com/tm-564-plot-listing
                                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
                                 </div>
                                 <div class="form-group ">
+                                    <label for="documento">Documento</label>
+                                    <select class="form-select" aria-label="Default select example" id="tipoDoc" name="tipoDoc" placeholder="Documentos">
+
+                                        {{#each tipoDoc}}
+                                        <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+                                    </select>
+                                    <input type="text" class="form-control" id="documento" name="documento" placeholder="Ingrese su Documento">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="fecha">Fecha de Nacimiento</label>
+                                    <input type="text" class="form-control" id="fecha" name="fecha" placeholder="yyyy-mm-dd">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Numero de Telefono">
+                                </div>
+
+                                <div class="form-group ">
                                     <label for="apellido">Apellido</label>
                                     <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese su Apellido">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="direccion">Apellido</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese su Direccion">
                                 </div>
                                 <div class="form-group ">
                                     <label for="email">Mail</label>
@@ -131,11 +154,22 @@ https://templatemo.com/tm-564-plot-listing
                             </div>
 
                             <div class="form-group">
-                                <!--<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="contact" id="gridcheck">
-                                    <label class="form-check-label" for="gridcheck">Deseo recibir informacion sobre adopciones</label>
-
-                                </div>-->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="duenio" id="duenio">
+                                    <label class="form-check-label" for="duenio">Dueño</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="adoptante" id="adoptante">
+                                    <label class="form-check-label" for="adoptante">Adoptante</label>
+                                </div>
+                                <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="voluntario" id="voluntario">
+                                        <label class="form-check-label" for="voluntario">Voluntario</label>
+                                </div>
+                                <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="rescatista" id="rescatista">
+                                        <label class="form-check-label" for="rescatista">Rescatista</label>
+                                </div>
                                 <div class="text-center">
                                     <button class="btn btn-primary" role="button" type="submit" aria-disabled="true">Registrarme</button>
                                 </div>
