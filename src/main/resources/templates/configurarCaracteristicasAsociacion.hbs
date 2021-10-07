@@ -146,7 +146,7 @@
                           {{#each preguntas}}
                           <tr>
                               <td>{{this}}</td>
-
+                              <td><a onClick="preguntaOpcional_onEdit(this)">✏️</a> <a onClick="preguntaOpcional_onDelete(this)">🗑️</a></td>
                           </tr>
                           {{/each}}
                           </tbody>
@@ -189,7 +189,8 @@
                           <tbody>
                           {{#each preguntasMascotas}}
                               <tr class="table-secondary">
-                                  <th>{{this}}</th>
+                                  <td>{{this}}</td>
+                                  <td><a onClick="key_onEdit(this)">✏️</a> <a onClick="key_onDelete(this)">🗑️</a></td>
                               </tr>
                           {{/each}}
                           </tbody>
@@ -200,11 +201,16 @@
               </div>
             </div>
           </div>
-
+            <form id = "envioData" method="post" action="/configurarCaracteristicasAsociacion">
           <div class="d-grid mt-4">
-            <button type="button submit" class="btn btn-secondary">Actualizar</button>
-          </div>
 
+              <input type="text" class="form-control text-end" aria-describedby="inputGroup-sizing-sm" name="key1" id="key1" style="display:none">
+              <input type="text" class="form-control text-end" aria-describedby="inputGroup-sizing-sm" name="key2" id="key2" style="display:none">
+
+            <button type="button" onclick="magia();" class="btn btn-secondary">Verificar cambios</button>
+              <button type="button submit" class="btn btn-success">Actualizar</button>
+          </div>
+            </form>
         </div>
       </div>
     </div>
@@ -231,6 +237,39 @@
   <script src="js/custom.js"></script>
 
   <!-- Script para agregar/eliminar preguntas opcionales -->
+
+    <script>
+    function magia(){
+
+    var tabla = "";
+    var table = document.getElementById("preguntaOpcional_List");
+    tabla2 = "";
+    table2 = document.getElementById("key_List");
+
+for(var i = 1; i < table.rows.length; i++) {
+     tabla += table.rows[i].cells[0].innerText + "&&";
+     console.log(table.rows[i].cells[0]);
+     //iterate through columns
+     //columns would be accessed using the "col" variable assigned in the for loop
+
+}
+document.getElementById('key1').value=tabla ;
+
+for(var j = 1; j < table2.rows.length; j++) {
+     tabla2 += table2.rows[j].cells[0].innerText + "&&";
+     console.log(table2.rows[j].cells[0]);
+     //iterate through columns
+     //columns would be accessed using the "col" variable assigned in the for loop
+
+}
+    document.getElementById('key2').value=tabla2 ;
+
+   console.log(tabla2);
+   $('envioData').unbind('submit').submit();
+}
+    </script>
+
+
   <script>
     var preguntaOpcional_selectedRow = null;
     function preguntaOpcional_onFormSubmit() {

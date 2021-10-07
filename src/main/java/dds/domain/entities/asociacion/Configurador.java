@@ -77,6 +77,12 @@ public class Configurador {
         EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
     }
+    public void agregarCaracteristicas(List<String> caracs){
+        this.claves = caracs;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
+    }
     public void eliminarCaracteristicas(String caracABorrar){
         this.claves.remove(caracABorrar);
         EntityManagerHelper.beginTransaction();
@@ -89,13 +95,21 @@ public class Configurador {
 
     ///PREGUNTAS
     public void agregarPreguntaNueva(String preg){
-        this.preguntasOpcionales.add(preg);
+        if (this.preguntasOpcionales.contains(preg)){}else{
+        this.preguntasOpcionales.add(preg);}
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
+    }
+    public void agregarPreguntas(List<String> pregs){
+        this.preguntasOpcionales = pregs;
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
     }
     public void eliminarPregunta(String preg){
-        this.preguntasOpcionales.remove(preg);
+        if (this.preguntasOpcionales.contains(preg)){
+        this.preguntasOpcionales.remove(preg);}
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
