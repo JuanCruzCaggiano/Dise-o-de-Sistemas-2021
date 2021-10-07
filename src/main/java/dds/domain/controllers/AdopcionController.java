@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,39 @@ public class AdopcionController {
 
         return new ModelAndView(parametros,"adopcion.hbs");
     }
+    public ModelAndView mostrarPagina(Request req,Response rep){
+        Usuario usuario = req.session().attribute("usuario");
+        Map<String,Object> parametros = new HashMap<>();
+        String pagina = req.params("page");
+        int i = Integer.valueOf(pagina);
+        String proxPag = String.valueOf(i+1);
+        if (i>0){
+        String antPag = String.valueOf(i-1);
+            parametros.put("ant",antPag);}
+        i = i*10;
+        int cont = 0;
+
+        if(usuario!=null) {
+            parametros.put("persona", usuario.getPersona());
+            parametros.put("roles", usuario.getPersona().getListaRoles());
+        }
+        List<PublicacionAdopcion> publicaciones = RepositorioAdopcion.getRepositorio().getPublicacionesAdopcion();
+        List<Mascota> mascotaspaginado = new ArrayList<>();
+        List<Mascota> mascotas = RepositorioMascotas.getRepositorio().getMascotasPorListaId(publicaciones.stream().map(p->p.getIdMascota()).collect(Collectors.toList()));
+        if(i<mascotas.size()){
+        for(int v=i; v<mascotas.size();v++){
+            cont ++;
+        if (cont <11) {
+            mascotaspaginado.add(mascotas.get(v));}
+
+        }}
+        if(((i*10)+10)<mascotas.size()){
+        parametros.put("prox",proxPag);}
+
+        parametros.put("mascotas", mascotaspaginado);
+        return new ModelAndView(parametros,"adopcion.hbs");
+    }
+
    /* public ModelAndView mascotaId(Request req,Response rep){
         //validar que exista el id
         Mascota mascota = this.repositorio.getMascota(new String(req.params("id")));//o lo que sea el id
