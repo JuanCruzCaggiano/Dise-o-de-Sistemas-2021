@@ -23,6 +23,7 @@ public class ControllerPanel {
                 parametros.put("roles", usuario.getPersona().getListaRoles());
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Duenio")))) {
                     parametros.put("Duenio", 1);
+                    parametros.put("clavesMascota",usuario.getAsociacion().getConfigurador().getClaves());
                 }
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Adoptante")))) {
                     parametros.put("Adoptante", 1);
