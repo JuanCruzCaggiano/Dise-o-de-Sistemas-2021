@@ -64,7 +64,7 @@ public class Router {
         Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
         Spark.get("/crearCuenta",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
         Spark.get("/panel",controllerPanel::mostrarRegistroMascota,Router.engine);
-
+        Spark.get("/logout",controllerLogin::logOut,Router.engine);
 
 
 

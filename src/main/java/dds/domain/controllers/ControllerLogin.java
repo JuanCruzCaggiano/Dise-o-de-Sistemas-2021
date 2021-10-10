@@ -57,5 +57,12 @@ public class ControllerLogin {
         map.put("roles", usuario.getPersona().getListaRoles());
         return new ModelAndView(map, "registroMascota.hbs");
     }
+    public ModelAndView logOut(Request request, Response response)
+    {
+        request.session().removeAttribute("user");
+        request.session().removeAttribute("usuario");
+        response.redirect("/");
+        return null;
+    }
 
 }
