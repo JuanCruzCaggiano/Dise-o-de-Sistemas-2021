@@ -8,6 +8,7 @@ import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.persona.roles.Rescatista;
+import dds.domain.entities.persona.roles.Voluntario;
 import dds.domain.entities.persona.transaccion.DarEnAdopcion;
 import dds.domain.entities.seguridad.usuario.Administrador;
 import dds.domain.entities.seguridad.usuario.Standard;
@@ -82,10 +83,17 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         usuarioStandard.setAsociacion(asoc);
 
 
+        Persona persona3 = new Persona("Vpersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
+        persona3.agregarRol(Voluntario.getVoluntario());
+        Standard usuarioStandard2 = new Standard("usuarioVoluntario","Password123+2",persona3);
+        usuarioStandard2.setAsociacion(asoc);
+
 
         EntityManagerHelper.beginTransaction();
 
         EntityManagerHelper.getEntityManager().persist(usuarioStandard);
+
+        EntityManagerHelper.getEntityManager().persist(usuarioStandard2);
 
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 

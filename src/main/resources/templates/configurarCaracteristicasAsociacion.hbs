@@ -48,28 +48,7 @@
 
                   <!-- ***** Logo End ***** -->
                   <!-- ***** Menu Start ***** -->
-                  <ul class="nav">
-                      <li><a href="/" class="active">Principal</a></li>
-                      <li><a href="/adopcion">Adopciones</a></li>
-                      <li><a href="#">Mascotas Perdidas</a></li>
-                      {{#if persona}}
-                          <li>
-                              <div class="main-white-button">
-                                  <a href="/panel">{{persona.nombre}}</a>
-                              </div>
-                          </li>
-                      {{/if}}
-                      {{#if asociacion}}
-                          <li>
-                              <div class="main-white-button">
-                                  <a href="/panel">{{asociacion.nombre}}</a>
-                              </div>
-                          </li>
-                      {{/if}}
-                  </ul>
-                  <a class='menu-trigger'>
-                      <span>Menu</span>
-                  </a>
+                  {{>headerMainTemplate.hbs}}
                   <!-- ***** Menu End ***** -->
               </nav>
           </div>
