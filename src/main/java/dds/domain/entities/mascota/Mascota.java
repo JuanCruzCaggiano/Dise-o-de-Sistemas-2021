@@ -52,12 +52,12 @@ public class Mascota {
     private Boolean estaPerdida = false;
 
     public Mascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion, List<String> listaFotos, HashMap <String, String> caracteristica,Sexo sexo) {
-        this.idMascota= UUID.randomUUID().toString().replace("-", ""); //TODO HELPER GENERADOR
+        this.idMascota= UUID.randomUUID().toString().replace("-", "");
         this.tipo = tipo;
         this.nombre = nombre;
         this.apodo = apodo;
         this.sexo = sexo;
-        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());//TODO Modificar el constructor y todos los test que lo usen para recibir una fecha de nacimiento.
         this.descripcion = descripcion;
         this.pathFoto = listaFotos;
         this.caracteristica = caracteristica;

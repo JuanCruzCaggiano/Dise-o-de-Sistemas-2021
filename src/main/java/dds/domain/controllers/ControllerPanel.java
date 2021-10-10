@@ -1,6 +1,8 @@
 package dds.domain.controllers;
+import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.persona.Persona;
 
+import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -8,6 +10,9 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class ControllerPanel {
     public ControllerPanel() {
     }
@@ -18,12 +23,15 @@ public class ControllerPanel {
         if(usuario!=null) {
             if(usuario.soyAdmin()) {
                 parametros.put("Admin", 1);
+                parametros.put("asociacion", usuario.getAsociacion());
             }else {
                 parametros.put("persona", usuario.getPersona());
                 parametros.put("roles", usuario.getPersona().getListaRoles());
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Duenio")))) {
                     parametros.put("Duenio", 1);
                     parametros.put("clavesMascota",usuario.getAsociacion().getConfigurador().getClaves());
+                    List<String> enumNames = Stream.of(Sexo.values()).map(Enum::name).collect(Collectors.toList());
+                    parametros.put("sexo",enumNames);
                 }
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Adoptante")))) {
                     parametros.put("Adoptante", 1);

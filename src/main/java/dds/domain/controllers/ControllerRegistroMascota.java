@@ -13,6 +13,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +35,7 @@ public class ControllerRegistroMascota {
         String apodo  = (request.queryParams("apodo") != null) ? request.queryParams("apodo") : "";
         String sexo = (request.queryParams("sexo") != null) ? request.queryParams("sexo") : "";
         String caracs = (request.queryParams("caracteristicas") != null) ? request.queryParams("caracteristicas") : "";
-        String foto = (request.queryParams("foto") != null) ? request.queryParams("foto") : "";
+        String foto = (request.queryParams("fotos") != null) ? request.queryParams("fotos") : "";
         String fecha = (request.queryParams("fecha") != null) ? request.queryParams("fecha") : "";
         List<String> fotos = new ArrayList<>(); // TODO: Manejo de fotos
         Sexo sex= Sexo.valueOf(sexo);
