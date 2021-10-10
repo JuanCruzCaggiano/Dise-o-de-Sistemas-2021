@@ -79,7 +79,7 @@ public class Router {
         });
 
         Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
-        Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota,Router.engine);
+        Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota);
         Spark.post("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas,Router.engine);
     }
 

@@ -26,7 +26,7 @@ public class ControllerRegistroMascota {
     public ControllerRegistroMascota() {
     }
 
-    public ModelAndView registrarMascota(Request request, Response response) throws NoSuchAlgorithmException {
+    public Response registrarMascota(Request request, Response response) throws NoSuchAlgorithmException {
         Usuario usuario = request.session().attribute("usuario");
         Asociacion asoc = usuario.getAsociacion();
         String tipo = (request.queryParams("tipo") != null) ? request.queryParams("tipo") : "";
@@ -52,7 +52,7 @@ public class ControllerRegistroMascota {
 
         Map<String,Object> parametros = new HashMap<>();
 
-        response.redirect("/");  //hay que ver como era el redirect
-        return new ModelAndView(parametros,"index.hbs");
+        response.redirect("/panel");  //hay que ver como era el redirect
+        return response;
     }
 }

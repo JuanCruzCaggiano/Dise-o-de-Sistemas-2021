@@ -1,5 +1,6 @@
 package dds.domain.controllers;
 import dds.domain.entities.mascota.Sexo;
+import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.persona.Persona;
 
 import dds.domain.entities.persona.TipoDocumento;
@@ -30,8 +31,10 @@ public class ControllerPanel {
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Duenio")))) {
                     parametros.put("Duenio", 1);
                     parametros.put("clavesMascota",usuario.getAsociacion().getConfigurador().getClaves());
-                    List<String> enumNames = Stream.of(Sexo.values()).map(Enum::name).collect(Collectors.toList());
-                    parametros.put("sexo",enumNames);
+                    List<String> enumSexo = Stream.of(Sexo.values()).map(Enum::name).collect(Collectors.toList());
+                    parametros.put("sexo",enumSexo);
+                    List<String> enumTipo = Stream.of(TipoMascota.values()).map(Enum::name).collect(Collectors.toList());
+                    parametros.put("tipoMascota",enumTipo);
                 }
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Adoptante")))) {
                     parametros.put("Adoptante", 1);
