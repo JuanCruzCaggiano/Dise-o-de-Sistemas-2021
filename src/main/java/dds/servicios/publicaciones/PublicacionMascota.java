@@ -1,5 +1,10 @@
 package dds.servicios.publicaciones;
 
+import dds.db.RepositorioMascotas;
+import dds.db.RepositorioPersonas;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,5 +116,21 @@ public class PublicacionMascota {
 
     public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
         this.tipoPublicacion = tipoPublicacion;
+    }
+
+    public List<String> getPathFoto() {
+        return pathFoto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getRescatista() {
+        return RepositorioPersonas.getRepositorio().getPersona(this.idRescatista).getNombre();
+    }
+
+    public String getMascota() {
+        return RepositorioMascotas.getRepositorio().getMascota(this.idMascota).getNombre();
     }
 }

@@ -18,11 +18,20 @@
                 </div>
             </li>
         {{else}}
-            <li>
-                <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
-                </div>
-            </li>
+            {{#if usuario}}
+                <li><a href="/logout">Cerrar sesion</a></li>
+                <li>
+                    <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a class="main-white-button" href="/panel">{{usuario.persona.nombre}}</a>
+                    </div>
+                </li>
+            {{else}}
+                <li>
+                    <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                    </div>
+                </li>
+            {{/if}}
         {{/if}}
     {{/if}}
 </ul>
