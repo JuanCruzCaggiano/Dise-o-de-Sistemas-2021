@@ -17,6 +17,8 @@ public class ControllerNoTengoAlma {
         if(usuario!=null) {
             parametros.put("persona", usuario.getPersona());
             parametros.put("roles", usuario.getPersona().getListaRoles());
+            parametros.put("mascotas",usuario.getPersona().getMascotas());
+            parametros.put("claves",usuario.getAsociacion().getConfigurador().getClaves());
         }
 
 

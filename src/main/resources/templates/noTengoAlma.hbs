@@ -79,31 +79,29 @@ https://templatemo.com/tm-564-plot-listing
         </div>
     </div>
     <div class="container" style="margin-top: 40px; margin-bottom: 50px;">
-        <div class="row ">
-            <div class="col-4">
-                <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Nombre Mascota 1</a>
-                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Nombre Mascota 2</a>
-                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Nombre Mascota 3</a>
-                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Nombre Mascota 4</a>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
-                    </div>
-                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
-                    </div>
-                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
-                    </div>
-                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
-                        <button type="button" class="btn btn-secondary" style="margin-left: 40px;">Poner en Adopcion</button>
+        <div class="row justify-content-start">
+
+            {{#each mascotas}}
+                <div class="col-4 " style="margin-top: 30px;">
+                    <div class="card" style="width: 20rem;">
+                        <img src="/images/perroadop.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{apodo}}</h5>
+                            <p class="card-text">mascotita mascotita</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Edad : </li>
+                            <li class="list-group-item">Sexo : </li>
+
+                        </ul>
+                        <div class="card-body">
+                            <a href="/panelAdopcion/{{idMascota}}" class="card-link">Poner en Adopcion</a>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/each}}
+
         </div>
     </div>
 
