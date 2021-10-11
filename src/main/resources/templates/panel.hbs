@@ -26,7 +26,7 @@
 -->
 </head>
 
-<body>
+<body onpageshow="registroConExito();">
 
 <!-- ***** Preloader Start ***** -->
 <div id="js-preloader" class="js-preloader">
@@ -142,7 +142,7 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal Registrar Mascota -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -153,7 +153,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-row">
                         <div class="form-group ">
                             <label for="sexo">Tipo mascota</label>
@@ -215,12 +214,14 @@
         </div>
     </div>
 </div>
+<!-- FIN Modal Registrar Mascota -->
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Rescate de Patitas</strong>
+            <img src="images/perroygato.png" class="rounded me-2" alt="...">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
@@ -248,17 +249,14 @@
 <script src="js/custom.js"></script>
 
 <script>
-    var toastTrigger = document.getElementById('liveAlertBtn')
-    var toastLiveExample = document.getElementById('liveToast')
-    var modal = document.getElementById('staticBackdrop')
-    if (toastTrigger) {
-        toastTrigger.addEventListener('click', function () {
-            if (modal.className == "modal fade") {
-                var toast = new bootstrap.Toast(toastLiveExample)
-                toast.show()
-            }
-        })
+    function registroConExito() {
+        var toastLiveExample = document.getElementById('liveToast')
+        if (location.hash === "#registroConExito") {
+            var toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
     }
+
 </script>
 <script>
     var today = new Date();

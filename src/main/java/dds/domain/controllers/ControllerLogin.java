@@ -55,7 +55,7 @@ public class ControllerLogin {
         map.put("loginError", 1);
         map.put("persona", usuario.getPersona());
         map.put("roles", usuario.getPersona().getListaRoles());
-        return new ModelAndView(map, "registroMascota.hbs");
+        return new ModelAndView(map, "panel.hbs");
     }
     public ModelAndView logOut(Request request, Response response)
     {

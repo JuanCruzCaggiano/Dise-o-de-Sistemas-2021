@@ -52,7 +52,7 @@ public class ControllerRegistroMascota {
 
         Map<String,Object> parametros = new HashMap<>();
 
-        response.redirect("/panel");  //hay que ver como era el redirect
+        response.redirect("/panel#registroConExito");  //hay que ver como era el redirect
         return response;
     }
 }

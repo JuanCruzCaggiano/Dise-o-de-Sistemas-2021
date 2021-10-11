@@ -51,6 +51,6 @@ public class ControllerPanel {
         }
 
 
-        return new ModelAndView(parametros,"registroMascota.hbs");
+        return new ModelAndView(parametros,"panel.hbs");
     }
 }
