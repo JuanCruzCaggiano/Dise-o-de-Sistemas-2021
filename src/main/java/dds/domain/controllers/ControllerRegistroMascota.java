@@ -38,8 +38,8 @@ public class ControllerRegistroMascota {
         String foto = (request.queryParams("fotos") != null) ? request.queryParams("fotos") : "";
         String fecha = (request.queryParams("fecha") != null) ? request.queryParams("fecha") : "";
         List<String> fotos = new ArrayList<>(); // TODO: Manejo de fotos
-        Sexo sex= Sexo.valueOf(sexo);
-        TipoMascota tip = TipoMascota.valueOf(tipo);
+        Sexo sexoEnum= Sexo.valueOf(sexo);
+        TipoMascota tipoEnum = TipoMascota.valueOf(tipo);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dt = LocalDate.parse(fecha,dtf);
         HashMap <String, String> caracteristica = new HashMap<>();
@@ -48,7 +48,7 @@ public class ControllerRegistroMascota {
             caracteristica.put(preguntasCaracs.get(i),(request.queryParams(preguntasCaracs.get(i)) != null) ? request.queryParams(preguntasCaracs.get(i)) : "");
         }
         //Mascota mascota = new Mascota(tip,nombre,apodo,dt,desc,fotos,caracteristica,sex);
-        usuario.getPersona().ejecutarTransaccion(new RegistrarMascota(usuario.getPersona(),tip,nombre,apodo,dt,desc,fotos,caracteristica,sex));
+        usuario.getPersona().ejecutarTransaccion(new RegistrarMascota(usuario.getPersona(),tipoEnum,nombre,apodo,dt,desc,fotos,caracteristica,sexoEnum));
 
         Map<String,Object> parametros = new HashMap<>();
 

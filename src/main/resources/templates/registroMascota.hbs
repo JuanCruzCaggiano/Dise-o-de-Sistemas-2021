@@ -153,54 +153,57 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="row justify-content-md-center">
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <div class="form-group ">
-                                        <label for="sexo">Tipo mascota</label>
-                                        <select class="form-select" aria-label="Default select example" id="tipo"
-                                                name="tipo" placeholder="Tipo Mascota">
-                                            {{#each tipoMascota}}
-                                                <option value="{{this}}">{{this}}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="nombre">Nombre de la mascota</label>
-                                        <input class="form-control" id="nombre" name="nombre"
-                                               placeholder="Ingrese nombre" required>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="nombre">Apodo de la mascota</label>
-                                        <input class="form-control" id="apodo" name="apodo" placeholder="Ingrese apodo"
-                                               required>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="sexo">Sexo</label>
-                                        <select class="form-select" aria-label="Default select example" id="sexo"
-                                                name="sexo" placeholder="Sexo">
-                                            {{#each sexo}}
-                                                <option value="{{this}}">{{this}}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="fecha">Fecha de Nacimiento</label>
-                                        <input type="date" class="form-control " id="fecha" name="fecha"
-                                               placeholder="yyyy-mm-dd" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="desc">Descripcion</label>
-                                        <textarea class="form-control " id="desc" name="desc" rows="10"
-                                                  required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="formFileMultiple" class="form-label mt-2 mb-1" >Fotos</label>
-                                        <input class="form-control " type="file" id="formFileMultiple" multiple  id="fotos" name="fotos">
-                                    </div>
-                                </div>
-                            </div>
+
+                    <div class="form-row">
+                        <div class="form-group ">
+                            <label for="sexo">Tipo mascota</label>
+                            <select class="form-select" aria-label="Default select example" id="tipo"
+                                    name="tipo" placeholder="Tipo Mascota">
+                                {{#each tipoMascota}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre">Nombre de la mascota</label>
+                            <input class="form-control" id="nombre" name="nombre"
+                                   placeholder="Ingrese nombre" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre">Apodo de la mascota</label>
+                            <input class="form-control" id="apodo" name="apodo" placeholder="Ingrese apodo"
+                                   required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="sexo">Sexo</label>
+                            <select class="form-select" aria-label="Default select example" id="sexo"
+                                    name="sexo" placeholder="Sexo">
+                                {{#each sexo}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="fecha">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control " id="fecha" name="fecha" max='2000-13-13'
+                                   placeholder="yyyy-mm-dd" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Descripcion</label>
+                            <textarea class="form-control " id="desc" name="desc" rows="10"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Caracteristicas</label>
+                            {{#each clavesMascota}}
+                                <input class="form-control" id="{{this}}" name="{{this}}" placeholder="{{this}}" required>
+                            {{/each}}
+
+                        </div>
+                        <div class="form-group">
+                            <label for="formFileMultiple" class="form-label mt-2 mb-1">Fotos</label>
+                            <input class="form-control " type="file" id="formFileMultiple" multiple id="fotos"
+                                   name="fotos">
                         </div>
                     </div>
                 </div>
@@ -257,7 +260,23 @@
         })
     }
 </script>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("fecha").setAttribute("max", today);
+</script>
 </body>
 
 </html>
