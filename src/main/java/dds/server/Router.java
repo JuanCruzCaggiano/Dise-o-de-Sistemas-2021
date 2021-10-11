@@ -46,7 +46,7 @@ public class Router {
         IndexController indexController = new IndexController();
         ControllerLogin controllerLogin = new ControllerLogin();
         ControllerRegistroMascota controllerRegistroMascota = new ControllerRegistroMascota();
-
+        ControllerAgregarContacto controllerAgregarContacto = new ControllerAgregarContacto();
 
         //SPARK GETS
         //Spark.get("/saludar",usuarioController::mostarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
@@ -80,6 +80,7 @@ public class Router {
 
         Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
         Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota);
+        Spark.post("/agregarContacto",controllerAgregarContacto::agregarContacto);
         Spark.post("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas,Router.engine);
     }
 
