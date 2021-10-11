@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class ControllerPanel {
     public ControllerPanel() {
     }
-    public ModelAndView mostrarRegistroMascota(Request req, Response rep){
+    public ModelAndView mostrarPanel(Request req, Response rep){
         Usuario usuario = req.session().attribute("usuario");
 
         Map<String,Object> parametros = new HashMap<>();
