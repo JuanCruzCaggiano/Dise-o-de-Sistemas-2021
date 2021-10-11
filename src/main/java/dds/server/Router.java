@@ -28,7 +28,7 @@ public class Router {
         Router.configure();
     }
 
-    private static void configure(){
+    private static void configure() {
         //Spark.get("/",(req,res)->"hola");  //+ req.queryParams("nombre") + " " +req.queryParams("apellido")
         // localhost:9000/?nombre=sarasa&apellido=sarasa2
 
@@ -52,22 +52,21 @@ public class Router {
         //SPARK GETS
         //Spark.get("/saludar",usuarioController::mostarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
 
-        Spark.get("/adopcion",adopcionController::mostrarMascotas, Router.engine);
-        Spark.get("/adopcion/:page",adopcionController::mostrarPagina,Router.engine);
-        Spark.get("/",indexController::mostrarIndex,Router.engine);
-        Spark.get("/nosotros",controllerNosotros::mostrarNosotros,Router.engine);
-        Spark.get("/FAQs",controllerFAQ::mostrarFAQ,Router.engine);
-        Spark.get("/contacto",controllerContacto::mostrarContacto,Router.engine);
-        Spark.get("/login", controllerLogin::login,Router.engine);
-        Spark.get("/encontreMascotaConChapita",controllerEncontreMascotaConChapita::mostrarMascotaConChapita,Router.engine);
-        Spark.get("/encontreMascotaSinChapita",controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita,Router.engine);
-        Spark.get("/noTengoAlma",controllerNoTengoAlma::mostrarNoTengoAlma,Router.engine);
-        Spark.get("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion,Router.engine);
-        Spark.get("/crearCuenta",controllerRegistroUsuario::mostrarRegistroUsuario,Router.engine);
-        Spark.get("/panel",controllerPanel::mostrarRegistroMascota,Router.engine);
-        Spark.get("/logout",controllerLogin::logOut,Router.engine);
-        Spark.get("/evaluarPublicacion",controllerEvaluarPublicacion::mostrarPublicaciones, Router.engine);
-
+        Spark.get("/adopcion", adopcionController::mostrarMascotas, Router.engine);
+        Spark.get("/adopcion/:page", adopcionController::mostrarPagina, Router.engine);
+        Spark.get("/", indexController::mostrarIndex, Router.engine);
+        Spark.get("/nosotros", controllerNosotros::mostrarNosotros, Router.engine);
+        Spark.get("/FAQs", controllerFAQ::mostrarFAQ, Router.engine);
+        Spark.get("/contacto", controllerContacto::mostrarContacto, Router.engine);
+        Spark.get("/login", controllerLogin::login, Router.engine);
+        Spark.get("/encontreMascotaConChapita", controllerEncontreMascotaConChapita::mostrarMascotaConChapita, Router.engine);
+        Spark.get("/encontreMascotaSinChapita", controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita, Router.engine);
+        Spark.get("/noTengoAlma", controllerNoTengoAlma::mostrarNoTengoAlma, Router.engine);
+        Spark.get("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion, Router.engine);
+        Spark.get("/crearCuenta", controllerRegistroUsuario::mostrarRegistroUsuario, Router.engine);
+        Spark.get("/panel", controllerPanel::mostrarPanel, Router.engine);
+        Spark.get("/logout", controllerLogin::logOut, Router.engine);
+        Spark.get("/evaluarPublicacion", controllerEvaluarPublicacion::mostrarPublicaciones, Router.engine);
 
 
         Spark.post("/login", (request, response) -> {
@@ -80,10 +79,10 @@ public class Router {
             return request;
         });
 
-        Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario,Router.engine);
-        Spark.post("/registroMascota",controllerRegistroMascota::registrarMascota);
-        Spark.post("/agregarContacto",controllerAgregarContacto::agregarContacto);
-        Spark.post("/configurarCaracteristicasAsociacion",controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas,Router.engine);
+        Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario, Router.engine);
+        Spark.post("/registroMascota", controllerRegistroMascota::registrarMascota);
+        Spark.post("/agregarContacto", controllerAgregarContacto::agregarContacto);
+        Spark.post("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas, Router.engine);
     }
 
 }

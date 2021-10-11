@@ -18,25 +18,26 @@ public class IndexController {
     public IndexController() {
     }
 
-    public ModelAndView mostrarIndex(Request req, Response rep){
+    public ModelAndView mostrarIndex(Request req, Response rep) {
         Usuario usuario = req.session().attribute("usuario");
         Asociacion asoc;
-        Configurador config ;
-        List<String>preguntas;
-        List<String>pregMascotas;
-        Map<String,Object> parametros = new HashMap<>();
-        if(usuario != null){
-        if(usuario.soyAdmin()) {
-            asoc = usuario.getAsociacion();
-            parametros.put("Admin",1);
-            parametros.put("asociacion",asoc);}
-        else {
+        Configurador config;
+        List<String> preguntas;
+        List<String> pregMascotas;
+        Map<String, Object> parametros = new HashMap<>();
+        if (usuario != null) {
+            if (usuario.soyAdmin()) {
+                asoc = usuario.getAsociacion();
+                parametros.put("Admin", 1);
+                parametros.put("asociacion", asoc);
+            } else {
 
                 parametros.put("persona", usuario.getPersona());
                 parametros.put("roles", usuario.getPersona().getListaRoles());
 
-        }}
-        return new ModelAndView(parametros,"index.hbs");
+            }
+        }
+        return new ModelAndView(parametros, "index.hbs");
     }
 
 }
