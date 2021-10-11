@@ -1,5 +1,6 @@
 package dds.domain.entities.seguridad.validador;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import dds.domain.entities.seguridad.usuario.usuarioException.WrongLoginException;
@@ -23,6 +24,9 @@ public class ValidadorUsuario {
         passwordVencida(usuario);
         passwordErronea(usuario,passwordHasheada);
         usuario.setIntentosFallidos(0);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(usuario);
+        EntityManagerHelper.commit();
         return true;
 
     }
