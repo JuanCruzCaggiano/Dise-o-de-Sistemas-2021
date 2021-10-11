@@ -47,7 +47,7 @@ public class ControllerLogin {
                 response.redirect("/panel");
             } else {
                 response.status(401);
-                response.redirect("/login#loginError");
+                response.redirect("/#loginError");
             }
         }
         //OUTPUT

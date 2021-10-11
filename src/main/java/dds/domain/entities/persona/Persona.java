@@ -66,6 +66,7 @@ public class Persona {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;
+        listaRoles = new ArrayList<>();
         this.agregarRol(Duenio.getDuenio());
         this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
