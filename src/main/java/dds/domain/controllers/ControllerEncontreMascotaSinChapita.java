@@ -17,7 +17,7 @@ public class ControllerEncontreMascotaSinChapita {
     public ControllerEncontreMascotaSinChapita() {
     }
 
-    public ModelAndView mostrarEncontreMascotaSinChapita(Request req, Response rep) {
+    public ModelAndView mostrarEncontreMascotaSinChapita(Request req, Response response) {
 
         Usuario usuario = req.session().attribute("usuario");
         Map<String, Object> parametros = new HashMap<>();
@@ -27,6 +27,7 @@ public class ControllerEncontreMascotaSinChapita {
                 parametros.put("Admin", 1);
                 parametros.put("asociacion", usuario.getAsociacion());
             } else {
+                parametros.put("standard",1);
                 parametros.put("persona", usuario.getPersona());
                 parametros.put("roles", usuario.getPersona().getListaRoles());
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Duenio")))) {
@@ -43,8 +44,9 @@ public class ControllerEncontreMascotaSinChapita {
                 }
             }
         }
-
-
+        else{
+            response.redirect("/#faltaLogin");
+        }
         return new ModelAndView(parametros, "encontreMascotaSinChapita.hbs");
     }
 }

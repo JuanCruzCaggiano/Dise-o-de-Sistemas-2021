@@ -40,16 +40,9 @@ public class ControllerRegistroUsuario {
     }
 
     public ModelAndView crearUsuario(Request request, Response response) throws NoSuchAlgorithmException, ParseException {
+
+        Map<String, Object> parametros = new HashMap<>();
         String user = (request.queryParams("usuario") != null) ? request.queryParams("usuario") : "";
-        List<RolPersona>roles = new ArrayList<>();
-        String adoptante = (request.queryParams("adoptante") != null) ? request.queryParams("adoptante") : "";
-        if (adoptante!="") roles.add(new Adoptante());
-        String duenio = (request.queryParams("duenio") != null) ? request.queryParams("duenio") : "";
-        if (duenio!="") roles.add(new Duenio());
-        String rescatista = (request.queryParams("rescatista") != null) ? request.queryParams("rescatista") : "";
-        if (rescatista!="") roles.add(new Rescatista());
-        String voluntario = (request.queryParams("voluntario") != null) ? request.queryParams("voluntario") : "";
-        if (voluntario!="") roles.add(new Voluntario());
         String documento = (request.queryParams("documento") != null) ? request.queryParams("documento") : "";
         String telefono = (request.queryParams("telefono") != null) ? request.queryParams("telefono") : "";
         String fecha = (request.queryParams("fecha") != null) ? request.queryParams("fecha") : "";
@@ -59,25 +52,51 @@ public class ControllerRegistroUsuario {
         String nombre = (request.queryParams("nombre") != null) ? request.queryParams("nombre") : "";
         String apellido = (request.queryParams("apellido") != null) ? request.queryParams("apellido") : "";
         String email = (request.queryParams("email") != null) ? request.queryParams("email") : "";
+        if(!RepositorioUsuarios.getRepositorio().esIDValido(user)) {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dt = LocalDate.parse(fecha,dtf);
-        List<FormaNotificacion> formasDeNoti = new ArrayList<>();
-        formasDeNoti.add(new Email());
-        formasDeNoti.add(new SMS());
-        formasDeNoti.add(new WhatsApp());
-        List<Mascota> mascotas = new ArrayList();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dt = LocalDate.parse(fecha, dtf);
+            ArrayList<FormaNotificacion> formasDeNoti = new ArrayList<>();
+            String formaEmail = (request.queryParams("formaEmail") != null) ? request.queryParams("formaEmail") : "";
+            if (formaEmail != null) {
+                formasDeNoti.add(new Email());
+            }
+            String formaWhatsapp = (request.queryParams("formaWhatsapp") != null) ? request.queryParams("formaWhatsapp") : "";
+            if (formaWhatsapp != null) {
+                formasDeNoti.add(new WhatsApp());
+            }
+            String formaSMS = (request.queryParams("formaSMS") != null) ? request.queryParams("formaSMS") : "";
+            if (formaSMS != null) {
+                formasDeNoti.add(new SMS());
+            }
+            List<Mascota> mascotas = new ArrayList();
+            TipoDocumento tipoDocumento = TipoDocumento.valueOf(tipoDoc);
 
-        TipoDocumento tipoDocumento = TipoDocumento.valueOf(tipoDoc);
+            Persona persona = new Persona(nombre, apellido, tipoDocumento, Integer.valueOf(documento), dt, direccion, telefono, email, formasDeNoti);
 
+            Standard usuario = new Standard(user, pass, persona);
+            RepositorioUsuarios.getRepositorio().agregarUsuario(usuario);
 
-        Persona persona = new Persona(nombre,apellido,tipoDocumento,Integer.valueOf(documento),dt,direccion,telefono,email,formasDeNoti);
-        Map<String,Object> parametros = new HashMap<>(); //
-        Standard usuario = new Standard(user,pass,persona);
-        RepositorioUsuarios.getRepositorio().agregarUsuario(usuario);
+            request.session().attribute("user", usuario);
+            response.redirect("/"); //
+        }else{
+            parametros.put("usuarioDuplicado", 1);
+            parametros.put("nombreDuplicado",nombre);
+            parametros.put("apellidoDuplicado",apellido);
+            parametros.put("telefonoDuplicado",telefono);
+            parametros.put("fechaDuplicado",fecha);
+            parametros.put("direccionDuplicado",direccion);
+            parametros.put("tipoDocDuplicado",tipoDoc);
+            parametros.put("emailDuplicado",email);
+            parametros.put("documentoDuplicado",documento);
+            List<String> enumNames = Stream.of(TipoDocumento.values())
+                    .map(Enum::name)
+                    .collect(Collectors.toList());
+            parametros.put("tipoDoc",enumNames);
 
-        request.session().attribute("user",usuario);
-        response.redirect("/"); //
+            return new ModelAndView(parametros,"/registroUsuario.hbs");
+        }
+
         return new ModelAndView(parametros,"index.hbs");
     }
     public static Date ParseFecha(String fecha)

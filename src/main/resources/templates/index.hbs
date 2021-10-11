@@ -30,7 +30,7 @@ https://templatemo.com/tm-564-plot-listing
 -->
 </head>
 
-<body onpageshow="loginError();">
+<body onpageshow="loginError();faltaLogin();">
 
 <!-- ***** Preloader Start ***** -->
 <div id="js-preloader" class="js-preloader">
@@ -418,6 +418,11 @@ https://templatemo.com/tm-564-plot-listing
             } else {
                 x.style.display = "none";
             }
+        }
+    }
+    function faltaLogin(){
+        if (location.hash === "#faltaLogin") {
+            $("#exampleModal").modal('show')
         }
     }
     function cerrarPopup() {

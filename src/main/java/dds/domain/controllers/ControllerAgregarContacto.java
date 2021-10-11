@@ -20,13 +20,16 @@ public class ControllerAgregarContacto {
 
     //String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasDeNoti
     public Response agregarContacto(Request request, Response response) throws NoSuchAlgorithmException {
-        ArrayList<FormaNotificacion> formasDeNoti = new ArrayList<>();
+
         Usuario usuario = request.session().attribute("usuario");
         String nombre = (request.queryParams("nombre") != null) ? request.queryParams("nombre") : "";
         String apellido = (request.queryParams("apellido") != null) ? request.queryParams("apellido") : "";
         String telefono = (request.queryParams("telefono") != null) ? request.queryParams("telefono") : "";
         String email = (request.queryParams("email") != null) ? request.queryParams("email") : "";
+
+        ArrayList<FormaNotificacion> formasDeNoti = new ArrayList<>();
         String formaEmail = (request.queryParams("formaEmail") != null) ? request.queryParams("formaEmail") : "";
+
         if (formaEmail != null) {
             formasDeNoti.add(new Email());
         }
