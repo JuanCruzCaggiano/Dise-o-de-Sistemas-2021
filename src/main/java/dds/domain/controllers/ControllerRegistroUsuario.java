@@ -1,5 +1,6 @@
 package dds.domain.controllers;
 import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
+import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.Persona;
@@ -28,6 +29,7 @@ public class ControllerRegistroUsuario {
 
         Usuario usuario = req.session().attribute("usuario");
         Map<String,Object> parametros = new HashMap<>();
+        parametros.put("clavesAsociacion",RepositorioAsociaciones.getRepositorio().getAsociaciones());
         if(usuario!=null) {
             rep.redirect("/");
         }
