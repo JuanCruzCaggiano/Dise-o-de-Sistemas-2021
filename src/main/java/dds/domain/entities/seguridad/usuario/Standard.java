@@ -1,6 +1,7 @@
 package dds.domain.entities.seguridad.usuario;
 
 import dds.db.EntityManagerHelper;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.personaException.AssignPersonaException;
 
@@ -18,6 +19,11 @@ public class Standard extends Usuario {
 
     public Standard(String userName, String password,Persona persona) throws NoSuchAlgorithmException {
         super(userName, password);
+        this.persona = persona;
+    }
+
+    public Standard(String userName, String password, Persona persona, Asociacion asociacion) throws NoSuchAlgorithmException {
+        super(userName, password, asociacion);
         this.persona = persona;
     }
     public Standard(){}

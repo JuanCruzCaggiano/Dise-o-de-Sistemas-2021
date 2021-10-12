@@ -2,6 +2,7 @@ package dds.domain.controllers;
 import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.TipoDocumento;
@@ -54,6 +55,7 @@ public class ControllerRegistroUsuario {
         String nombre = (request.queryParams("nombre") != null) ? request.queryParams("nombre") : "";
         String apellido = (request.queryParams("apellido") != null) ? request.queryParams("apellido") : "";
         String email = (request.queryParams("email") != null) ? request.queryParams("email") : "";
+        String idAsociacion = (request.queryParams("asociacion") != null) ? request.queryParams("asociacion") : "";
         if(!RepositorioUsuarios.getRepositorio().esIDValido(user)) {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -73,10 +75,11 @@ public class ControllerRegistroUsuario {
             }
             List<Mascota> mascotas = new ArrayList();
             TipoDocumento tipoDocumento = TipoDocumento.valueOf(tipoDoc);
+            Asociacion asociacionIni = RepositorioAsociaciones.getRepositorio().getAsociacion(Integer.valueOf(idAsociacion));
 
             Persona persona = new Persona(nombre, apellido, tipoDocumento, Integer.valueOf(documento), dt, direccion, telefono, email, formasDeNoti);
 
-            Standard usuario = new Standard(user, pass, persona);
+            Standard usuario = new Standard(user, pass, persona,asociacionIni);
             RepositorioUsuarios.getRepositorio().agregarUsuario(usuario);
 
             request.session().attribute("user", usuario);
