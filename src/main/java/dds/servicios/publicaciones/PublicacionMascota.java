@@ -2,6 +2,7 @@ package dds.servicios.publicaciones;
 
 import dds.db.RepositorioMascotas;
 import dds.db.RepositorioPersonas;
+import dds.db.repositorioException.LogicRepoException;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.Persona;
 
@@ -127,10 +128,40 @@ public class PublicacionMascota {
     }
 
     public String getRescatista() {
-        return RepositorioPersonas.getRepositorio().getPersona(this.idRescatista).getNombre();
+        try {
+            return RepositorioPersonas.getRepositorio().getPersona(this.idRescatista).getNombre();
+        } catch (LogicRepoException e) {
+            //ESTO PASA CUANDO EL ID ES INEXISTENTE
+            return "No se encontró el nombre del rescatista";
+        }
     }
 
     public String getMascota() {
-        return RepositorioMascotas.getRepositorio().getMascota(this.idMascota).getNombre();
+        try {
+            return RepositorioMascotas.getRepositorio().getMascota(this.idMascota).getNombre();
+        } catch (LogicRepoException e) {
+            //ESTO PASA CUANDO EL ID ES INEXISTENTE
+            return "No se encontró el nombre de la mascota";
+        }
+    }
+
+    public String getPrimeraFoto() {
+        try {
+            return this.pathFoto.get(0);
+        } catch (Exception e) {
+            return "/images/perroadop.jpg";
+        }
+    }
+
+    public List<String> getFotosSinPrimera() {
+        try {
+            List<String> fotosSinPrimera = new ArrayList<>();
+            fotosSinPrimera = this.getPathFoto();
+            fotosSinPrimera.remove(0);
+            return fotosSinPrimera;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }

@@ -74,41 +74,60 @@
         </div>
     </div>
 
-    <!-- ACA CARGAS LA IMAGEN -->
-{{!--      VER COMO MOSTRAR LAS IMAGENES--}}
-    <div class="container">
+
+
+<div class="container">
+
+        <div class="row justify-content-start">
+
         {{#each pendientes}}
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-          {{#each pathFoto}}
-            <div class="carousel-item active">
-              <img src="" class="d-block w-100" alt="No se puede mostrar la imagen">
+            <div class="col-4 " style="margin-top: 30px;">
+                <div class="card" style="width: 20rem;">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="{{this.primeraFoto}}" class="d-block w-100" alt="...">
+                          </div>
+                            {{#each fotosSinPrimera}}
+                          <div class="carousel-item">
+                            <img src="{{this}}" class="d-block w-100" alt="...">
+                          </div>
+                            {{/each}}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+{{!--                      <img src="{{this.primeraFoto}}" class="card-img-top" alt="...">  /images/perroadop.jpg --}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.mascota}}</h5>
+                        <p class="card-text">Rescatista: {{this.rescatista}}</p>
+                        <p class="card-text">Descripcion: {{this.descripcion}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-danger" href="/evaluarPublicacion">Rechazar</button>
+                        <button class="btn btn-success" href="/evaluarPublicacion">Aprobar</button>
+                    </div>
+                </div>
             </div>
-          {{/each}}
-          </div>
+        {{/each}}
+
+        </div>
+        <div class="lg-4 text-center" style="margin-top: 30px;">
+            {{#if ant}}
+            <a href="/adopcion/{{ant}}" class="b1 previous round ">&#8249;</a>
+            {{/if}}
+            {{#if prox}}
+            <a href="/adopcion/{{prox}}" class="b1 next round ">&#8250;</a>
+            {{/if}}
         </div>
 
-{{!--              NOMBRE RESCATISTA--}}
-        <div class="container">
-            <p>{{this.rescatista}}</p>
-          </div>
-
-{{!--              NOMBRE MASCOTA--}}
-{{!--         <div class="container"> --}}
-{{!--             <p>{{this.mascota}}</p> --}}
-{{!--           </div> --}}
-{{!--  ESTO NO FUNCIONA PORQUE ESTAMOS PERSISTIENDO UNA PUBLICACION CON EL ID DE LA MASCOTA = perro1
-        LO CUAL TIRA ERROR PORQUE CUANDO BUSCA ESA MASCOTA POR ESE ID NO LA ENCUENTRA--}}
-
-{{!--            DESCRIPCION --}}
-          <div class="container">
-            <p>{{this.descripcion}}</p>
-          </div>
-
-{{!--  FALTA EL COMPORTAMIENTO DE LOS BOTONES --}}
-          <button class="btn btn-danger">Rechazar</button>
-          <button class="btn btn-success">Aprobar</button>
-        {{/each}}
     </div>
 
 

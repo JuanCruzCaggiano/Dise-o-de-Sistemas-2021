@@ -1,6 +1,8 @@
 <ul class="nav">
     <li><a href="/" class="active">Principal</a></li>
+    {{#unless asociacion}}
     <li><a href="/adopcion/0">Adopciones</a></li>
+    {{/unless}}
     <li><a href="#">Mascotas Perdidas</a></li>
     {{#if persona}}
         <li><a href="/logout">Cerrar sesion</a></li>

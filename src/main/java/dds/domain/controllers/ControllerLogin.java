@@ -31,9 +31,9 @@ public class ControllerLogin {
             response.status(401);
             response.redirect("/");
         } else {
-            usuario = RepositorioUsuarios.getRepositorio().getUsuario(user);
             try {
                 datosOk = ValidadorUsuario.getValidadorUsuario().validarIdentidad (user, pass);
+                usuario = RepositorioUsuarios.getRepositorio().getUsuario(user);
             } catch (Exception e) {
                 datosOk = false;
             }
