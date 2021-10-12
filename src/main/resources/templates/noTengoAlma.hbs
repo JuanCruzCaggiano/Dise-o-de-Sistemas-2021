@@ -80,23 +80,21 @@ https://templatemo.com/tm-564-plot-listing
     </div>
     <div class="container" style="margin-top: 40px; margin-bottom: 50px;">
         <div class="row justify-content-start">
-
             {{#each mascotas}}
-                <div class="col-4 " style="margin-top: 30px;">
+                <div class="col-4" style="margin-top: 30px;">
                     <div class="card" style="width: 20rem;">
-                        <img src="/images/perroadop.jpg" class="card-img-top" alt="...">
+                        <img src="/images/perroadop.jpg" class="card-img-top" alt="...">  <!--TODO: hay que sacar esta imagen por default y levantar la correcta-->
                         <div class="card-body">
-                            <h5 class="card-title">{{apodo}}</h5>
-                            <p class="card-text">mascotita mascotita</p>
+                            <h5 class="card-title">{{nombre}} ({{apodo}})</h5>
+                            <p class="card-text">{{desc}}</p> <!--TODO: no trae la descripción...-->
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Edad : </li>
-                            <li class="list-group-item">Sexo : </li>
-
+                            <li class="list-group-item">Tipo de Mascota: {{tipo}}</li>
+                            <li class="list-group-item">Sexo: {{sexo}}</li>
+                            <li class="list-group-item">Fecha de Nacimiento: {{fecha}}</li> <!--TODO: no trae la fecha...-->
                         </ul>
-                        <div class="card-body">
-                            <a href="/panelAdopcion/{{idMascota}}" class="card-link">Poner en Adopcion</a>
-
+                        <div class="card-body d-grid gap-2">
+                            <a href="/panelAdopcion/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Poner en Adopción</a>
                         </div>
                     </div>
                 </div>
