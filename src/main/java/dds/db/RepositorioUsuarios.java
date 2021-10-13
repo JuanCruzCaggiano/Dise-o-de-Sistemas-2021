@@ -40,9 +40,6 @@ public class RepositorioUsuarios {
         }else{
             throw new LogicRepoException("idPersona Incorrecto");
         }
-
-
-
     }
 
     public int getIDAsocXIdPersona(String idPersona) {
