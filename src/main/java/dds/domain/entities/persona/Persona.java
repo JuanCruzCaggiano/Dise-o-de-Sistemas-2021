@@ -71,7 +71,6 @@ public class Persona {
         this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
         this.mascotas = new ArrayList<>();
-        this.listaRoles = new ArrayList<>();
         this.notificador = new Notificador();
         notificador.agendarContacto(nombre,apellido,telefono,email,formasDeNoti);
 
@@ -147,6 +146,9 @@ public class Persona {
     }
     public void agregarRol(RolPersona rol){
         this.listaRoles.add(rol);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public void setMascotas(List<Mascota> mascotas) {

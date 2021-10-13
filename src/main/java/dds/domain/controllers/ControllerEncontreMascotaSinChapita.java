@@ -3,6 +3,7 @@ package dds.domain.controllers;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.persona.Persona;
+import dds.domain.entities.persona.roles.Rescatista;
 import dds.domain.entities.persona.transaccion.EncontreMascotaPerdidaSinChapita;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import spark.ModelAndView;
@@ -31,6 +32,9 @@ public class ControllerEncontreMascotaSinChapita {
                 parametros.put("Admin", 1);
                 parametros.put("asociacion", usuario.getAsociacion());
             } else {
+                if( !usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Rescatista"))) ){
+                    usuario.getPersona().agregarRol(Rescatista.getRescatista());
+                }
                 parametros.put("standard",1);
                 parametros.put("persona", usuario.getPersona());
                 parametros.put("roles", usuario.getPersona().getListaRoles());
