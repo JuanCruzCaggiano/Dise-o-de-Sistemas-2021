@@ -83,7 +83,7 @@ public class ControllerRegistroMascota {
         String fecha = null;
         List<String> fotos = new ArrayList<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
+        //Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         try (InputStream input = request.raw().getPart("nombre").getInputStream()) { // getPart needs to use same "name" as input field in form
             //Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
             String resultado = convertInputStreamToString(input);
