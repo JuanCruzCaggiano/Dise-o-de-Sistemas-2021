@@ -53,6 +53,7 @@ public class ControllerRegistroMascota {
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
         File uploadDir = new File("upload");
+        uploadDir.mkdir();
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Usuario usuario = request.session().attribute("usuario");
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
@@ -70,6 +71,7 @@ public class ControllerRegistroMascota {
         List<String> preguntasCaracs = asoc.getConfigurador().getClaves();
         HashMap <String, String> caracteristica = new HashMap<>();
         File uploadDir = new File("upload");
+        uploadDir.mkdir();
 
 
         String tipo=null;
