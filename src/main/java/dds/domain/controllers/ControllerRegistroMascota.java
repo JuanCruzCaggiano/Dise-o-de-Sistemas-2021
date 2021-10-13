@@ -18,10 +18,7 @@ import spark.Response;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -85,7 +82,7 @@ public class ControllerRegistroMascota {
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         try (InputStream input = request.raw().getPart("nombre").getInputStream()) { // getPart needs to use same "name" as input field in form
-            //Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
+
             String resultado = convertInputStreamToString(input);
             nombre = resultado;
             InputStream ss = request.raw().getPart("tipo").getInputStream();
@@ -103,17 +100,21 @@ public class ControllerRegistroMascota {
             ss = request.raw().getPart("fecha").getInputStream();
             fecha = convertInputStreamToString(ss);
             ss = request.raw().getPart("foto").getInputStream();
-            byte[] bytes = IOUtils.toByteArray(ss);
-            foto = Base64.getEncoder().encodeToString(bytes);
+            Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            /*byte[] bytes = IOUtils.toByteArray(ss);
+            File targetFile = new File("/upload/targetFile.tmp");
+            OutputStream outStream = new FileOutputStream(targetFile);
+            outStream.write(bytes);
+            foto = Base64.getEncoder().encodeToString(bytes);*/
         } catch (ServletException e) {
             e.printStackTrace();
         }
-
+        foto = tempFile.toString();
         Sexo sexoEnum= Sexo.valueOf(sexo);
         TipoMascota tipoEnum = TipoMascota.valueOf(tipo);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dt = LocalDate.parse(fecha,dtf);
-        //fotos.add(foto);
+        fotos.add(foto);
 
 
         //Mascota mascota = new Mascota(tip,nombre,apodo,dt,desc,fotos,caracteristica,sex);

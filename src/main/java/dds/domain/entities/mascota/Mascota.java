@@ -1,6 +1,8 @@
 package dds.domain.entities.mascota;
 
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,6 +34,7 @@ public class Mascota {
 
     @Column
     private String descripcion;
+
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lista_foto_mascota")
