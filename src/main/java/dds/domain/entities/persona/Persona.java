@@ -67,7 +67,7 @@ public class Persona {
         this.tipoDoc = tipoDoc;
         this.nroDoc = nroDoc;
         listaRoles = new ArrayList<>();
-        this.agregarRol(Duenio.getDuenio());
+        this.listaRoles.add(Duenio.getDuenio());
         this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
         this.mascotas = new ArrayList<>();
