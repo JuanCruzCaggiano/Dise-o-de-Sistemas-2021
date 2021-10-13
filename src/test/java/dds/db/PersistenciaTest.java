@@ -53,7 +53,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         Mascota gato = new Mascota(TipoMascota.GATO,"nombreGato","apodoGato",LocalDate.now().minusYears(8),"Siames",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
         perro.agregarCaracteristica("Color De Pelo","Negro y Marron");
         perro.agregarCaracteristica("Tamaño","Grande");
-
+        perro.setEstaPerdida(true);
         Email email = new Email();
         List<FormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(email);
