@@ -149,7 +149,7 @@
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/registroMascota">
+            <form method="post" action="/registroMascota" enctype='multipart/form-data'>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE MASCOTA</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -203,9 +203,8 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="formFileMultiple" class="form-label mt-2 mb-1">Fotos</label>
-                            <input class="form-control " type="file" id="formFileMultiple" multiple id="fotos"
-                                   name="fotos">
+                            <label for="foto">FOTO</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto" multiple/>
                         </div>
                     </div>
                 </div>
