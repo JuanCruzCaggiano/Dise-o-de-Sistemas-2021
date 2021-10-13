@@ -79,7 +79,7 @@
 <br>
 {{#if Admin}}
     <div class="section-heading align-content-center">
-        <h5 style ="text-align: center">Administrador</h5>
+        <h5 style="text-align: center">Administrador</h5>
     </div>
     <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
@@ -92,11 +92,24 @@
             </div>
         </div>
     </div>
+{{else}}
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contactos</h5>
+                    <p class="card-text"></p><!-- TODO agregar edicion cuando este -->
+                    <a href="/verContactos" class="btn btn-primary">Ver contactos</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {{/if}}
+
 
 {{#if Duenio}}
     <div class="section-heading">
-        <h5 style ="text-align: center">Dueño</h5>
+        <h5 style="text-align: center">Dueño</h5>
     </div>
     <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
@@ -138,7 +151,7 @@
 
 {{#if Rescatista}}
     <div class="section-heading">
-        <h5 style ="text-align: center">Rescatista</h5>
+        <h5 style="text-align: center">Rescatista</h5>
     </div>
     <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
@@ -158,7 +171,7 @@
 
 {{#if Voluntario}}
     <div class="section-heading">
-        <h5 style ="text-align: center">Voluntario</h5>
+        <h5 style="text-align: center">Voluntario</h5>
     </div>
     <div class="row text-center"
          style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
