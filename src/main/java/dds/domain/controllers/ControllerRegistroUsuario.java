@@ -1,4 +1,5 @@
 package dds.domain.controllers;
+
 import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioUsuarios;
@@ -9,6 +10,8 @@ import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.roles.*;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import dds.domain.entities.seguridad.validador.ValidadorPassword;
+import dds.domain.entities.seguridad.validador.ValidadorUsuario;
 import dds.servicios.avisos.*;
 import spark.ModelAndView;
 import spark.Request;
@@ -26,20 +29,21 @@ import java.util.stream.Stream;
 public class ControllerRegistroUsuario {
     public ControllerRegistroUsuario() {
     }
-    public ModelAndView mostrarRegistroUsuario(Request req, Response rep){
+
+    public ModelAndView mostrarRegistroUsuario(Request req, Response rep) {
 
         Usuario usuario = req.session().attribute("usuario");
-        Map<String,Object> parametros = new HashMap<>();
-        parametros.put("clavesAsociacion",RepositorioAsociaciones.getRepositorio().getAsociaciones());
-        if(usuario!=null) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("clavesAsociacion", RepositorioAsociaciones.getRepositorio().getAsociaciones());
+        if (usuario != null) {
             rep.redirect("/");
         }
 
         List<String> enumNames = Stream.of(TipoDocumento.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
-        parametros.put("tipoDoc",enumNames);
-        return new ModelAndView(parametros,"registroUsuario.hbs");
+        parametros.put("tipoDoc", enumNames);
+        return new ModelAndView(parametros, "registroUsuario.hbs");
     }
 
     public ModelAndView crearUsuario(Request request, Response response) throws NoSuchAlgorithmException, ParseException {
@@ -56,65 +60,69 @@ public class ControllerRegistroUsuario {
         String apellido = (request.queryParams("apellido") != null) ? request.queryParams("apellido") : "";
         String email = (request.queryParams("email") != null) ? request.queryParams("email") : "";
         String idAsociacion = (request.queryParams("asociacion") != null) ? request.queryParams("asociacion") : "";
-        if(!RepositorioUsuarios.getRepositorio().esIDValido(user)) {
+        Boolean usuarioOk = true;
+        if (RepositorioUsuarios.getRepositorio().esIDValido(user)) {
+            usuarioOk = false;
+            parametros.put("usuarioDuplicado", 1);
+        }
+        Boolean passwordOk = true;
+        try {
+            ValidadorPassword.getValidadorPassword().validarPasswordRegex(pass);
+        } catch (Exception e) {
+            passwordOk = false;
+            parametros.put("passwordDebil", 1);
+        }
 
+        if (passwordOk && usuarioOk) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dt = LocalDate.parse(fecha, dtf);
             ArrayList<FormaNotificacion> formasDeNoti = new ArrayList<>();
             String formaEmail = (request.queryParams("formaEmail") != null) ? request.queryParams("formaEmail") : "";
-            if (formaEmail != null) {
+            if (!formaEmail.equals("")) {
                 formasDeNoti.add(new Email());
             }
             String formaWhatsapp = (request.queryParams("formaWhatsapp") != null) ? request.queryParams("formaWhatsapp") : "";
-            if (formaWhatsapp != null) {
+            if (!formaWhatsapp.equals("")) {
                 formasDeNoti.add(new WhatsApp());
             }
             String formaSMS = (request.queryParams("formaSMS") != null) ? request.queryParams("formaSMS") : "";
-            if (formaSMS != null) {
+            if (!formaSMS.equals("")) {
                 formasDeNoti.add(new SMS());
             }
-            List<Mascota> mascotas = new ArrayList();
+
             TipoDocumento tipoDocumento = TipoDocumento.valueOf(tipoDoc);
             Asociacion asociacionIni = RepositorioAsociaciones.getRepositorio().getAsociacion(Integer.valueOf(idAsociacion));
 
             Persona persona = new Persona(nombre, apellido, tipoDocumento, Integer.valueOf(documento), dt, direccion, telefono, email, formasDeNoti);
 
-            Standard usuario = new Standard(user, pass, persona,asociacionIni);
+            Standard usuario = new Standard(user, pass, persona, asociacionIni);
             RepositorioUsuarios.getRepositorio().agregarUsuario(usuario);
 
-            request.session().attribute("user", usuario);
-            response.redirect("/"); //
-        }else{
-            parametros.put("usuarioDuplicado", 1);
-            parametros.put("nombreDuplicado",nombre);
-            parametros.put("apellidoDuplicado",apellido);
-            parametros.put("telefonoDuplicado",telefono);
-            parametros.put("fechaDuplicado",fecha);
-            parametros.put("direccionDuplicado",direccion);
-            parametros.put("tipoDocDuplicado",tipoDoc);
-            parametros.put("emailDuplicado",email);
-            parametros.put("documentoDuplicado",documento);
+            request.session(true);
+            request.session().attribute("user", user);
+            request.session().attribute("usuario", usuario);
+            request.session().maxInactiveInterval(3600);
+            response.redirect("/panel");
+        } else {
+            parametros.put("nombreDuplicado", nombre);
+            parametros.put("apellidoDuplicado", apellido);
+            parametros.put("telefonoDuplicado", telefono);
+            parametros.put("fechaDuplicado", fecha);
+            parametros.put("direccionDuplicado", direccion);
+            parametros.put("tipoDocDuplicado", tipoDoc);
+            parametros.put("emailDuplicado", email);
+            parametros.put("documentoDuplicado", documento);
             List<String> enumNames = Stream.of(TipoDocumento.values())
                     .map(Enum::name)
                     .collect(Collectors.toList());
-            parametros.put("tipoDoc",enumNames);
+            parametros.put("tipoDoc", enumNames);
+            parametros.put("clavesAsociacion", RepositorioAsociaciones.getRepositorio().getAsociaciones());
 
-            return new ModelAndView(parametros,"/registroUsuario.hbs");
+            return new ModelAndView(parametros, "/registroUsuario.hbs");
         }
 
-        return new ModelAndView(parametros,"index.hbs");
+        return new ModelAndView(parametros, "index.hbs");
     }
-    public static Date ParseFecha(String fecha)
-    {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate = null;
-        try {
-            fechaDate = formato.parse(fecha);
-        }
-        catch (ParseException ex)
-        {
-            System.out.println(ex);
-        }
-        return fechaDate;
-    }
+
+
 }
