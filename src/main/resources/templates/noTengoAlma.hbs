@@ -118,15 +118,23 @@ https://templatemo.com/tm-564-plot-listing
                             <li class="list-group-item">Tipo de Mascota: {{tipo}}</li>
                             <li class="list-group-item">Sexo: {{sexo}}</li>
                             <li class="list-group-item">Fecha de Nacimiento: {{fechaNacimiento}}</li>
-                            {{#each this.caracteristica}}
-                                <li class="list-group-item">{{@key}}: {{this}}</li>
-                            {{/each}}
                         </ul>
+                        <div class="card-body">
+                            <h5 class="card-title">Caracteristicas</h5>
+                            {{#each this.caracteristica}}
+                            <li class="list-group-item">{{@key}}: {{this}}</li>
+                            {{/each}}
+                        </div>
 
                         <div class="card-body d-grid gap-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">Editar Mascota</button>
                             <a href="/panelAdopcion/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Poner en Adopción</a>
                         </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">
+                        AGREGAR FOTO
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{idMascota}}">
+                            Editar Mascota
+                        </button>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalFotoMascota{{idMascota}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFotoMascotaLabel{{idMascota}}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -153,6 +161,84 @@ https://templatemo.com/tm-564-plot-listing
                                 </div>
                             </div>
                         </div>
+                        <!-- Modal Editar Mascota -->
+                        <div class="modal fade" id="staticBackdrop{{idMascota}}" data-backdrop="static" tabindex="-1" role="dialog"
+                             aria-labelledby="staticBackdropLabel{{idMascota}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" action="/actualizarMascota" enctype='multipart/form-data'>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">EDITAR MASCOTA</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group ">
+                                                    <label for="tipo">Tipo mascota</label>
+                                                    <select class="form-select" aria-label="Default select example" id="tipo"
+                                                            name="tipo" placeholder="Tipo Mascota">
+                                                        {{#each tiposMascota}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="nombre">Nombre de la mascota</label>
+                                                    {{#if this.nombre}}
+                                                        <input type="text" class="form-control" value="{{this.nombre}}" id="nombre"
+                                                               name="nombre"
+                                                               placeholder="Ingrese su Nombre" required>
+                                                    {{else}}
+                                                    <input class="form-control" id="nombre" name="nombre"
+                                                           placeholder="Ingrese nombre" required>
+                                                    {{/if}}
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="nombre">Apodo de la mascota</label>
+                                                    {{#if this.apodo}}
+                                                    <input class="form-control" value="{{this.apodo}}"
+                                                    id="apodo" name="apodo" placeholder="Ingrese apodo"
+                                                    required>
+                                                    {{else}}
+                                                    <input class="form-control" id="apodo" name="apodo" placeholder="Ingrese apodo"
+                                                           required>
+                                                   {{/if}}
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="sexo">Sexo</label>
+                                                    <select class="form-select" aria-label="Default select example" id="sexo"
+                                                            name="sexo" placeholder="Sexo">
+                                                        {{#each sexos}}
+                                                            <option value="{{this}}">{{this}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="fecha">Fecha de Nacimiento</label>
+                                                    {{#if this.fechaNacimiento}}
+                                                    <input type="date" class="form-control " value="{{this.fechaNacimiento}}" id="fecha" name="fecha" max='2000-13-13'
+                                                           placeholder="yyyy-mm-dd" required>
+                                                    {{else}}
+                                                    <input type="date" class="form-control " id="fecha" name="fecha" max='2000-13-13'
+                                                    placeholder="yyyy-mm-dd" required>
+                                                    {{/if}}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="desc">Descripcion</label>
+                                                    <textarea class="form-control " value="{{this.descripcion}}" id="desc" name="desc" rows="10"
+                                                              required>{{this.descripcion}}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary" id="liveAlertBtn">Actualizar Mascota</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN Modal Editar Mascota -->
                     </div>
                 </div>
             {{/each}}
