@@ -84,6 +84,7 @@ public class Router {
         Spark.post("/registroMascota", controllerRegistroMascota::registrarMascota);
         Spark.post("/agregarFoto/:id", controllerRegistroMascota::agregarFoto);
         Spark.post("/agregarContacto", controllerAgregarContacto::agregarContacto);
+        //Spark.post("/verContactos", controllerAgregarContacto::mostrarVerContactos);
         Spark.post("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas, Router.engine);
         Spark.post("/panelAdopcion/:idMascota", controllerPanelAdopcion::ponerEnAdopcion);
         Spark.post("/crearMascotaPerdidaSinChapita",controllerEncontreMascotaSinChapita::crearMascotaPerdidaSinChapita);
