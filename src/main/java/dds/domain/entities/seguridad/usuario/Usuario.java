@@ -58,6 +58,18 @@ public class Usuario {
         this.usedPasswords.add(this.password);
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
     }
+
+
+    public Usuario (String userName, String password, Asociacion asociacion) throws NoSuchAlgorithmException{
+        this.userName = userName;
+        ValidadorPassword.getValidadorPassword().validarPassword(password,this);
+        this.isBlocked = false;
+        this.intentosFallidos= 0;
+        this.password = HashHelper.getHashHelper().passwordAMD5(password);
+        this.usedPasswords.add(this.password);
+        this.asociacion = asociacion;
+        setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
+    }
     public Boolean soyAdmin(){
         return false;
     }
