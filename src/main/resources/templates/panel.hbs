@@ -369,6 +369,19 @@
         </div>
     </div>
 </div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastLivePubliMascotaConChapita" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se creo la publicacion con exito y se le aviso al dueño!
+        </div>
+    </div>
+</div>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -442,7 +455,11 @@
             var toast = new bootstrap.Toast(toastLiveContacto)
             toast.show()
         }
-
+        var toastLivePubliMascotaConChapita = document.getElementById('toastLivePubliMascotaConChapita')
+        if (location.hash === "#registroMascotaConExitoConChapita") {
+            var toast = new bootstrap.Toast(toastLivePubliMascotaConChapita)
+            toast.show()
+        }
         var toastLivePubliMascotaSinChapita = document.getElementById('toastLivePubliMascotaSinChapita')
         if (location.hash === "#registroMascotaConExito") {
             var toast = new bootstrap.Toast(toastLivePubliMascotaSinChapita)
