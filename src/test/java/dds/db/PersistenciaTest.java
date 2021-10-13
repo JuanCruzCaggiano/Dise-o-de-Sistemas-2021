@@ -84,7 +84,6 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
         EntityManagerHelper.beginTransaction();
 
-        EntityManagerHelper.getEntityManager().merge(asoc);
         EntityManagerHelper.getEntityManager().persist(usuarioStandard);
 
         EntityManagerHelper.getEntityManager().persist(usuarioStandard2);
