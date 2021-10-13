@@ -85,17 +85,14 @@
                 <div class="card" style="width: 20rem;">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{pathFoto}}" class="d-block w-100" alt="...">
-                            </div>
                             {{#each pathFoto}}
-                                {{#if @index}}
+                                {{#if @first}}
                                     <div class="carousel-item active">
                                         <img src="{{this}}" class="d-block w-100" alt="...">
                                     </div>
                                 {{else}}
                                     <div class="carousel-item">
-                                        <img src="" class="d-block w-100" alt="...">
+                                        <img src="this" class="d-block w-100" alt="...">
                                     </div>
                                 {{/if}}
                             {{/each}}
