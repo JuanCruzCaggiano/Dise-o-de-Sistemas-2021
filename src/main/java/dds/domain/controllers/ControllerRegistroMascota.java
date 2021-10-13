@@ -52,7 +52,7 @@ public class ControllerRegistroMascota {
         Map<String, Object> parametros = new HashMap<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
-        File uploadDir = new File("upload");
+        File uploadDir = new File("src/main/resources/public/fotos");
         uploadDir.mkdir();
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Usuario usuario = request.session().attribute("usuario");
@@ -70,7 +70,7 @@ public class ControllerRegistroMascota {
         Asociacion asoc = usuario.getAsociacion();
         List<String> preguntasCaracs = asoc.getConfigurador().getClaves();
         HashMap <String, String> caracteristica = new HashMap<>();
-        File uploadDir = new File("upload");
+        File uploadDir = new File("src/main/resources/public/fotos");
         uploadDir.mkdir();
 
 
