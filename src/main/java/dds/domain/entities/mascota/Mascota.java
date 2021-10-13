@@ -131,6 +131,11 @@ public class Mascota {
         return nombre;
     }
 
+    public LocalDate getFechaNacimiento() {
+        return fechaNac.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
 
 
 
