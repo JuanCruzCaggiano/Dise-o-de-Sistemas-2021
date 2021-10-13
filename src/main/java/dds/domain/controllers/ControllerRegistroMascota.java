@@ -10,7 +10,6 @@ import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.transaccion.RegistrarMascota;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
-import jdk.internal.util.xml.impl.Input;
 import org.apache.commons.io.IOUtils;
 import spark.ModelAndView;
 import spark.Request;
@@ -52,7 +51,7 @@ public class ControllerRegistroMascota {
         Map<String, Object> parametros = new HashMap<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
-        File uploadDir = new File("src/main/resources/public/fotos");
+        File uploadDir = new File("src\\main\\resources\\public\\fotos");
         uploadDir.mkdir();
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Usuario usuario = request.session().attribute("usuario");
@@ -70,7 +69,7 @@ public class ControllerRegistroMascota {
         Asociacion asoc = usuario.getAsociacion();
         List<String> preguntasCaracs = asoc.getConfigurador().getClaves();
         HashMap <String, String> caracteristica = new HashMap<>();
-        File uploadDir = new File("src/main/resources/public/fotos");
+        File uploadDir = new File("src\\main\\resources\\public\\fotos");
         uploadDir.mkdir();
 
 

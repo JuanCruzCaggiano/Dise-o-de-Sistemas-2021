@@ -30,7 +30,7 @@ public class PublicacionMascota {
     private double longitud;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lista_foto_mascota")
+    @CollectionTable(name = "lista_foto_publicacion_mascota")
     private List<String> pathFoto = new ArrayList<>();
 
     @Column
