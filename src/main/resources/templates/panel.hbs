@@ -102,9 +102,9 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">¿QUERES PONER EN ADOPCION A TU MASCOTA?</h5>
-                    <p class="card-text">No tenes alma.</p>
-                    <a href="/noTengoAlma" class="btn btn-primary">No tengo Alma</a>
+                    <h5 class="card-title">Mis Mascotas</h5>
+                    <p class="card-text">Podés ver, editar y adoptar(solo si no tenes alma)</p>
+                    <a href="/noTengoAlma" class="btn btn-primary">Mascotas</a>
                 </div>
             </div>
         </div>
@@ -357,6 +357,47 @@
     </div>
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Ah ocurrido un error, vuelve a intentarlo!
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="rechazoConExitoToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se registro el rechazo de la publicación con éxito!
+        </div>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="aprobacionConExitoToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se aprobó la publicación con éxito!
+        </div>
+    </div>
+</div>
+
 <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-1 mb-2">
         <li class="nav-item"><a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a></li>
@@ -394,7 +435,22 @@
             var toast = new bootstrap.Toast(toastLivePubliMascotaSinChapita)
             toast.show()
         }
+        var errorToast = document.getElementById('errorToast')
+        if (location.hash === "#error") {
+            var toast = new bootstrap.Toast(errorToast)
+            toast.show()
+        }
 
+        var rechazoConExitoToast = document.getElementById('rechazoConExitoToast')
+        if (location.hash === "#rechazoConExito") {
+            var toast = new bootstrap.Toast(rechazoConExitoToast)
+            toast.show()
+        }
+        var aprobacionConExitoToast = document.getElementById('aprobacionConExitoToast')
+        if (location.hash === "#aprobacionConExito") {
+            var toast = new bootstrap.Toast(aprobacionConExitoToast)
+            toast.show()
+        }
     }
 
 </script>

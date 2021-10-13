@@ -87,6 +87,7 @@ public class Router {
         Spark.post("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas, Router.engine);
         Spark.post("/panelAdopcion/:idMascota", controllerPanelAdopcion::ponerEnAdopcion);
         Spark.post("/crearMascotaPerdidaSinChapita",controllerEncontreMascotaSinChapita::crearMascotaPerdidaSinChapita);
+        Spark.post("/aprobarRechazarPublicacion",controllerEvaluarPublicacion::aprobarRechazarPublicacion);
     }
 
 }
