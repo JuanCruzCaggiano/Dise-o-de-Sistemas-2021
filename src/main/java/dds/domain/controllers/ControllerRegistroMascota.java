@@ -10,6 +10,7 @@ import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.transaccion.RegistrarMascota;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import jdk.internal.util.xml.impl.Input;
 import org.apache.commons.io.IOUtils;
 import spark.ModelAndView;
 import spark.Request;
@@ -50,19 +51,16 @@ public class ControllerRegistroMascota {
         return result.toString(StandardCharsets.UTF_8.name());
 
     }
-    public Response agregarFoto(Request request, Response response) throws NoSuchAlgorithmException, IOException {
+    public Response agregarFoto(Request request, Response response) throws NoSuchAlgorithmException, IOException, ServletException {
         Map<String, Object> parametros = new HashMap<>();
+        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
         Usuario usuario = request.session().attribute("usuario");
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
         String foto = null;
-        try (InputStream input = request.raw().getPart("foto").getInputStream()) { // getPart needs to use same "name" as input field in form
-
-            byte[] bytes = IOUtils.toByteArray(input);
-            foto = Base64.getEncoder().encodeToString(bytes);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
+        InputStream ss = request.raw().getPart("foto").getInputStream();
+        byte[] bytes = IOUtils.toByteArray(ss);
+        foto = Base64.getEncoder().encodeToString(bytes);
         mascota.agregarfoto(foto);
         response.redirect("/");
         return response;

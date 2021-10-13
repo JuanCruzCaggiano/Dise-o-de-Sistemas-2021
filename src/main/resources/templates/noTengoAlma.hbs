@@ -103,24 +103,25 @@ https://templatemo.com/tm-564-plot-listing
                         <div class="modal fade" id="exampleModalFotoMascota{{idMascota}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFotoMascotaLabel{{idMascota}}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalFotoMascotaLabel">Agregar Foto</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="post" action="/agregarFoto/{{idMascota}}" enctype='multipart/form-data'>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlFile1">Ingrese Foto</label>
-                                                <input type="file" class="form-control-file" id="foto" name="foto">
+                                    <form method="post" action="/agregarFoto/{{idMascota}}" enctype='multipart/form-data'>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">AGREGAR FOTO</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="foto">FOTO</label>
+                                                    <input type="file" class="form-control-file" id="foto" name="foto" multiple/>
+                                                </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary" id="liveAlertBtn">Agregar</button>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
