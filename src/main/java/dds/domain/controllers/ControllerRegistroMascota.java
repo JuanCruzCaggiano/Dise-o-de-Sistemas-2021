@@ -52,12 +52,14 @@ public class ControllerRegistroMascota {
         Map<String, Object> parametros = new HashMap<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
+        File uploadDir = new File("upload");
+        Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Usuario usuario = request.session().attribute("usuario");
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
         String foto = null;
         InputStream ss = request.raw().getPart("foto").getInputStream();
-        byte[] bytes = IOUtils.toByteArray(ss);
-        foto = Base64.getEncoder().encodeToString(bytes);
+        Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
+        foto = tempFile.toString();
         mascota.agregarfoto(foto);
         response.redirect("/");
         return response;
@@ -80,7 +82,7 @@ public class ControllerRegistroMascota {
         String fecha = null;
         List<String> fotos = new ArrayList<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        //Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
+        Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         try (InputStream input = request.raw().getPart("nombre").getInputStream()) { // getPart needs to use same "name" as input field in form
 
             String resultado = convertInputStreamToString(input);
