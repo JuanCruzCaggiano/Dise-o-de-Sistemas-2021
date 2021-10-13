@@ -28,87 +28,95 @@
 
 <body>
 
-    <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
-        <div class="preloader-inner">
-            <span class="dot"></span>
-            <div class="dots">
-                <span></span>
-                <span></span>
-                <span></span>
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky wow slideInDown animated background-header" data-wow-duration="0.75s"
+        data-wow-delay="0s">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px; "> GESOC
+                    </a>
+
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    {{>headerMainTemplate.hbs}}
+                    <!-- ***** Menu End ***** -->
+                </nav>
             </div>
         </div>
     </div>
-    <!-- ***** Preloader End ***** -->
+</header>
+<!-- ***** Header Area End ***** -->
 
-    <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky wow slideInDown animated background-header" data-wow-duration="0.75s" data-wow-delay="0s">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px; "> GESOC
-                        </a>
+<div class="main-banner2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="top-text header-text">
 
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        {{>headerMainTemplate.hbs}}
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ***** Header Area End ***** -->
-
-    <div class="main-banner2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="top-text header-text">
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 
 
 <div class="container">
 
-        <div class="row justify-content-start">
+    <div class="row justify-content-start">
 
         {{#each pendientes}}
             <div class="col-4 " style="margin-top: 30px;">
                 <div class="card" style="width: 20rem;">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                      <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="{{this.primeraFoto}}" class="d-block w-100" alt="...">
-                          </div>
-                            {{#each fotosSinPrimera}}
-                          <div class="carousel-item">
-                            <img src="{{this}}" class="d-block w-100" alt="...">
-                          </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{pathFoto}}" class="d-block w-100" alt="...">
+                            </div>
+                            {{#each pathFoto}}
+                                {{#if @index}}
+                                    <div class="carousel-item active">
+                                        <img src="{{this}}" class="d-block w-100" alt="...">
+                                    </div>
+                                {{else}}
+                                    <div class="carousel-item">
+                                        <img src="" class="d-block w-100" alt="...">
+                                    </div>
+                                {{/if}}
                             {{/each}}
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Previous</span>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Next</span>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
                         </button>
-                      </div>
+                    </div>
 
-{{!--                      <img src="{{this.primeraFoto}}" class="card-img-top" alt="...">  /images/perroadop.jpg --}}
+                    {{!--                      <img src="{{this.primeraFoto}}" class="card-img-top" alt="...">  /images/perroadop.jpg --}}
                     <div class="card-body">
-                        <h5 class="card-title">{{this.mascota}}</h5>
-                        <p class="card-text">Rescatista: {{this.rescatista}}</p>
-                        <p class="card-text">Descripcion: {{this.descripcion}}</p>
+                        <h5 class="card-title">Mascota Perdida</h5>
+                        <p class="card-text">Rescatista: {{rescatista}}</p>
+                        <p class="card-text">Descripcion: {{descripcion}}</p>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-danger" href="/evaluarPublicacion">Rechazar</button>
@@ -118,36 +126,35 @@
             </div>
         {{/each}}
 
-        </div>
-        <div class="lg-4 text-center" style="margin-top: 30px;">
-            {{#if ant}}
+    </div>
+    <div class="lg-4 text-center" style="margin-top: 30px;">
+        {{#if ant}}
             <a href="/adopcion/{{ant}}" class="b1 previous round ">&#8249;</a>
-            {{/if}}
-            {{#if prox}}
+        {{/if}}
+        {{#if prox}}
             <a href="/adopcion/{{prox}}" class="b1 next round ">&#8250;</a>
-            {{/if}}
-        </div>
-
+        {{/if}}
     </div>
 
+</div>
 
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-1 mb-2">
-            <li class="nav-item"><a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a></li>
-            <li class="nav-item"><a href="/FAQs" class="nav-link px-3 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="/contacto" class="nav-link px-3 text-muted">Contacto</a></li>
-        </ul>
-        <p class="text-center text-muted">© Rescate de Patitas</p>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="jquery/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl-carousel.js"></script>
-    <script src="js/animation.js"></script>
-    <script src="js/imagesloaded.js"></script>
-    <script src="js/custom.js"></script>
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-1 mb-2">
+        <li class="nav-item"><a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a></li>
+        <li class="nav-item"><a href="/FAQs" class="nav-link px-3 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="/contacto" class="nav-link px-3 text-muted">Contacto</a></li>
+    </ul>
+    <p class="text-center text-muted">© Rescate de Patitas</p>
+</footer>
 
+<!-- Scripts -->
+<script src="jquery/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/owl-carousel.js"></script>
+<script src="js/animation.js"></script>
+<script src="js/imagesloaded.js"></script>
+<script src="js/custom.js"></script>
 
 
 </body>

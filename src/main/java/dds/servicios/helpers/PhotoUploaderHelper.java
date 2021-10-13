@@ -25,6 +25,7 @@ public class PhotoUploaderHelper {
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
         foto = tempFile.toString();
+        foto = foto.replace("src\\main\\resources\\public\\","");
 
         return foto;
     }
