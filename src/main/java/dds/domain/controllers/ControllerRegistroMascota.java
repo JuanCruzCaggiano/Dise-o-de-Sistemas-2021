@@ -1,5 +1,6 @@
 package dds.domain.controllers;
 
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioMascotas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.asociacion.Asociacion;
@@ -40,16 +41,20 @@ public class ControllerRegistroMascota {
         Map<String, Object> parametros = new HashMap<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         String id = request.params("id");
-        File uploadDir = new File("src\\main\\resources\\public\\fotos");
+        File uploadDir = new File("fotos");
         uploadDir.mkdir();
         Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         Usuario usuario = request.session().attribute("usuario");
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
         String foto = null;
         InputStream ss = request.raw().getPart("foto").getInputStream();
+        foto = PhotoUploaderHelper.getHelper().uploadPhoto(ss);
         Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
-        foto = tempFile.toString();
+        //foto = tempFile.toString();
         mascota.agregarfoto(foto);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(mascota);
+        EntityManagerHelper.commit();
         response.redirect("/");
         return response;
     }
@@ -116,6 +121,10 @@ public class ControllerRegistroMascota {
         Map<String,Object> parametros = new HashMap<>();
 
         response.redirect("/panel#registroConExito");  //hay que ver como era el redirect
+        return response;
+    }
+
+    public Response actualizarMascota(Request request, Response response) {
         return response;
     }
 }
