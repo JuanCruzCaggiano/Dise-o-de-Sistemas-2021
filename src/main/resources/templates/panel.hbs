@@ -75,10 +75,30 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+{{#if Admin}}
+    <div class="section-heading align-content-center">
+        <h6 style ="text-align: center">Administrador</h6>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Configuracion de Caracteristicas</h5>
+                    <p class="card-text">Configuracion para admins</p>
+                    <a href="/configurarCaracteristicasAsociacion" class="btn btn-primary">Configurar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
 
-
-<div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-    {{#if Duenio}}
+{{#if Duenio}}
+    <div class="section-heading">
+        <h6 style ="text-align: center">Dueño</h6>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -87,8 +107,7 @@
                     <a href="/noTengoAlma" class="btn btn-primary">No tengo Alma</a>
                 </div>
             </div>
-        </div>{{/if}}
-    {{#if Duenio}}
+        </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -100,21 +119,9 @@
                     <div id="liveAlertPlaceholder"></div>
                 </div>
             </div>
-        </div>{{/if}}
-</div>
-<div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-    {{#if Admin}}
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Configuracion de Caracteristicas</h5>
-                    <p class="card-text">Configuracion para admins</p>
-                    <a href="/configurarCaracteristicasAsociacion" class="btn btn-primary">Configurar</a>
-                </div>
-            </div>
         </div>
-    {{/if}}
-    {{#if Duenio}}
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -126,10 +133,35 @@
                 </div>
             </div>
         </div>
-    {{/if}}
-</div>
-<div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-    {{#if Voluntario}}
+    </div>
+{{/if}}
+
+{{#if Rescatista}}
+    <div class="section-heading">
+        <h6 style ="text-align: center">Rescatista</h6>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mascota Perdida</h5>
+                    <p class="card-text">Encontre Mascota Perdida</p>
+                    <a href="/encontreMascotaConChapita" class="btn btn-primary">Con chapita</a>
+                    <a></a>
+                    <a></a>
+                    <a href="/encontreMascotaSinChapita" class="btn btn-primary">Sin chapita</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+{{#if Voluntario}}
+    <div class="section-heading">
+        <h6 style ="text-align: center">Voluntario</h6>
+    </div>
+    <div class="row text-center"
+         style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -140,24 +172,10 @@
                 </div>
             </div>
         </div>
-    {{/if}}
 
-</div>
-<div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
-    {{#if Rescatista}}
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Mascota Perdida</h5>
-                    <p class="card-text">Encontre Mascota Perdida</p>
-                    <a href="/encontreMascotaConChapita" class="btn btn-primary">Con chapita</a><a href="/encontreMascotaSinChapita" class="btn btn-primary">Sin chapita</a>
-                    <!--TODO: falta hacer la ruta, vista y controller de publicaciones -->
-                </div>
-            </div>
-        </div>
-    {{/if}}
 
-</div>
+    </div>
+{{/if}}
 
 <!-- Modal Registrar Mascota -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
@@ -279,7 +297,8 @@
                                 <label class="form-check-label" for="flexCheckDefault">WhatsApp</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="formaSMS" name="formaSMS">
+                                <input class="form-check-input" type="checkbox" value="" id="formaSMS"
+                                       name="formaSMS">
                                 <label class="form-check-label" for="flexCheckDefault">formaSMS</label>
                             </div>
                         </div>
@@ -350,6 +369,7 @@
             toast.show()
         }
     }
+
     function agregarContacto() {
         var toastLiveContacto = document.getElementById('liveToastContacto')
         if (location.hash === "#agregarContacto") {

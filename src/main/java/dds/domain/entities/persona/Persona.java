@@ -4,6 +4,7 @@ import dds.db.EntityManagerHelper;
 import dds.db.RepositorioMascotas;
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.personaException.TransactionException;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.persona.roles.RolPersona;
 import dds.domain.entities.persona.transaccion.Transaccion;
@@ -133,8 +134,16 @@ public class Persona {
         return listaRoles;
     }
     public void ejecutarTransaccion(Transaccion transaccion)  {
+        int i = 1;
         for(RolPersona rol: listaRoles){
-            rol.ejecutarTransaccion(transaccion);
+            try{
+                rol.ejecutarTransaccion(transaccion);
+            }catch(Exception e){
+                if (i>=listaRoles.size()){
+                    throw new TransactionException("No posee los permisos para ejecutar la transaccion");
+                }
+            }
+            i = i+1;
         }
     }
 

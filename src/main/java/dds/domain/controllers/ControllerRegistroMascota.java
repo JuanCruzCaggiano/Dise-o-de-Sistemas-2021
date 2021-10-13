@@ -10,6 +10,7 @@ import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.transaccion.RegistrarMascota;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import dds.servicios.helpers.PhotoUploaderHelper;
 import org.apache.commons.io.IOUtils;
 import spark.ModelAndView;
 import spark.Request;
@@ -69,8 +70,8 @@ public class ControllerRegistroMascota {
         Asociacion asoc = usuario.getAsociacion();
         List<String> preguntasCaracs = asoc.getConfigurador().getClaves();
         HashMap <String, String> caracteristica = new HashMap<>();
-        File uploadDir = new File("src\\main\\resources\\public\\fotos");
-        uploadDir.mkdir();
+        //File uploadDir = new File("src\\main\\resources\\public\\fotos");
+        //uploadDir.mkdir();
 
 
         String tipo=null;
@@ -83,7 +84,7 @@ public class ControllerRegistroMascota {
         String fecha = null;
         List<String> fotos = new ArrayList<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
+        //Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         try (InputStream input = request.raw().getPart("nombre").getInputStream()) { // getPart needs to use same "name" as input field in form
 
             String resultado = convertInputStreamToString(input);
@@ -102,8 +103,9 @@ public class ControllerRegistroMascota {
             }
             ss = request.raw().getPart("fecha").getInputStream();
             fecha = convertInputStreamToString(ss);
-            ss = request.raw().getPart("foto").getInputStream();
-            Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            //ss = request.raw().getPart("foto").getInputStream();
+            //Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            foto = PhotoUploaderHelper.getHelper().uploadPhoto(request.raw().getPart("foto").getInputStream());
             /*byte[] bytes = IOUtils.toByteArray(ss);
             File targetFile = new File("/upload/targetFile.tmp");
             OutputStream outStream = new FileOutputStream(targetFile);
@@ -112,7 +114,7 @@ public class ControllerRegistroMascota {
         } catch (ServletException e) {
             e.printStackTrace();
         }
-        foto = tempFile.toString();
+        //foto = tempFile.toString();
         Sexo sexoEnum= Sexo.valueOf(sexo);
         TipoMascota tipoEnum = TipoMascota.valueOf(tipo);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

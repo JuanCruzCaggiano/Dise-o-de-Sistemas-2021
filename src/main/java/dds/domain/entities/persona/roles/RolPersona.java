@@ -26,7 +26,7 @@ public abstract class RolPersona {
         if(this.permisos.stream().anyMatch(p -> p.getIdTransaccion() ==(transaccion.getIdTransaccion()))){
             transaccion.ejecutar();
         }else{
-            throw new TransactionException("No posee los permisos para ejecutar la transaccion");
+            throw new TransactionException("Permiso denegado");
         }
     }
 
