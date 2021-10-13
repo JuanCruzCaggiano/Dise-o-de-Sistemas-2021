@@ -1,18 +1,25 @@
 package dds.domain.controllers;
 
 
+import dds.db.RepositorioAdopcion;
+import dds.db.RepositorioMascotas;
+import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import dds.servicios.avisos.Email;
 import dds.servicios.avisos.FormaNotificacion;
 import dds.servicios.avisos.SMS;
 import dds.servicios.avisos.WhatsApp;
+import dds.servicios.publicaciones.PublicacionAdopcion;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ControllerAgregarContacto {
     public ControllerAgregarContacto() {
@@ -48,5 +55,19 @@ public class ControllerAgregarContacto {
 
         response.redirect("/panel#agregarContacto");  //hay que ver como era el redirect
         return response;
+    }
+
+
+    public ModelAndView mostrarVerContactos(Request req, Response rep){
+        Usuario usuario = req.session().attribute("usuario");
+
+
+        Map<String,Object> parametros = new HashMap<>();
+        if(usuario!=null) {
+            parametros.put("persona", usuario.getPersona());
+            parametros.put("listaContactos", usuario.getPersona().getNotificador().getContactos());
+        }
+
+        return new ModelAndView(parametros,"verContactos.hbs");
     }
 }
