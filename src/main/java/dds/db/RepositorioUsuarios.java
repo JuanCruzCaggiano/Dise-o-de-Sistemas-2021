@@ -14,7 +14,7 @@ public class RepositorioUsuarios {
 
     public void agregarUsuario(Usuario usuario) {
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().persist(usuario);
+        EntityManagerHelper.entityManager().merge(usuario);
         EntityManagerHelper.commit();
     }
 
