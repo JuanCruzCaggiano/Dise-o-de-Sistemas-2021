@@ -62,6 +62,9 @@ public class Mascota {
         this.pathFoto = listaFotos;
         this.caracteristica = caracteristica;
     }
+    public void agregarfoto(String a){
+        this.pathFoto.add(a);
+    }
 
     public TipoMascota getTipo() {
         return tipo;

@@ -1,5 +1,6 @@
 package dds.domain.controllers;
 
+import dds.db.RepositorioMascotas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.mascota.Mascota;
@@ -48,6 +49,23 @@ public class ControllerRegistroMascota {
         // Java 1.1
         return result.toString(StandardCharsets.UTF_8.name());
 
+    }
+    public Response agregarFoto(Request request, Response response) throws NoSuchAlgorithmException, IOException {
+        Map<String, Object> parametros = new HashMap<>();
+        String id = request.params("id");
+        Usuario usuario = request.session().attribute("usuario");
+        Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
+        String foto = null;
+        try (InputStream input = request.raw().getPart("foto").getInputStream()) { // getPart needs to use same "name" as input field in form
+
+            byte[] bytes = IOUtils.toByteArray(input);
+            foto = Base64.getEncoder().encodeToString(bytes);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+        mascota.agregarfoto(foto);
+        response.redirect("/");
+        return response;
     }
     public Response registrarMascota(Request request, Response response) throws NoSuchAlgorithmException, IOException {
         Usuario usuario = request.session().attribute("usuario");
