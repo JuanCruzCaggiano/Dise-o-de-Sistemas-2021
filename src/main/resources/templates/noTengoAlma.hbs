@@ -118,20 +118,15 @@ https://templatemo.com/tm-564-plot-listing
                             <li class="list-group-item">Tipo de Mascota: {{tipo}}</li>
                             <li class="list-group-item">Sexo: {{sexo}}</li>
                             <li class="list-group-item">Fecha de Nacimiento: {{fechaNacimiento}}</li>
-                        </ul>
-                        <div class="card-body">
-                            <h5 class="card-title">Caracteristicas</h5>
                             {{#each this.caracteristica}}
-                            <li class="list-group-item">{{@key}}: {{this}}</li>
+                                <li class="list-group-item">{{@key}}: {{this}}</li>
                             {{/each}}
-                        </div>
+                        </ul>
 
                         <div class="card-body d-grid gap-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">Editar Mascota</button>
                             <a href="/panelAdopcion/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Poner en Adopción</a>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">
-                            Editar Mascota
-                        </button>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalFotoMascota{{idMascota}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFotoMascotaLabel{{idMascota}}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
