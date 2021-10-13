@@ -138,6 +138,7 @@ public class Persona {
         for(RolPersona rol: listaRoles){
             try{
                 rol.ejecutarTransaccion(transaccion);
+                return;
             }catch(Exception e){
                 if (i>=listaRoles.size()){
                     throw new TransactionException("No posee los permisos para ejecutar la transaccion");

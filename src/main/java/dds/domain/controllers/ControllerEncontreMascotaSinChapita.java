@@ -6,10 +6,15 @@ import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.roles.Rescatista;
 import dds.domain.entities.persona.transaccion.EncontreMascotaPerdidaSinChapita;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import dds.servicios.helpers.PhotoUploaderHelper;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +37,10 @@ public class ControllerEncontreMascotaSinChapita {
                 parametros.put("Admin", 1);
                 parametros.put("asociacion", usuario.getAsociacion());
             } else {
-                if( !usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Rescatista"))) ){
+                if (!usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Rescatista")))) {
                     usuario.getPersona().agregarRol(Rescatista.getRescatista());
                 }
-                parametros.put("standard",1);
+                parametros.put("standard", 1);
                 parametros.put("persona", usuario.getPersona());
                 parametros.put("roles", usuario.getPersona().getListaRoles());
                 if (usuario.getPersona().getListaRoles().stream().anyMatch(p -> (p.getNombre().equals("Duenio")))) {
@@ -51,8 +56,7 @@ public class ControllerEncontreMascotaSinChapita {
                     parametros.put("Voluntario", 1);
                 }
             }
-        }
-        else{
+        } else {
             response.redirect("/#faltaLogin");
         }
         return new ModelAndView(parametros, "encontreMascotaSinChapita.hbs");
@@ -60,17 +64,29 @@ public class ControllerEncontreMascotaSinChapita {
 
 
     //personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona()));
-    public Response crearMascotaPerdidaSinChapita(Request request, Response response){
+    public Response crearMascotaPerdidaSinChapita(Request request, Response response) {
         Usuario usuario = request.session().attribute("usuario");
-        String latitud = (request.queryParams("lat") != null) ? request.queryParams("lat") : "";
-        String longitud = (request.queryParams("lat") != null) ? request.queryParams("lat") : "";
-        String fotos = (request.queryParams("fotos") != null) ? request.queryParams("fotos") : "";
-        String descripcion = (request.queryParams("descripcion") != null) ? request.queryParams("descripcion") : "";
-        ArrayList<String> listaFotos=new ArrayList<>();
+        String latitud = null;
+        String longitud = null;
+        String descripcion = null;
+        String foto = null;
+        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+        try {
+            latitud =  PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("lat").getInputStream());
+            longitud = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("long").getInputStream());
+            descripcion = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("descripcion").getInputStream());
+            foto = PhotoUploaderHelper.getHelper().uploadPhoto(request.raw().getPart("foto").getInputStream());
+
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<String> listaFotos = new ArrayList<>();
+        listaFotos.add(foto);
         Persona rescatista = usuario.getPersona();
         Float fLatitud = Float.parseFloat(latitud);
         Float fLongitud = Float.parseFloat(longitud);
-        rescatista.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita(fLatitud,fLongitud,listaFotos,descripcion,rescatista.getIdPersona()));
+        rescatista.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita(fLatitud, fLongitud, listaFotos, descripcion, rescatista.getIdPersona()));
         response.redirect("/panel#registroMascotaConExito");
         return response;
     }

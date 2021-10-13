@@ -31,23 +31,11 @@ import java.util.*;
 import static spark.Spark.staticFiles;
 
 public class ControllerRegistroMascota {
-    public static final int DEFAULT_BUFFER_SIZE = 8192;
+
 
     public ControllerRegistroMascota() {
     }
-    private static String convertInputStreamToString(InputStream is) throws IOException {
 
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-        int length;
-        while ((length = is.read(buffer)) != -1) {
-            result.write(buffer, 0, length);
-        }
-
-        // Java 1.1
-        return result.toString(StandardCharsets.UTF_8.name());
-
-    }
     public Response agregarFoto(Request request, Response response) throws NoSuchAlgorithmException, IOException, ServletException {
         Map<String, Object> parametros = new HashMap<>();
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
@@ -87,22 +75,22 @@ public class ControllerRegistroMascota {
         //Path tempFile = Files.createTempFile(uploadDir.toPath(), "", "");
         try (InputStream input = request.raw().getPart("nombre").getInputStream()) { // getPart needs to use same "name" as input field in form
 
-            String resultado = convertInputStreamToString(input);
+            String resultado = PhotoUploaderHelper.getHelper().convertInputStreamToString(input);
             nombre = resultado;
             InputStream ss = request.raw().getPart("tipo").getInputStream();
-            tipo=convertInputStreamToString(ss);
+            tipo= PhotoUploaderHelper.getHelper().convertInputStreamToString(ss);
             ss = request.raw().getPart("apodo").getInputStream();
-            apodo = convertInputStreamToString(ss);
+            apodo =  PhotoUploaderHelper.getHelper().convertInputStreamToString(ss);
             ss = request.raw().getPart("desc").getInputStream();
-            desc = convertInputStreamToString(ss);
+            desc = PhotoUploaderHelper.getHelper().convertInputStreamToString(ss);
             ss = request.raw().getPart("sexo").getInputStream();
-            sexo = convertInputStreamToString(ss);
+            sexo = PhotoUploaderHelper.getHelper().convertInputStreamToString(ss);
             for (int i =0 ;i<preguntasCaracs.size();i++){
                 ss = request.raw().getPart(preguntasCaracs.get(i)).getInputStream();
-                caracteristica.put(preguntasCaracs.get(i),convertInputStreamToString(ss));
+                caracteristica.put(preguntasCaracs.get(i),PhotoUploaderHelper.getHelper().convertInputStreamToString(ss));
             }
             ss = request.raw().getPart("fecha").getInputStream();
-            fecha = convertInputStreamToString(ss);
+            fecha = PhotoUploaderHelper.getHelper().convertInputStreamToString(ss);
             //ss = request.raw().getPart("foto").getInputStream();
             //Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
             foto = PhotoUploaderHelper.getHelper().uploadPhoto(request.raw().getPart("foto").getInputStream());

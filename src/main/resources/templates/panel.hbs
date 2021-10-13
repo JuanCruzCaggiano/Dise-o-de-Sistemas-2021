@@ -26,7 +26,7 @@
 -->
 </head>
 
-<body onpageshow="registroConExito();agregarContacto();">
+<body onpageshow="checkHash();">
 
 <!-- ***** Preloader Start ***** -->
 <div id="js-preloader" class="js-preloader">
@@ -312,7 +312,7 @@
         </div>
     </div>
 </div>
-<!-- FIN Modal Registrar Mascota -->
+<!-- FIN Modal Registrar Contacto -->
 
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -343,6 +343,20 @@
     </div>
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastLivePubliMascotaSinChapita" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se creo la publicacion con exito!
+        </div>
+    </div>
+</div>
+
 <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-1 mb-2">
         <li class="nav-item"><a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a></li>
@@ -362,20 +376,25 @@
 <script src="js/custom.js"></script>
 
 <script>
-    function registroConExito() {
+    function checkHash() {
         var toastLiveExample = document.getElementById('liveToast')
         if (location.hash === "#registroConExito") {
             var toast = new bootstrap.Toast(toastLiveExample)
             toast.show()
         }
-    }
 
-    function agregarContacto() {
         var toastLiveContacto = document.getElementById('liveToastContacto')
         if (location.hash === "#agregarContacto") {
             var toast = new bootstrap.Toast(toastLiveContacto)
             toast.show()
         }
+
+        var toastLivePubliMascotaSinChapita = document.getElementById('toastLivePubliMascotaSinChapita')
+        if (location.hash === "#registroMascotaConExito") {
+            var toast = new bootstrap.Toast(toastLivePubliMascotaSinChapita)
+            toast.show()
+        }
+
     }
 
 </script>
