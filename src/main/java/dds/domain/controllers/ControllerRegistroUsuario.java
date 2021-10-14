@@ -77,21 +77,22 @@ public class ControllerRegistroUsuario {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dt = LocalDate.parse(fecha, dtf);
             ArrayList<FormaNotificacion> formasDeNoti = new ArrayList<>();
-            String formaEmail = (request.queryParams("formaEmail") != null) ? request.queryParams("formaEmail") : "";
+            String formaEmail = request.queryParams("formaEmail");
             if (!formaEmail.equals("")) {
                 formasDeNoti.add(new Email());
             }
-            String formaWhatsapp = (request.queryParams("formaWhatsapp") != null) ? request.queryParams("formaWhatsapp") : "";
+            String formaWhatsapp = request.queryParams("formaWhatsapp");
             if (!formaWhatsapp.equals("")) {
                 formasDeNoti.add(new WhatsApp());
             }
-            String formaSMS = (request.queryParams("formaSMS") != null) ? request.queryParams("formaSMS") : "";
+            String formaSMS = request.queryParams("formaSMS");
             if (!formaSMS.equals("")) {
                 formasDeNoti.add(new SMS());
             }
 
             TipoDocumento tipoDocumento = TipoDocumento.valueOf(tipoDoc);
-            Asociacion asociacionIni = RepositorioAsociaciones.getRepositorio().getAsociacion(Integer.valueOf(idAsociacion));
+            String[] asoc = idAsociacion.split("-");
+            Asociacion asociacionIni = RepositorioAsociaciones.getRepositorio().getAsociacion(Integer.valueOf(asoc[0]));
 
             Persona persona = new Persona(nombre, apellido, tipoDocumento, Integer.valueOf(documento), dt, direccion, telefono, email, formasDeNoti);
 
