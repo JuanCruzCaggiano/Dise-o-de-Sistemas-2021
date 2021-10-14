@@ -80,8 +80,15 @@ public class PublicacionMascota {
     }
 
 
+    public double getLatitud() {
+        return latitud;
+    }
 
-    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista,TipoPublicacion tipo) {
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion, String idRescatista, TipoPublicacion tipo) {
         this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.latitud = latitud;
         this.longitud = longitud;
@@ -163,5 +170,9 @@ public class PublicacionMascota {
             return null;
         }
 
+    }
+
+    public String getIdMascota() {
+        return idMascota;
     }
 }

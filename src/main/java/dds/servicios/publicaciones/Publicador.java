@@ -117,6 +117,13 @@ public class Publicador {
         }
         return  publi;
     }
+    public PublicacionMascota getPrivadaXId(String id){
+        PublicacionMascota publi = this.getPublicacionesPrivadas().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null) ;
+        if(publi== null){
+            throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de privadas");
+        }
+        return  publi;
+    }
     public PublicacionMascota getAprobadaXId(String id){
         return this.getPublicacionesAprobadas().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null);
     }

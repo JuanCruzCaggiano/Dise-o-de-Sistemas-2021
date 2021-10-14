@@ -49,6 +49,7 @@ public class Router {
         ControllerAgregarContacto controllerAgregarContacto = new ControllerAgregarContacto();
         ControllerEvaluarPublicacion controllerEvaluarPublicacion = new ControllerEvaluarPublicacion();
         ControllerPanelAdopcion controllerPanelAdopcion = new ControllerPanelAdopcion();
+        ControllerPublicacion controllerPublicacion = new ControllerPublicacion();
         //SPARK GETS
         //Spark.get("/saludar",usuarioController::mostarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
 
@@ -68,6 +69,7 @@ public class Router {
         Spark.get("/logout", controllerLogin::logOut, Router.engine);
         Spark.get("/evaluarPublicacion", controllerEvaluarPublicacion::mostrarPublicaciones, Router.engine);
         Spark.get("/panelAdopcion/:idMascota", controllerPanelAdopcion::mostrarPanel, Router.engine);
+        Spark.get("/publicacionPrivada/:idPublicacion", controllerPublicacion::mostrarPublicacionPrivada, Router.engine);
 
 
         Spark.post("/login", (request, response) -> {
