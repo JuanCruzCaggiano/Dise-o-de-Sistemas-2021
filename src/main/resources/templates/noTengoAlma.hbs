@@ -97,18 +97,14 @@ https://templatemo.com/tm-564-plot-listing
                                     {{/if}}
                                 {{/each}}
                             </div>
-                            <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="prev">
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="next">
+                                <span class="sr-only">Previous</span>
+                              </a>
+                              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                                <span class="sr-only">Next</span>
+                              </a>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{nombre}} ({{apodo}})</h5>
@@ -128,10 +124,15 @@ https://templatemo.com/tm-564-plot-listing
 
                         <div class="card-body d-grid gap-2">
                             <a href="/panelAdopcion/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Poner en Adopción</a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">
+                            AGREGAR FOTO
+                            </button>
+                            {{#if this.estaPerdida}}
+                            <a href="/noTengoAlma/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Encontré a mi mascota</a>
+                            {{else}}
+                            <a href="/noTengoAlma/{{idMascota}}" class="btn btn-danger" style="text-align: center;" >Perdí a mi mascota</a>
+                            {{/if}}
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFotoMascota{{idMascota}}">
-                        AGREGAR FOTO
-                        </button>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{idMascota}}">
                             Editar Mascota
                         </button>
