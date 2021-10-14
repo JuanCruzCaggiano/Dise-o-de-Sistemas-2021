@@ -71,7 +71,7 @@ public class Router {
         Spark.get("/logout", controllerLogin::logOut, Router.engine);
         Spark.get("/evaluarPublicacion", controllerEvaluarPublicacion::mostrarPublicaciones, Router.engine);
         Spark.get("/panelAdopcion/:idMascota", controllerPanelAdopcion::mostrarPanel, Router.engine);
-        Spark.get("/contactarDuenio/:id",controllerContactar::mostrarContactoAdop,Router.engine);
+        Spark.get("/contactarPersona/:id",controllerContactar::contactarPersona,Router.engine);
         Spark.get("/publicacionPrivada/:idPublicacion", controllerPublicacion::mostrarPublicacionPrivada, Router.engine);
 
 
