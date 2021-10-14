@@ -41,6 +41,7 @@ public class ControllerEvaluarPublicacion {
         if (accion.equals("aprobar")) {
             usuario.getPersona().ejecutarTransaccion(new ValidarPublicacion(idPublicacion));
             response.redirect("/panel#aprobacionConExito");
+            return response;
         }
         if (accion.equals("rechazar")) {
             usuario.getPersona().ejecutarTransaccion(new RechazarPublicacion(idPublicacion));
