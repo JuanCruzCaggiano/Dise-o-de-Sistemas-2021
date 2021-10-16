@@ -17,8 +17,6 @@ public class BuscarHogarDeTransito extends Transaccion {
     private double longitud;
     @Transient
     private double radio;
-    @Transient
-    List<HogarDeTransito> posiblesHogares = new ArrayList<>();
     //CONSTRUCTOR PARA LISTA DE PERMISOS
     public BuscarHogarDeTransito(){
         this.idTransaccion = 2;
@@ -32,16 +30,13 @@ public class BuscarHogarDeTransito extends Transaccion {
         this.radio = radio;
     }
 
-    public List<HogarDeTransito> getPosiblesHogares() {
-        return posiblesHogares;
-    }
 
     //BUSCAR HOGAR DE TRANSITO
     @Override
     public void ejecutar() {
         ServicioHogarDeTransito.getInstance().actualizarRepositorioHogaresDeTransito();
-        posiblesHogares.clear();
-        this.posiblesHogares.addAll(RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(lat,longitud,radio));
+        RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares().clear();
+        RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares().addAll(RepositorioHogaresDeTransito.getRepositorio().filtrarPorDistancia(lat,longitud,radio));
     }
 
     @Override

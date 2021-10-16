@@ -31,6 +31,18 @@ public class HogarDeTransito {
     public Ubicacion getUbicacion() {
         return ubicacion;
     }
+    public String getDireccion(){
+
+        return this.getUbicacion().getDireccion();
+    }
+    public Double getLatitud(){
+
+        return this.getUbicacion().getLat();
+    }
+    public Double getLongitud(){
+
+        return this.getUbicacion().getLongitud();
+    }
 
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;

@@ -1,11 +1,14 @@
 package dds.domain.controllers;
 
+import dds.db.RepositorioHogaresDeTransito;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.roles.Rescatista;
+import dds.domain.entities.persona.transaccion.BuscarHogarDeTransito;
 import dds.domain.entities.persona.transaccion.EncontreMascotaPerdidaSinChapita;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import dds.servicios.apiHogares.HogarDeTransito;
 import dds.servicios.helpers.PhotoUploaderHelper;
 import spark.ModelAndView;
 import spark.Request;
@@ -61,34 +64,49 @@ public class ControllerEncontreMascotaSinChapita {
         }
         return new ModelAndView(parametros, "encontreMascotaSinChapita.hbs");
     }
+    /*public ModelAndView mostrarHogaresDeTransito(Request request, Response response) {
 
+    }*/
 
     //personaRescat.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita((float)-34.605807,(float)-58.438423,new ArrayList<>(),"Perfecto estado",personaRescat.getIdPersona()));
-    public Response crearMascotaPerdidaSinChapita(Request request, Response response) {
+    public ModelAndView crearMascotaPerdidaSinChapita(Request request, Response response) {
         Usuario usuario = request.session().attribute("usuario");
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("usuario",usuario);
+        String radio = null;
         String latitud = null;
         String longitud = null;
         String descripcion = null;
         String foto = null;
+        String accion = null;
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         try {
             latitud =  PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("lat").getInputStream());
             longitud = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("long").getInputStream());
             descripcion = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("descripcion").getInputStream());
             foto = PhotoUploaderHelper.getHelper().uploadPhoto(request.raw().getPart("foto").getInputStream());
+            accion = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("accion").getInputStream()); //
+            radio = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("radio").getInputStream()); // hogar o transito
 
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
+        if (accion.equals("hogar")){
+            usuario.getPersona().ejecutarTransaccion(new BuscarHogarDeTransito(Double.valueOf(latitud),Double.valueOf(longitud),Double.valueOf(radio)));
+            parametros.put("hogares",RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares());
 
+            return new ModelAndView(parametros,"enviarAHogarDeTransito.hbs");
+        }
+        if (accion.equals("transito")){
         ArrayList<String> listaFotos = new ArrayList<>();
         listaFotos.add(foto);
         Persona rescatista = usuario.getPersona();
         Float fLatitud = Float.parseFloat(latitud);
         Float fLongitud = Float.parseFloat(longitud);
         rescatista.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita(fLatitud, fLongitud, listaFotos, descripcion, rescatista.getIdPersona()));
-        response.redirect("/panel#registroMascotaConExito");
-        return response;
+
+        return new ModelAndView(parametros,"/panel#registroMascotaConExito");}
+        return new ModelAndView(parametros,"/panel#error");
     }
 
 }

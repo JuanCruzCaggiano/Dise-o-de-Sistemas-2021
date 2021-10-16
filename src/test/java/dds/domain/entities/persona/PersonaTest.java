@@ -212,6 +212,6 @@ public class PersonaTest {
     public void K_testBuscarHogarDeTransito(){
         BuscarHogarDeTransito transaccion = new BuscarHogarDeTransito(-51.622855315759274,-69.21685055962318,500);
         personaRescat.ejecutarTransaccion(transaccion);
-        Assert.assertEquals(1,transaccion.getPosiblesHogares().size());
+        Assert.assertEquals(1,RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares().size());
     }
 }

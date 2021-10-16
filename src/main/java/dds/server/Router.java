@@ -73,6 +73,7 @@ public class Router {
         Spark.get("/panelAdopcion/:idMascota", controllerPanelAdopcion::mostrarPanel, Router.engine);
         Spark.get("/contactarPersona/:id",controllerContactar::contactarPersona,Router.engine);
         Spark.get("/publicacionPrivada/:idPublicacion", controllerPublicacion::mostrarPublicacionPrivada, Router.engine);
+        //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine);
 
 
         Spark.post("/login", (request, response) -> {
@@ -92,7 +93,7 @@ public class Router {
         Spark.get("/verContactos", controllerAgregarContacto::mostrarVerContactos, Router.engine);
         Spark.post("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas, Router.engine);
         Spark.post("/panelAdopcion/:idMascota", controllerPanelAdopcion::ponerEnAdopcion);
-        Spark.post("/crearMascotaPerdidaSinChapita",controllerEncontreMascotaSinChapita::crearMascotaPerdidaSinChapita);
+        Spark.post("/crearMascotaPerdidaSinChapita",controllerEncontreMascotaSinChapita::crearMascotaPerdidaSinChapita, Router.engine);
         Spark.post("/crearPublicacionMascotaPerdidaConChapita",controllerEncontreMascotaConChapita::crearPublicacionMascotaPerdidaConChapita);
         Spark.post("/aprobarRechazarPublicacion",controllerEvaluarPublicacion::aprobarRechazarPublicacion);
     }
