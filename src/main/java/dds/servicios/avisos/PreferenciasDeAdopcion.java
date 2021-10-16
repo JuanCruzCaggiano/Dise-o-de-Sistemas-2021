@@ -2,7 +2,7 @@ package dds.servicios.avisos;
 
 import dds.db.RepositorioAsociaciones;
 import dds.db.RepositorioPersonas;
-import dds.domain.asociacion.Asociacion;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.servicios.publicaciones.PublicacionAdopcion;
 import dds.servicios.publicaciones.PublicacionQuieroAdoptar;
 

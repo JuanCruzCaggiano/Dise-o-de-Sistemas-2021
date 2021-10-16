@@ -1,6 +1,10 @@
 package dds.servicios.publicaciones;
 
-import dds.domain.mascota.Sexo;
+import dds.db.RepositorioMascotas;
+import dds.db.RepositorioPersonas;
+import dds.db.repositorioException.LogicRepoException;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +17,9 @@ public class PublicacionMascota {
     @Id
     private String idPublicacion;
 
+    public PublicacionMascota() {
+    }
+
     @Column
     private String idMascota;
 
@@ -23,7 +30,7 @@ public class PublicacionMascota {
     private double longitud;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lista_foto_mascota")
+    @CollectionTable(name = "lista_foto_publicacion_mascota")
     private List<String> pathFoto = new ArrayList<>();
 
     @Column
@@ -73,8 +80,15 @@ public class PublicacionMascota {
     }
 
 
+    public double getLatitud() {
+        return latitud;
+    }
 
-    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion,String idRescatista,TipoPublicacion tipo) {
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public PublicacionMascota(double latitud, double longitud, List<String> listaFotos, String descripcion, String idRescatista, TipoPublicacion tipo) {
         this.idPublicacion = UUID.randomUUID().toString().replace("-", "");
         this.latitud = latitud;
         this.longitud = longitud;
@@ -110,5 +124,55 @@ public class PublicacionMascota {
 
     public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
         this.tipoPublicacion = tipoPublicacion;
+    }
+
+    public List<String> getPathFoto() {
+        return pathFoto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getRescatista() {
+        try {
+            return RepositorioPersonas.getRepositorio().getPersona(this.idRescatista).getNombre();
+        } catch (LogicRepoException e) {
+            //ESTO PASA CUANDO EL ID ES INEXISTENTE
+            return "No se encontró el nombre del rescatista";
+        }
+    }
+
+    public String getMascota() {
+        try {
+            return RepositorioMascotas.getRepositorio().getMascota(this.idMascota).getNombre();
+        } catch (LogicRepoException e) {
+            //ESTO PASA CUANDO EL ID ES INEXISTENTE
+            return "No se encontró el nombre de la mascota";
+        }
+    }
+
+    public String getPrimeraFoto() {
+        try {
+            return this.pathFoto.get(0);
+        } catch (Exception e) {
+            return "/images/perroadop.jpg";
+        }
+    }
+
+    public List<String> getFotosSinPrimera() {
+        try {
+            List<String> fotosSinPrimera = new ArrayList<>();
+            fotosSinPrimera = this.getPathFoto();
+            fotosSinPrimera.remove(0);
+            return fotosSinPrimera;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public String getIdMascota() {
+        return idMascota;
     }
 }

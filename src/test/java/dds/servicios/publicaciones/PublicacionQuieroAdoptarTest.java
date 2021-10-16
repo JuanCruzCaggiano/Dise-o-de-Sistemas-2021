@@ -1,23 +1,17 @@
 package dds.servicios.publicaciones;
 import dds.db.EntityManagerHelper;
-import dds.db.RepositorioAsociaciones;
 
-import dds.db.RepositorioPersonas;
-import dds.db.RepositorioUsuarios;
-import dds.domain.asociacion.Asociacion;
-import dds.domain.mascota.Mascota;
-import dds.domain.persona.Persona;
-import dds.domain.persona.TipoDocumento;
-import dds.domain.persona.roles.Adoptante;
-import dds.domain.persona.roles.RolPersona;
-import dds.domain.persona.transaccion.QuieroAdoptar;
-import dds.domain.seguridad.usuario.Administrador;
-import dds.domain.seguridad.usuario.Standard;
-import dds.domain.seguridad.usuario.Usuario;
+import dds.domain.entities.asociacion.Asociacion;
+import dds.domain.entities.persona.Persona;
+import dds.domain.entities.persona.TipoDocumento;
+import dds.domain.entities.persona.roles.Adoptante;
+import dds.domain.entities.persona.transaccion.QuieroAdoptar;
+import dds.domain.entities.seguridad.usuario.Administrador;
+import dds.domain.entities.seguridad.usuario.Standard;
+import dds.domain.entities.seguridad.usuario.Usuario;
 import dds.servicios.apiHogares.Ubicacion;
-import dds.servicios.avisos.AdapterEmail;
-import dds.servicios.avisos.AdapterFormaNotificacion;
-import dds.servicios.avisos.Notificador;
+import dds.servicios.avisos.Email;
+import dds.servicios.avisos.FormaNotificacion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,9 +38,9 @@ public class PublicacionQuieroAdoptarTest  {
         admin.setAsociacion(asoc);
 
         // CREO ADOPTANTE
-        AdapterEmail adEmail4 = new AdapterEmail();
-        List<AdapterFormaNotificacion> formasDeNoti4 = new ArrayList<>();
-        formasDeNoti4.add(adEmail4);
+        Email email4 = new Email();
+        List<FormaNotificacion> formasDeNoti4 = new ArrayList<>();
+        formasDeNoti4.add(email4);
         adoptador = new Persona("Agustin", "Orlando", TipoDocumento.DNI,
                 4303123, LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);

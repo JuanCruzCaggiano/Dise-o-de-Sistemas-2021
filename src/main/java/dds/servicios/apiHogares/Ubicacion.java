@@ -20,6 +20,9 @@ public class Ubicacion {
     @SerializedName("long")
     private double longitud;
 
+    public Ubicacion() {
+    }
+
     public Ubicacion(String direccion, double lat, double longitud) {
         this.direccion = direccion;
         this.lat = lat;

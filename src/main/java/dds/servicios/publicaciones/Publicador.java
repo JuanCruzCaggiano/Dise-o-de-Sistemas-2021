@@ -1,6 +1,8 @@
 package dds.servicios.publicaciones;
 
 import dds.db.EntityManagerHelper;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 import dds.servicios.publicaciones.publicacionesException.ErrorPubliException;
 
 import javax.management.DescriptorKey;
@@ -94,7 +96,7 @@ public class Publicador {
     }
 
     public List<PublicacionMascota> getPublicacionesMascotas() {
-        return publicacionesMascotas;
+        return (List<PublicacionMascota>) EntityManagerHelper.getEntityManager().createQuery(" from PublicacionMascota").getResultList() ;
     }
 
     public List<PublicacionMascota> getPublicacionesAprobadas() {
@@ -114,6 +116,13 @@ public class Publicador {
         PublicacionMascota publi = this.getPublicacionesPendientes().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null) ;
         if(publi== null){
             throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de pendientes");
+        }
+        return  publi;
+    }
+    public PublicacionMascota getPrivadaXId(String id){
+        PublicacionMascota publi = this.getPublicacionesPrivadas().stream().filter(p-> p.getIdPublicacion().equals(id)).findFirst().orElse(null) ;
+        if(publi== null){
+            throw new ErrorPubliException("Dicha publicacion no se encuentra en la lista de privadas");
         }
         return  publi;
     }

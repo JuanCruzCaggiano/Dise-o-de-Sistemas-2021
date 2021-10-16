@@ -1,6 +1,6 @@
 package dds.db;
 
-import dds.domain.mascota.TipoMascota;
+import dds.domain.entities.mascota.TipoMascota;
 import dds.servicios.apiHogares.HogarDeTransito;
 import dds.servicios.helpers.CalcDistanciaHelper;
 
@@ -10,6 +10,11 @@ import java.util.stream.Collectors;
 
 public class RepositorioHogaresDeTransito {
     static List<HogarDeTransito> hogares = new ArrayList<>();
+    static List<HogarDeTransito> posiblesHogares = new ArrayList<>();
+
+    public List<HogarDeTransito> getPosiblesHogares() {
+        return posiblesHogares;
+    }
 
     private static RepositorioHogaresDeTransito repositorioHogaresDeTransito = new RepositorioHogaresDeTransito() ;
 

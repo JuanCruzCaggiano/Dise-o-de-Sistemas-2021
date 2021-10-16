@@ -1,10 +1,10 @@
 package dds.servicios.avisos;
 
 
-
+import dds.db.EntityManagerHelper;
 import dds.db.RepositorioPersonas;
-import dds.domain.mascota.Mascota;
-import dds.domain.persona.Persona;
+import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,54 +18,66 @@ public class Notificador {
     @GeneratedValue
     private int id;
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    @OneToMany (cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Contacto> contactos = new ArrayList<>();
 
 
     public List<Contacto> getContactos() {
         return contactos;
     }
+
     //agendar
-    public void agendarContacto(String nombre, String apellido, String telefono, String email, List<AdapterFormaNotificacion> formasDeNoti){
-        Contacto contactoNuevo = new Contacto(nombre,apellido,telefono,email,formasDeNoti);
+    public void agendarContacto(String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasDeNoti) {
+        Contacto contactoNuevo = new Contacto(nombre, apellido, telefono, email, formasDeNoti);
         contactos.add(contactoNuevo);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
 
     }
+
     // modificar()
-    public void modificarContacto(Contacto buscado,String nombre,String apellido,String telefono,String email) throws Exception {
-       if (buscarContacto(buscado) == -1){
-           throw new Exception("No existe dicho usuario");
-       }else{
-        contactos.get(buscarContacto(buscado)).setNombre(nombre);
-        contactos.get(buscarContacto(buscado)).setApellido(apellido);
-        contactos.get(buscarContacto(buscado)).setEmail(email);
-        contactos.get(buscarContacto(buscado)).setTelefono(telefono);}
+    public void modificarContacto(Contacto buscado, String nombre, String apellido, String telefono, String email) throws Exception {
+        if (buscarContacto(buscado) == -1) {
+            throw new Exception("No existe dicho usuario");
+        } else {
+            contactos.get(buscarContacto(buscado)).setNombre(nombre);
+            contactos.get(buscarContacto(buscado)).setApellido(apellido);
+            contactos.get(buscarContacto(buscado)).setEmail(email);
+            contactos.get(buscarContacto(buscado)).setTelefono(telefono);
+            EntityManagerHelper.beginTransaction();
+            EntityManagerHelper.entityManager().merge(this);
+            EntityManagerHelper.commit();
+        }
     }
-    public int buscarContacto(Contacto buscado){
-        for (int i = 0; i< contactos.size(); i++){
-            if (buscado.getNombre() == contactos.get(i).getNombre()){
+
+    public int buscarContacto(Contacto buscado) {
+        for (int i = 0; i < contactos.size(); i++) {
+            if (buscado.getNombre() == contactos.get(i).getNombre()) {
                 return i;
             }
         }
         return -1;
     }
+
     // eliminar()
-    public void eliminarContacto(Contacto eliminar){
+    public void eliminarContacto(Contacto eliminar) {
         contactos.remove(buscarContacto(eliminar));
     }
 
-    public void notificar(String idMascota)  {
+    public void notificar(String idMascota) {
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         Mascota mascota = duenio.getMascota(idMascota);
-        String link = "";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
-        String mensaje = "Encontramos a "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
-        for (int i = 0; i< contactos.size(); i++){
-            List<AdapterFormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
-            for (int j=0;j<formas.size();j++) {
+        String path = "http://localhost:9000/";
+        String link = path+"publicacionPrivada/"+idMascota;//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
+        String mensaje = "Encontramos a " + mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
+        for (int i = 0; i < contactos.size(); i++) {
+            List<FormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
+            for (int j = 0; j < formas.size(); j++) {
                 formas.get(j).notificar(mensaje, contactos.get(i)); //aca paso el suscriptor
             }
         }
@@ -73,8 +85,8 @@ public class Notificador {
 
 
     public void notificarPersona(String mensaje) {
-        List<AdapterFormaNotificacion> formas = contactos.get(0).getFormasNotificacion();
-        for (int j=0;j<formas.size();j++) {
+        List<FormaNotificacion> formas = contactos.get(0).getFormasNotificacion();
+        for (int j = 0; j < formas.size(); j++) {
             formas.get(j).notificar(mensaje, contactos.get(0)); //aca paso el suscriptor
         }
     }

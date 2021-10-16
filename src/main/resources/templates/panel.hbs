@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <title>Rescate de Patitas · Registrar Mascota</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="/css/animated.css">
+    <link rel="stylesheet" href="/css/owl.css">
+    <!--
+
+-->
+</head>
+
+<body onpageshow="checkHash();">
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky wow slideInDown animated background-header" data-wow-duration="0.75s"
+        data-wow-delay="0s">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px;">GESOC
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    {{>headerMainTemplate.hbs}}
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<div class="main-banner2">
+    {{>ingresoModal.hbs}}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="top-text header-text">
+                    <h2></h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{{#if Admin}}
+    <div class="section-heading align-content-center">
+        <h5 style="text-align: center">Administrador</h5>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Configuracion de Caracteristicas</h5>
+                    <p class="card-text">Configuracion para admins</p>
+                    <a href="/configurarCaracteristicasAsociacion" class="btn btn-primary">Configurar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contactos</h5>
+                    <p class="card-text"></p><!-- TODO agregar edicion cuando este -->
+                    <a href="/verContactos" class="btn btn-primary">Ver contactos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+
+{{#if Duenio}}
+    <div class="section-heading">
+        <h5 style="text-align: center">Dueño</h5>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mis Mascotas</h5>
+                    <p class="card-text">Podés ver, editar y dar en adopción (sólo si no tenes alma, desgraciado)</p>
+                    <a href="/noTengoAlma" class="btn btn-primary">Mascotas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">REGISTRO DE MASCOTAS</h5>
+                    <p class="card-text">Dale click abajo registrala y genera tu QR</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Registrar Mascota
+                    </button>
+                    <div id="liveAlertPlaceholder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Agregar Contacto</h5>
+                    <p class="card-text">Aca vas a poder agregar a tus contactos</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarContacto">Agregar Contacto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+{{#if Rescatista}}
+    <div class="section-heading">
+        <h5 style="text-align: center">Rescatista</h5>
+    </div>
+    <div class="row text-center" style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mascota Perdida</h5>
+                    <p class="card-text">Encontre Mascota Perdida</p>
+                    <a href="/encontreMascotaConChapita" class="btn btn-primary">Con chapita</a>
+                    <a></a>
+                    <a></a>
+                    <a href="/encontreMascotaSinChapita" class="btn btn-primary">Sin chapita</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+{{#if Voluntario}}
+    <div class="section-heading">
+        <h5 style="text-align: center">Voluntario</h5>
+    </div>
+    <div class="row text-center"
+         style="margin-top: 40px; margin-bottom: 20px; margin-left: 20px; margin-right: 20px;">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Evaluar Publicaciones</h5>
+                    <p class="card-text">Aceptar o denegar publicaciones</p>
+                    <a href="/evaluarPublicacion" class="btn btn-primary">Publicaciones</a>
+                    <!--TODO: falta hacer la ruta, vista y controller de publicaciones -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{{/if}}
+
+<!-- Modal Registrar Mascota -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/registroMascota" enctype='multipart/form-data'>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE MASCOTA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group ">
+                            <label for="sexo">Tipo mascota</label>
+                            <select class="form-select" aria-label="Default select example" id="tipo"
+                                    name="tipo" placeholder="Tipo Mascota">
+                                {{#each tipoMascota}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre">Nombre de la mascota</label>
+                            <input class="form-control" id="nombre" name="nombre"
+                                   placeholder="Ingrese nombre" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre">Apodo de la mascota</label>
+                            <input class="form-control" id="apodo" name="apodo" placeholder="Ingrese apodo"
+                                   required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="sexo">Sexo</label>
+                            <select class="form-select" aria-label="Default select example" id="sexo"
+                                    name="sexo" placeholder="Sexo">
+                                {{#each sexo}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="fecha">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control " id="fecha" name="fecha" max='2000-13-13'
+                                   placeholder="yyyy-mm-dd" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Descripcion</label>
+                            <textarea class="form-control " id="desc" name="desc" rows="10"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Caracteristicas</label>
+                            {{#each clavesMascota}}
+                                <input class="form-control" id="{{this}}" name="{{this}}" placeholder="{{this}}"
+                                       required>
+                            {{/each}}
+
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">FOTO</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto" multiple/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="liveAlertBtn">Registrar Mascota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- FIN Modal Registrar Mascota -->
+
+<!-- Modal Agregar Contacto -->
+<div class="modal fade" id="modalAgregarContacto" data-backdrop="static" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/agregarContacto">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agregarContactoTitle">Agregar Contacto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group ">
+                            <label for="nombre">Nombre</label>
+                            <input class="form-control" id="nombre" name="nombre"
+                                   placeholder="Ingrese nombre" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="apellido">Apellido</label>
+                            <input class="form-control" id="apellido" name="apellido"
+                                   placeholder="Ingrese apellido" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="email">Email</label>
+                            <input class="form-control" id="email" name="email"
+                                   placeholder="Ingrese email" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="telefono">Telefono</label>
+                            <input class="form-control" id="telefono" name="telefono"
+                                   placeholder="Ingrese telefono" required>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="tipoNotificacion">Tipo Notificacion</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="formaEmail"
+                                       name="formaEmail">
+                                <label class="form-check-label" for="flexCheckDefault">Email</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="formaWhatsapp"
+                                       name="formaWhatsapp">
+                                <label class="form-check-label" for="flexCheckDefault">WhatsApp</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="formaSMS"
+                                       name="formaSMS">
+                                <label class="form-check-label" for="flexCheckDefault">formaSMS</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="agregarContactoBtn">Agregar contacto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- FIN Modal Registrar Contacto -->
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Mascota registrada exitosamente! Pronto recibiras tu QR.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToastContacto" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se agrego el contacto exitosamente!
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastLivePubliMascotaSinChapita" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se creo la publicacion con exito!
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Ah ocurrido un error, vuelve a intentarlo!
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="rechazoConExitoToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se registro el rechazo de la publicación con éxito!
+        </div>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="aprobacionConExitoToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Se aprobó la publicación con éxito!
+        </div>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="noEsTuMascotaToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            No es tu mascota!
+        </div>
+    </div>
+</div>
+
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-1 mb-2">
+        <li class="nav-item"><a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a></li>
+        <li class="nav-item"><a href="/FAQs" class="nav-link px-3 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="/contacto" class="nav-link px-3 text-muted">Contacto</a></li>
+    </ul>
+    <p class="text-center text-muted">© Rescate de Patitas</p>
+</footer>
+
+
+<!-- Scripts -->
+<script src="/jquery/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/owl-carousel.js"></script>
+<script src="/js/animation.js"></script>
+<script src="/js/imagesloaded.js"></script>
+<script src="/js/custom.js"></script>
+
+<script>
+    function checkHash() {
+        var toastLiveExample = document.getElementById('liveToast')
+        if (location.hash === "#registroConExito") {
+            var toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
+
+        var toastLiveContacto = document.getElementById('liveToastContacto')
+        if (location.hash === "#agregarContacto") {
+            var toast = new bootstrap.Toast(toastLiveContacto)
+            toast.show()
+        }
+
+        var toastLivePubliMascotaSinChapita = document.getElementById('toastLivePubliMascotaSinChapita')
+        if (location.hash === "#registroMascotaConExito") {
+            var toast = new bootstrap.Toast(toastLivePubliMascotaSinChapita)
+            toast.show()
+        }
+        var errorToast = document.getElementById('errorToast')
+        if (location.hash === "#error") {
+            var toast = new bootstrap.Toast(errorToast)
+            toast.show()
+        }
+
+        var rechazoConExitoToast = document.getElementById('rechazoConExitoToast')
+        if (location.hash === "#rechazoConExito") {
+            var toast = new bootstrap.Toast(rechazoConExitoToast)
+            toast.show()
+        }
+        var aprobacionConExitoToast = document.getElementById('aprobacionConExitoToast')
+        if (location.hash === "#aprobacionConExito") {
+            var toast = new bootstrap.Toast(aprobacionConExitoToast)
+            toast.show()
+        }
+        var noEsTuMascotaToast = document.getElementById('noEsTuMascotaToast')
+        if (location.hash === "#noEsTuMascota") {
+            var toast = new bootstrap.Toast(noEsTuMascotaToast)
+            toast.show()
+        }
+    }
+
+</script>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("fecha").setAttribute("max", today);
+</script>
+</body>
+
+</html>

@@ -11,6 +11,9 @@ public class PublicacionQuieroAdoptar {
     @Id
     private String idPublicacion;
 
+    public PublicacionQuieroAdoptar() {
+    }
+
     @Column
     private String idAdoptante;
 

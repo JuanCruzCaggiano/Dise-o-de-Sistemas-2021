@@ -1,0 +1,42 @@
+<ul class="nav">
+    <li><a href="/" class="active">Principal</a></li>
+    {{#unless asociacion}}
+    <li><a href="/adopcion">Adopciones</a></li>
+    {{/unless}}
+    <li><a href="/adopcion">Mascotas Perdidas</a></li>
+    {{#if persona}}
+        <li><a href="/logout">Cerrar sesion</a></li>
+        <li>
+            <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a class="main-white-button" href="/panel">{{persona.nombre}}</a>
+            </div>
+        </li>
+    {{else}}
+        {{#if asociacion}}
+            <li><a href="/logout">Cerrar sesion</a></li>
+            <li>
+                <div class="main-white-button">
+                    <a href="/panel">{{asociacion.nombre}}</a>
+                </div>
+            </li>
+        {{else}}
+            {{#if usuario}}
+                <li><a href="/logout">Cerrar sesion</a></li>
+                <li>
+                    <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a class="main-white-button" href="/panel">{{usuario.persona.nombre}}</a>
+                    </div>
+                </li>
+            {{else}}
+                <li>
+                    <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a href="#"><i class="fa fa-plus"></i>Ingresar</a>
+                    </div>
+                </li>
+            {{/if}}
+        {{/if}}
+    {{/if}}
+</ul>
+<a class='menu-trigger'>
+    <span>Menu</span>
+</a>

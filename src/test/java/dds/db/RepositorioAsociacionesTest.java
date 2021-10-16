@@ -1,13 +1,10 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
-import dds.domain.asociacion.Asociacion;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.servicios.apiHogares.Ubicacion;
-import junit.framework.TestCase;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-
-import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RepositorioAsociacionesTest {
@@ -49,6 +46,12 @@ public class RepositorioAsociacionesTest {
         int cantActualAsoc = EntityManagerHelper.getEntityManager().createQuery("from Asociacion").getResultList().size();
         RepositorioAsociaciones.getRepositorio().eliminarAsociacion(asoc);
         Assert.assertEquals(cantActualAsoc-1,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
+    }
+    @Test
+    public void B_testGetAsociaciones() {
+
+
+        Assert.assertEquals(2,RepositorioAsociaciones.getRepositorio().getAsociaciones().size());
     }
 
 
