@@ -73,7 +73,7 @@ public class Router {
         Spark.get("/panelAdopcion/:idMascota", controllerPanelAdopcion::mostrarPanel, Router.engine);
         Spark.get("/contactarPersona/:id",controllerContactar::contactarPersona,Router.engine);
         Spark.get("/publicacionPrivada/:idPublicacion", controllerPublicacion::mostrarPublicacionPrivada, Router.engine);
-        //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine);
+        //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine) ;
 
 
         Spark.post("/login", (request, response) -> {
