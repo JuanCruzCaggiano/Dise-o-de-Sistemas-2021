@@ -884,12 +884,12 @@ Banner Style
     text-align: center;
     line-height: 62px;
     color: #8d99af;
-    background-color: #fff;
+    background-color: var(--LAVENDER);                  /* background-color: #fff; */
     transition: all .5s;
 }
 
 .main-banner ul.categories li a:hover .icon {
-    background-color: #2b2d42;
+    background-color: var(--DARK_VIOLET);              /* background-color: #2b2d42; */
 }
 
 .main-banner ul.categories li .icon img {
@@ -973,7 +973,7 @@ Banner Style
 /* Termino de tocar baner*/
 
 form#search-form {
-    background-color: #fff;
+    background-color: var(--LAVENDER);                      /* background-color: #fff; */
     padding: 0px 0px 0px 30px;
     width: 100%;
     border-radius: 7px;
@@ -984,11 +984,12 @@ form#search-form {
 form#search-form select,
 form#search-form input {
     width: 100%;
-    height: 36px;
+    /* --- */                                               /* height: 36px; */
     background-color: transparent;
     border: none;
-    color: #2a2a2a;
-    font-size: 15px;
+    color: var(--DARK_VIOLET);                              /* color: #2a2a2a; */
+    font-family: HelveticaNeue-REGULAR;                     /* --- */
+    font-size: 18px;                                        /* font-size: 15px; */
     outline: none;
 }
 
@@ -1010,7 +1011,7 @@ form#search-form input::placeholder {
 form#search-form button {
     width: 100%;
     height: 100%;
-    background-color: #8d99af;
+    background-color: var(--DARK_VIOLET); /* background-color: #8d99af; */
     border: none;
     padding: 15px;
     color: #fff;
@@ -2103,7 +2104,7 @@ responsive
         left: 86px;
     }
     form#search-form {
-        padding: 30px;
+        padding: 0px 0px 0px 10px;                                  /* padding: 30px; */
     }
     .popular-categories .naccs .menu .thumb,
     .category-post .naccs .menu div h4 {
