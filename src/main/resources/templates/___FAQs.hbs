@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,20 +8,16 @@
         <meta name="author" content="">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-        <title>Rescate de Patitas · Registrar Usuario</title>
-
+        <title>FAQs</title>
         <!-- Bootstrap core CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
         <!-- Additional CSS Files -->
         <link rel="stylesheet" href="css/fontawesome.css">
         <link rel="stylesheet" href="css/templatemo-plot-listing.css">
         <link rel="stylesheet" href="css/animated.css">
         <link rel="stylesheet" href="css/owl.css">
-        <!--TemplateMo 564 Plot Listing
-        https://templatemo.com/tm-564-plot-listing
-        -->
+        <!--    TemplateMo 564 Plot Listing    https://templatemo.com/tm-564-plot-listing-->
+        <link rel="stylesheet" href="/css/nuestros.css">
     </head>
 
     <body>
@@ -44,8 +41,9 @@
                     <div class="col-12">
                         <nav class="main-nav">
                             <!-- ***** Logo Start ***** -->
-                            <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px; ">GESOC</a>
-
+                            <a href="/" class="logo"><img src="images/perroygato.png" style="width: 60px; ">
+                                GESOC
+                            </a>
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
                             {{>headerMainTemplate.hbs}}
@@ -58,7 +56,7 @@
         <!-- ***** Header Area End ***** -->
 
         <div class="main-banner2">
-        {{>ingresoModal.hbs}}
+            {{>ingresoModal.hbs}}
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -71,51 +69,69 @@
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-lg-12 text-center">
-                    <h4 style="margin-top: 35px;margin-bottom: 35px"><b>FAQs</b></h4>
+                    <h2 class="mt-5 mb-4 PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET">
+                        FAQs
+                    </h2>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>Encontré una mascota perdida, ¿qué hago?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">Podés dar aviso de la mascota perdida. <br>
-                    Si la mascota tiene una chapita identificatoria, es porque tiene dueño. Para contactarlo, ingresá <a href="/encontreMascotaConChapita"><u>acá</u></a>
- así te indicamos los pasos a seguir. <br>
-                    Si la mascota no tiene ninguna chapita, es porque no tiene dueño o es de la calle. Para agregar la mascota al sistema es necesario que estés registrado.</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        Encontré una mascota perdida, ¿qué hago?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Podés dar aviso de la mascota perdida.<br>
+                        Si la mascota tiene una chapita identificatoria, es porque tiene dueño. Para contactarlo, ingresá <a href="/encontreMascotaConChapita"><u>acá</u></a> así te indicamos los pasos a seguir.<br>
+                        Si la mascota no tiene ninguna chapita, es porque no tiene dueño o es de la calle. Para agregar la mascota al sistema es necesario que estés registrado.
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>Quiero registrar mi mascota, ¿cómo hago?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">Para registrar una mascota, es necesario estar registrado. <br>
-                    Una vez registrado, podés ir a <a href="/panel"><u>tu panel de usuario</u></a> y buscar la opción "Registrar Mascota".</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        Quiero registrar mi mascota, ¿cómo hago?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Para registrar una mascota, es necesario estar registrado.<br>
+                        Una vez registrado, podés ir a <a href="/panel"><u>tu panel de usuario</u></a> y buscar la opción "Registrar Mascota".
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>Quiero adoptar una mascota, ¿cómo hago?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">Podés elegir la mascota que prefieras ingresando <a href="/adopcion"><u>acá</u></a>. <br>
-                    Recordá que para poder adoptar una mascota es necesario que estés registrado.</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        Quiero adoptar una mascota, ¿cómo hago?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Podés elegir la mascota que prefieras ingresando <a href="/adopcion"><u>acá</u></a>.<br>
+                        Recordá que para poder adoptar una mascota es necesario que estés registrado.
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>Perdí mi mascota, ¿cómo me avisan si alguien la encontró?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">Si tu mascota estaba registrada, podés elegir que el rescatista avise a tus contactos por WhatsApp, por e-mail y/o por SMS.</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        Perdí mi mascota, ¿cómo me avisan si alguien la encontró?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Si tu mascota estaba registrada, podés elegir que el rescatista avise a tus contactos por WhatsApp, por e-mail y/o por SMS.
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>¿Cómo hago para agregar un contacto?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">En <a href="/panel"><u>tu panel de usuario</u></a>, buscá la opción "Agregar Contacto".</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        ¿Cómo hago para agregar un contacto?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        En <a href="/panel"><u>tu panel de usuario</u></a>, buscá la opción "Agregar Contacto".
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>Quiero dar en adopción una mascota, ¿qué hago</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">Ah, no tenés alma entonces... <br>
-                    En fin, lo que tenés que hacer es entrar <a href="/noTengoAlma"><u>acá</u></a>.</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        Quiero dar en adopción una mascota, ¿qué hago?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Ah, no tenés alma entonces. <br>
+                        En fin, pedazo de desgraciado, lo que tenés que hacer es entrar <a href="/noTengoAlma"><u>acá</u></a>...
+                    </p>
 
-                    <h6 style="margin-top: 25px; margin-bottom: 5px;"><b>¿Venden mascotas?</b></h6>
-                    <p style="margin-top: 5px; margin-bottom: 5px;">No.</h6>
+                    <h6 class="PFBEAUSANS-SEMIBOLD LETRAS-DARK_VIOLET mt-4 mb-2" style="text-align: left;">
+                        ¿Venden mascotas?
+                    </h6>
+                    <p class="TXT-IZQ">
+                        Todav-- no, no vendemos mascotas.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-1 mb-2">
-                <li class="nav-item">
-                    <a href="/nosotros" class="nav-link px-3 text-muted">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/FAQs" class="nav-link px-3 text-muted">FAQs</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/contacto" class="nav-link px-3 text-muted">Contacto</a>
-                </li>
-            </ul>
-            <p class="text-center text-muted">© Rescate de Patitas</p>
+        <footer>
+            {{>footerMainTemplate.hbs}}
         </footer>
 
         <!-- Scripts -->
