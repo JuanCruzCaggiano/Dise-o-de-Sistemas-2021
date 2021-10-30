@@ -1,18 +1,18 @@
 <ul class="nav">
     <li>
-        <a href="/" class="active PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">Principal</a>
+        <a href="/" class="active HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">Principal</a>
     </li>
     {{#unless asociacion}}
         <li>
-            <a href="/adopcion" class="PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">Adopciones</a>
+            <a href="/adopcion" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">Adopciones</a>
         </li>
     {{/unless}}
     <li>
-        <a href="/adopcion" class="PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">Mascotas Perdidas</a>
+        <a href="/mascotasPerdidas" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">Mascotas Perdidas</a>
     </li>
     {{#if persona}}
         <li>
-            <a href="/logout" class="PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">
+            <a href="/logout" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">
                 Cerrar sesión
             </a>
         </li>
@@ -26,7 +26,7 @@
     {{else}}
         {{#if asociacion}}
             <li>
-                <a href="/logout" class="PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">
+                <a href="/logout" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">
                     Cerrar sesión
                 </a>
             </li>
@@ -40,7 +40,7 @@
         {{else}}
             {{#if usuario}}
                 <li>
-                    <a href="/logout" class="PFBEAUSANS-SEMIBOLD" style="font-size: 1.1rem; color:var(--LAVENDER)">
+                    <a href="/logout" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">
                         Cerrar sesión
                     </a>
                 </li>
@@ -55,8 +55,8 @@
                 <li>
                     <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <a href="#">
-                            <i class="fa fa-plus"></i>
-                            INGRESAR
+                            <!-- <i class="fa fa-plus"></i> -->
+                            <span class="HELVETICANEUE-MEDIUM">INGRESAR</span>
                         </a>
                     </div>
                 </li>
