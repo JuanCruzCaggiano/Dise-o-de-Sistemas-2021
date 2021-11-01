@@ -39,7 +39,7 @@ public class Mascota {
 
     @Lob
     @ElementCollection(fetch=FetchType.EAGER)
-    @Column(name="Path", columnDefinition="blob")
+    @Column(name="Path", columnDefinition="longblob")
     //@ElementCollection(fetch = FetchType.LAZY)
     //@CollectionTable(name = "lista_foto_mascota")
     private List<String> pathFoto = new ArrayList<>();

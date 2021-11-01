@@ -48,6 +48,8 @@ public class ControllerRegistroMascota {
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(id);
         String foto = null;
         InputStream ss = request.raw().getPart("foto").getInputStream();
+
+
         foto = PhotoUploaderHelper.getHelper().uploadPhoto(ss);
         Files.copy(ss, tempFile, StandardCopyOption.REPLACE_EXISTING);
         //foto = tempFile.toString();
