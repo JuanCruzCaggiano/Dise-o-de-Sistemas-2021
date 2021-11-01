@@ -12,7 +12,7 @@
 
 # Package Files #
 *.jar
-*.war
+
 *.nar
 *.ear
 *.zip
@@ -24,7 +24,7 @@ hs_err_pid*
 
 .idea
 *.iml
-pom.xml
+
 /target/classes/META-INF/persistence.xml
 
-persistencia.xml
+
