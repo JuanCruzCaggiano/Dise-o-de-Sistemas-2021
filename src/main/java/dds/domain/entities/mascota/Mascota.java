@@ -36,8 +36,12 @@ public class Mascota {
     private String descripcion;
 
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lista_foto_mascota")
+
+    @Lob
+    @ElementCollection(fetch=FetchType.EAGER)
+    @Column(name="Path", columnDefinition="blob")
+    //@ElementCollection(fetch = FetchType.LAZY)
+    //@CollectionTable(name = "lista_foto_mascota")
     private List<String> pathFoto = new ArrayList<>();
 
     //private List<ConfigCaracMascota> caracteristica;
