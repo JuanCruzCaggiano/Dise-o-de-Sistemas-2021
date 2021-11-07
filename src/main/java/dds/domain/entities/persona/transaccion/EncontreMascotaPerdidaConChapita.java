@@ -1,9 +1,6 @@
 package dds.domain.entities.persona.transaccion;
 
-import dds.db.RepositorioAsociaciones;
-import dds.db.RepositorioMascotas;
-import dds.db.RepositorioPersonas;
-import dds.db.RepositorioUsuarios;
+import dds.db.*;
 import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.Persona;
@@ -53,6 +50,9 @@ public class EncontreMascotaPerdidaConChapita extends Transaccion{
         asoc.getPublicador().agregarPublicacion(publi);
         Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(idMascota);
         mascota.setEstaPerdida(Boolean.FALSE);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(mascota);
+        EntityManagerHelper.commit();
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         duenio.getNotificador().notificar(idMascota);
 

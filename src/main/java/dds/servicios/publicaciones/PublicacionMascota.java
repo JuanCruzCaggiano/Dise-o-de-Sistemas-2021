@@ -29,8 +29,11 @@ public class PublicacionMascota {
     @Column
     private double longitud;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lista_foto_publicacion_mascota")
+    @Lob
+    @ElementCollection(fetch=FetchType.EAGER)
+    @Column(name="Path", columnDefinition="longblob")
+    //@ElementCollection(fetch = FetchType.LAZY)
+    //@CollectionTable(name = "lista_foto_mascota")
     private List<String> pathFoto = new ArrayList<>();
 
     @Column
