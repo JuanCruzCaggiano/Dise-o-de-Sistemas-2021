@@ -1,9 +1,11 @@
 package dds.domain.entities.persona.transaccion;
 
 import dds.db.RepositorioAsociaciones;
+import dds.db.RepositorioMascotas;
 import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.asociacion.Asociacion;
+import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.persona.Persona;
 import dds.servicios.publicaciones.PublicacionMascota;
 import dds.servicios.publicaciones.TipoPublicacion;
@@ -49,6 +51,8 @@ public class EncontreMascotaPerdidaConChapita extends Transaccion{
         int idAsoc = RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
         Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(idAsoc);
         asoc.getPublicador().agregarPublicacion(publi);
+        Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(idMascota);
+        mascota.setEstaPerdida(Boolean.FALSE);
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         duenio.getNotificador().notificar(idMascota);
 
