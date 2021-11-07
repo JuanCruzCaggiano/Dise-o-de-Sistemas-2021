@@ -1,6 +1,7 @@
 package dds.domain.entities.mascota;
 
 
+import dds.db.EntityManagerHelper;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -121,6 +122,9 @@ public class Mascota {
 
     public void setEstaPerdida(Boolean estaPerdida) {
         this.estaPerdida = estaPerdida;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public String getIdMascota() {
