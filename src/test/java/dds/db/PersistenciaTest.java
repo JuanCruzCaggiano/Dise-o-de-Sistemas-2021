@@ -63,7 +63,6 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         formasDeNoti2.add(email2);
 
         Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
-        persona.getListaRoles().add(Duenio.getDuenio());
         persona.getNotificador().agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.getMascotas().add(perro);
