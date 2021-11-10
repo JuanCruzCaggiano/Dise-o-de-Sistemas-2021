@@ -15,7 +15,7 @@ import java.util.List;
 public class Notificador {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
     public int getId() {
@@ -23,13 +23,15 @@ public class Notificador {
     }
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Contacto> contactos = new ArrayList<>();
+    private List<Contacto> contactos;
 
 
     public List<Contacto> getContactos() {
         return contactos;
     }
-
+    public Notificador(){
+        this.contactos = new ArrayList<>();
+    }
     //agendar
     public void agendarContacto(String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasDeNoti) {
         Contacto contactoNuevo = new Contacto(nombre, apellido, telefono, email, formasDeNoti);

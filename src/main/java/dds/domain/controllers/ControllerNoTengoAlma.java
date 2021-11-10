@@ -22,6 +22,7 @@ public class ControllerNoTengoAlma {
 
         Usuario usuario = req.session().attribute("usuario");
         Map<String,Object> parametros = new HashMap<>();
+
         if(usuario!=null) {
             parametros.put("persona", usuario.getPersona());
             parametros.put("roles", usuario.getPersona().getListaRoles());

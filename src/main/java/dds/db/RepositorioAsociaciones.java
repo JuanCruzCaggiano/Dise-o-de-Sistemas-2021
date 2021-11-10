@@ -19,8 +19,8 @@ public class RepositorioAsociaciones {
         return repositorioAsociaciones;
     }
 
-    public void getAsociacionXMascota(String idMascota){
-        //TODO la asociacion esta encargada de esto?
+    public int getAsociacionXMascota(String idMascota){
+        return  RepositorioUsuarios.getRepositorio().getIDAsocXIdMascota(idMascota);
     }
 
     public List<Asociacion> getAsociaciones() {

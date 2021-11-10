@@ -44,7 +44,7 @@ public class Publicador {
     }
 
     public List<PublicacionAdopcion> getEnAdopcion() {
-        return enAdopcion;
+        return (List<PublicacionAdopcion>) EntityManagerHelper.getEntityManager().createQuery(" from PublicacionAdopcion").getResultList() ;
     }
 
     public List<PublicacionQuieroAdoptar> getPublicacionesQuieroAdoptar() {

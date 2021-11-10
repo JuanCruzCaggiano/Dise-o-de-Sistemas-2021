@@ -1,7 +1,9 @@
 package dds.domain.entities.mascota;
 
 
-import dds.db.EntityManagerHelper;
+import dds.db.*;
+import dds.domain.entities.asociacion.Asociacion;
+import dds.domain.entities.persona.Persona;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -134,6 +136,16 @@ public class Mascota {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Boolean getEstaEnAdopcion(){
+        Asociacion asoc = RepositorioAsociaciones.getRepositorio().getAsociacion(RepositorioAsociaciones.getRepositorio().getAsociacionXMascota(this.idMascota));
+        try {
+            return asoc.getPublicador().getEnAdopcion().stream().filter(p -> p.getIdMascota().equals(idMascota)).findFirst().orElse(null).getIdMascota().equals(this.idMascota);
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 
     public LocalDate getFechaNacimiento() {

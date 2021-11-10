@@ -33,10 +33,6 @@ public class Standard extends Usuario {
     public void agregarPersona(Persona persona){
         if(this.persona == null) {
             this.persona = persona;
-            EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.entityManager().persist(persona);
-            EntityManagerHelper.commit();
-
         }else
         {
             throw new AssignPersonaException("El usuario ya tiene una persona asignada");
