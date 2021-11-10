@@ -2,19 +2,13 @@ package dds.servicios.helpers;
 
 import com.google.zxing.qrcode.*;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.math.BigInteger;
-public class QRHelper {
-    private static QRHelper qrHelper = new QRHelper();
+public class QRhelper {
+    private static QRhelper qrHelper = new QRhelper();
 
-    public static QRHelper getHelper() {
+    public static QRhelper getHelper() {
         return qrHelper;
     }
 
