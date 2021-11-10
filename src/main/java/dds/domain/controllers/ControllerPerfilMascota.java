@@ -25,9 +25,8 @@ public class ControllerPerfilMascota {
         Map<String,Object> parametros = new HashMap<>();
         Usuario usuario = req.session().attribute("usuario");
         if(usuario != null){parametros.put("persona", usuario.getPersona());}
-        Persona duenio;
         try {
-            if (usuario.getPersona().getMascota(idMascota).getIdMascota()==idMascota || mascotaEncontrada.getEstaPerdida()) {
+            if (usuario.getPersona().getMascota(idMascota).getIdMascota().equals(idMascota) || mascotaEncontrada.getEstaPerdida()) {
 
                 //duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
                 parametros.put("mascota",mascotaEncontrada);
