@@ -88,7 +88,7 @@ public class Persona {
     }
 
     public List<Mascota> getMascotas() {
-        return mascotas;
+        return RepositorioMascotas.getRepositorio().getMascotasXPersonaId(this.idPersona);
     }
 
     public Notificador getNotificador() {

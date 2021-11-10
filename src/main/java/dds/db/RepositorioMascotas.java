@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepositorioMascotas {
 
@@ -18,18 +19,18 @@ public class RepositorioMascotas {
     public List<Mascota> getMascotas() {
         return  (List<Mascota>) EntityManagerHelper.getEntityManager().createQuery("from Mascota").getResultList();
     }
-    /*
-    public List<Mascota> getMascotaXPersonaId(idPersona){
+
+    public List<Mascota> getMascotasXPersonaId(String idPersona){
         if(RepositorioPersonas.getRepositorio().esIDValido(idPersona)){
-            String jql = "Select p from Persona p, Mascota m where m.idMascota = :idMascota";
-            Persona persona = (Persona) EntityManagerHelper.getEntityManager().createQuery(jql).
-                    setParameter("idMascota",idMascota).getResultList().get(0);
-            return  persona.getIdPersona();
+            String jql = "Select m from Persona p, Mascota m where p.idPersona = :idPersona";
+            List<Mascota> mascotas  =  (List<Mascota>) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idPersona",idPersona).getResultList();
+            return  mascotas;
 
         }else {
-            throw new LogicRepoException("IdMascota inexistente");
+            throw new LogicRepoException("IdPersona inexistente");
         }
-    }*/
+    }
 
     public Mascota getMascota(String id) {
         if(esIDValido(id)){
