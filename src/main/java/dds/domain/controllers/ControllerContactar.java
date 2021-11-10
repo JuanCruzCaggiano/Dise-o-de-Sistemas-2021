@@ -33,7 +33,9 @@ public class ControllerContactar {
             parametros.put("roles", usuario.getPersona().getListaRoles());
             parametros.put("contacto",propio);
         }
-        rep.redirect("/");
+        else{
+            rep.redirect("/");
+        }
         return new ModelAndView(parametros,"contactarDuenio.hbs");
     }
 

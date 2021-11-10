@@ -67,6 +67,9 @@ public class ControllerAgregarContacto {
             parametros.put("persona", usuario.getPersona());
             parametros.put("listaContactos", usuario.getPersona().getNotificador().getContactos());
         }
+        else{
+            rep.redirect("/");
+        }
 
         return new ModelAndView(parametros,"verContactos.hbs");
     }

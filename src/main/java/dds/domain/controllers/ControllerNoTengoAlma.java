@@ -32,6 +32,9 @@ public class ControllerNoTengoAlma {
             List<String> enumTipo = Stream.of(TipoMascota.values()).map(Enum::name).collect(Collectors.toList());
             parametros.put("tiposMascota",enumTipo);
         }
+        else{
+            rep.redirect("/");
+        }
 
 
 
