@@ -66,6 +66,7 @@ public class Router {
         Spark.get("/encontreMascotaConChapita", controllerEncontreMascotaConChapita::mostrarMascotaConChapita, Router.engine);
         Spark.get("/encontreMascotaSinChapita", controllerEncontreMascotaSinChapita::mostrarEncontreMascotaSinChapita, Router.engine);
         Spark.get("/noTengoAlma", controllerNoTengoAlma::mostrarNoTengoAlma, Router.engine);
+        Spark.get("/noTengoAlma/:idMascota", controllerNoTengoAlma::mascotaPerdidaEncontrada);
         Spark.get("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::mostrarConfigurarCaracteristicasAsociacion, Router.engine);
         Spark.get("/crearCuenta", controllerRegistroUsuario::mostrarRegistroUsuario, Router.engine);
         Spark.get("/panel", controllerPanel::mostrarPanel, Router.engine);

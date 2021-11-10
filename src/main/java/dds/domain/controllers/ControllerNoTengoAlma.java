@@ -1,4 +1,7 @@
 package dds.domain.controllers;
+import dds.db.EntityManagerHelper;
+import dds.db.RepositorioMascotas;
+import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.seguridad.usuario.Usuario;
@@ -33,5 +36,19 @@ public class ControllerNoTengoAlma {
 
 
         return new ModelAndView(parametros,"noTengoAlma.hbs");
+    }
+    public Response mascotaPerdidaEncontrada(Request req,Response res){
+        String idMascota = req.params("idMascota");
+        Mascota mascotaEncontrada= RepositorioMascotas.getRepositorio().getMascota(idMascota);
+        if (mascotaEncontrada.getEstaPerdida()){
+            mascotaEncontrada.setEstaPerdida(false);
+        }else{
+            mascotaEncontrada.setEstaPerdida(true);
+        }
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(mascotaEncontrada);
+        EntityManagerHelper.commit();
+        res.redirect("/");
+        return res;
     }
 }

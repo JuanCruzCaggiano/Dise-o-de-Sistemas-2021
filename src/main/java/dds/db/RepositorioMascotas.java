@@ -3,6 +3,7 @@ package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
 import dds.domain.entities.mascota.Mascota;
+import dds.domain.entities.persona.Persona;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
@@ -17,6 +18,18 @@ public class RepositorioMascotas {
     public List<Mascota> getMascotas() {
         return  (List<Mascota>) EntityManagerHelper.getEntityManager().createQuery("from Mascota").getResultList();
     }
+    /*
+    public List<Mascota> getMascotaXPersonaId(idPersona){
+        if(RepositorioPersonas.getRepositorio().esIDValido(idPersona)){
+            String jql = "Select p from Persona p, Mascota m where m.idMascota = :idMascota";
+            Persona persona = (Persona) EntityManagerHelper.getEntityManager().createQuery(jql).
+                    setParameter("idMascota",idMascota).getResultList().get(0);
+            return  persona.getIdPersona();
+
+        }else {
+            throw new LogicRepoException("IdMascota inexistente");
+        }
+    }*/
 
     public Mascota getMascota(String id) {
         if(esIDValido(id)){
