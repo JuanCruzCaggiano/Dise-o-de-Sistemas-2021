@@ -42,6 +42,7 @@ public class NotificadorSemanalTest {
 
 
         //ALTA PERSONA DUENIO
+
         Email email = new Email();
         List<FormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(email);
@@ -78,7 +79,7 @@ public class NotificadorSemanalTest {
 
 
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().persist(asoc);
+        //EntityManagerHelper.entityManager().persist(asoc);
         EntityManagerHelper.entityManager().persist(standard);
         EntityManagerHelper.entityManager().persist(standardAdoptante);
         EntityManagerHelper.commit();
