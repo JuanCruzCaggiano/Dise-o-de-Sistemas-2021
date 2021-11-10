@@ -43,7 +43,7 @@ public class RepositorioUsuariosTest  {
         usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
         perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
-        personaDuenio.getMascotas().add(perro);
+        personaDuenio.agregarMascota(perro);
         personaDuenio.agregarRol(Duenio.getDuenio());
 
         //Guardo estaticamente los objetos persistidos para el testeo

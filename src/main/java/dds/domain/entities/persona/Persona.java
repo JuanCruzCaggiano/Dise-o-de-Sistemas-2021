@@ -91,6 +91,9 @@ public class Persona {
         return RepositorioMascotas.getRepositorio().getMascotasXPersonaId(this.idPersona);
     }
 
+    public void agregarMascota(Mascota mascota){
+        this.mascotas.add(mascota);
+    }
     public Notificador getNotificador() {
         return notificador;
     }

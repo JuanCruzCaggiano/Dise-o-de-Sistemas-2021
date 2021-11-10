@@ -39,7 +39,7 @@ public class NotificadorTest extends TestCase {
 
         perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setEstaPerdida(true);
-        duenio.getMascotas().add(perro);
+        duenio.agregarMascota(perro);
 
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(standard);

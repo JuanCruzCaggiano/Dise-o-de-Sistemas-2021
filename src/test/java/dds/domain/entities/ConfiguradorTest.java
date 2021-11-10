@@ -53,7 +53,7 @@ public class ConfiguradorTest {
             usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
             usuDuenio.setAsociacion(asoc);
             personaDuenio.agregarRol(Duenio.getDuenio());
-            personaDuenio.getMascotas().add(mascota);
+            personaDuenio.agregarMascota(mascota);
 
             EntityManagerHelper.beginTransaction();
             EntityManagerHelper.entityManager().persist(asoc);

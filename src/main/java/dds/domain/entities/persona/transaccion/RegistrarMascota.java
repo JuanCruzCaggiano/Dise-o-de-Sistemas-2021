@@ -54,7 +54,7 @@ public class RegistrarMascota extends Transaccion {
     @Override
     public void ejecutar(){
         Mascota nueva = new Mascota(tipo,nombre,apodo,fechaNac,descripcion,listaFotos,caracteristica,sexo);
-        duenio.getMascotas().add(nueva);
+        duenio.agregarMascota(nueva);
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().merge(duenio);
         EntityManagerHelper.commit();

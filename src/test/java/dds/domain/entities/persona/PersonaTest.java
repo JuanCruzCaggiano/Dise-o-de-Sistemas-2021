@@ -88,9 +88,9 @@ public class PersonaTest {
         usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
         usuDuenio.setAsociacion(asoc);
         personaDuenio.agregarRol(Duenio.getDuenio());
-        personaDuenio.getMascotas().add(perro);
-        personaDuenio.getMascotas().add(gato);
-        personaDuenio.getMascotas().add(firulais);
+        personaDuenio.agregarMascota(perro);
+        personaDuenio.agregarMascota(gato);
+        personaDuenio.agregarMascota(firulais);
 
 
         // CREO ADOPTANTE

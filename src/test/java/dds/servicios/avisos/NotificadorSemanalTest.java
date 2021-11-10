@@ -52,7 +52,7 @@ public class NotificadorSemanalTest {
         standard = new Standard("matilanne","Password1234+",duenio);
         standard.setAsociacion(asoc);
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
-        duenio.getMascotas().add(perro);
+        duenio.agregarMascota(perro);
 
         preguntas = new HashMap<String, String>();
 

@@ -62,11 +62,10 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         List<FormaNotificacion> formasDeNoti2 = new ArrayList<>();
         formasDeNoti2.add(email2);
 
-        Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
-        persona.getNotificador().agendarContacto("Matias", "Lanneponders", "1155892198", "mlyonadi@gmail.com", formasDeNoti);
+        Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mlyonadi@gmail.com",formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
-        persona.getMascotas().add(perro);
-        persona.getMascotas().add(gato);
+        persona.agregarMascota(perro);
+        persona.agregarMascota(gato);
         HashMap<String, String> preguntas = new HashMap<String, String>();
         preguntas.put(asoc.getConfigurador().getPreguntas().get(0),"Negro");
         preguntas.put(asoc.getConfigurador().getPreguntas().get(1),"Grande");
@@ -75,7 +74,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
 
 
-        Persona persona3 = new Persona("Vpersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mail@gmail.com",formasDeNoti);
+        Persona persona3 = new Persona("Vpersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","makinsonf.christian@gmail.com",formasDeNoti);
         persona3.getListaRoles().add(Voluntario.getVoluntario());
         Standard usuarioStandard2 = new Standard("usuarioVoluntario","Password123+2",persona3,asoc);
 
