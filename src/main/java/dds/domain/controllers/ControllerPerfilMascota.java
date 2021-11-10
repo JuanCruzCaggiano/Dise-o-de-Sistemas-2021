@@ -1,6 +1,10 @@
 package dds.domain.controllers;
+import dds.db.RepositorioMascotas;
+import dds.db.RepositorioPersonas;
+import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
+import dds.domain.entities.persona.Persona;
 import dds.domain.entities.seguridad.usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -16,22 +20,25 @@ public class ControllerPerfilMascota {
     public ControllerPerfilMascota() {
     }
     public ModelAndView mostrarPerfilMascota(Request req, Response rep){
-
-        Usuario usuario = req.session().attribute("usuario");
+        String idMascota = req.params("id");
+        Mascota mascotaEncontrada= RepositorioMascotas.getRepositorio().getMascota(idMascota);
         Map<String,Object> parametros = new HashMap<>();
-        if(usuario!=null) {
-            parametros.put("persona", usuario.getPersona());
-            parametros.put("roles", usuario.getPersona().getListaRoles());
-            parametros.put("mascotas",usuario.getPersona().getMascotas());
-            parametros.put("claves",usuario.getAsociacion().getConfigurador().getClaves());
-            List<String> enumSexo = Stream.of(Sexo.values()).map(Enum::name).collect(Collectors.toList());
-            parametros.put("sexos",enumSexo);
-            List<String> enumTipo = Stream.of(TipoMascota.values()).map(Enum::name).collect(Collectors.toList());
-            parametros.put("tiposMascota",enumTipo);
+        Usuario usuario = req.session().attribute("usuario");
+        if(usuario != null){parametros.put("persona", usuario.getPersona());}
+        Persona duenio;
+        try {
+            if (usuario.getPersona().getMascota(idMascota).getIdMascota()==idMascota || mascotaEncontrada.getEstaPerdida()) {
+
+                //duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
+                parametros.put("mascota",mascotaEncontrada);
+                return new ModelAndView(parametros,"perfilMascota.hbs");
+            }
+        }
+        catch (Exception e){
+            System.out.println("La mascota no le pertenece o no existe");
+            rep.redirect("/");
         }
 
-
-
-        return new ModelAndView(parametros,"perfilMascota.hbs");
-    }
+        rep.redirect("/");
+        return new ModelAndView(parametros,"index.hbs");}
 }

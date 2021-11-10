@@ -77,7 +77,7 @@ public class Router {
         //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine) ;
         Spark.get("/mascotasPerdidas", controllerMascotasPerdidas::mostrarMascotasPerdidas, Router.engine);
         Spark.get("/mascotasPerdidas/:page", controllerMascotasPerdidas::mostrarPagina, Router.engine);
-        Spark.get("/perfilMascota", controllerPerfilMascota::mostrarPerfilMascota, Router.engine);
+        Spark.get("/perfilMascota/:id", controllerPerfilMascota::mostrarPerfilMascota, Router.engine);
         Spark.post("/login", (request, response) -> {
             try {
                 return controllerLogin.login(request, response);
