@@ -1,5 +1,13 @@
 package dds.servicios.helpers;
 
+import com.google.zxing.qrcode.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.Writer;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -14,24 +22,19 @@ public class QRHelper
     public static QRHelper getHelper() { return qrHelper; }
 
     //calculo de distancia
-    public  static void creadorQR(String data, String pathname)
-    {
+    public  static void creadorQR(String data, String pathname) throws WriterException {
         int ancho = 400;
         int alto = 400;
 
         String formatoImagen = "png";
-        BitMatrix bitMatrix = new QRCodeWriter().enconde(data, BarcodeFormat.QR_CODE, ancho, alto);
-        FileOutputStream outputStream = new FileOutputStream(pathname);
+
+        QRCodeWriter qrWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrWriter.encode(data, BarcodeFormat.QR_CODE, ancho, alto);
+        MatrixToImageWriter.writeToPath(bitMatrix, formatoImagen, pathname);
+
     }
-
     public static String leerQR(String pathname) {
-        InputStream qrInputStream = new FileInputStream(pathname);
-        BufferedImage qrBufferedImage = ImageIO.read(qrInputStream);
 
-        LuminanceSource source = new BufferedImageLuminanceSource(qrBufferedImage);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-        Reader reader = new MultiFormatReader();
-        Result stringBarCode = reader.decode(bitmap);
     }
 
 
