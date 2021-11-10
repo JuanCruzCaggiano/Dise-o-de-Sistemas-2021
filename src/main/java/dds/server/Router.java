@@ -52,7 +52,7 @@ public class Router {
         ControllerContactar controllerContactar = new ControllerContactar();
         ControllerPublicacion controllerPublicacion = new ControllerPublicacion();
         ControllerMascotasPerdidas controllerMascotasPerdidas = new ControllerMascotasPerdidas();
-        ControllerPerfilMascota controllerPerfilMascota = new ControllerPerfilMascota();
+
         //SPARK GETS
         //Spark.get("/saludar",usuarioController::mostarComandera, Router.engine); //usa :: para invocar al metodo pero desde la ruta y no desde el router
 
@@ -77,7 +77,7 @@ public class Router {
         //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine) ;
         Spark.get("/mascotasPerdidas", controllerMascotasPerdidas::mostrarMascotasPerdidas, Router.engine);
         Spark.get("/mascotasPerdidas/:page", controllerMascotasPerdidas::mostrarPagina, Router.engine);
-        Spark.get("/perfilMascota", controllerPerfilMascota::mostrarPerfilMascota, Router.engine);
+
         Spark.post("/login", (request, response) -> {
             try {
                 return controllerLogin.login(request, response);
