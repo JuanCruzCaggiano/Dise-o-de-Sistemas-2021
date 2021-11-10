@@ -73,7 +73,7 @@ public class Notificador {
         Persona duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
         Mascota mascota = duenio.getMascota(idMascota);
         String path = "https://tpdds15.herokuapp.com/";
-        String link = path+"publicacionPrivada/"+idMascota;//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
+        String link = path+"perfilMascota/"+idMascota;//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
         String mensaje = "Encontramos a " + mascota.getNombre() + " para mas informacion ingresa al siguiente link!: " + link;
         for (int i = 0; i < contactos.size(); i++) {
             List<FormaNotificacion> formas = contactos.get(i).getFormasNotificacion();
