@@ -40,7 +40,7 @@ public class NotificadorSemanal{
 
 
         //dejamos en 5 segundos para realizar pruebas
-        ScheduledFuture<?> result = ses.scheduleAtFixedRate(enviarRecomendacion,0,5,TimeUnit.SECONDS);
+        ScheduledFuture<?> result = ses.scheduleAtFixedRate(enviarRecomendacion,0,60,TimeUnit.SECONDS);
         //ScheduledFuture<?> result = ses.scheduleAtFixedRate(task2,0,7,TimeUnit.DAYS);
         //ses.shutdown(); //tener en cuenta que se utiliza para finalizar el periodo...
     }
@@ -73,7 +73,7 @@ public class NotificadorSemanal{
         Persona adoptante =  repositorioPersonas.getRepositorio().getPersona(idPersona);
         Persona duenio;
         Mascota mascota;
-        String link = "www.patitas.com/IdPublicacion=";//TODO Crear formula en un singleton servicio que genere el link que te lleve a la publicacion de la mascota encontrada.
+        String path = "https://tpdds15.herokuapp.com/";
 
         String mensaje;
         for(int k=0;k<listaAEnviaraPosibleAdoptante.size();k++){
@@ -81,7 +81,8 @@ public class NotificadorSemanal{
             duenio = repositorioPersonas.getRepositorio().getPersona(idPersona);
             //Recupero la mascota
             mascota = duenio.getMascota(listaAEnviaraPosibleAdoptante.get(k).getIdMascota());
-            mensaje = "Encontramos esta pulicaciones de Mascota: "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link de publicacion!: "+link+listaAEnviaraPosibleAdoptante.get(k).getIdPublicacion();
+            String link = path+"perfilMascota/"+ mascota.getIdMascota();
+            mensaje = "Encontramos esta pulicaciones de Mascota: "+ mascota.getNombre() + " para mas informacion ingresa al siguiente link de publicacion!: "+link;
 
             for (int i = 0; i<adoptante.getNotificador().getContactos().size(); i++){
                 List<FormaNotificacion> formas = adoptante.getNotificador().getContactos().get(i).getFormasNotificacion();
