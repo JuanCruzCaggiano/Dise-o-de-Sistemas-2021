@@ -1,6 +1,7 @@
 package dds.server;
 
 
+import dds.servicios.avisos.NotificadorSemanal;
 import spark.Spark;
 
 
@@ -9,7 +10,7 @@ public class Server {
 
         Spark.port(getHerokuAssignedPort());
         Router.init();
-        //
+        NotificadorSemanal.getNotificadorSemanalHelper().notificar();
         //DebugScreen.enableDebugScreen(); //solo se usa en ambiente de trabajo a la hora de presentar vuela
     }
     static int getHerokuAssignedPort() {
