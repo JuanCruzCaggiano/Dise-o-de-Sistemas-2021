@@ -40,7 +40,7 @@ public class NotificadorSemanal{
 
 
         //dejamos en 5 segundos para realizar pruebas
-        ScheduledFuture<?> result = ses.scheduleAtFixedRate(enviarRecomendacion,0,60,TimeUnit.SECONDS);
+        ScheduledFuture<?> result = ses.scheduleAtFixedRate(enviarRecomendacion,0,3,TimeUnit.MINUTES);
         //ScheduledFuture<?> result = ses.scheduleAtFixedRate(task2,0,7,TimeUnit.DAYS);
         //ses.shutdown(); //tener en cuenta que se utiliza para finalizar el periodo...
     }
