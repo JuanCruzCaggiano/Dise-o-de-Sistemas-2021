@@ -6,10 +6,12 @@ import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.TipoDocumento;
+import dds.domain.entities.persona.roles.Adoptante;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.persona.roles.Rescatista;
 import dds.domain.entities.persona.roles.Voluntario;
 import dds.domain.entities.persona.transaccion.DarEnAdopcion;
+import dds.domain.entities.persona.transaccion.QuieroAdoptar;
 import dds.domain.entities.seguridad.usuario.Administrador;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.servicios.apiHogares.Ubicacion;
@@ -58,11 +60,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         List<FormaNotificacion> formasDeNoti = new ArrayList<>();
         formasDeNoti.add(email);
 
-        Email email2 = new Email();
-        List<FormaNotificacion> formasDeNoti2 = new ArrayList<>();
-        formasDeNoti2.add(email2);
-
-        Persona persona = new Persona("npersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mlyonadi@gmail.com",formasDeNoti);
+        Persona persona = new Persona("Matias","Lanneponders",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mlyonadi@gmail.com",formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.agregarMascota(perro);
         persona.agregarMascota(gato);
@@ -78,6 +76,14 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         persona3.getListaRoles().add(Voluntario.getVoluntario());
         Standard usuarioStandard2 = new Standard("usuarioVoluntario","Password123+2",persona3,asoc);
 
+        Persona adoptante = new Persona("Gabriel","Figueroa",TipoDocumento.DNI,33501523,LocalDate.of(1988,07,07),"dire","1165486542","gabriel.n.figueroa@gmail.com",formasDeNoti);
+        adoptante.getListaRoles().add(Adoptante.getAdoptante());
+        Standard usuarioAdoptante = new Standard("usuarioAdoptante","Password123+2",adoptante,asoc);
+        preguntas = new HashMap<String, String>();
+
+
+
+
 
 
         EntityManagerHelper.beginTransaction();
@@ -88,8 +94,15 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
         EntityManagerHelper.getEntityManager().persist(usuarioTest);
 
+        EntityManagerHelper.getEntityManager().persist(usuarioAdoptante);
 
         EntityManagerHelper.commit();
+
+        List <String> keys =  usuarioTest.getAsociacion().getConfigurador().getPreguntas();
+        for (int i=0;i<keys.size();i++) {
+            preguntas.put(keys.get(i),"Respuesta x");
+        }
+        adoptante.ejecutarTransaccion(new QuieroAdoptar(adoptante.getIdPersona(),preguntas));
         //Prueba de ejecucion de tansaccion Dar en Adopcion por un usuario standard dueño.
         persona.ejecutarTransaccion(new DarEnAdopcion(perro.getIdMascota(),persona.getIdPersona(),preguntas));
 
