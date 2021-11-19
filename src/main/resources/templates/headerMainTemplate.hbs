@@ -1,7 +1,4 @@
 <ul class="nav">
-    <li>
-        <a href="/" class="active HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">Principal</a>
-    </li>
     {{#unless asociacion}}
         <li>
             <a href="/adopcion" class="HELVETICANEUE-MEDIUM" style="color:var(--LAVENDER)">Adopciones</a>
@@ -17,11 +14,11 @@
             </a>
         </li>
         <li>
-
+            <div class="main-white-button" >
                 <a class="main-white-button" href="/panel">
                     {{persona.nombre}}
                 </a>
-
+            </div>
         </li>
     {{else}}
         {{#if asociacion}}
@@ -31,11 +28,11 @@
                 </a>
             </li>
             <li>
-
+                <div class="main-white-button">
                     <a href="/panel">
                         {{asociacion.nombre}}
                     </a>
-
+                </div>
             </li>
         {{else}}
             {{#if usuario}}
@@ -45,20 +42,20 @@
                     </a>
                 </li>
                 <li>
-
+                    <div class="main-white-button" >
                         <a class="main-white-button" href="/panel">
                             {{usuario.persona.nombre}}
                         </a>
-
+                    </div>
                 </li>
             {{else}}
                 <li>
-
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="main-white-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a href="#">
                             <!-- <i class="fa fa-plus"></i> -->
-                            INGRESAR
+                            <span class="HELVETICANEUE-MEDIUM">INGRESAR</span>
                         </a>
-
+                    </div>
                 </li>
             {{/if}}
         {{/if}}
