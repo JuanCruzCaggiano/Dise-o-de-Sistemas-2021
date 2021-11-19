@@ -44,7 +44,6 @@ public class Usuario {
     @Column
     private Boolean isBlocked;
 
-
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "asociacion_id")
     private Asociacion asociacion;
@@ -68,7 +67,7 @@ public class Usuario {
         this.password = HashHelper.getHashHelper().passwordAMD5(password);
         this.usedPasswords.add(this.password);
         this.asociacion = asociacion;
-        setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
+        this.lastPasswordDT = DateHelper.getHelper().LocalDateTimeToDate(LocalDateTime.now(ZoneOffset.UTC));
     }
     public Boolean soyAdmin(){
         return false;
@@ -99,6 +98,9 @@ public class Usuario {
         setPassword(HashHelper.getHashHelper().passwordAMD5(newPassword));
         addUsedPassword(HashHelper.getHashHelper().passwordAMD5(newPassword));
         setLastPasswordDT(LocalDateTime.now(ZoneOffset.UTC));
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public Boolean passwordVencida(){
@@ -129,6 +131,9 @@ public class Usuario {
 
     public void setLastPasswordDT(LocalDateTime newLastPasswordDT){
         this.lastPasswordDT = DateHelper.getHelper().LocalDateTimeToDate(newLastPasswordDT);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     //Va a servir al momento del logueo
@@ -142,6 +147,9 @@ public class Usuario {
     }
     public void setIntentosFallidos(int intentosFallidos) {
         this.intentosFallidos = intentosFallidos;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
     public void sumaIntentoFallido() {
         this.intentosFallidos += 1;
