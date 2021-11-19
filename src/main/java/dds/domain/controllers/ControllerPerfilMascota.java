@@ -1,4 +1,5 @@
 package dds.domain.controllers;
+
 import dds.db.RepositorioMascotas;
 import dds.db.RepositorioPersonas;
 import dds.domain.entities.mascota.Mascota;
@@ -19,26 +20,35 @@ import java.util.stream.Stream;
 public class ControllerPerfilMascota {
     public ControllerPerfilMascota() {
     }
-    public ModelAndView mostrarPerfilMascota(Request req, Response rep){
+
+    public ModelAndView mostrarPerfilMascota(Request req, Response rep) {
         String idMascota = req.params("id");
-        Mascota mascotaEncontrada= RepositorioMascotas.getRepositorio().getMascota(idMascota);
-        Map<String,Object> parametros = new HashMap<>();
+        Mascota mascotaEncontrada = RepositorioMascotas.getRepositorio().getMascota(idMascota);
+        Map<String, Object> parametros = new HashMap<>();
         Usuario usuario = req.session().attribute("usuario");
-        String idMascota2 = usuario.getAsociacion().getPublicador().getEnAdopcion().stream().filter(p -> p.getIdMascota().equals(idMascota)).findFirst().orElse(null).getIdMascota();
-        if(usuario != null){parametros.put("persona", usuario.getPersona());}
+        String idMascota2 = "";
+        try {
+            idMascota2 = usuario.getAsociacion().getPublicador().getEnAdopcion().stream().filter(p -> p.getIdMascota().equals(idMascota)).collect(Collectors.toList()).get(0).getIdMascota();
+        } catch (Exception e) {
+            System.out.println("La mascota no esta en adopcion");
+        }
+        if (usuario != null) {
+            parametros.put("persona", usuario.getPersona());
+        }
         try {
             if (usuario.getPersona().getMascota(idMascota).getIdMascota().equals(idMascota) || mascotaEncontrada.getEstaPerdida() || mascotaEncontrada.getIdMascota().equals(idMascota2)) {
 
                 //duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
-                parametros.put("mascota",mascotaEncontrada);
-                return new ModelAndView(parametros,"perfilMascota.hbs");
+                parametros.put("mascota", mascotaEncontrada);
+                return new ModelAndView(parametros, "perfilMascota.hbs");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("La mascota no le pertenece o no existe");
             rep.redirect("//#faltaLogin");
         }
 
+
         rep.redirect("/");
-        return new ModelAndView(parametros,"index.hbs");}
+        return new ModelAndView(parametros, "index.hbs");
+    }
 }
