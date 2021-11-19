@@ -1,4 +1,6 @@
 package dds.servicios.avisos;
+
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -9,17 +11,16 @@ public class AdapterEmail implements AdapterFormaNotificacion{
     @Override
     public void notificar(String mensaje,Contacto contacto) {
         mensaje = mensaje.replaceAll("\\n","<br/>");
-        sendAsHtml(contacto.getEmail(),
-                "Rescate de patitas",
-                "<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");
+        Thread senderThread = sendAsHtml(contacto.getEmail(),"Rescate de patitas","<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");
+        senderThread.start();
     }
 
     private static final String senderEmail = "dds2021.grupo15@gmail.com";//change with your sender email
     private static final String senderPassword = "frbautneduar2021";//change with your sender password
 
-    public static void sendAsHtml(String to, String title, String html) {
-        //System.out.println("Sending email to " + to);
-
+    public static Thread sendAsHtml(String to, String title, String html) {
+        System.out.println("Sending email to " + to);
+        long startTime = System.nanoTime();
         Session session = createSession();
 
         //create message using session
@@ -36,7 +37,9 @@ public class AdapterEmail implements AdapterFormaNotificacion{
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        //System.out.println("Done");
+        long stopTime = System.nanoTime();
+        System.out.println((stopTime - startTime)/1000000000);
+        return null;
     }
 
     private static void prepareEmailMessage(MimeMessage message, String to, String title, String html)

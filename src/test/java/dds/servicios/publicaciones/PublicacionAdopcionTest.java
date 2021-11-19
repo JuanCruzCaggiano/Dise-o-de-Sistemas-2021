@@ -7,6 +7,7 @@ import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
 import dds.domain.entities.persona.Persona;
+import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.roles.Adoptante;
 import dds.domain.entities.persona.roles.RolPersona;
 import dds.domain.entities.persona.transaccion.DarEnAdopcion;
@@ -45,12 +46,13 @@ public class PublicacionAdopcionTest {
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setIdMascota("perro1");
         mascotas.add(perro);
-        duenio = new Persona("npersona","apersona",mascotas,listaRoles,noti);
+
+        duenio = new Persona("npersona","apersona", TipoDocumento.DNI,35648753,LocalDate.now(),"address","1155892198","mail@mail.com",formasDeNoti);
         duenio.setIdPersona("persona1");
 
         asoc = new Asociacion("asoc1",new Ubicacion("DIR",0,0));
         asoc.setIdAsociacion(1);
-        Standard standard = new Standard("UsuarioTest","Password1234+",duenio);
+        Standard standard = new Standard("UsuarioTest","Password1234+",duenio,asoc);
         standard.setAsociacion(asoc);
 
         preguntas = new HashMap<String, String>();

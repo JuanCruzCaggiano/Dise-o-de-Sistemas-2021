@@ -61,7 +61,7 @@ public class PersonaTest {
         personaRescat = new Persona("Gabriel", "Figueroa",TipoDocumento.DNI,37048624,LocalDate.of(1992, 10, 9),
                 "lomas","1140435092", "gafigueroa@gmail.com", formasDeNoti2);
         personaRescat.agregarRol(Rescatista.getRescatista());
-        usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat);
+        usuRescatista = new Standard("UsuarioRescatista","Password1234+",personaRescat,asoc);
         usuRescatista.setAsociacion(asoc);
 
 
@@ -73,7 +73,7 @@ public class PersonaTest {
                 "dir","1140435092", "dorrpei@gmail.com", formasDeNoti3);
         personaVoluntario.agregarRol(Voluntario.getVoluntario());
 
-        usuVoluntario = new Standard("dorrsito","Password1234+",personaVoluntario);
+        usuVoluntario = new Standard("dorrsito","Password1234+",personaVoluntario,asoc);
         usuVoluntario.setAsociacion(asoc);
 
 
@@ -85,7 +85,7 @@ public class PersonaTest {
                                             39000401,LocalDate.of(1995, 7, 7),
                                             "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
-        usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
+        usuDuenio = new Standard("matilanne","Password1234+",personaDuenio,asoc);
         usuDuenio.setAsociacion(asoc);
         personaDuenio.agregarRol(Duenio.getDuenio());
         personaDuenio.agregarMascota(perro);
@@ -100,7 +100,7 @@ public class PersonaTest {
         personaAdoptante = new Persona("Agustin", "Orlando",TipoDocumento.DNI,
                 4303123,LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);
-        usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaAdoptante);
+        usuAdoptante = new Standard("UsuarioAdoptante","Password1234+",personaAdoptante,asoc);
         usuAdoptante.setAsociacion(asoc);
         personaAdoptante.agregarRol(Adoptante.getAdoptante());
 

@@ -16,26 +16,26 @@ public class Notificador {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idNotificador;
 
-    public int getId() {
-        return id;
+    public int getIdNotificador() {
+        return idNotificador;
     }
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Contacto> contactos;
+    private List<Contacto> contactos  ;
 
 
     public List<Contacto> getContactos() {
         return contactos;
     }
     public Notificador(){
-        this.contactos = new ArrayList<>();
+        this.contactos  = new ArrayList<>();
     }
     //agendar
     public void agendarContacto(String nombre, String apellido, String telefono, String email, List<FormaNotificacion> formasDeNoti) {
         Contacto contactoNuevo = new Contacto(nombre, apellido, telefono, email, formasDeNoti);
-        contactos.add(contactoNuevo);
+        this.contactos.add(contactoNuevo);
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
@@ -52,9 +52,10 @@ public class Notificador {
             contactos.get(buscarContacto(buscado)).setEmail(email);
             contactos.get(buscarContacto(buscado)).setTelefono(telefono);
             EntityManagerHelper.beginTransaction();
-            EntityManagerHelper.entityManager().merge(this);
+            EntityManagerHelper.entityManager().merge(this.contactos);
             EntityManagerHelper.commit();
         }
+
     }
 
     public int buscarContacto(Contacto buscado) {

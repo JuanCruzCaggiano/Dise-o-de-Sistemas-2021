@@ -1,6 +1,7 @@
 package dds.servicios.avisos;
 
 import dds.db.EntityManagerHelper;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
@@ -8,6 +9,7 @@ import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.roles.Duenio;
 import dds.domain.entities.seguridad.usuario.Standard;
+import dds.servicios.apiHogares.Ubicacion;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +37,7 @@ public class NotificadorTest extends TestCase {
                 "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
         duenio.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         duenio.agregarRol(Duenio.getDuenio());
-        standard = new Standard("matilanne","Password1234+",duenio);
+        standard = new Standard("matilanne","Password1234+",duenio,new Asociacion("asoc", new Ubicacion("Rivadavia 9450",-34.63722034233585, -58.49715981178081)));
 
         perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         perro.setEstaPerdida(true);

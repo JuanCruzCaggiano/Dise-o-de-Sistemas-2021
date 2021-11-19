@@ -50,7 +50,7 @@ public class NotificadorSemanalTest {
                 39000401,LocalDate.of(1995, 7, 7),
                 "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
         duenio.agregarRol(Duenio.getDuenio());
-        standard = new Standard("matilanne","Password1234+",duenio);
+        standard = new Standard("matilanne","Password1234+",duenio,asoc);
         standard.setAsociacion(asoc);
         Mascota perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro", LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         duenio.agregarMascota(perro);
@@ -66,7 +66,7 @@ public class NotificadorSemanalTest {
                 4303123,LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);
         adoptador.agregarRol(Adoptante.getAdoptante());
-        standardAdoptante = new Standard("UsuarioAdoptante","Password1234+",adoptador);
+        standardAdoptante = new Standard("UsuarioAdoptante","Password1234+",adoptador,asoc);
         standardAdoptante.setAsociacion(asoc);
 
         preguntasAdoptante = new HashMap<String, String>();

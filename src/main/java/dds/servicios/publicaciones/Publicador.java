@@ -31,14 +31,16 @@ public class Publicador {
     public Publicador(){}
 
     public void agregarPublicacionQuieroAdoptar(PublicacionQuieroAdoptar publi){
-        publicacionesQuieroAdoptar.add(publi);
-
+        this.publicacionesQuieroAdoptar.add(publi);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().merge(this);
+        EntityManagerHelper.commit();
     }
 
     public void agregarPublicacionMascotaEnAdopcion(PublicacionAdopcion publi){
-        enAdopcion.add(publi);
+        this.enAdopcion.add(publi);
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().persist(publi);
+        EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
 
     }
@@ -77,13 +79,13 @@ public class Publicador {
     public void agregarPublicacion (PublicacionMascota publi){
         this.publicacionesMascotas.add(publi);
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().persist(publi);
+        EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
     }
     public void eliminarPublicacion (PublicacionMascota publi){
         this.publicacionesMascotas.remove(publi);
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.entityManager().remove(publi);
+        EntityManagerHelper.entityManager().merge(this);
         EntityManagerHelper.commit();
     }
 

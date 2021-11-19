@@ -40,7 +40,7 @@ public class RepositorioUsuariosTest  {
         personaDuenio = new Persona("Matias", "Lanneponders", TipoDocumento.DNI,
                 39000401, LocalDate.of(1995, 7, 7),
                 "Byron 35","1155892198", "mlyonadi@gmail.com", formasDeNoti);
-        usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
+        usuDuenio = new Standard("matilanne","Password1234+",personaDuenio,asoc);
         usuDuenio.setAsociacion(asoc);
         perro = new Mascota(TipoMascota.PERRO,"nombrePerro","apodoPerro",LocalDate.now().minusYears(5),"Pelo largo",new ArrayList<>(),new HashMap<>(), Sexo.MACHO);
         personaDuenio.agregarMascota(perro);

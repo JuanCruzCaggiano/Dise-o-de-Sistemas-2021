@@ -50,7 +50,7 @@ public class ConfiguradorTest {
                     39000401,LocalDate.of(1995, 7, 7),
                     "dir","1155892198", "mlyonadi@gmail.com", formasDeNoti);
 
-            usuDuenio = new Standard("matilanne","Password1234+",personaDuenio);
+            usuDuenio = new Standard("matilanne","Password1234+",personaDuenio,asoc);
             usuDuenio.setAsociacion(asoc);
             personaDuenio.agregarRol(Duenio.getDuenio());
             personaDuenio.agregarMascota(mascota);

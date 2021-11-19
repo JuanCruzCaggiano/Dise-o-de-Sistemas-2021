@@ -51,18 +51,9 @@ public class Persona {
 
     @OneToOne (cascade = {CascadeType.ALL})
     @JoinColumn(name = "notificador_id")
-    private Notificador notificador;
+    private Notificador notificador = new Notificador();
 
-    public Persona(String nombre, String apellido, List<Mascota> mascotas, List<RolPersona> listaRoles, Notificador notificador) {
-        this.idPersona = UUID.randomUUID().toString().replace("-", "");
-        this.mascotas = new ArrayList<>();
-        this.mascotas.addAll(mascotas);
-        this.listaRoles = new ArrayList<>();
-        this.listaRoles.addAll(listaRoles);
-        this.notificador = notificador;
-        notificador.getContactos().get(0).setNombre(nombre);
-        notificador.getContactos().get(0).setApellido(apellido);
-    }
+
     //Alta de persona que encontro a su mascota
     public Persona(String nombre, String apellido,TipoDocumento tipoDoc,Integer nroDoc,LocalDate fechaNac,String direccion,String telefono, String email,List<FormaNotificacion> formasDeNoti) {
         this.idPersona = UUID.randomUUID().toString().replace("-", "");
@@ -73,11 +64,17 @@ public class Persona {
         this.fechaNac = DateHelper.getHelper().LocalDateToDate(fechaNac);
         this.direccion = direccion;
         this.mascotas = new ArrayList<>();
-        this.notificador = new Notificador();
-        notificador.agendarContacto(nombre,apellido,telefono,email,formasDeNoti);
+        crearNotificador();
+        this.notificador.agendarContacto(nombre,apellido,telefono,email,formasDeNoti);
 
     }
 
+    public void crearNotificador(){
+        this.notificador = new Notificador();
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.entityManager().persist(this.notificador);
+        EntityManagerHelper.commit();
+    }
 
 
     public String getNombre() {

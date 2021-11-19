@@ -44,7 +44,7 @@ public class PublicacionQuieroAdoptarTest  {
         adoptador = new Persona("Agustin", "Orlando", TipoDocumento.DNI,
                 4303123, LocalDate.of(2000, 11, 3),
                 "dir","1157383400", "orlandoagustin00@gmail.com", formasDeNoti4);
-        standard = new Standard("UsuarioAdoptante","Password1234+",adoptador);
+        standard = new Standard("UsuarioAdoptante","Password1234+",adoptador,asoc);
         standard.setAsociacion(asoc);
         adoptador.agregarRol(Adoptante.getAdoptante());
         preguntas = new HashMap<String, String>();
