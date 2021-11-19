@@ -35,8 +35,7 @@ public class ControllerPerfilMascota {
         if (usuario != null) {
             parametros.put("persona", usuario.getPersona());
         }
-        try {
-            if (usuario.getPersona().getMascota(idMascota).getIdMascota().equals(idMascota) || mascotaEncontrada.getEstaPerdida() || mascotaEncontrada.getIdMascota().equals(idMascota2)) {
+        try { if (usuario.getPersona().getMascota(idMascota).getIdMascota().equals(idMascota) || mascotaEncontrada.getEstaPerdida() || mascotaEncontrada.getIdMascota().equals(idMascota2)) {
 
                 //duenio = RepositorioPersonas.getRepositorio().getPersona(RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota));
                 parametros.put("mascota", mascotaEncontrada);
