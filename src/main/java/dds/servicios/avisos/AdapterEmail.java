@@ -1,24 +1,27 @@
 package dds.servicios.avisos;
+import dds.servicios.helpers.MyRunnable;
 
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 public class AdapterEmail implements AdapterFormaNotificacion{
 
     @Override
     public void notificar(String mensaje,Contacto contacto) {
-        mensaje = mensaje.replaceAll("\\n","<br/>");
-        Thread senderThread = sendAsHtml(contacto.getEmail(),"Rescate de patitas","<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");
-        senderThread.start();
+
+        Thread t = new Thread(new MyRunnable(mensaje,contacto));
+        t.start();
     }
 
     private static final String senderEmail = "dds2021.grupo15@gmail.com";//change with your sender email
     private static final String senderPassword = "frbautneduar2021";//change with your sender password
 
-    public static Thread sendAsHtml(String to, String title, String html) {
+    public static void sendAsHtml(String to, String title, String html) {
         System.out.println("Sending email to " + to);
         long startTime = System.nanoTime();
         Session session = createSession();
@@ -39,7 +42,6 @@ public class AdapterEmail implements AdapterFormaNotificacion{
         }
         long stopTime = System.nanoTime();
         System.out.println((stopTime - startTime)/1000000000);
-        return null;
     }
 
     private static void prepareEmailMessage(MimeMessage message, String to, String title, String html)

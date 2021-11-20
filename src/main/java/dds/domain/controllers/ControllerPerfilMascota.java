@@ -43,7 +43,7 @@ public class ControllerPerfilMascota {
             }
         } catch (Exception e) {
             System.out.println("La mascota no le pertenece o no existe");
-            rep.redirect("//#faltaLogin");
+            rep.redirect("/#faltaLogin");
         }
 
 
