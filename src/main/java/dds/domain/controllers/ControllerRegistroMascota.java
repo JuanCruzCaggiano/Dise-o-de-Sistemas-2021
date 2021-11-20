@@ -57,7 +57,7 @@ public class ControllerRegistroMascota {
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.entityManager().merge(mascota);
         EntityManagerHelper.commit();
-        response.redirect("/");
+        response.redirect("/noTengoAlma");
         return response;
     }
     public Response registrarMascota(Request request, Response response) throws NoSuchAlgorithmException, IOException {

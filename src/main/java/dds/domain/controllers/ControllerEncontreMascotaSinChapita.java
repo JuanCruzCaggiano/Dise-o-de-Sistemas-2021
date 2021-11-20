@@ -72,7 +72,7 @@ public class ControllerEncontreMascotaSinChapita {
     public ModelAndView crearMascotaPerdidaSinChapita(Request request, Response response) {
         Usuario usuario = request.session().attribute("usuario");
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("usuario",usuario);
+        parametros.put("usuario", usuario);
         String radio = null;
         String latitud = null;
         String longitud = null;
@@ -81,7 +81,7 @@ public class ControllerEncontreMascotaSinChapita {
         String accion = null;
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
         try {
-            latitud =  PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("lat").getInputStream());
+            latitud = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("lat").getInputStream());
             longitud = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("long").getInputStream());
             descripcion = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("descripcion").getInputStream());
             foto = PhotoUploaderHelper.getHelper().uploadPhoto(request.raw().getPart("foto").getInputStream());
@@ -91,22 +91,24 @@ public class ControllerEncontreMascotaSinChapita {
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
-        if (accion.equals("hogar")){
-            usuario.getPersona().ejecutarTransaccion(new BuscarHogarDeTransito(Double.valueOf(latitud),Double.valueOf(longitud),Double.valueOf(radio)));
-            parametros.put("hogares",RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares());
+        if (accion.equals("hogar")) {
+            usuario.getPersona().ejecutarTransaccion(new BuscarHogarDeTransito(Double.valueOf(latitud), Double.valueOf(longitud), Double.valueOf(radio)));
+            parametros.put("hogares", RepositorioHogaresDeTransito.getRepositorio().getPosiblesHogares());
 
-            return new ModelAndView(parametros,"enviarAHogarDeTransito.hbs");
+            return new ModelAndView(parametros, "enviarAHogarDeTransito.hbs");
         }
-        if (accion.equals("transito")){
-        ArrayList<String> listaFotos = new ArrayList<>();
-        listaFotos.add(foto);
-        Persona rescatista = usuario.getPersona();
-        Float fLatitud = Float.parseFloat(latitud);
-        Float fLongitud = Float.parseFloat(longitud);
-        rescatista.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita(fLatitud, fLongitud, listaFotos, descripcion, rescatista.getIdPersona()));
+        if (accion.equals("transito")) {
+            ArrayList<String> listaFotos = new ArrayList<>();
+            listaFotos.add(foto);
+            Persona rescatista = usuario.getPersona();
+            Float fLatitud = Float.parseFloat(latitud);
+            Float fLongitud = Float.parseFloat(longitud);
+            rescatista.ejecutarTransaccion(new EncontreMascotaPerdidaSinChapita(fLatitud, fLongitud, listaFotos, descripcion, rescatista.getIdPersona()));
 
-        return new ModelAndView(parametros,"/panel#registroMascotaConExito");}
-        return new ModelAndView(parametros,"/panel#error");
+            response.redirect("/panel#registroMascotaConExito");
+        }
+        response.redirect("/panel#error");
+        return new ModelAndView(parametros, "/panel#error");
     }
 
 }

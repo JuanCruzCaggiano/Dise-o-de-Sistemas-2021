@@ -32,6 +32,11 @@ public class ControllerNoTengoAlma {
             parametros.put("sexos",enumSexo);
             List<String> enumTipo = Stream.of(TipoMascota.values()).map(Enum::name).collect(Collectors.toList());
             parametros.put("tiposMascota",enumTipo);
+            if(usuario.getPersona().getMascotas().size() == 0){
+                parametros.put("tieneMascotas",false);
+            }else{
+                parametros.put("tieneMascotas",true);
+            }
         }
         else{
             rep.redirect("/");

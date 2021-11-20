@@ -1,5 +1,7 @@
 package dds.domain.entities.seguridad.usuario;
 
+import dds.domain.entities.asociacion.Asociacion;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.security.NoSuchAlgorithmException;
@@ -14,8 +16,8 @@ public class Administrador extends Usuario {
     public Boolean soyAdmin(){
         return true;
     }
-    public Administrador(String userName, String passWord) throws NoSuchAlgorithmException {
-        super(userName,passWord);
+    public Administrador(String userName, String passWord, Asociacion asoc) throws NoSuchAlgorithmException {
+        super(userName,passWord,asoc);
     }
 
     public void agregarCaracteristica(String c){
@@ -37,5 +39,7 @@ public class Administrador extends Usuario {
     public void eliminarPregunta(String preg){
         this.getAsociacion().getConfigurador().eliminarPregunta(preg);
     }
+
+
 
 }

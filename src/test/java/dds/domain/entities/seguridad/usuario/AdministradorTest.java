@@ -21,11 +21,12 @@ public class AdministradorTest {
     @Before
     public void setUp() throws NoSuchAlgorithmException {
 
-        //CREO ADMIN
-        admin = new Administrador("admin","Password123+");
+
         //CREO ASOC
         asoc = new Asociacion("Asco",new Ubicacion("Rescate de Patitas",-34.559974,-58.4838289));
-        admin.setAsociacion(asoc);
+
+        //CREO ADMIN
+        admin = new Administrador("admin","Password123+",asoc);
 
         if (EntityManagerHelper.getEntityManager().find(Asociacion.class, 1) != null) {
             asoc = (Asociacion) EntityManagerHelper.getEntityManager().createQuery("from Asociacion ").getResultList().get(0);

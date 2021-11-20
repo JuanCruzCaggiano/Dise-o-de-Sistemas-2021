@@ -22,9 +22,10 @@ public class RepositorioMascotas {
 
     public List<Mascota> getMascotasXPersonaId(String idPersona){
         if(RepositorioPersonas.getRepositorio().esIDValido(idPersona)){
-            String jql = "Select m from Persona p, Mascota m where p.idPersona = :idPersona";
+            Persona persona = RepositorioPersonas.getRepositorio().getPersona(idPersona);
+            String jql = "Select m from Mascota m where m.persona = :persona";
             List<Mascota> mascotas  =  (List<Mascota>) EntityManagerHelper.getEntityManager().createQuery(jql).
-                    setParameter("idPersona",idPersona).getResultList();
+                    setParameter("persona",persona).getResultList();
             return  mascotas;
 
         }else {
@@ -40,11 +41,11 @@ public class RepositorioMascotas {
         }
     }
     public List<Mascota> getMascotasPorListaId(List<String>ids) {
-        List<Mascota> mascotas = new ArrayList<>();
+        List<Mascota> listaMascotas = new ArrayList<>();
         for (String id:ids){
-            mascotas.add(this.getMascota(id));
+            listaMascotas.add(this.getMascota(id));
         }
-        return mascotas;
+        return listaMascotas;
     }
 
     public boolean esIDValido(String ID) {

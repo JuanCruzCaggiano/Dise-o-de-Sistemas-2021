@@ -71,7 +71,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             <form method="post" action="/crearMascotaPerdidaSinChapita" enctype='multipart/form-data'>
                 <div class="row justify-content-md-center">
@@ -108,7 +107,7 @@
                         <label for="foto" class="form-label mt-3 mb-1 LBL">
                             Fotos
                         </label>
-                        <input type="file" class="form-control-file TXTBOX" id="foto" name="foto" multiple/>
+                        <input type="file" class="form-control-file TXTBOX" id="foto" name="foto" multiple required/>
                     </div>
                 </div>
 
@@ -117,7 +116,7 @@
                         Descripción
                     </label>
                     <div class="input-group input-group-sm mb-4">
-                        <textarea class="form-control TXTBOX" aria-label="With textarea" id="descripcion" name="descripcion"></textarea>
+                        <textarea class="form-control TXTBOX" aria-label="With textarea" id="descripcion" name="descripcion" required></textarea>
                     </div>
                 </div>
 
@@ -147,7 +146,7 @@
                                 <div class="form-row">
                                     <div class="form-group mb-3">
                                         <label for="radio" class="LBL">
-                                            Radio de Búsqueda
+                                            Radio de Búsqueda (KM)
                                         </label>
                                         <input class="form-control TXTBOX" id="radio" name="radio" placeholder="Ingrese radio" value="0" type="number" required>
                                     </div>

@@ -1,9 +1,13 @@
 package dds.db;
 
 import dds.db.repositorioException.LogicRepoException;
+import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.persona.Persona;
+import dds.domain.entities.seguridad.usuario.Administrador;
+import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class RepositorioUsuarios {
@@ -79,5 +83,17 @@ public class RepositorioUsuarios {
         return (EntityManagerHelper.getEntityManager().find(Usuario.class, ID) != null) ;
     }
 
+    public void crearUsuarioAdministrador(String userName, String passWord, Asociacion asoc) throws NoSuchAlgorithmException {
+        Administrador admin = new Administrador(userName,passWord,asoc);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(admin);
+        EntityManagerHelper.commit();
+    }
+    public void crearUsuarioStandard(String userName, String password, Persona persona, Asociacion asoc) throws NoSuchAlgorithmException {
+        Standard standard = new Standard(userName,password,persona, asoc);
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(standard);
+        EntityManagerHelper.commit();
+    }
 
 }

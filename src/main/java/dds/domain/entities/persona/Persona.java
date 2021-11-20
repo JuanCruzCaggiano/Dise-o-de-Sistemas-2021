@@ -31,7 +31,7 @@ public class Persona {
     @Column (name = "idPersona")
     private String idPersona;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany (mappedBy="persona" , cascade = {CascadeType.ALL})
     private List<Mascota> mascotas = new ArrayList<>();
 
     @Column (columnDefinition = "DATE")
@@ -89,6 +89,7 @@ public class Persona {
     }
 
     public void agregarMascota(Mascota mascota){
+        mascota.setPersona(this);
         this.mascotas.add(mascota);
     }
     public Notificador getNotificador() {

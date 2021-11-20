@@ -38,6 +38,9 @@ public class Mascota {
     @Column
     private String descripcion;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPersona")
+    private Persona persona;
 
 
     @Lob
@@ -136,6 +139,10 @@ public class Mascota {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public Boolean getEstaEnAdopcion(){

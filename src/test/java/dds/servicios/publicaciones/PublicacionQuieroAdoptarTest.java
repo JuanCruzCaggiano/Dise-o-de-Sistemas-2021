@@ -34,8 +34,8 @@ public class PublicacionQuieroAdoptarTest  {
     public void setUp() throws NoSuchAlgorithmException {
 
         asoc = new Asociacion("Rescate de Patitas",new Ubicacion("Jose Maria Moreno 256",-62.015153,-30.524153));
-        admin = new Administrador("matilanne","Passwrod1234+");
-        admin.setAsociacion(asoc);
+        admin = new Administrador("matilanne","Passwrod1234+",asoc);
+
 
         // CREO ADOPTANTE
         Email email4 = new Email();
