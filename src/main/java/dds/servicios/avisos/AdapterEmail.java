@@ -1,6 +1,5 @@
 package dds.servicios.avisos;
-import dds.servicios.helpers.MyRunnable;
-
+import jdk.vm.ci.meta.Local;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -13,9 +12,11 @@ public class AdapterEmail implements AdapterFormaNotificacion{
 
     @Override
     public void notificar(String mensaje,Contacto contacto) {
+        mensaje = mensaje.replaceAll("\\n","<br/>");
+        sendAsHtml(contacto.getEmail(),
+                "Rescate de patitas",
+                "<h2>Rescate de Patitas</h2><p>"+mensaje+"</p>");
 
-        Thread t = new Thread(new MyRunnable(mensaje,contacto));
-        t.start();
     }
 
     private static final String senderEmail = "dds2021.grupo15@gmail.com";//change with your sender email
