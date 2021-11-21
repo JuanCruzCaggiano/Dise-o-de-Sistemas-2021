@@ -36,10 +36,7 @@ public class RepositorioPersonas {
 
     public String getIdPersonaXidMascota(String idMascota) {
         if (RepositorioMascotas.getRepositorio().esIDValido(idMascota)) {
-            String jql = "Select p from Persona p, Mascota m where m.idMascota = :idMascota";
-            Persona persona = (Persona) EntityManagerHelper.getEntityManager().createQuery(jql).
-                    setParameter("idMascota", idMascota).getResultList().get(0);
-            return persona.getIdPersona();
+            return RepositorioMascotas.getRepositorio().getMascota(idMascota).getPersona().getIdPersona();
 
         } else {
             throw new LogicRepoException("IdMascota inexistente");

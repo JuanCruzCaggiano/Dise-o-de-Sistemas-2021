@@ -52,7 +52,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
 
 
         Mascota perro = new Mascota(TipoMascota.PERRO,"lola beatriz","lo",LocalDate.now().minusYears(6),"Obejero",new ArrayList<>(),new HashMap<>(), Sexo.HEMBRA);
-        Mascota gato = new Mascota(TipoMascota.PERRO,"Fatiga","Fatiga",LocalDate.now().minusYears(11),"Estrella de TV",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
+        Mascota perro2 = new Mascota(TipoMascota.PERRO,"Fatiga","Fatiga",LocalDate.now().minusYears(11),"Estrella de TV",new ArrayList<>(),new HashMap<>(),Sexo.MACHO);
         perro.agregarCaracteristica("Color De Pelo","Negro y Marron");
         perro.agregarCaracteristica("Tamaño","Grande");
         perro.setEstaPerdida(true);
@@ -62,20 +62,20 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         Persona persona = new Persona("Matias","Lanneponders",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","mlyonadi@gmail.com",formasDeNoti);
         persona.getNotificador().agendarContacto("Pedro", "Dorr", "1140435092", "dorrpei@gmail.com", formasDeNoti);
         persona.agregarMascota(perro);
-        persona.agregarMascota(gato);
+        persona.agregarMascota(perro2);
         HashMap<String, String> preguntas = new HashMap<String, String>();
         preguntas.put(asoc.getConfigurador().getPreguntas().get(0),"Negro");
         preguntas.put(asoc.getConfigurador().getPreguntas().get(1),"Grande");
 
-        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioStandard","Password123+2",persona,asoc);
+        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioDuenio","Password123+",persona,asoc);
 
 
-        Persona persona3 = new Persona("Vpersona","apersona",TipoDocumento.DNI,39000401,LocalDate.of(1995,07,07),"dire","1165485425","makinsonf.christian@gmail.com",formasDeNoti);
+        Persona persona3 = new Persona("Agustin","Orlando",TipoDocumento.DNI,39000401,LocalDate.of(1999,05,30),"Por algun lugar villa crespo","1165485425","orlandoagustin00@gmail.com",formasDeNoti);
         persona3.getListaRoles().add(Voluntario.getVoluntario());
-        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioVoluntario","Password123+2",persona3,asoc);
+        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioVoluntario","Password123+",persona3,asoc);
         Persona adoptante = new Persona("Gabriel","Figueroa",TipoDocumento.DNI,33501523,LocalDate.of(1988,07,07),"dire","1165486542","gabriel.n.figueroa@gmail.com",formasDeNoti);
         adoptante.getListaRoles().add(Adoptante.getAdoptante());
-        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioAdoptante","Password123+2",adoptante,asoc);
+        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioAdoptante","Password123+",adoptante,asoc);
         preguntas = new HashMap<String, String>();
 
 

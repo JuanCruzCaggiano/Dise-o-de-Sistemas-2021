@@ -121,6 +121,10 @@ public class Mascota {
 
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
+
     public void setIdMascota(String idMascota) {
         this.idMascota = idMascota;
     }
