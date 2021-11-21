@@ -25,7 +25,7 @@ public class ControllerContactar {
             String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
             Persona persona = RepositorioPersonas.getRepositorio().getPersona(idPersona);
 
-            List<Contacto> listaDeContactos = persona.getNotificador().getContactos();
+            List<Contacto> listaDeContactos = usuario.getPersona().getNotificador().getContactos();
             Contacto propio = listaDeContactos.get(0);
             persona.getNotificador().notificarPersona(propio.getNombre() + " encontró a tu mascota" + "\n" + "celular: " + propio.getTelefono() + "\n" + "mail : " + propio.getEmail());
 
