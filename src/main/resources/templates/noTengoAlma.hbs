@@ -96,10 +96,15 @@
                                     {{/if}}
                                 {{/each}}
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                               data-slide="prev"> </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                               data-slide="next"> </a>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
 
                         <div class="card-body">
@@ -212,7 +217,7 @@
                              aria-labelledby="staticBackdropLabel{{idMascota}}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content FONDO-LAVENDER">
-                                    <form method="post" action="/actualizarMascota" enctype='multipart/form-data'>
+                                    <form method="post" action="/actualizarMascota/{{idMascota}}" enctype='multipart/form-data'>
                                         <div class="modal-header">
                                             <h4 class="modal-title LETRAS-DARK_VIOLET PFBEAUSANS-SEMIBOLD"
                                                 id="exampleModalLabel">
