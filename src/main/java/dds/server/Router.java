@@ -73,7 +73,8 @@ public class Router {
         Spark.get("/logout", controllerLogin::logOut, Router.engine);
         Spark.get("/evaluarPublicacion", controllerEvaluarPublicacion::mostrarPublicaciones, Router.engine);
         Spark.get("/panelAdopcion/:idMascota", controllerPanelAdopcion::mostrarPanel, Router.engine);
-        Spark.get("/contactarPersona/:id",controllerContactar::contactarPersona,Router.engine);
+        Spark.get("/contactarPersonaMascotaPerdida/:id",controllerContactar::contactarPersonaMascotaPerdida,Router.engine);
+        Spark.get("/contactarPersonaQuieroAdoptar/:id",controllerContactar::contactarPersonaQuieroAdoptar,Router.engine);
         Spark.get("/publicacionPrivada/:idPublicacion", controllerPublicacion::mostrarPublicacionPrivada, Router.engine);
         //Spark.get("/enviarAHogarDeTransito", controllerEncontreMascotaSinChapita::mostrarHogaresDeTransito, Router.engine) ;
         Spark.get("/mascotasPerdidas", controllerMascotasPerdidas::mostrarMascotasPerdidas, Router.engine);
@@ -92,6 +93,7 @@ public class Router {
         Spark.post("/crearCuenta", controllerRegistroUsuario::crearUsuario, Router.engine);
         Spark.post("/registroMascota", controllerRegistroMascota::registrarMascota);
         Spark.post("/agregarFoto/:id", controllerRegistroMascota::agregarFoto);
+        Spark.post("/actualizarMascota/:id", controllerRegistroMascota::actualizarMascota);
         Spark.post("/agregarContacto", controllerAgregarContacto::agregarContacto);
         Spark.get("/verContactos", controllerAgregarContacto::mostrarVerContactos, Router.engine);
         Spark.post("/configurarCaracteristicasAsociacion", controllerConfigurarCaracteristicasAsociacion::modificarCaracteristicas, Router.engine);

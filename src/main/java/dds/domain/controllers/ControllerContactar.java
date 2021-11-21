@@ -18,25 +18,58 @@ public class ControllerContactar {
     public ControllerContactar() {
     }
 
-    public ModelAndView contactarPersona(Request req, Response rep){
-        String idMascota = req.params("id");
-
+    public ModelAndView contactarPersonaMascotaPerdida(Request req, Response rep) {
         Usuario usuario = req.session().attribute("usuario");
-        List<Contacto> listaDeContactos = usuario.getPersona().getNotificador().getContactos();
-        Contacto propio = listaDeContactos.get(0);
-        usuario.getPersona().getNotificador().notificarPersona(propio.getNombre()+" quiere adoptar a tu mascota"+"\n" + "celular: " + propio.getTelefono() + "\n"+ "mail : " + propio.getEmail());
+        if (usuario != null) {
+            String idMascota = req.params("id");
+            String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
+            Persona persona = RepositorioPersonas.getRepositorio().getPersona(idPersona);
+
+            List<Contacto> listaDeContactos = persona.getNotificador().getContactos();
+            Contacto propio = listaDeContactos.get(0);
+            persona.getNotificador().notificarPersona(propio.getNombre() + " encontró a tu mascota" + "\n" + "celular: " + propio.getTelefono() + "\n" + "mail : " + propio.getEmail());
 
 
-        Map<String,Object> parametros = new HashMap<>();
-        if(usuario!=null) {
-            parametros.put("persona", usuario.getPersona());
-            parametros.put("roles", usuario.getPersona().getListaRoles());
-            parametros.put("contacto",propio);
+            Map<String, Object> parametros = new HashMap<>();
+            if (persona != null) {
+                parametros.put("persona", persona);
+                parametros.put("roles", persona.getListaRoles());
+                parametros.put("contacto", propio);
+            } else {
+                rep.redirect("/");
+            }
+            return new ModelAndView(parametros, "contactarDuenio.hbs");
+        } else {
+            rep.redirect("/#faltaLogin");
+
         }
-        else{
-            rep.redirect("/");
-        }
-        return new ModelAndView(parametros,"contactarDuenio.hbs");
+        return new ModelAndView(new HashMap<>(), "/");
     }
 
+    public ModelAndView contactarPersonaQuieroAdoptar(Request req, Response rep) {
+        Usuario usuario = req.session().attribute("usuario");
+        if (usuario != null) {
+            String idMascota = req.params("id");
+            String idPersona = RepositorioPersonas.getRepositorio().getIdPersonaXidMascota(idMascota);
+            Persona persona = RepositorioPersonas.getRepositorio().getPersona(idPersona);
+
+            List<Contacto> listaDeContactos = usuario.getPersona().getNotificador().getContactos();
+            Contacto propio = listaDeContactos.get(0);
+            persona.getNotificador().notificarPersona(propio.getNombre() + " quiere adoptar a tu mascota" + "\n" + "celular: " + propio.getTelefono() + "\n" + "mail : " + propio.getEmail());
+
+
+            Map<String, Object> parametros = new HashMap<>();
+            if (persona != null) {
+                parametros.put("persona", persona);
+                parametros.put("roles", persona.getListaRoles());
+                parametros.put("contacto", propio);
+            } else {
+                rep.redirect("/");
+            }
+            return new ModelAndView(parametros, "contactarDuenio.hbs");
+        } else {
+            rep.redirect("/#faltaLogin");
+        }
+        return new ModelAndView(new HashMap<>(), "/");
+    }
 }
