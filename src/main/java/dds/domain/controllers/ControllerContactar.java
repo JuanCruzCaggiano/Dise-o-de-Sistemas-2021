@@ -34,7 +34,7 @@ public class ControllerContactar {
             if (persona != null) {
                 //parametros.put("persona", persona);
                 parametros.put("roles", persona.getListaRoles());
-                parametros.put("contacto", propio);
+                parametros.put("contacto", persona.getNotificador().getContactos().get(0));
             } else {
                 rep.redirect("/");
             }
@@ -61,8 +61,9 @@ public class ControllerContactar {
             Map<String, Object> parametros = new HashMap<>();
             if (persona != null) {
                 //parametros.put("persona", persona);
+                parametros.put("usuario",usuario);
                 parametros.put("roles", persona.getListaRoles());
-                parametros.put("contacto", propio);
+                parametros.put("contacto", persona.getNotificador().getContactos().get(0));
             } else {
                 rep.redirect("/");
             }
