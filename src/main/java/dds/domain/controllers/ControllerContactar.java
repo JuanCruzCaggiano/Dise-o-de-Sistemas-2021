@@ -32,7 +32,7 @@ public class ControllerContactar {
 
             Map<String, Object> parametros = new HashMap<>();
             if (persona != null) {
-                parametros.put("persona", persona);
+                //parametros.put("persona", persona);
                 parametros.put("roles", persona.getListaRoles());
                 parametros.put("contacto", propio);
             } else {
@@ -60,7 +60,7 @@ public class ControllerContactar {
 
             Map<String, Object> parametros = new HashMap<>();
             if (persona != null) {
-                parametros.put("persona", persona);
+                //parametros.put("persona", persona);
                 parametros.put("roles", persona.getListaRoles());
                 parametros.put("contacto", propio);
             } else {
