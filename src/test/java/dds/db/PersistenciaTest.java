@@ -67,7 +67,7 @@ public class PersistenciaTest extends AbstractPersistenceTest implements WithGlo
         preguntas.put(asoc.getConfigurador().getPreguntas().get(0),"Negro");
         preguntas.put(asoc.getConfigurador().getPreguntas().get(1),"Grande");
 
-        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("usuarioDuenio","Password123+",persona,asoc);
+        RepositorioUsuarios.getRepositorio().crearUsuarioStandard("matilanne","Wasd0123+",persona,asoc);
 
 
         Persona persona3 = new Persona("Agustin","Orlando",TipoDocumento.DNI,39000401,LocalDate.of(1999,05,30),"Por algun lugar villa crespo","1165485425","orlandoagustin00@gmail.com",formasDeNoti);
