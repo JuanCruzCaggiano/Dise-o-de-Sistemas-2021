@@ -70,10 +70,23 @@ public class Mascota {
         this.nombre = nombre;
         this.apodo = apodo;
         this.sexo = sexo;
-        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());//TODO Modificar el constructor y todos los test que lo usen para recibir una fecha de nacimiento.
+        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         this.descripcion = descripcion;
         this.pathFoto = listaFotos;
         this.caracteristica = caracteristica;
+    }
+
+    public void actualizarMascota(TipoMascota tipo, String nombre, String apodo, LocalDate fechaNac, String descripcion,Sexo sexo) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.apodo = apodo;
+        this.sexo = sexo;
+        this.fechaNac = Date.from(fechaNac.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        this.descripcion = descripcion;
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(this);
+        EntityManagerHelper.commit();
+
     }
     public void agregarfoto(String a){
         this.pathFoto.add(a);

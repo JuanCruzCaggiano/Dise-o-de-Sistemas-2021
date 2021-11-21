@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/css/nuestros.css">
 </head>
 
-<body>
+<body onpageshow="checkHash();">
 <!-- ***** Preloader Start ***** -->
 <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
@@ -96,12 +96,14 @@
                                     {{/if}}
                                 {{/each}}
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
 
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls2" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -217,7 +219,8 @@
                              aria-labelledby="staticBackdropLabel{{idMascota}}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content FONDO-LAVENDER">
-                                    <form method="post" action="/actualizarMascota/{{idMascota}}" enctype='multipart/form-data'>
+                                    <form method="post" action="/actualizarMascota/{{idMascota}}"
+                                          enctype='multipart/form-data'>
                                         <div class="modal-header">
                                             <h4 class="modal-title LETRAS-DARK_VIOLET PFBEAUSANS-SEMIBOLD"
                                                 id="exampleModalLabel">
@@ -333,7 +336,32 @@
         {{/if}}
     </div>
 </div>
-
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="actualizacionConExito" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">
+            </button>
+        </div>
+        <div class="toast-body">
+            La actualizacion se realizo con éxito.
+        </div>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="errorEnLaCargaDeDatos" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="images/perroygato.png" class="rounded me-2" alt="..." style="width: 35px;">
+            <strong class="me-auto">Notificacion</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">
+            </button>
+        </div>
+        <div class="toast-body">
+            Error en la actualizacion, verificar los datos ingresados.
+        </div>
+    </div>
+</div>
 <footer>
     {{>footerMainTemplate.hbs}}
 </footer>
@@ -345,7 +373,20 @@
 <script src="/js/animation.js"></script>
 <script src="/js/imagesloaded.js"></script>
 <script src="/js/custom.js"></script>
-
+<script>
+    function checkHash() {
+        var actualizacionConExito = document.getElementById('actualizacionConExito')
+        if (location.hash === "#actualizacionConExito") {
+            var toast = new bootstrap.Toast(actualizacionConExito)
+            toast.show()
+        }
+        var errorEnLaCargaDeDatos = document.getElementById('errorEnLaCargaDeDatos')
+        if (location.hash === "#errorEnLaCargaDeDatos") {
+            var toast = new bootstrap.Toast(errorEnLaCargaDeDatos)
+            toast.show()
+        }
+    }
+</script>
 </body>
 
 </html>

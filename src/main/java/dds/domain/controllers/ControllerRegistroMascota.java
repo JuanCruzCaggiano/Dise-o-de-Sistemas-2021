@@ -2,15 +2,18 @@ package dds.domain.controllers;
 
 import dds.db.EntityManagerHelper;
 import dds.db.RepositorioMascotas;
+import dds.db.RepositorioPersonas;
 import dds.db.RepositorioUsuarios;
 import dds.domain.entities.asociacion.Asociacion;
 import dds.domain.entities.mascota.Mascota;
 import dds.domain.entities.mascota.Sexo;
 import dds.domain.entities.mascota.TipoMascota;
+import dds.domain.entities.persona.Persona;
 import dds.domain.entities.persona.TipoDocumento;
 import dds.domain.entities.persona.transaccion.RegistrarMascota;
 import dds.domain.entities.seguridad.usuario.Standard;
 import dds.domain.entities.seguridad.usuario.Usuario;
+import dds.servicios.avisos.Contacto;
 import dds.servicios.helpers.PhotoUploaderHelper;
 import org.apache.commons.io.IOUtils;
 import spark.ModelAndView;
@@ -126,7 +129,38 @@ public class ControllerRegistroMascota {
         return response;
     }
 
-    public Response actualizarMascota(Request request, Response response) {
+    public Response actualizarMascota(Request request, Response response) throws IOException, ServletException {
+        Usuario usuario = request.session().attribute("usuario");
+        if (usuario != null) {
+            String idMascota = request.params("id");
+            Mascota mascota = RepositorioMascotas.getRepositorio().getMascota(idMascota);
+            request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+            try (InputStream input = request.raw().getPart("nombre").getInputStream()) {
+                String nombre = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("nombre").getInputStream());
+                String tipo = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("tipo").getInputStream());
+                String desc = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("desc").getInputStream());
+                String apodo = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("apodo").getInputStream());
+                String sexo = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("sexo").getInputStream());
+                String fecha = PhotoUploaderHelper.getHelper().convertInputStreamToString(request.raw().getPart("fecha").getInputStream());
+                Sexo sexoEnum= Sexo.valueOf(sexo);
+                TipoMascota tipoEnum = TipoMascota.valueOf(tipo);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate dt = LocalDate.parse(fecha,dtf);
+                mascota.actualizarMascota(tipoEnum,nombre,apodo,dt,desc,sexoEnum);
+            }catch (ServletException e) {
+                response.redirect("/noTengoAlma#errorEnLaCargaDeDatos");
+            }
+
+
+
+
+
+
+
+            response.redirect("/noTengoAlma#actualizacionConExito");
+        } else {
+            response.redirect("/#faltaLogin");
+        }
         return response;
     }
 }
